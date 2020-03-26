@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                     -->
+<!-- Usage:                                                              -->
+<!--   1) Configure COHERENCE_HOME:                                      -->
+<!--      prompt> cfgbuild                                               -->
+<!--                                                                     -->
+<!--   2) Build project library:                                         -->
+<!--      prompt> ant build                                              -->
+<!--                                                                     -->
+<!--   3) Remove build artifacts:                                        -->
+<!--      prompt> ant clean                                              -->
+<!--                                                                     -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<project name="Custom Java Types for Coherence.NET Tests"
+         default="help"
+         xmlns:ivy="antlib:org.apache.ivy.ant"
+         basedir=".">
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- Define global project properties                                  -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <property environment="env"/>
+  
+    <!-- properties specific to this build environment; e.g. artifactory location -->
+  <property file="${ant.home}/build.properties"/>
+
+  <property name="src.dir"             value="${basedir}/Java"/>
+  <property name="build.dir"           value="${env.DEV_ROOT}/build"/>
+  <property name="classes.dir"         value="${build.dir}/classes"/>
+  <property name="build.version_maven" value="14.1.2-0-0"/>
+  <property name="lib.dir"             value="${env.DEV_ROOT}/lib/java"/>
+
+  <!-- Ivy -->
+  <property  name="ivy.artifactory.name"            value="default"/>
+  <property  name="ivy.artifactory.server.public"   value="https://repo1.maven.org"/>
+  <property  name="ivy.artifactory.server.internal" value="${ivy.artifactory.server.public}"/>
+  <property  name="ivy.path.public"                 value="maven2"/>
+  <property  name="ivy.path.internal"               value="${ivy.path.public}"/>
+  <property  name="ivy.dir"                         value="${lib.dir}"/>
+  <property  name="ivy.cache"                       value="${ivy.dir}/ivycache"/>
+  <property  name="ivy.version"                     value="2.4.0"/>
+  <property  name="ivy.jar"                         value="${ivy.dir}/ivy-${ivy.version}.jar"/>
+  <available property="ivy-exists"                  file="${ivy.jar}"/>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- Output project help                                               -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <target name="help">
+    <java fork="no" classname="org.apache.tools.ant.Main">
+      <arg line="-f ${basedir}/build.xml -projecthelp"/>
+    </java>
+  </target>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- Build targets                                                     -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <!-- Bootstrap -->
+  <target name="bootstrap" description="Obtain Ivy." unless="ivy-exists">
+    <mkdir dir ="${ivy.dir}"/>
+    <get   src ="${ivy.artifactory.server.public}/${ivy.path.public}/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"
+           dest="${ivy.jar}"/>
+  </target>
+
+  <!-- Init -->
+  <target name="init" description="Initialize build and test environment." depends="bootstrap">
+    <path id="ivy.lib.path">
+      <fileset dir="${ivy.dir}" includes="ivy-${ivy.version}.jar"/>
+    </path>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml"
+             uri="antlib:org.apache.ivy.ant"
+             classpathref="ivy.lib.path"/>
+  </target>
+
+  <!-- Resolve dependencies -->
+  <target name="resolve" description="Resolve dependencies." depends="init">
+    <ivy:settings file   ="${basedir}/ivy-settings.xml"/>
+    <ivy:resolve  file   ="${basedir}/ivy.xml"/>
+    <ivy:retrieve pattern="${lib.dir}/[artifact].[ext]"/>
+  </target>
+
+  <target name="clean" description="Remove all build artifacts.">
+    <delete dir="${classes.dir}"/>
+  </target>
+
+  <target name="build"
+          description="Compile the project source."
+          depends="resolve">
+    <!-- mkdir dir="${classes.dir}"/ -->
+    <!-- javac destdir="${classes.dir}"
+      srcdir="${src.dir}"
+      classpath="${lib.dir}/coherence.jar"
+      debug="true"
+      deprecation="true"
+      optimize="true"/ -->
+  </target>
+</project>

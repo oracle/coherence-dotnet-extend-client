@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<stream-provider xmlns="http://schemas.tangosol.com/cache">
+  <ssl>
+    <local-certificates>
+      <certificate>
+        <url>./Net/Ssl/Client.pfx</url>
+        <password>password</password>
+      </certificate>
+    </local-certificates>
+    <remote-certificate-validator>
+      <delegate>
+        <type>static</type>
+        <class-name>Tangosol.Net.SslNetworkStreamFactory, Coherence2</class-name>
+        <method-name>DefaultCertificateValidation</method-name>
+      </delegate>
+    </remote-certificate-validator>
+  </ssl>
+</stream-provider>

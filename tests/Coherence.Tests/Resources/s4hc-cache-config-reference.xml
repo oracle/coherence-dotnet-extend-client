@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<cache-config xmlns="http://schemas.tangosol.com/cache">
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>local-*</cache-name>
+      <scheme-name>extend-direct</scheme-name>
+    </cache-mapping>
+
+    <cache-mapping>
+      <cache-name>dist-*</cache-name>
+      <scheme-name>extend-direct</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+    <remote-cache-scheme>
+      <scheme-name>extend-direct</scheme-name>
+      <service-name>ExtendTcpCacheService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <local-address>
+            <address>127.0.0.1</address>
+            <port>0</port>
+          </local-address>
+
+          <remote-addresses>
+            <address-provider>ap3</address-provider>
+          </remote-addresses>
+        </tcp-initiator>
+
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+          <request-timeout>0s</request-timeout>
+        </outgoing-message-handler>
+
+        <!--<use-filters>
+          <filter-name>gzip</filter-name>
+        </use-filters>-->
+
+        <connect-timeout>30s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+
+    <remote-cache-scheme>
+      <service-name>ExtendTcpCacheService2</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <local-address>
+            <address>127.0.0.1</address>
+            <port>0</port>
+          </local-address>
+
+          <remote-addresses>
+            <address-provider>ap3</address-provider>
+          </remote-addresses>
+        </tcp-initiator>
+
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+          <request-timeout>0s</request-timeout>
+        </outgoing-message-handler>
+
+        <!--<use-filters>
+          <filter-name>gzip</filter-name>
+        </use-filters>-->
+
+        <connect-timeout>30s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+
+    <remote-invocation-scheme>
+      <scheme-name>invocation-scheme</scheme-name>
+      <service-name>RemoteInvocationService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <local-address>
+            <address>127.0.0.1</address>
+            <port>0</port>
+          </local-address>
+
+          <remote-addresses>
+            <address-provider>ap3</address-provider>
+          </remote-addresses>
+        </tcp-initiator>
+
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+          <request-timeout>30s</request-timeout>
+        </outgoing-message-handler>
+        <!--<use-filters>
+          <filter-name>gzip</filter-name>
+        </use-filters>-->
+        <serializer>pof</serializer>
+        <connect-timeout>5s</connect-timeout>
+      </initiator-config>
+    </remote-invocation-scheme>
+  </caching-schemes>
+</cache-config>

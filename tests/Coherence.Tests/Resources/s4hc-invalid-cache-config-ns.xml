@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<cache-config>
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>dist-extend-direct</cache-name>
+      <scheme-name>extend-direct</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>dist-extend-direct-5</cache-name>
+      <scheme-name>extend-direct</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+  <caching-schemes>
+    <remote-cache-scheme>
+      <scheme-name>extend-direct</scheme-name>
+      <service-name>ExtendTcpCacheService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <local-address>
+            <address>127.0.0.1</address>
+            <port>0</port>
+          </local-address>
+
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9099</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+          <request-timeout>30s</request-timeout>
+        </outgoing-message-handler>
+
+        <!--
+        <message-codec>
+          <class-name>com.tangosol.tests.net.messaging.SimpleCodec</class-name>
+          <init-params/>
+        </message-codec>
+        -->
+
+        <!--serializer>
+          <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence</class-name>
+          <init-params>
+            <init-param>
+              <param-type>string</param-type>
+              <param-value>extend-pof-config.xml</param-value>
+            </init-param>
+          </init-params>
+        </serializer-->
+
+        <connect-timeout>5s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+    <remote-invocation-scheme>
+      <scheme-name>invocation-scheme</scheme-name>
+      <service-name>RemoteInvocationService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <local-address>
+            <address>127.0.0.1</address>
+            <port>0</port>
+          </local-address>
+
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9099</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+          <request-timeout>30s</request-timeout>
+        </outgoing-message-handler>
+
+      </initiator-config>
+    </remote-invocation-scheme>
+  </caching-schemes>
+</cache-config>

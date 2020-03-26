@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+
+<pof-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://xmlns.oracle.com/coherence/coherence-pof-config"
+            xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-pof-config coherence-pof-config.xsd">
+  <user-type-list>
+    <include>coherence-pof-config.xml</include>
+
+    <user-type>
+      <type-id>1011</type-id>
+      <class-name>examples.IntegerComparator</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>1013</type-id>
+      <class-name>examples.AirDealComparator</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>1014</type-id>
+      <class-name>examples.AirDealComparator$AirDeal</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>1101</type-id>
+      <class-name>examples.Temperature</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>1201</type-id>
+      <class-name>examples.Address</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>1202</type-id>
+      <class-name>examples.SimpleAddressComparator</class-name>
+    </user-type>
+
+    <!-- Skip 1203. 1203 is the client side only CustomKeyClass. -->
+
+    <user-type>
+      <type-id>1204</type-id>
+      <class-name>examples.ProcessorPrintUUIDTimestamp</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>2003</type-id>
+      <class-name>examples.Score</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3001</type-id>
+      <class-name>examples.EmptyInvocable</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3002</type-id>
+      <class-name>examples.POFObjectInvocable</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3003</type-id>
+      <class-name>examples.MBeanInvocable</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3004</type-id>
+      <class-name>examples.pof.TestContact</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3005</type-id>
+      <class-name>examples.pof.FilterFetcher</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3006</type-id>
+      <class-name>examples.pof.ExampleAddress</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3009</type-id>
+      <class-name>examples.SimplePersonMapTrigger</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3010</type-id>
+      <class-name>examples.SimplePerson</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3011</type-id>
+      <class-name>examples.TestObject</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3012</type-id>
+      <class-name>examples.SlowProcessor</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3013</type-id>
+      <class-name>examples.SlowAggregator</class-name>
+    </user-type>
+
+    <!-- KeyAssociate-related test classes -->
+
+    <user-type>
+      <type-id>4001</type-id>
+      <class-name>examples.Order</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>4002</type-id>
+      <class-name>examples.OrderKey</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>4003</type-id>
+      <class-name>examples.Item</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>4004</type-id>
+      <class-name>examples.ItemKey</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>4005</type-id>
+      <class-name>examples.KAFValidationInvocable</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>4010</type-id>
+      <class-name>examples.EventTransformerTestObject</class-name>
+    </user-type>
+
+  </user-type-list>
+</pof-config>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<cache-config xmlns="http://schemas.tangosol.com/cache">
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>dist-*</cache-name>
+      <scheme-name>extend-direct</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+    <remote-cache-scheme>
+      <scheme-name>extend-direct</scheme-name>
+      <service-name>ExtendTcpCacheService</service-name>
+      <proxy-service-name>ExtendTcpProxyServiceEphermeral</proxy-service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <name-service-addresses>
+            <address-provider>ap2</address-provider>
+          </name-service-addresses>
+        </tcp-initiator>
+        <incoming-message-handler>
+          <max-message-size>10k</max-message-size>
+        </incoming-message-handler>
+        <outgoing-message-handler>
+          <heartbeat-interval>30s</heartbeat-interval>
+          <heartbeat-timeout>60s</heartbeat-timeout>
+          <max-message-size>30k</max-message-size>
+        </outgoing-message-handler>
+        <connect-timeout>120s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+  </caching-schemes>
+</cache-config>
