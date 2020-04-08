@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E56B7071-4FD8-425A-9356-C5F8B32FCE91}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tangosol</RootNamespace>
+    <AssemblyName>Coherence</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Coherence-AssemblyKey.snk</AssemblyOriginatorKeyFile>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkVersion Condition=" '$(TargetFrameworkVersion)' =='' ">v4.0</TargetFrameworkVersion>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\Coherence.2010\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_4_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>162, 618, 675</NoWarn>
+    <BaseAddress>285212672</BaseAddress>
+    <DocumentationFile>..\..\build\Coherence.2010\Debug\Coherence.xml</DocumentationFile>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\Coherence.2010\Release\</OutputPath>
+    <DefineConstants>NET_4_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>162, 618, 675</NoWarn>
+    <BaseAddress>285212672</BaseAddress>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>..\..\build\Coherence.2010\Release\Coherence.xml</DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\net\2.0\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Internal\Util\Processor\CacheProcessors.cs" />
+    <Compile Include="IO\BinaryDeltaCompressor.cs" />
+    <Compile Include="IO\BinarySerializer.cs" />
+    <Compile Include="IO\ConfigurableSerializerFactory.cs" />
+    <Compile Include="IO\ISerializerFactory.cs" />
+    <Compile Include="IO\OptimizedBinarySerializer.cs" />
+    <Compile Include="IO\IDeltaCompressor.cs" />
+    <Compile Include="IO\IndentingWriter.cs" />
+    <Compile Include="IO\Pof\BinaryPofSerializer.cs" />
+    <Compile Include="IO\Pof\Annotation\PortableProperty.cs" />
+    <Compile Include="IO\Pof\EnumPofSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IO\Pof\EvolvableHolder.cs" />
+    <Compile Include="IO\Pof\ExceptionPofSerializer.cs" />
+    <Compile Include="IO\Pof\IdentityPofSerializer.cs" />
+    <Compile Include="IO\Pof\Annotation\Portable.cs" />
+    <Compile Include="IO\Pof\IEvolvableObject.cs" />
+    <Compile Include="IO\Pof\PofAnnotationSerializer.cs" />
+    <Compile Include="IO\Pof\PortableTypeSerializer.cs" />
+    <Compile Include="IO\Pof\RawDateTime.cs" />
+    <Compile Include="IO\Pof\Reflection\AbstractPofPath.cs" />
+    <Compile Include="IO\Pof\Reflection\AbstractPofValue.cs" />
+    <Compile Include="IO\Pof\Reflection\ComplexPofValue.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\AnnotationVisitor.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\TypeMetadata.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\TypeMetadataBuilder.cs" />
+    <Compile Include="IO\Pof\Reflection\Codecs.cs" />
+    <Compile Include="IO\Pof\Reflection\ICodec.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\IInvocationStrategy.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\INameMangler.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\InvocationStrategies.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\ITypeMetadata.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\IVisitor.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\NameManglers.cs" />
+    <Compile Include="IO\Pof\Reflection\PofReflectionHelper.cs" />
+    <Compile Include="IO\Pof\Reflection\PofUserType.cs" />
+    <Compile Include="IO\Pof\Reflection\PofUniformSparseArray.cs" />
+    <Compile Include="IO\Pof\Reflection\PofSparseArray.cs" />
+    <Compile Include="IO\Pof\Reflection\PofUniformCollection.cs" />
+    <Compile Include="IO\Pof\Reflection\PofCollection.cs" />
+    <Compile Include="IO\Pof\Reflection\PofUniformArray.cs" />
+    <Compile Include="IO\Pof\Reflection\IPofNavigator.cs" />
+    <Compile Include="IO\Pof\Reflection\IPofValue.cs" />
+    <Compile Include="IO\Pof\Reflection\PofArray.cs" />
+    <Compile Include="IO\Pof\Reflection\PofNavigationException.cs" />
+    <Compile Include="IO\Pof\Reflection\PofValueParser.cs" />
+    <Compile Include="IO\Pof\Reflection\SimplePofPath.cs" />
+    <Compile Include="IO\Pof\Reflection\SimplePofValue.cs" />
+    <Compile Include="IO\Pof\PrincipalPofSerializer.cs" />
+    <Compile Include="IO\Pof\RawInt128.cs" />
+    <Compile Include="IO\Pof\SafeConfigurablePofContext.cs" />
+    <Compile Include="IO\Pof\Schema\Annotation\PortableType.cs" />
+    <Compile Include="IO\Pof\XmlPofSerializer.cs" />
+    <Compile Include="IO\SimpleEvolvable.cs" />
+    <Compile Include="Net\AbstractInvocable.cs" />
+    <Compile Include="Net\AbstractPriorityTask.cs" />
+    <Compile Include="Config\CoherenceConfig.cs" />
+    <Compile Include="Config\CoherenceConfigHandler.cs" />
+    <Compile Include="Config\XmlConfigSchemasRepository.cs" />
+    <Compile Include="IO\AbstractEvolvable.cs" />
+    <Compile Include="IO\DataReader.cs" />
+    <Compile Include="IO\DataWriter.cs" />
+    <Compile Include="IO\IEvolvable.cs" />
+    <Compile Include="IO\ISerializer.cs" />
+    <Compile Include="IO\IWrapperStreamFactory.cs" />
+    <Compile Include="IO\Pof\ConfigurablePofContext.cs" />
+    <Compile Include="IO\Pof\IEvolvablePortableObject.cs" />
+    <Compile Include="IO\Pof\IPofContext.cs" />
+    <Compile Include="IO\Pof\IPofHandler.cs" />
+    <Compile Include="IO\Pof\IPofReader.cs" />
+    <Compile Include="IO\Pof\IPofSerializer.cs" />
+    <Compile Include="IO\Pof\IPofWriter.cs" />
+    <Compile Include="IO\Pof\IPortableObject.cs" />
+    <Compile Include="IO\Pof\PofConstants.cs" />
+    <Compile Include="IO\Pof\PofHelper.cs" />
+    <Compile Include="IO\Pof\PofStreamReader.cs" />
+    <Compile Include="IO\Pof\PofStreamWriter.cs" />
+    <Compile Include="IO\Pof\PortableException.cs" />
+    <Compile Include="IO\Pof\PortableObjectSerializer.cs" />
+    <Compile Include="IO\Pof\RawTime.cs" />
+    <Compile Include="IO\Pof\RawYearMonthInterval.cs" />
+    <Compile Include="IO\Pof\SimplePofContext.cs" />
+    <Compile Include="IO\Pof\WritingPofHandler.cs" />
+    <Compile Include="IO\Resources\AbstractResource.cs" />
+    <Compile Include="IO\Resources\EmbeddedResource.cs" />
+    <Compile Include="IO\Resources\FileResource.cs" />
+    <Compile Include="IO\Resources\IResource.cs" />
+    <Compile Include="IO\Resources\ResourceRegistry.cs" />
+    <Compile Include="IO\Resources\ResourceLoader.cs" />
+    <Compile Include="IO\Resources\UrlResource.cs" />
+    <Compile Include="IO\Resources\WebResource.cs" />
+    <Compile Include="Net\CacheFactory.cs" />
+    <Compile Include="Net\Cache\AbstractBundler.cs" />
+    <Compile Include="Net\Cache\AbstractCacheLoader.cs" />
+    <Compile Include="Net\Cache\AbstractCacheStore.cs" />
+    <Compile Include="Net\Cache\AbstractEntryBundler.cs" />
+    <Compile Include="Net\Cache\AbstractEvictionPolicy.cs" />
+    <Compile Include="Net\Cache\AbstractKeyBundler.cs" />
+    <Compile Include="Net\Cache\CacheEventArgs.cs" />
+    <Compile Include="Net\Cache\CacheEntry.cs" />
+    <Compile Include="Net\Cache\CacheExpiration.cs" />
+    <Compile Include="Net\Cache\CompositeCache.cs" />
+    <Compile Include="Net\Cache\ConditionalIndex.cs" />
+    <Compile Include="Net\Cache\ContinuousQueryCache.cs" />
+    <Compile Include="Net\Cache\FilterEventArgs.cs" />
+    <Compile Include="Net\Cache\ICacheIndex.cs" />
+    <Compile Include="Net\Cache\IConfigurableCache.cs" />
+    <Compile Include="Net\Cache\IEvictionPolicy.cs" />
+    <Compile Include="Net\Cache\IKeyAssociation.cs" />
+    <Compile Include="Net\Cache\ICache.cs" />
+    <Compile Include="Net\Cache\ICacheEventTransformer.cs" />
+    <Compile Include="Net\Cache\ICacheListener.cs" />
+    <Compile Include="Net\Cache\ICacheLoader.cs" />
+    <Compile Include="Net\Cache\ICacheStatistics.cs" />
+    <Compile Include="Net\Cache\ICacheStore.cs" />
+    <Compile Include="Net\Cache\ICacheTrigger.cs" />
+    <Compile Include="Net\Cache\IConcurrentCache.cs" />
+    <Compile Include="Net\Cache\IInvocableCache.cs" />
+    <Compile Include="Net\Cache\IIterableCacheLoader.cs" />
+    <Compile Include="Net\Cache\InvocableCacheEx.cs" />
+    <Compile Include="Net\Cache\IObservableCache.cs" />
+    <Compile Include="Net\Cache\IQueryCache.cs" />
+    <Compile Include="Net\Cache\IUnitCalculator.cs" />
+    <Compile Include="Net\Cache\LocalCache.cs" />
+    <Compile Include="Net\Cache\LockScope.cs" />
+    <Compile Include="Net\Cache\NearCache.cs" />
+    <Compile Include="Net\Cache\SimpleCacheIndex.cs" />
+    <Compile Include="Net\Cache\SimpleCacheStatistics.cs" />
+    <Compile Include="Net\Cache\Support\AbstractCacheListener.cs" />
+    <Compile Include="Net\Cache\Support\AbstractKeyBasedCache.cs" />
+    <Compile Include="Net\Cache\Support\AbstractKeySetBasedCache.cs" />
+    <Compile Include="Net\Cache\Support\CacheListenerSupport.cs" />
+    <Compile Include="Net\Cache\Support\DelegatingCacheListener.cs" />
+    <Compile Include="Net\Cache\Support\InvocableCacheHelper.cs" />
+    <Compile Include="Net\Cache\Support\MultiplexingCacheListener.cs" />
+    <Compile Include="Net\Cache\Support\RunnableCacheEvent.cs" />
+    <Compile Include="Net\Cache\Support\WindowsFormsCacheListener.cs" />
+    <Compile Include="Net\Cache\Support\WpfCacheListener.cs" />
+    <Compile Include="Net\Cache\WrapperNamedCache.cs" />
+    <Compile Include="Net\CompressionFilter.cs" />
+    <Compile Include="Net\ConfigurableAddressProvider.cs" />
+    <Compile Include="Net\ConfigurableAddressProviderFactory.cs" />
+    <Compile Include="Net\DefaultConfigurableCacheFactory.cs" />
+    <Compile Include="Net\DefaultOperationalContext.cs" />
+    <Compile Include="Net\IAddressProvider.cs" />
+    <Compile Include="Net\IAddressProviderFactory.cs" />
+    <Compile Include="Net\ICacheService.cs" />
+    <Compile Include="Net\IConfigurableCacheFactory.cs" />
+    <Compile Include="Net\Impl\RemoteNameService.cs" />
+    <Compile Include="Net\INameService.cs" />
+    <Compile Include="Net\Internal\INamedCacheDeactivationListener.cs" />
+    <Compile Include="Net\Internal\NameServicePofContext.cs" />
+    <Compile Include="Net\Internal\ScopedReferenceStore.cs" />
+    <Compile Include="Net\IOperationalContext.cs" />
+    <Compile Include="Net\IStreamProvider.cs" />
+    <Compile Include="Net\Messaging\Impl\NameService\LookupRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NameService\NameServiceFactory.cs" />
+    <Compile Include="Net\Messaging\Impl\NameService\NameServiceProtocol.cs" />
+    <Compile Include="Net\Messaging\Impl\NameService\NameServiceRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NameService\NameServiceResponse.cs" />
+    <Compile Include="Net\RequestIncompleteException.cs" />
+    <Compile Include="Net\Security\IIdentityAsserter.cs" />
+    <Compile Include="Net\IInvocable.cs" />
+    <Compile Include="Net\IInvocationService.cs" />
+    <Compile Include="Net\IMember.cs" />
+    <Compile Include="Net\Impl\BundlingNamedCache.cs" />
+    <Compile Include="Net\Impl\Extend.cs" />
+    <Compile Include="Net\Impl\LocalNamedCache.cs" />
+    <Compile Include="Net\Impl\RemoteCacheService.cs" />
+    <Compile Include="Net\Impl\RemoteInvocationService.cs" />
+    <Compile Include="Net\Impl\RemoteNamedCache.cs" />
+    <Compile Include="Net\Impl\RemoteService.cs" />
+    <Compile Include="Net\Impl\SafeCacheService.cs" />
+    <Compile Include="Net\Impl\SafeInvocationService.cs" />
+    <Compile Include="Net\Impl\SafeNamedCache.cs" />
+    <Compile Include="Net\Impl\SafeService.cs" />
+    <Compile Include="Net\INamedCache.cs" />
+    <Compile Include="Net\IPriorityTask.cs" />
+    <Compile Include="Net\IService.cs" />
+    <Compile Include="Net\IServiceInfo.cs" />
+    <Compile Include="Net\LocalMember.cs" />
+    <Compile Include="Net\MemberEventArgs.cs" />
+    <Compile Include="Net\Messaging\ConnectionEventArgs.cs" />
+    <Compile Include="Net\Messaging\ConnectionException.cs" />
+    <Compile Include="Net\Messaging\IChannel.cs" />
+    <Compile Include="Net\Messaging\ICodec.cs" />
+    <Compile Include="Net\Messaging\IConnection.cs" />
+    <Compile Include="Net\Messaging\IConnectionAcceptor.cs" />
+    <Compile Include="Net\Messaging\IConnectionInitiator.cs" />
+    <Compile Include="Net\Messaging\IConnectionManager.cs" />
+    <Compile Include="Net\Messaging\IMessage.cs" />
+    <Compile Include="Net\Messaging\IMessageFactory.cs" />
+    <Compile Include="Net\Messaging\Impl\CacheService\CacheServiceFactory.cs" />
+    <Compile Include="Net\Messaging\Impl\CacheService\CacheServiceProtocol.cs" />
+    <Compile Include="Net\Messaging\Impl\CacheService\CacheServiceRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\CacheService\CacheServiceResponse.cs" />
+    <Compile Include="Net\Messaging\Impl\CacheService\DestroyCacheRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\CacheService\EnsureCacheRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\Channel.cs" />
+    <Compile Include="Net\Messaging\Impl\Codec.cs" />
+    <Compile Include="Net\Messaging\Impl\Connection.cs" />
+    <Compile Include="Net\Messaging\Impl\InvocationService\InvocationRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\InvocationService\InvocationResponse.cs" />
+    <Compile Include="Net\Messaging\Impl\InvocationService\InvocationServiceFactory.cs" />
+    <Compile Include="Net\Messaging\Impl\InvocationService\InvocationServiceProtocol.cs" />
+    <Compile Include="Net\Messaging\Impl\InvocationService\InvocationServiceRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\Message.cs" />
+    <Compile Include="Net\Messaging\Impl\MessageFactory.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\AggregateAllRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\AggregateFilterRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\CacheEvent.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\ClearRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\ContainsAllRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\ContainsKeyRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\ContainsValueRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\FilterRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\GetAllRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\GetRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\IndexRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\InvokeAllRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\InvokeFilterRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\InvokeRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\KeyRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\KeySetRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\ListenerFilterRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\ListenerKeyRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\LockRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheFactory.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\NamedCachePartialResponse.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheProtocol.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheResponse.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\PutAllRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\PutRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\QueryRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\RemoveAllRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\RemoveRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\SizeRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\UnlockRequest.cs" />
+    <Compile Include="Net\Messaging\Impl\PartialResponse.cs" />
+    <Compile Include="Net\Messaging\Impl\Protocol.cs" />
+    <Compile Include="Net\Messaging\Impl\Request.cs" />
+    <Compile Include="Net\Messaging\Impl\Response.cs" />
+    <Compile Include="Net\Messaging\Impl\TcpConnection.cs" />
+    <Compile Include="Net\Messaging\IProtocol.cs" />
+    <Compile Include="Net\Messaging\IReceiver.cs" />
+    <Compile Include="Net\Messaging\IRequest.cs" />
+    <Compile Include="Net\Messaging\IResponse.cs" />
+    <Compile Include="Net\Messaging\IRunnable.cs" />
+    <Compile Include="Net\Messaging\IStatus.cs" />
+    <Compile Include="Net\Partition\PartitionSet.cs" />
+    <Compile Include="Net\RequestTimeoutException.cs" />
+    <Compile Include="Net\Security\IIdentityTransformer.cs" />
+    <Compile Include="Net\Security\Impl\DefaultIdentityAsserter.cs" />
+    <Compile Include="Net\Security\Impl\DefaultIdentityTransformer.cs" />
+    <Compile Include="Net\Security\Impl\SimplePrincipal.cs" />
+    <Compile Include="Net\SingleAddressProvider.cs" />
+    <Compile Include="Net\SslStreamProvider.cs" />
+    <Compile Include="Net\StreamProviderFactory.cs" />
+    <Compile Include="Net\SystemStreamProvider.cs" />
+    <Compile Include="Net\ViewBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Run\Xml\IXmlConfigurable.cs" />
+    <Compile Include="Run\Xml\IXmlDocument.cs" />
+    <Compile Include="Run\Xml\IXmlDocumentExtension.cs" />
+    <Compile Include="Run\Xml\IXmlElement.cs" />
+    <Compile Include="Run\Xml\IXmlValue.cs" />
+    <Compile Include="Run\Xml\SimpleDocument.cs" />
+    <Compile Include="Run\Xml\SimpleElement.cs" />
+    <Compile Include="Run\Xml\SimpleParser.cs" />
+    <Compile Include="Run\Xml\SimpleValue.cs" />
+    <Compile Include="Run\Xml\XmlHelper.cs" />
+    <Compile Include="Run\Xml\XmlValueType.cs" />
+    <Compile Include="Util\MacroParameterResolver.cs" />
+    <Compile Include="Util\Aggregator\AbstractAggregator.cs" />
+    <Compile Include="Util\Aggregator\AbstractComparableAggregator.cs" />
+    <Compile Include="Util\Aggregator\AbstractDecimalAggregator.cs" />
+    <Compile Include="Util\Aggregator\AbstractDoubleAggregator.cs" />
+    <Compile Include="Util\Aggregator\AbstractLongAggregator.cs" />
+    <Compile Include="Util\Aggregator\ComparableMax.cs" />
+    <Compile Include="Util\Aggregator\ComparableMin.cs" />
+    <Compile Include="Util\Aggregator\CompositeAggregator.cs" />
+    <Compile Include="Util\Aggregator\Count.cs" />
+    <Compile Include="Util\Aggregator\DecimalAverage.cs" />
+    <Compile Include="Util\Aggregator\DecimalMax.cs" />
+    <Compile Include="Util\Aggregator\DecimalMin.cs" />
+    <Compile Include="Util\Aggregator\DecimalSum.cs" />
+    <Compile Include="Util\Aggregator\DistinctValues.cs" />
+    <Compile Include="Util\Aggregator\DoubleAverage.cs" />
+    <Compile Include="Util\Aggregator\DoubleMax.cs" />
+    <Compile Include="Util\Aggregator\DoubleMin.cs" />
+    <Compile Include="Util\Aggregator\DoubleSum.cs" />
+    <Compile Include="Util\Aggregator\GroupAggregator.cs" />
+    <Compile Include="Util\Aggregator\LongMax.cs" />
+    <Compile Include="Util\Aggregator\LongMin.cs" />
+    <Compile Include="Util\Aggregator\LongSum.cs" />
+    <Compile Include="Util\Aggregator\PriorityAggregator.cs" />
+    <Compile Include="Util\Aggregator\QueryRecorder.cs" />
+    <Compile Include="Util\Aggregator\ReducerAggregator.cs" />
+    <Compile Include="Util\Aggregator\TopNAggregator.cs" />
+    <Compile Include="Util\AtomicCounter.cs" />
+    <Compile Include="Util\Binary.cs" />
+    <Compile Include="Util\BinaryMemoryStream.cs" />
+    <Compile Include="Util\CacheTriggerListener.cs" />
+    <Compile Include="Util\Collections\DictionarySet.cs" />
+    <Compile Include="Util\Collections\HashSet.cs" />
+    <Compile Include="Util\Collections\SafeHashSet.cs" />
+    <Compile Include="Util\Collections\SortedDictionary.cs" />
+    <Compile Include="Util\Collections\HashDictionary.cs" />
+    <Compile Include="Util\Collections\SortedHashSet.cs" />
+    <Compile Include="Util\Collections\SynchronizedDictionary.cs" />
+    <Compile Include="Util\CollectionUtils.cs" />
+    <Compile Include="Util\Comparator\ChainedComparer.cs" />
+    <Compile Include="Util\Comparator\EntryComparer.cs" />
+    <Compile Include="Util\Comparator\IEntryAwareComparer.cs" />
+    <Compile Include="Util\Comparator\InverseComparer.cs" />
+    <Compile Include="Util\Comparator\IQueryCacheComparer.cs" />
+    <Compile Include="Util\Comparator\SafeComparer.cs" />
+    <Compile Include="Util\CompositeKey.cs" />
+    <Compile Include="Util\ConfigurationUtils.cs" />
+    <Compile Include="Util\ConverterCollections.cs" />
+    <Compile Include="Util\ConverterEnumerator.cs" />
+    <Compile Include="Util\Daemon\Daemon.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Queue.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\QueueProcessor.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\AcceptChannel.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\AcceptChannelRequest.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\AcceptChannelResponse.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\CloseChannel.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\CloseConnection.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\CreateChannel.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\EncodedMessage.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\Initiator.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\MessagingFactory.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\MessagingProtocol.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\OpenConnection.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\OpenConnectionRequest.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\OpenConnectionResponse.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\TcpInitiator.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\TcpMessagingFactory.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\TcpMessagingProtocol.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\TcpOpenConnectionRequest.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\TcpOpenConnectionResponse.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\InternalResponse.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\MessagingFactory.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\MessagingProtocol.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\NotifyChannelClosed.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\NotifyConnectionClosed.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\NotifyShutdown.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\NotifyStartup.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\OpenChannel.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\OpenChannelRequest.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\OpenChannelResponse.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\OpenConnection.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\OpenConnectionRequest.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\OpenConnectionResponse.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Peer.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\PingRequest.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\PingResponse.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Service.cs" />
+    <Compile Include="Util\DateTimeUtils.cs" />
+    <Compile Include="Net\Cache\Support\DisposableCacheListener.cs" />
+    <Compile Include="Util\Extractor\AbstractCompositeExtractor.cs" />
+    <Compile Include="Util\Extractor\AbstractExtractor.cs" />
+    <Compile Include="Util\Extractor\ChainedExtractor.cs" />
+    <Compile Include="Util\Extractor\ComparisonValueExtractor.cs" />
+    <Compile Include="Util\Extractor\CompositeUpdater.cs" />
+    <Compile Include="Util\Extractor\ConditionalExtractor.cs" />
+    <Compile Include="Util\Extractor\EntryExtractor.cs" />
+    <Compile Include="Util\Extractor\IIndexAwareExtractor.cs" />
+    <Compile Include="Util\Extractor\PofExtractor.cs" />
+    <Compile Include="Util\Extractor\PofUpdater.cs" />
+    <Compile Include="Util\Filter\FilterTrigger.cs" />
+    <Compile Include="Util\Filter\IIndexAwareFilter.cs" />
+    <Compile Include="Util\Filter\KeyFilter.cs" />
+    <Compile Include="Util\Gate.cs" />
+    <Compile Include="Util\GateFactory.cs" />
+    <Compile Include="Util\HashHelper.cs" />
+    <Compile Include="Util\ImmutableArrayList.cs" />
+    <Compile Include="Util\ImmutableMultiList.cs" />
+    <Compile Include="Util\ISynchronousListener.cs" />
+    <Compile Include="Util\IQueryRecord.cs" />
+    <Compile Include="Util\LicenseException.cs" />
+    <Compile Include="Util\Optional.cs" />
+    <Compile Include="Util\PagedEnumerator.cs" />
+    <Compile Include="Util\SafeClock.cs" />
+    <Compile Include="Util\Processor\AbstractClusterProcessor.cs" />
+    <Compile Include="Util\SerializationHelper.cs" />
+    <Compile Include="Util\ShieldedStream.cs" />
+    <Compile Include="Util\SimpleQueryRecord.cs" />
+    <Compile Include="Util\SimpleQueryRecordReporter.cs" />
+    <Compile Include="Util\ThreadGateSlim.cs" />
+    <Compile Include="Util\Transformer\ExtractorEventTransformer.cs" />
+    <Compile Include="Util\Extractor\IdentityExtractor.cs" />
+    <Compile Include="Util\Extractor\KeyExtractor.cs" />
+    <Compile Include="Util\Extractor\MultiExtractor.cs" />
+    <Compile Include="Util\Extractor\ReflectionExtractor.cs" />
+    <Compile Include="Util\Extractor\ReflectionUpdater.cs" />
+    <Compile Include="Util\FilterEnumerator.cs" />
+    <Compile Include="Util\Filter\AllFilter.cs" />
+    <Compile Include="Util\Filter\AlwaysFilter.cs" />
+    <Compile Include="Util\Filter\AndFilter.cs" />
+    <Compile Include="Util\Filter\AnyFilter.cs" />
+    <Compile Include="Util\Filter\ArrayFilter.cs" />
+    <Compile Include="Util\Filter\BetweenFilter.cs" />
+    <Compile Include="Util\Filter\CacheEventFilter.cs" />
+    <Compile Include="Util\Filter\CacheEventTransformerFilter.cs" />
+    <Compile Include="Util\Filter\ComparisonFilter.cs" />
+    <Compile Include="Util\Filter\ContainsAllFilter.cs" />
+    <Compile Include="Util\Filter\ContainsAnyFilter.cs" />
+    <Compile Include="Util\Filter\ContainsFilter.cs" />
+    <Compile Include="Util\Filter\EqualsFilter.cs" />
+    <Compile Include="Util\Filter\ExtractorFilter.cs" />
+    <Compile Include="Util\Filter\GreaterEqualsFilter.cs" />
+    <Compile Include="Util\Filter\GreaterFilter.cs" />
+    <Compile Include="Util\Filter\IEntryFilter.cs" />
+    <Compile Include="Util\Filter\InFilter.cs" />
+    <Compile Include="Util\Filter\InKeySetFilter.cs" />
+    <Compile Include="Util\Filter\IsNotNullFilter.cs" />
+    <Compile Include="Util\Filter\IsNullFilter.cs" />
+    <Compile Include="Util\Filter\KeyAssociatedFilter.cs" />
+    <Compile Include="Util\Filter\LessEqualsFilter.cs" />
+    <Compile Include="Util\Filter\LessFilter.cs" />
+    <Compile Include="Util\Filter\LikeFilter.cs" />
+    <Compile Include="Util\Filter\LimitFilter.cs" />
+    <Compile Include="Util\Filter\NeverFilter.cs" />
+    <Compile Include="Util\Filter\NotEqualsFilter.cs" />
+    <Compile Include="Util\Filter\NotFilter.cs" />
+    <Compile Include="Util\Filter\OrFilter.cs" />
+    <Compile Include="Util\Filter\PresentFilter.cs" />
+    <Compile Include="Util\Filter\PriorityFilter.cs" />
+    <Compile Include="Util\Filter\ValueChangeEventFilter.cs" />
+    <Compile Include="Util\Filter\XorFilter.cs" />
+    <Compile Include="Util\IControllable.cs" />
+    <Compile Include="Util\IConverter.cs" />
+    <Compile Include="Util\IEventListener.cs" />
+    <Compile Include="Util\IFilter.cs" />
+    <Compile Include="Util\ILongArray.cs" />
+    <Compile Include="Util\ILongArrayEnumerator.cs" />
+    <Compile Include="Util\InterlockedCounter.cs" />
+    <Compile Include="Util\IService.cs" />
+    <Compile Include="Util\IValueExtractor.cs" />
+    <Compile Include="Util\IValueManipulator.cs" />
+    <Compile Include="Util\IValueUpdater.cs" />
+    <Compile Include="Util\IVersionable.cs" />
+    <Compile Include="Util\Listeners.cs" />
+    <Compile Include="Util\LiteDictionary.cs" />
+    <Compile Include="Util\Logging\CommonLoggingLogger.cs" />
+    <Compile Include="Util\Logging\Logger.cs" />
+    <Compile Include="Util\Logging\LogOutput.cs" />
+    <Compile Include="Util\Logging\Standard.cs" />
+    <Compile Include="Util\LongSortedList.cs" />
+    <Compile Include="Util\NetworkUtils.cs" />
+    <Compile Include="Util\NullFilter.cs" />
+    <Compile Include="Util\NullImplementation.cs" />
+    <Compile Include="Util\NumberUtils.cs" />
+    <Compile Include="Util\ObjectUtils.cs" />
+    <Compile Include="Util\Processor\AbstractProcessor.cs" />
+    <Compile Include="Util\Processor\CompositeProcessor.cs" />
+    <Compile Include="Util\Processor\ConditionalProcessor.cs" />
+    <Compile Include="Util\Processor\ConditionalPut.cs" />
+    <Compile Include="Util\Processor\ConditionalPutAll.cs" />
+    <Compile Include="Util\Processor\ConditionalRemove.cs" />
+    <Compile Include="Util\Processor\ExtractorProcessor.cs" />
+    <Compile Include="Util\Processor\NumberIncrementor.cs" />
+    <Compile Include="Util\Processor\NumberMultiplier.cs" />
+    <Compile Include="Util\Processor\PreloadRequest.cs" />
+    <Compile Include="Util\Processor\PriorityProcessor.cs" />
+    <Compile Include="Util\Processor\PropertyManipulator.cs" />
+    <Compile Include="Util\Processor\PropertyProcessor.cs" />
+    <Compile Include="Util\Processor\UpdaterProcessor.cs" />
+    <Compile Include="Util\Processor\VersionedPut.cs" />
+    <Compile Include="Util\Processor\VersionedPutAll.cs" />
+    <Compile Include="Util\ServiceEventArgs.cs" />
+    <Compile Include="Util\SimpleEnumerator.cs" />
+    <Compile Include="Util\StringUtils.cs" />
+    <Compile Include="Util\ThreadGate.cs" />
+    <Compile Include="Util\Transformer\SemiLiteEventTransformer.cs" />
+    <Compile Include="Util\TypeResolver.cs" />
+    <Compile Include="Util\UriUtils.cs" />
+    <Compile Include="Util\UUID.cs" />
+    <Compile Include="Web\CoherenceSessionStore.cs" />
+    <Compile Include="Web\ISessionModel.cs" />
+    <Compile Include="Web\ISessionModelManager.cs" />
+    <Compile Include="Web\SessionHolder.cs" />
+    <Compile Include="Web\SessionKey.cs" />
+    <Compile Include="Web\Model\AbstractSessionModel.cs" />
+    <Compile Include="Web\Model\AbstractSessionModelManager.cs" />
+    <Compile Include="Web\Model\MonolithicSessionModel.cs" />
+    <Compile Include="Web\Model\MonolithicSessionModelManager.cs" />
+    <Compile Include="Web\Model\SplitSessionModel.cs" />
+    <Compile Include="Web\Model\SplitSessionModelManager.cs" />
+    <Compile Include="Web\Model\TraditionalSessionModel.cs" />
+    <Compile Include="Web\Model\TraditionalSessionModelManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\cache-config.xsd">
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\coherence.xsd">
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\pof-config.xsd">
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+    <None Include="Coherence-AssemblyKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\coherence-cache-config.xml" />
+    <EmbeddedResource Include="Config\coherence-pof-config.xml" />
+    <EmbeddedResource Include="Config\coherence.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

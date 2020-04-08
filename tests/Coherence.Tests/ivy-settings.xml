@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<ivy-settings>
+  <settings defaultResolver="${ivy.artifactory.name}"/>
+  <caches   defaultCacheDir="${ivy.cache}"/>
+  <resolvers>
+    <chain name="${ivy.artifactory.name}">
+      <ibiblio name="${ivy.path.internal}" m2compatible="true" root="${ivy.artifactory.server.internal}/${ivy.path.internal}"/>
+      <ibiblio name="${ivy.path.public}" m2compatible="true" root="${ivy.artifactory.server.public}/${ivy.path.public}"/>
+    </chain>
+  </resolvers>
+</ivy-settings>

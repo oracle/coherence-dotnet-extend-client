@@ -1,0 +1,853 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+
+<xs:schema xmlns="http://schemas.tangosol.com/coherence"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://schemas.tangosol.com/coherence"
+           elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation>
+      Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+      Oracle is a registered trademarks of Oracle Corporation and/or its affiliates.
+      This software is the confidential and proprietary information of
+      Oracle Corporation.  You shall not disclose such confidential and
+      proprietary information and shall use it only in accordance with the
+      terms of the license agreement you entered into with Oracle.
+
+      This notice may not be removed or altered.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:annotation>
+    <xs:documentation>
+      <![CDATA[This is the XML schema for the Coherence for .NET configuration file. The
+      configuration file's root element should include reference to the schema:
+
+      <coherence xmlns="http://schemas.tangosol.com/coherence"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://schemas.tangosol.com/coherence
+                  assembly://Coherence/Tangosol.Config/coherence.xsd">]]>
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="coherence">
+    <xs:sequence>
+      <xs:element ref="cluster-config" minOccurs="0"/>
+      <xs:element ref="logging-config"/>
+      <xs:element ref="configurable-cache-factory-config" minOccurs="0"/>
+      <xs:element ref="license-config" minOccurs="0"/>
+      <xs:element ref="security-config" minOccurs="0"/>    
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="coherence" type="coherence">
+    <xs:annotation>
+      <xs:documentation>
+        The coherence element is the root element of the coherence descriptor.
+
+        Used in: n/a
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="init-params">
+    <xs:sequence>
+      <xs:element ref="init-param" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="init-params" type="init-params">
+    <xs:annotation>
+      <xs:documentation>
+        The init-params element contains initialization parameters.
+
+        Used in: filter, configurable-cache-factory-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="init-param">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element ref="param-name"/>
+        <xs:element ref="param-type"/>
+      </xs:choice>
+      <xs:element ref="param-value"/>
+      <xs:element ref="description" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:NMTOKEN"/>
+  </xs:complexType>
+  <xs:element name="init-param" type="init-param">
+    <xs:annotation>
+      <xs:documentation>
+        The init-param element is a single initialization parameter.
+
+        Used in: init-params
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="cluster-config">
+    <xs:sequence>
+      <xs:element ref="member-identity" minOccurs="0"/>
+      <xs:element ref="filters"/>
+      <xs:element ref="serializers" minOccurs="0"/>
+      <xs:element ref="address-providers" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="cluster-config" type="cluster-config">
+    <xs:annotation>
+      <xs:documentation>
+        The cluster-config element contains the cluster configuration info.
+
+        Used in: coherence
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="member-identity">
+    <xs:sequence>
+      <xs:element ref="cluster-name" minOccurs="0" />
+      <xs:element ref="site-name" minOccurs="0"/>
+      <xs:element ref="rack-name" minOccurs="0"/>
+      <xs:element ref="machine-name" minOccurs="0"/>
+      <xs:element ref="process-name" minOccurs="0"/>
+      <xs:element ref="member-name" minOccurs="0"/>
+      <xs:element ref="role-name" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="member-identity" type="member-identity">
+    <xs:annotation>
+      <xs:documentation>
+        The member-identity element contains detailed identity information that is
+        useful for defining the location and role of the local member.
+
+        Used in: cluster-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="cluster-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The cluster-name element contains the name of the cluster this client
+        is associated with.
+
+        It is strongly suggested that cluster-name be specified for production
+        systems, thus preventing accidental cluster discovery among
+        applications.
+
+        If clients are associated with multiple clusters then the the cluster-name
+        element in remote-cache-scheme and remote-invocation-scheme can be used
+        to identify the associated cluster for a specific service.
+
+        Used in: member-identity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="site-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The site-name element contains the name of the geographic site that the
+        member is hosted at. For WAN clustering, this value identifies the
+        data center within which the member is located, and can be used as the basis
+        for intelligent routing, load balancing and disaster recovery planning
+        (i.e. the explicit backing up of data on separate geographic sites). The
+        name is also useful for displaying management information and
+        interpreting log entries.
+
+        It is optional to provide a value for this element. Deployments that spread
+        across more than one geographic site should specify a site-name value.
+
+        Used in: member-identity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="rack-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The rack-name element contains the name of the location within a geographic
+        site that the member is hosted at. This is often a cage, rack or bladeframe
+        identifier, and can be used as the basis for intelligent routing, load
+        balancing and disaster recovery planning (i.e. the explicit backing up of
+        data on separate bladeframes). The name is also useful for displaying
+        management information and interpreting log entries.
+
+        It is optional to provide a value for this element. Large scale deployments
+        should always specify a rack-name value.
+
+        Used in: member-identity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="machine-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The machine-name element contains the name of the physical server that the
+        member is hosted on. This is often the same name as the server identifies
+        itself as (e.g. its HOSTNAME, or its name as it appears in a DNS entry).
+        If provided, the machine-name is used as the basis for creating a
+        machine-id, which in turn is used to guarantee that data are backed up on
+        different physical machines to prevent single points of failure (SPOFs).
+        The name is also useful for displaying management information and
+        interpreting log entries.
+
+        It is optional to provide a value for this element. However, it is strongly
+        encouraged that a name always be provided.
+
+        Used in: member-identity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="process-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The process-name element contains the name of the process that the member
+        is hosted on. This name makes it possible to easily differentiate among
+        multiple processes running on the same machine. The name is also useful for
+        displaying management information and interpreting log entries.
+
+        It is optional to provide a value for this element. Often, a single member
+        will exist per process, and in that situation this name would be redundant.
+
+        Used in: member-identity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="member-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The member-name element contains the name of the member itself. This name
+        makes it possible to easily differentiate among members, such as when
+        multiple members run on the same machine (or even within the same process).
+        The name is also useful for displaying management information and
+        interpreting log entries.
+
+        It is optional to provide a value for this element. However, it is strongly
+        encouraged that a name always be provided.
+
+        Used in: member-identity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="role-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The role-name element contains the name of the member role. This name
+        allows an application to organize members into specialized roles, such as
+        cache servers and cache clients.
+
+        The name is also useful for displaying management information and
+        interpreting log entries.
+
+        It is optional to provide a value for this element. However, it is strongly
+        encouraged that a name always be provided.
+
+        Used in: member-identity
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="filters">
+    <xs:sequence>
+      <xs:element ref="filter" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="filters" type="filters">
+    <xs:annotation>
+      <xs:documentation>
+        The filters element contains the declarative data for each filter.
+
+        Used in: cluster-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="filter">
+    <xs:sequence>
+      <xs:element ref="filter-name"/>
+      <xs:element ref="filter-class"/>
+      <xs:element ref="init-params" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="filter" type="filter">
+    <xs:annotation>
+      <xs:documentation>
+        The filter element contains the declarative data of a particular
+        filter.
+
+        Used in: filters
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="filter-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The filter-name element contains the canonical name of the filter.
+
+        Used in: filter
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="filter-class" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The filter-class element contains the class name of the filter implementation.
+        This class must have a public default constructor and must implement the
+        Tangosol.IO.WrapperStreamFactory interface.
+
+        Used in: filter
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="serializers">
+    <xs:sequence>
+      <xs:element ref="serializer" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="serializers" type="serializers">
+    <xs:annotation>
+      <xs:documentation>
+        The serializers element contains the declarative data for each serializer.
+
+        Used in: cluster-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="serializer">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element ref="instance"/>
+        <xs:group ref="instance"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+  </xs:complexType>
+  <xs:element name="serializer" type="serializer">
+    <xs:annotation>
+      <xs:documentation>
+        The serializer element contains the declarative data of a particular
+        serializer.
+
+        Used in: serializers
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="address-providers">
+    <xs:sequence>
+      <xs:element name="address-provider" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:choice>
+            <xs:choice>
+              <xs:element ref="instance"/>
+              <xs:group ref="instance"/>
+            </xs:choice>
+            <xs:element ref="socket-address" maxOccurs="unbounded"/>
+          </xs:choice>
+          <xs:attribute name="id" type="xs:NMTOKEN" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="address-providers" type="address-providers">
+    <xs:annotation>
+      <xs:documentation>
+        The address-providers element contains the declarative data for each
+        address provider.
+
+        Used in: cluster-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:group name="instance">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element ref="class-name"/>
+        <xs:sequence>
+          <xs:element ref="class-factory-name"/>
+          <xs:element ref="method-name"/>
+        </xs:sequence>
+      </xs:choice>
+      <xs:element ref="init-params" minOccurs="0"/>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="instance">
+    <xs:group ref="instance"/>
+  </xs:complexType>
+  <xs:element name="instance" type="instance">
+    <xs:annotation>
+      <xs:documentation>
+        The instance element contains class configuration info.
+
+        In most cases, the instance element is used to specify the name of the
+        class to instantiate directly. For example:
+
+        <instance>
+          <class-name>Tangosol.Net.Cache.Support.SynchronizedCache</class-name>
+        </instance>
+
+        It is also possible to specify a static factory method to call instead.
+        To specify the factory approach, provide both the class-factory-name and
+        method-name elements corresponding to the static factory method that returns
+        the new object instance.
+
+        Used in: serializer, address-providers
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="class-factory-name" type="parameterizable-string">
+    <xs:annotation>
+      <xs:documentation>
+        The class-factory-name element specifies a fully specified name of a .NET
+        class that will be used by the factory approach for the instance.
+
+        Used in: instance
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="method-name" type="parameterizable-string">
+    <xs:annotation>
+      <xs:documentation>
+        The method-name element specifies a fully specified name of a static factory
+        method that will be used by the factory approach for the instance.
+
+        Used in: instance
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="parameterizable-string">
+    <xs:annotation>
+      <xs:documentation>
+        The parameterizable-string type is an extension of the xs:string type that
+        supports override via a parameter specified using the param-name attribute.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="param-name" type="xs:string"/>
+        <xs:attribute name="system-property" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="socket-address">
+    <xs:sequence>
+      <xs:element ref="address"/>
+      <xs:element ref="port"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="socket-address" type="socket-address">
+    <xs:annotation>
+      <xs:documentation>
+        The socket-address element specifies the address (IP or DNS name) and port
+        of a TCP/IP connection acceptor.
+
+        Used in: address-providers
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="address" type="parameterizable-string">
+    <xs:annotation>
+      <xs:documentation>
+        The address element specifies the IP address used by a socket.
+
+        Used in: local-address, socket-address
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="port">
+    <xs:simpleContent>
+      <xs:restriction base="parameterizable-integer">
+        <xs:minInclusive value="0"/>
+        <xs:maxInclusive value="65535"/>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:element name="port" type="port">
+    <xs:annotation>
+      <xs:documentation>
+        The port element specifies a port used by a socket.
+
+        Valid values are from 1 to 65535.
+
+        Used in: local-address, socket-address
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="parameterizable-integer">
+    <xs:annotation>
+      <xs:documentation>
+        The parameterizable-integer type is an extension of the xs:integer type that
+        supports override via a parameter specified using the param-name attribute.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:integer">
+        <xs:attribute name="param-name" type="xs:string"/>
+        <xs:attribute name="system-property" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="logging-config">
+    <xs:sequence>
+      <xs:element ref="destination" minOccurs="0"/>
+      <xs:element ref="logger-name" minOccurs="0"/>
+      <xs:element ref="severity-level" minOccurs="0"/>
+      <xs:element ref="message-format" minOccurs="0"/>
+      <xs:element ref="character-limit" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="logging-config" type="logging-config">
+    <xs:annotation>
+      <xs:documentation>
+        The logging-config element contains the configuration info for the
+        logging facility.
+
+        Used in: coherence
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="configurable-cache-factory-config">
+    <xs:sequence>
+      <xs:element ref="class-name" minOccurs="0"/>
+      <xs:element ref="init-params" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="configurable-cache-factory-config" type="configurable-cache-factory-config">
+    <xs:annotation>
+      <xs:documentation>
+        The configurable-cache-factory-config element contains the configuration
+        info for the configurable cache factory.
+
+        Used in: coherence
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="class-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The class-name element specifies the name of a .NET type.
+
+        Used in: configurable-cache-factory-config, access-controller,
+          callback-handler
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="param-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The param-name element specifies the name of an initialization
+        parameter.
+
+        Used in: init-param
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="param-type" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The param-type element specifies the .NET type of an initialization parameter.
+
+        Supported types are:
+        - string  - indicates that the value is a System.String
+        - bool    - indicates that the value is a System.Boolean
+        - int     - indicates that the value is a System.Int32
+        - long    - indicates that the value is a System.Int64
+        - double  - indicates that the value is a System.Double
+        - float   - indicates that the value is a System.Single
+        - decimal - indicates that the value is a System.Decimal
+        - file    - indicates that the value is a System.IO.File
+        - date    - indicates that the value is a System.DateTime
+        - time    - indicates that the value is a System.DateTime
+        - xml     - indicates that the value is the entire init-param XmlNode
+
+        The value is converted to the specified type, and the target constructor
+        or method must have a parameter of that type in order for the
+        instantiation to succeed.
+
+        Used in: init-param
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="param-value" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The param-value element specifies a value of an initialization
+        parameter.
+
+        The value is in a format specific to the type of the parameter.
+
+        Used in: init-param
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="description" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The description element is used to provide text describing the parent
+        element.
+
+        Used in: param
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:simpleType name="logOutput">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="stdout"/>
+      <xs:enumeration value="stderr"/>
+      <xs:enumeration value="common-logger"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="destination">
+    <xs:union memberTypes="xs:string logOutput"/>
+  </xs:simpleType>
+  <xs:element name="destination" type="destination">
+    <xs:annotation>
+      <xs:documentation>
+        The destination element specifies the output device used by the logging
+        system.
+
+        Valid values are "stdout", "stderr", "common-logger", or a file name; the default
+        is "stderr".
+
+        Used in: logging-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="logger-name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The logger-name element specifies a logger name within the chosen
+        logging system that should be used to log Coherence related messages.
+
+        This value is only used by the "common-logger" logging system.
+
+        Default value is "Coherence".
+
+        Used in: logging-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:simpleType name="severity-level">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="-1"/>
+      <xs:maxInclusive value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="severity-level" type="severity-level">
+    <xs:annotation>
+      <xs:documentation>
+        The severity-level element specifies which logged messages will be output
+        to the log destination.
+
+        Valid values are:
+        0     only output without a logging severity level specified will be logged
+        1     all the above plus errors
+        2     all the above plus warnings
+        3     all the above plus informational messages
+        4..9  all the above plus internal debugging messages (the higher the
+        number, the more the messages)
+        -1    no messages
+
+        Used in: logging-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="message-format" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The message-format element specifies how messages that have a logging
+        level specified will be formatted before passing them to the log
+        destination.
+
+        The value of the message-format element is static text with the following
+        replaceable parameters:
+        {date}    the date/time format (to a millisecond) at which the message was logged
+        {level}   the logging severity level of the message
+        {thread}  the thread name that logged the message
+        {text}    the text of the message
+
+        Used in: logging-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:simpleType name="character-limit">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="character-limit" type="character-limit">
+    <xs:annotation>
+      <xs:documentation>
+        The character-limit element specifies the maximum number of characters that
+        the logger daemon will process from the message queue before discarding all
+        remaining messages in the queue. Note that the message that caused the total
+        number of characters to exceed the maximum will NOT be truncated, and all
+        messages that are discarded will be summarized by the logging system with a
+        single log entry detailing the number of messages that were discarded and
+        their total size. The truncation of the logging is only temporary, since once
+        the queue is processed (emptied), the logger is reset so that subsequent
+        messages will be logged.
+
+        The purpose of this setting is to avoid a situation where logging can itself
+        prevent recovery from a failing condition. For example, with tight timings,
+        logging can actually change the timings, causing more failures and probably
+        more logging, which becomes a vicious cycle. A limit on the logging being
+        done at any one point in time is a "pressure valve" that prevents such a
+        vicious cycle from occurring. Note that logging occurs on a dedicated
+        low-priority thread to even further reduce its impact on the critical portions
+        of the system.
+
+        The value is a positive integer or zero. Zero implies no limit.
+
+        Used in: logging-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="license-config">
+    <xs:sequence>
+      <xs:element ref="edition-name" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="license-config" type="license-config">
+    <xs:annotation>
+      <xs:documentation>
+        The license-config element contains the details of the license that this
+        member will utilize.
+
+        Used in: coherence
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:simpleType name="edition-name">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RTC"/>
+      <xs:enumeration value="DC"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="edition-name" type="edition-name">
+    <xs:annotation>
+      <xs:documentation>
+        The edition-name element specifies the client product edition.
+
+        Valid values are:
+        - "RTC" (Real-Time Client)
+        - "DC"  (Data Client)
+
+        It is optional to provide a value for this element.
+
+        Used in: license-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="security-config">
+    <xs:sequence>
+      <xs:element ref="identity-asserter" minOccurs="0"/>
+      <xs:element ref="identity-transformer" minOccurs="0"/>
+      <xs:element ref="principal-scope" minOccurs="0"/>
+    </xs:sequence> 
+  </xs:complexType>
+  <xs:element name="security-config" type="security-config">
+    <xs:annotation>
+      <xs:documentation>
+        The security-config element contains the configuration info
+        for Coherence security.
+
+        Used in: coherence
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="identity-asserter">
+    <xs:sequence>
+      <xs:element ref="class-name" minOccurs="0"/>
+      <xs:element ref="init-params" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="identity-asserter" type="identity-asserter">
+    <xs:annotation>
+      <xs:documentation>
+        The identity-asserter element contains the configuration info for the
+        class that implements the Tangosol.Net.Security.IdentityAsserter interface
+        which will be called to validate an identity token in order to establish a
+        user's identity.
+
+        Used in: security-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:complexType name="identity-transformer">
+    <xs:sequence>
+      <xs:element ref="class-name" minOccurs="0"/>
+      <xs:element ref="init-params" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="identity-transformer" type="identity-transformer">
+    <xs:annotation>
+      <xs:documentation>
+        The identity-transformer element contains the configuration info for the
+        class that implements the Tangosol.Net.Security.IdentityTransformer interface
+        which will be called to transforms a Subject to a token that asserts identity.
+
+        Used in: security-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="principal-scope" type="xs:boolean">
+    <xs:annotation>
+      <xs:documentation>
+        The principal-scope element defines whether the remote cache or service
+        reference is shared by Principal. The setting of "true" means that each
+        Principal will get a different reference to remote caches and invocation
+        services. False means every remote cache or service is globally shared.
+
+        Valid values are true or false.
+
+        Default value is false.
+
+        Used in: security-config
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

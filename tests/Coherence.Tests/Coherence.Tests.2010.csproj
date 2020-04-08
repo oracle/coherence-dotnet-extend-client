@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{47DB36BD-3018-436A-9F4C-024BF5281E23}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tangosol</RootNamespace>
+    <AssemblyName>Coherence.Tests</AssemblyName>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion Condition=" '$(TargetFrameworkVersion)' =='' ">v4.0</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\Coherence.Tests.2010\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_4_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\Coherence.Tests.2010\Release\</OutputPath>
+    <DefineConstants>TRACE;NET_4_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>162, 618, 675</NoWarn>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\tools\internal\nunit\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <!-- common support files -->
+  <ItemGroup>
+    <Compile Include="..\..\src\Coherence\IO\Pof\PofConstants.cs">
+      <Link>IO\Pof\PofConstants.cs</Link>
+    </Compile>
+    <Compile Include="IO\Pof\PortableTypeSerializerTests.cs" />
+    <Compile Include="IO\Pof\SetSerializer.cs" />
+    <Compile Include="IO\Pof\ModuleSerializer.cs" />
+    <Compile Include="IO\Pof\TestPofClasses.cs" />
+    <Compile Include="IO\TestSerializers.cs" />
+    <Compile Include="Net\Cache\InvocableCacheTest.cs" />
+    <Compile Include="Net\Cache\ViewTests.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\BaseNamedCacheTest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\AggregateAllRequestTest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\AggregateFilterRequestTest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\InvokeFilterRequestTest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\InvokeAllRequestTest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\InvokeRequestTest.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\PriorityTaskTests.cs" />
+    <Compile Include="Net\ViewBuilderTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestClasses.cs" />
+    <Compile Include="TestUtils.cs" />
+    <Compile Include="Test\Color.cs" />
+    <Compile Include="Test\V1\Dog.cs" />
+    <Compile Include="Test\V1\Pet.cs" />
+    <Compile Include="Test\V2\Animal.cs" />
+    <Compile Include="Test\V2\Dog.cs" />
+    <Compile Include="Test\V2\Pet.cs" />
+    <Compile Include="Util\Comparator\AirDealComparer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\LoadBalancerTests.cs" />
+    <Compile Include="Data\PofReferenceTests.cs" />
+    <Compile Include="Data\PofStreamTests.cs" />
+    <Compile Include="IO\IndentingWriterTests.cs" />
+    <Compile Include="IO\Pof\ConfigurablePofConfigTests.cs" />
+    <Compile Include="IO\Pof\BinaryPofSerializerTests.cs" />
+    <Compile Include="IO\Pof\DataReaderAndWriterTests.cs" />
+    <Compile Include="IO\Pof\PofAnnotationSerializerTests.cs" />
+    <Compile Include="IO\Pof\PofNestedBuffers.cs" />
+    <Compile Include="IO\Pof\PofReferenceTest.cs" />
+    <Compile Include="IO\Pof\RawDateTimeTests.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\AnnotationVisitorTests.cs" />
+    <Compile Include="IO\Pof\Reflection\Internal\TypeMetadataTests.cs" />
+    <Compile Include="IO\Pof\Reflection\ManglersTests.cs" />
+    <Compile Include="IO\Pof\Reflection\PofValueTests.cs" />
+    <Compile Include="IO\Pof\PofHelperEncodingTests.cs" />
+    <Compile Include="IO\Pof\PofHelperParsingTests.cs" />
+    <Compile Include="IO\Pof\PofHelperTypeConversionTests.cs" />
+    <Compile Include="IO\Pof\PofHelperValidationTests.cs" />
+    <Compile Include="IO\Pof\PofStreamCollectionTests.cs" />
+    <Compile Include="IO\Pof\PofStreamEmptyArrayTests.cs" />
+    <Compile Include="IO\Pof\PofStreamObjectValueTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IO\Pof\PofStreamPrimitiveArrayTests.cs" />
+    <Compile Include="IO\Pof\PofStreamPrimitiveValueTests.cs" />
+    <Compile Include="IO\Pof\PofStreamReaderAndWriterTests.cs" />
+    <Compile Include="IO\Pof\PofStreamUserTypeTests.cs" />
+    <Compile Include="IO\Pof\PofUniformCollectionTests.cs" />
+    <Compile Include="IO\Pof\PofUserTypeTest.cs" />
+    <Compile Include="IO\Pof\PortableExceptionTests.cs" />
+    <Compile Include="IO\Pof\RawTimeTests.cs" />
+    <Compile Include="IO\Pof\SafeConfigurablePofContextTests.cs" />
+    <Compile Include="IO\Pof\SerializerTest.cs" />
+    <Compile Include="IO\Pof\SimplePofContextTests.cs" />
+    <Compile Include="IO\Pof\SparseArrayTests.cs" />
+    <Compile Include="IO\Pof\XmlPofSerializerTests.cs" />
+    <Compile Include="Net\CacheFactoryTests.cs" />
+    <Compile Include="Net\CustomSerializerTest.cs" />
+    <Compile Include="Net\Cache\BundlingNamedCacheTests.cs" />
+    <Compile Include="Net\Cache\CompositeCacheTests.cs" />
+    <Compile Include="Net\Cache\ConditionalIndexTest.cs" />
+    <Compile Include="Net\Cache\ContinuousQueryCacheTests.cs" />
+    <Compile Include="Net\Cache\CQCProxyTests.cs" />
+    <Compile Include="Net\Cache\LocalCacheTests.cs" />
+    <Compile Include="Net\Cache\NearCacheTests.cs" />
+    <Compile Include="Net\Cache\ProxyEventTests.cs" />
+    <Compile Include="Net\Cache\SimpleCacheStatisticsTests.cs" />
+    <Compile Include="Net\Cache\SimpleMapIndexTest.cs" />
+    <Compile Include="Net\ConfigurableAddressProviderTests.cs" />
+    <Compile Include="Net\DefaultConfigurableCacheFactoryTests.cs" />
+    <Compile Include="Net\DefaultOperationalContextTest.cs" />
+    <Compile Include="Net\DefaultSerializerTest.cs" />
+    <Compile Include="Net\Impl\RemoteNameServiceTests.cs" />
+    <Compile Include="Net\JmxTests.cs" />
+    <Compile Include="Net\Impl\CustomKeyClassTests.cs" />
+    <Compile Include="Net\Impl\LocalNamedCacheTests.cs" />
+    <Compile Include="Net\Impl\RemoteNamedCacheTests.cs" />
+    <Compile Include="Net\Impl\SSLOneWayRemoteNamedCacheTests.cs" />
+    <Compile Include="Net\Impl\SSLTwoWayRemoteNamedCacheTests.cs" />
+    <Compile Include="Net\Impl\TLS12OneWayRemoteNamedCacheTests.cs" />
+    <Compile Include="Net\MessageSizeTests.cs" />
+    <Compile Include="Net\Messaging\ConnectionExceptionTests.cs" />
+    <Compile Include="Net\Messaging\Impl\CacheService\CacheServiceTests.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheTests.cs" />
+    <Compile Include="Net\Ssl\SslTests.cs" />
+    <Compile Include="Net\Ssl\SslClient.cs" />
+    <Compile Include="Net\Ssl\SslServer.cs" />
+    <Compile Include="Run\Xml\SimpleDocumentTests.cs" />
+    <Compile Include="Run\Xml\SimpleElementTests.cs" />
+    <Compile Include="Run\Xml\SimpleParserTests.cs" />
+    <Compile Include="Run\Xml\SimpleValueTests.cs" />
+    <Compile Include="Run\Xml\XmlHelperTests.cs" />
+    <Compile Include="Security\ExtendSecurityTests.cs" />
+    <Compile Include="Util\Aggregator\AggregatorTests.cs" />
+    <Compile Include="Util\AtomicCounterTests.cs" />
+    <Compile Include="Util\BinaryMemoryStreamTests.cs" />
+    <Compile Include="Util\BinaryTests.cs" />
+    <Compile Include="Util\Collections\AbstractBaseDictionaryTests.cs" />
+    <Compile Include="Util\Collections\HashSetTests.cs" />
+    <Compile Include="Util\Collections\SortedDictionaryTests.cs" />
+    <Compile Include="Util\Collections\HashDictionaryTests.cs" />
+    <Compile Include="Util\CollectionUtilsTests.cs" />
+    <Compile Include="Util\Comparator\ComparerTests.cs" />
+    <Compile Include="Util\ConverterCollectionsTests.cs" />
+    <Compile Include="Util\ConverterEnumeratorTests.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\Initiator\TcpInitiatorTests.cs" />
+    <Compile Include="Util\Daemon\QueueProcessor\Service\Peer\MessagingTests.cs" />
+    <Compile Include="Util\DateTimeUtilsTests.cs" />
+    <Compile Include="Util\Extractor\ConditionalExtractorTest.cs" />
+    <Compile Include="Util\Extractor\ExtractorTests.cs" />
+    <Compile Include="Util\Extractor\UpdaterTests.cs" />
+    <Compile Include="Util\FilterEnumeratorTests.cs" />
+    <Compile Include="Util\Filter\FilterTests.cs" />
+    <Compile Include="Util\Filter\FilterTriggerTests.cs" />
+    <Compile Include="Util\Filter\LimitFilterTests.cs" />
+    <Compile Include="Util\Filter\BetweenFilterTests.cs" />
+    <Compile Include="Util\ImmutableArrayListTests.cs" />
+    <Compile Include="Util\ImmutableMultiListTests.cs" />
+    <Compile Include="Util\ListenersTests.cs" />
+    <Compile Include="Util\LiteDictionaryTests.cs" />
+    <Compile Include="Util\Logging\LoggingTests.cs" />
+    <Compile Include="Util\LongSortedListTests.cs" />
+    <Compile Include="Util\MacroParameterResolverTests.cs" />
+    <Compile Include="Util\NetworkUtilsTests.cs" />
+    <Compile Include="Util\NullImplementationTests.cs" />
+    <Compile Include="Util\NumberUtilsTests.cs" />
+    <Compile Include="Util\PagedEnumeratorTests.cs" />
+    <Compile Include="Util\Processor\ProcessorTests.cs" />
+    <Compile Include="Util\SerializationHelperTests.cs" />
+    <Compile Include="Util\SimpleEnumeratorTests.cs" />
+    <Compile Include="Util\StringUtilsTests.cs" />
+    <Compile Include="Util\ThreadGateTests.cs" />
+    <Compile Include="Util\Transformer\ExtractorEventTransformerTests.cs" />
+    <Compile Include="Util\Transformer\SemiLiteEventTransformerTests.cs" />
+    <Compile Include="Util\TriggerListenerTests.cs" />
+    <Compile Include="Util\UriUtilsTests.cs" />
+    <Compile Include="Util\UUIDTests.cs" />
+    <Compile Include="Web\AbstractCoherenceSessionStoreTests.cs" />
+    <Compile Include="Web\AbstractSessionHandler.cs" />
+    <Compile Include="Web\SessionEndTests.cs" />
+    <Compile Include="Web\SessionConfigTests.cs" />
+    <Compile Include="Web\SplitPofCoherenceSessionStoreTests.cs" />
+    <Compile Include="Web\MonolithicPofCoherenceSessionStoreTests.cs" />
+    <Compile Include="Web\TraditionalPofCoherenceSessionStoreTests.cs" />
+    <Compile Include="Web\SplitBinaryCoherenceSessionStoreTests.cs" />
+    <Compile Include="Web\MonolithicBinaryCoherenceSessionStoreTests.cs" />
+    <Compile Include="Web\TraditionalBinaryCoherenceSessionStoreTests.cs" />
+    <Compile Include="Web\WebTestUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\s4hc-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-cache-config-illegal.xml" />
+    <EmbeddedResource Include="Resources\s4hc-cache-config-msg-size.xml" />
+    <EmbeddedResource Include="Resources\s4hc-cache-config-with-spaces.xml" />
+    <EmbeddedResource Include="Resources\s4hc-cache-config-nameservice.xml" />
+    <EmbeddedResource Include="Resources\s4hc-cache-config-reference.xml" />
+    <EmbeddedResource Include="Resources\s4hc-local-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-near-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-timeout-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-timeout-cache-config2.xml" />
+    <EmbeddedResource Include="Resources\s4hc-timeout-cache-config3.xml" />
+    <EmbeddedResource Include="Resources\s4hc-timeout-cache-config4.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-custom-pof-serializer-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-custom-serializer-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-custom-serializerxml-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-custom-serializer-as-default-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-custom-serializerxml-as-named-default-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-custom-serializerxml-byname-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-default-serializer-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-maptrigger-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-named-default-serializer-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-extend-named-pof-default-serializer-cache-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-allowinterfaces.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-allowsubclass.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-allowsubclass2.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-bad1.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-bad2.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-include.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-link.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-null.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-timeout-cache-config5.xml" />
+    <Content Include="Resources\s4hc-test-config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\s4hc-test-logging-commonlogger.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-logging-commonlogger-mylogger.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-logging-file.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-logging-stderr.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-logging-stdout.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-logging.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-reference-config.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-util-transformparams.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-util.xml" />
+    <EmbeddedResource Include="Resources\s4hc-view-cache-config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Net\Ssl\CA.cer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Net\Ssl\Client.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Net\Ssl\Server.cer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Config\testcert.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="Data\Java\Boolean.data" />
+    <EmbeddedResource Include="Data\Java\BooleanArray.data" />
+    <EmbeddedResource Include="Data\Java\Byte.data" />
+    <EmbeddedResource Include="Data\Java\ByteArray.data" />
+    <EmbeddedResource Include="Data\Java\Char.data" />
+    <EmbeddedResource Include="Data\Java\CharacterArray.data" />
+    <EmbeddedResource Include="Data\Java\Date.data" />
+    <EmbeddedResource Include="Data\Java\DateTime.data" />
+    <EmbeddedResource Include="Data\Java\DateTimeWithZone.data" />
+    <EmbeddedResource Include="Data\Java\DayTimeInterval.data" />
+    <EmbeddedResource Include="Data\Java\Dec32.data" />
+    <EmbeddedResource Include="Data\Java\Dec64.data" />
+    <EmbeddedResource Include="Data\Java\Dec128.data" />
+    <EmbeddedResource Include="Data\Java\MaxDec128.data" />
+    <EmbeddedResource Include="Data\Java\Double.data" />
+    <EmbeddedResource Include="Data\Java\DoubleArray.data" />
+    <EmbeddedResource Include="Data\Java\Int16.data" />
+    <EmbeddedResource Include="Data\Java\Int16Array.data" />
+    <EmbeddedResource Include="Data\Java\Int32.data" />
+    <EmbeddedResource Include="Data\Java\Int32Array.data" />
+    <EmbeddedResource Include="Data\Java\Int64.data" />
+    <EmbeddedResource Include="Data\Java\Int64Array.data" />
+    <EmbeddedResource Include="Data\Java\Int128.data" />
+    <EmbeddedResource Include="Data\Java\RawDayTimeInterval.data" />
+    <EmbeddedResource Include="Data\Java\RawYearMonthInterval.data" />
+    <EmbeddedResource Include="Data\Java\Single.data" />
+    <EmbeddedResource Include="Data\Java\SingleArray.data" />
+    <EmbeddedResource Include="Data\Java\String.data" />
+    <EmbeddedResource Include="Data\Java\Time.data" />
+    <EmbeddedResource Include="Data\Java\TimeInterval.data" />
+    <EmbeddedResource Include="Data\Java\TimeWithZone.data" />
+    <EmbeddedResource Include="Data\Java\YearMonthInterval.data" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\custom-types-pof-config.xml" />
+    <Content Include="Config\include-pof-config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\multiple-include-pof-config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\reference-pof-config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\server-cache-config.xml" />
+    <Content Include="Config\coh8230-server-pof-config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\coh8230-client-pof-config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\test-load-xml.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\Configs\config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\Configs\config2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\Configs\config3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\Configs\config4.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\Configs\config5.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\s4hc-test-config-defaultserializer-included.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-defaultserializer.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-coherence.xml" />
+    <EmbeddedResource Include="Resources\s4hc-test-config-bad3.xml" />
+    <EmbeddedResource Include="Resources\s4hc-invalid-cache-config-ns.xml" />
+    <EmbeddedResource Include="Resources\s4hc-invalid-cache-config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Coherence\Coherence.2010.csproj">
+      <Project>{E56B7071-4FD8-425A-9356-C5F8B32FCE91}</Project>
+      <Name>Coherence.2010</Name>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>call $(ProjectDir)..\..\bin\cfgbuild.cmd
+cd $(ProjectDir)
+ant build
+set DEVPATH=$(OutDir)bin\</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,712 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<pof-config xmlns="http://schemas.tangosol.com/pof">
+  <user-type-list>
+
+    <!-- Exceptions (0-9) -->
+
+    <user-type>
+      <type-id>0</type-id>
+      <class-name>System.Exception, mscorlib</class-name>
+      <serializer>
+        <class-name>Tangosol.IO.Pof.ExceptionPofSerializer, Coherence</class-name>
+      </serializer>
+    </user-type>
+
+    <user-type>
+      <type-id>1</type-id>
+      <class-name>Tangosol.Util.LicenseException, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>2</type-id>
+      <class-name>Tangosol.Net.RequestTimeoutException, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>3</type-id>
+      <class-name>Tangosol.Net.Messaging.ConnectionException, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>4</type-id>
+      <class-name>Tangosol.Net.RequestIncompleteException, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Util namespace (10-19, 210-219) -->
+
+    <user-type>
+      <type-id>10</type-id>
+      <class-name>Tangosol.Util.NullFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>11</type-id>
+      <class-name>Tangosol.Util.NullImplementation+NullCollection, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>12</type-id>
+      <class-name>Tangosol.Util.NullImplementation+NullObservableCache, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>13</type-id>
+      <class-name>Tangosol.Util.NullImplementation+NullValueExtractor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>14</type-id>
+      <class-name>Tangosol.Util.UUID, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>17</type-id>
+      <class-name>Tangosol.Util.NullImplementation+NullDictionary, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>18</type-id>
+      <class-name>Tangosol.Util.CompositeKey, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Util.Aggregator namespace (20-39, 220-259) -->
+
+    <user-type>
+      <type-id>20</type-id>
+      <class-name>Tangosol.Util.Aggregator.DecimalAverage, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>21</type-id>
+      <class-name>Tangosol.Util.Aggregator.DecimalMax, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>22</type-id>
+      <class-name>Tangosol.Util.Aggregator.DecimalMin, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>23</type-id>
+      <class-name>Tangosol.Util.Aggregator.DecimalSum, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>24</type-id>
+      <class-name>Tangosol.Util.Aggregator.ComparableMax, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>25</type-id>
+      <class-name>Tangosol.Util.Aggregator.ComparableMin, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>26</type-id>
+      <class-name>Tangosol.Util.Aggregator.CompositeAggregator, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>27</type-id>
+      <class-name>Tangosol.Util.Aggregator.CompositeAggregator+Parallel, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>28</type-id>
+      <class-name>Tangosol.Util.Aggregator.Count, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>29</type-id>
+      <class-name>Tangosol.Util.Aggregator.DistinctValues, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>30</type-id>
+      <class-name>Tangosol.Util.Aggregator.DoubleAverage, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>31</type-id>
+      <class-name>Tangosol.Util.Aggregator.DoubleMax, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>32</type-id>
+      <class-name>Tangosol.Util.Aggregator.DoubleMin, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>33</type-id>
+      <class-name>Tangosol.Util.Aggregator.DoubleSum, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>34</type-id>
+      <class-name>Tangosol.Util.Aggregator.GroupAggregator, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>35</type-id>
+      <class-name>Tangosol.Util.Aggregator.GroupAggregator+Parallel, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>36</type-id>
+      <class-name>Tangosol.Util.Aggregator.LongMax, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>37</type-id>
+      <class-name>Tangosol.Util.Aggregator.LongMin, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>38</type-id>
+      <class-name>Tangosol.Util.Aggregator.LongSum, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>39</type-id>
+      <class-name>Tangosol.Util.Aggregator.PriorityAggregator, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Util.Comparator namespace (40-49, 240-249) -->
+
+    <user-type>
+      <type-id>40</type-id>
+      <class-name>Tangosol.Util.Comparator.ChainedComparer, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>41</type-id>
+      <class-name>Tangosol.Util.Comparator.EntryComparer, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>42</type-id>
+      <class-name>Tangosol.Util.Comparator.InverseComparer, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>43</type-id>
+      <class-name>Tangosol.Util.Comparator.SafeComparer, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Util.Extractor namespace (50-59, 250-259) -->
+
+    <user-type>
+      <type-id>50</type-id>
+      <class-name>Tangosol.Util.Extractor.ChainedExtractor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>51</type-id>
+      <class-name>Tangosol.Util.Extractor.CompositeUpdater, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>52</type-id>
+      <class-name>Tangosol.Util.Extractor.IdentityExtractor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>53</type-id>
+      <class-name>Tangosol.Util.Extractor.KeyExtractor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>54</type-id>
+      <class-name>Tangosol.Util.Extractor.MultiExtractor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>55</type-id>
+      <class-name>Tangosol.Util.Extractor.ReflectionExtractor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>56</type-id>
+      <class-name>Tangosol.Util.Extractor.ReflectionUpdater, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>57</type-id>
+      <class-name>Tangosol.Util.Extractor.ComparisonValueExtractor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>58</type-id>
+      <class-name>Tangosol.Util.Extractor.PofExtractor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>59</type-id>
+      <class-name>Tangosol.Util.Extractor.PofUpdater, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Util.Filter namespace (60-89, 260-289) -->
+
+    <user-type>
+      <type-id>60</type-id>
+      <class-name>Tangosol.Util.Filter.AllFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>61</type-id>
+      <class-name>Tangosol.Util.Filter.AlwaysFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>62</type-id>
+      <class-name>Tangosol.Util.Filter.AndFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>63</type-id>
+      <class-name>Tangosol.Util.Filter.AnyFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>64</type-id>
+      <class-name>Tangosol.Util.Filter.BetweenFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>65</type-id>
+      <class-name>Tangosol.Util.Filter.ContainsAllFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>66</type-id>
+      <class-name>Tangosol.Util.Filter.ContainsAnyFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>67</type-id>
+      <class-name>Tangosol.Util.Filter.ContainsFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>68</type-id>
+      <class-name>Tangosol.Util.Filter.EqualsFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>69</type-id>
+      <class-name>Tangosol.Util.Filter.GreaterEqualsFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>70</type-id>
+      <class-name>Tangosol.Util.Filter.GreaterFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>71</type-id>
+      <class-name>Tangosol.Util.Filter.InFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>72</type-id>
+      <class-name>Tangosol.Util.Filter.InKeySetFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>73</type-id>
+      <class-name>Tangosol.Util.Filter.IsNotNullFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>74</type-id>
+      <class-name>Tangosol.Util.Filter.IsNullFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>75</type-id>
+      <class-name>Tangosol.Util.Filter.LessEqualsFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>76</type-id>
+      <class-name>Tangosol.Util.Filter.LessFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>77</type-id>
+      <class-name>Tangosol.Util.Filter.LikeFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>78</type-id>
+      <class-name>Tangosol.Util.Filter.LimitFilter, Coherence</class-name>
+    </user-type>
+
+<!--
+    Note: superceded by #203 (COH-9355)
+    <user-type>
+      <type-id>79</type-id>
+      <class-name>Tangosol.Util.Filter.CacheEventFilter, Coherence</class-name>
+    </user-type>
+-->
+
+    <user-type>
+      <type-id>80</type-id>
+      <class-name>Tangosol.Util.Filter.NeverFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>81</type-id>
+      <class-name>Tangosol.Util.Filter.NotEqualsFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>82</type-id>
+      <class-name>Tangosol.Util.Filter.NotFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>83</type-id>
+      <class-name>Tangosol.Util.Filter.OrFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>84</type-id>
+      <class-name>Tangosol.Util.Filter.PresentFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>85</type-id>
+      <class-name>Tangosol.Util.Filter.ValueChangeEventFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>86</type-id>
+      <class-name>Tangosol.Util.Filter.XorFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>87</type-id>
+      <class-name>Tangosol.Util.Filter.PriorityFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>88</type-id>
+      <class-name>Tangosol.Util.Filter.CacheEventTransformerFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>89</type-id>
+      <class-name>Tangosol.Util.Filter.FilterTrigger, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>200</type-id>
+      <class-name>Tangosol.Util.Filter.KeyAssociatedFilter, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>203</type-id>
+      <class-name>Tangosol.Util.Filter.CacheEventFilter, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Util.Processor namespace (90-109, 290-309) -->
+
+    <user-type>
+      <type-id>90</type-id>
+      <class-name>Tangosol.Util.Processor.CompositeProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>91</type-id>
+      <class-name>Tangosol.Util.Processor.ConditionalProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>92</type-id>
+      <class-name>Tangosol.Util.Processor.ConditionalPut, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>93</type-id>
+      <class-name>Tangosol.Util.Processor.ConditionalPutAll, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>94</type-id>
+      <class-name>Tangosol.Util.Processor.ConditionalRemove, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>95</type-id>
+      <class-name>Tangosol.Util.Processor.ExtractorProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>96</type-id>
+      <class-name>Tangosol.Util.Processor.NumberIncrementor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>97</type-id>
+      <class-name>Tangosol.Util.Processor.NumberMultiplier, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>98</type-id>
+      <class-name>Tangosol.Util.Processor.PreloadRequest, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>99</type-id>
+      <class-name>Tangosol.Util.Processor.PropertyManipulator, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>100</type-id>
+      <class-name>Tangosol.Util.Processor.UpdaterProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>101</type-id>
+      <class-name>Tangosol.Util.Processor.VersionedPut, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>102</type-id>
+      <class-name>Tangosol.Util.Processor.VersionedPutAll, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>103</type-id>
+      <class-name>Tangosol.Util.Processor.PriorityProcessor, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Util.Transformer namespace (120-139, 320-339) -->
+
+    <user-type>
+      <type-id>120</type-id>
+      <class-name>Tangosol.Util.Transformer.SemiLiteEventTransformer, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>121</type-id>
+      <class-name>Tangosol.Util.Transformer.ExtractorEventTransformer, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.IO.Pof.Reflection namespace (140-159) -->
+
+    <user-type>
+      <type-id>140</type-id>
+      <class-name>Tangosol.IO.Pof.Reflection.SimplePofPath, Coherence</class-name>
+    </user-type>
+
+    <!--  Tangosol.Net namespace (160-169)   -->
+    <user-type>
+      <type-id>160</type-id>
+      <!--  interface Tangosol.Net.IMember   -->
+      <class-name>Tangosol.Net.LocalMember, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Net.Partition namespace (170-179) -->
+
+    <user-type>
+      <type-id>171</type-id>
+      <class-name>Tangosol.Net.Partition.PartitionSet, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.util.extractor package (continued) (190-199) -->
+
+    <user-type>
+      <type-id>190</type-id>
+      <class-name>Tangosol.Util.Extractor.ConditionalExtractor, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Util.Aggregator namespace (continued) (250-259) -->
+
+    <user-type>
+      <type-id>250</type-id>
+      <class-name>Tangosol.Util.Aggregator.ReducerAggregator, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>251</type-id>
+      <class-name>Tangosol.Util.Aggregator.QueryRecorder, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>252</type-id>
+      <class-name>Tangosol.Util.Aggregator.TopNAggregator, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>253</type-id>
+      <class-name>Tangosol.Util.Aggregator.TopNAggregator+PartialResult, Coherence</class-name>
+    </user-type>
+
+
+    <!-- Tangosol.Util namespace (continued) (260-269) -->
+
+    <user-type>
+      <type-id>260</type-id>
+      <class-name>Tangosol.Util.SimpleQueryRecord, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>261</type-id>
+      <class-name>Tangosol.Util.SimpleQueryRecord+PartialResult, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>262</type-id>
+      <class-name>Tangosol.Util.SimpleQueryRecord+PartialResult+Step, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>263</type-id>
+      <class-name>Tangosol.Util.SimpleQueryRecord+PartialResult+IndexLookupRecord, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Web namespace (300-349) -->
+
+    <user-type>
+      <type-id>300</type-id>
+      <class-name>Tangosol.Web.SessionHolder, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>301</type-id>
+      <class-name>Tangosol.Web.SessionKey, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>302</type-id>
+      <class-name>Tangosol.Web.Model.AbstractSessionModelManager+AcquireSessionProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>303</type-id>
+      <class-name>Tangosol.Web.Model.AbstractSessionModelManager+ReleaseSessionProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>304</type-id>
+      <class-name>Tangosol.Web.Model.AbstractSessionModelManager+ResetSessionTimeoutProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>305</type-id>
+      <class-name>Tangosol.Web.Model.AbstractSessionModelManager+SaveSessionProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>306</type-id>
+      <class-name>Tangosol.Web.Model.SplitSessionModel+ExternalAttributeKey, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Internal.Util.Processor package (470-489) -->
+    <user-type>
+      <type-id>470</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+NullProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>471</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+GetProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>472</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+GetOrDefaultProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>473</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+InsertProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>474</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+InsertAllProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>475</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+InsertIfAbsentProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>476</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+RemoveProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>477</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+RemoveBlindProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>478</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+RemoveValueProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>479</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+ReplaceProcessor, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>480</type-id>
+      <class-name>Tangosol.Internal.Util.Processor.CacheProcessors+ReplaceValueProcessor, Coherence</class-name>
+    </user-type>
+
+    <!-- Tangosol.Run.Xml namespace (500-509) -->
+
+    <user-type>
+      <type-id>500</type-id>
+      <class-name>Tangosol.Run.Xml.SimpleDocument, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>501</type-id>
+      <class-name>Tangosol.Run.Xml.SimpleElement, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>502</type-id>
+      <class-name>Tangosol.Run.Xml.SimpleValue, Coherence</class-name>
+    </user-type>
+
+    <!-- System namespaces (900-999) -->
+
+    <user-type>
+      <type-id>900</type-id>
+      <class-name>System.Security.Principal.IIdentity, mscorlib</class-name>
+      <serializer>
+        <class-name>Tangosol.IO.Pof.IdentityPofSerializer, Coherence</class-name>
+      </serializer>
+    </user-type>
+
+    <user-type>
+      <type-id>903</type-id>
+      <class-name>Tangosol.Util.Optional, Coherence</class-name>
+    </user-type>
+
+    <user-type>
+      <type-id>950</type-id>
+      <class-name>System.Security.Principal.IPrincipal, mscorlib</class-name>
+      <serializer>
+        <class-name>Tangosol.IO.Pof.PrincipalPofSerializer, Coherence</class-name>
+      </serializer>
+    </user-type>
+  </user-type-list>
+
+  <allow-interfaces>true</allow-interfaces>
+  <allow-subclasses>true</allow-subclasses>
+</pof-config>
