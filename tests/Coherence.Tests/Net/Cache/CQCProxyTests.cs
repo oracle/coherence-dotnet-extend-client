@@ -25,6 +25,7 @@ namespace Tangosol.Net.Cache
     /// </summary>
     /// <author> par 2012.11.5 </author>
     [TestFixture]
+    [Ignore("Ignore Docker Test")]
     public class CQCProxyTests
     {
 

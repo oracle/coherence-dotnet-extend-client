@@ -25,10 +25,10 @@
               <address>127.0.0.1</address>
               <port>9099</port>
             </socket-address>
-            <socket-address>
+            <!-- socket-address>
               <address>127.0.0.1</address>
               <port>9100</port>
-            </socket-address>
+            </socket-address -->
           </remote-addresses>
         </tcp-initiator>
         <use-filters>

@@ -83,6 +83,7 @@ namespace Tangosol.Web
         }
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestExclusiveReadFromSession()
         {
             bool     locked;
@@ -105,6 +106,7 @@ namespace Tangosol.Web
         }
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestExclusiveReadFromLockedSession()
         {
             bool     locked;
@@ -136,6 +138,7 @@ namespace Tangosol.Web
         }
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestSessionModification()
         {
             bool     locked;
@@ -180,6 +183,7 @@ namespace Tangosol.Web
         }
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestSessionAttributeRemoval()
         {
             bool     locked;

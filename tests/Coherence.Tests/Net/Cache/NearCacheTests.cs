@@ -205,6 +205,7 @@ namespace Tangosol.Net.Cache
         #region IObservableCache method tests
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestListeners()
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;

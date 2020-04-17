@@ -179,7 +179,7 @@
       <acceptor-config>
         <tcp-acceptor>
           <local-address>
-            <address>127.0.0.1</address>
+            <address system-property="tangosol.coherence.proxy.address">127.0.0.1</address>
             <port system-property="tangosol.coherence.proxy.port5">9490</port>
             <port-auto-adjust>false</port-auto-adjust>
           </local-address>
@@ -209,7 +209,7 @@
       <acceptor-config>
         <tcp-acceptor>
           <local-address>
-            <address>127.0.0.1</address>
+            <address system-property="tangosol.coherence.proxy.address">127.0.0.1</address>
             <port system-property="tangosol.coherence.proxy.port4">9098</port>
             <port-auto-adjust>false</port-auto-adjust>
           </local-address>
@@ -301,7 +301,13 @@
     <proxy-scheme>
       <service-name>ExtendTcpProxyServiceCOH8230</service-name>
       <acceptor-config>
-        <tcp-acceptor/>
+        <tcp-acceptor>
+          <local-address>
+            <address system-property="tangosol.coherence.proxy.address">127.0.0.1</address>
+            <port system-property="tangosol.coherence.proxy.port11">9042</port>
+            <port-auto-adjust>false</port-auto-adjust>
+          </local-address>
+        </tcp-acceptor>
         <serializer>
           <instance>
             <class-name>com.tangosol.io.pof.ConfigurablePofContext</class-name>
@@ -321,7 +327,13 @@
     <proxy-scheme>
       <service-name>ExtendTcpProxyControlService</service-name>
       <acceptor-config>
-        <tcp-acceptor/>
+        <tcp-acceptor>
+          <local-address>
+            <address system-property="tangosol.coherence.proxy.address">127.0.0.1</address>
+            <port system-property="tangosol.coherence.proxy.port12">9043</port>
+            <port-auto-adjust>false</port-auto-adjust>
+          </local-address>
+        </tcp-acceptor>
         <serializer>
           <instance>
             <class-name>com.tangosol.io.pof.ConfigurablePofContext</class-name>
@@ -348,7 +360,7 @@
               <identity-manager>
                 <algorithm>SunX509</algorithm>
                 <key-store>
-                  <url>file:../tests/Coherence.Tests/Config/testcert.jks</url>
+                  <url>file:testcert.jks</url>
                   <type>JKS</type>
                 </key-store>
                 <password>password</password>
@@ -386,7 +398,7 @@
               <identity-manager>
                 <algorithm>SunX509</algorithm>
                 <key-store>
-                  <url>file:../tests/Coherence.Tests/Config/testcert.jks</url>
+                  <url>file:testcert.jks</url>
                   <type>JKS</type>
                 </key-store>
                 <password>password</password>
@@ -426,14 +438,14 @@
               <identity-manager>
                 <algorithm>SunX509</algorithm>
                 <key-store>
-                  <url>file:../tests/Coherence.Tests/Config/testcert.jks</url>
+                  <url>file:testcert.jks</url>
                   <type>JKS</type>
                 </key-store>
                 <password>password</password>
               </identity-manager>
               <trust-manager>
                 <key-store>
-                  <url>file:../tests/Coherence.Tests/Config/testcert.jks</url>
+                  <url>file:testcert.jks</url>
                   <password>password</password>
                   <type>JKS</type>
                 </key-store>

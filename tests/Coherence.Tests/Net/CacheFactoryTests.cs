@@ -255,6 +255,7 @@ namespace Tangosol.Net
         }
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestServiceLevelClusterNameCacheService()
         {
             // this will ultimately establish a connection using the cluster-name configuration either at the global or
@@ -266,6 +267,7 @@ namespace Tangosol.Net
         }
         
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestServiceLevelClusterNameInvocationService()
         {
             // this will ultimately establish a connection using the cluster-name configuration either at the global or
@@ -277,12 +279,14 @@ namespace Tangosol.Net
         }
         
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestServiceLevelUnknownClusterNameCacheService()
         {
             Assert.That(() => (RemoteCacheService) ((SafeCacheService)CacheFactory.GetService("ExtendTcpCacheServiceUnknownCN")).RunningService, Throws.Exception);
         }
         
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestServiceLevelUnknownClusterNameInvocationService()
         {
             Assert.That(() => (RemoteCacheService) ((SafeCacheService)CacheFactory.GetService("RemoteInvocationServiceUnknownCN")).RunningService, Throws.Exception);

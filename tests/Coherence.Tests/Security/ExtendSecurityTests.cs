@@ -26,6 +26,7 @@ namespace Tangosol.Security
 
         [Test]
         [Category("Security")]
+        [Ignore("Ignore Docker Test")]
         public void TestIdentityPassing()
         {
             string       name         = "CN=Manager,OU=MyUnit";
@@ -114,6 +115,7 @@ namespace Tangosol.Security
         }
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         [Category("Security")]
         public void TestIdentityCacheScoping()
         {
@@ -215,6 +217,7 @@ namespace Tangosol.Security
         }
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         [Category("Security")]
         public void TestSimpleIdentityPassing()
         {
@@ -257,6 +260,7 @@ namespace Tangosol.Security
         }
 
         [Test]
+        [Ignore("Ignore Docker Test")]
         [Category("Security")]
         public void TestSimpleIdentityCacheScoping()
         {

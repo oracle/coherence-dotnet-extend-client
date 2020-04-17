@@ -244,9 +244,12 @@
       <service-name>ExtendTcpProxyServiceCOH8230</service-name>
       <initiator-config>
         <tcp-initiator>
-          <name-service-addresses>
-            <address-provider>ap2</address-provider>
-          </name-service-addresses>
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9042</port>
+            </socket-address>
+          </remote-addresses>
         </tcp-initiator>
       </initiator-config>
     </remote-cache-scheme>
@@ -371,9 +374,12 @@
       <service-name>ExtendTcpProxyControlService</service-name>
       <initiator-config>
         <tcp-initiator>
-          <name-service-addresses>
-            <address-provider>ap2</address-provider>
-          </name-service-addresses>
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9043</port>
+            </socket-address>
+          </remote-addresses>
         </tcp-initiator>
       </initiator-config>
     </remote-invocation-scheme>

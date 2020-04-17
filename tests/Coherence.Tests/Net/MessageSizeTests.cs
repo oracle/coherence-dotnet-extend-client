@@ -64,6 +64,7 @@ namespace Tangosol.Net
         /// the max-message-size of the initiator's incoming message handler.
         /// </summary>
         [Test]
+        [Ignore("Ignore Docker Test")]
         [ExpectedException(typeof(IOException))]
         public void TestGetLargeData()
         {
@@ -87,6 +88,7 @@ namespace Tangosol.Net
         /// max-message-size of the initiator's outgoing message handler.
         /// </summary>
         [Test]
+        [Ignore("Ignore Docker Test")]
         [ExpectedException(typeof(IOException))]
         public void TestPutLargeData()
         {

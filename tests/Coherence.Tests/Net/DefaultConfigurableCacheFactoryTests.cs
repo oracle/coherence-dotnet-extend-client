@@ -355,6 +355,7 @@ namespace Tangosol.Net
         /// Test the default config contained in coherence.dll
         /// </summary>
         [Test]
+        [Ignore("Ignore Docker Test")]
         public void TestEmbeddedCacheConfig()
         {
             var                       coherence   = (CoherenceConfig) ConfigurationUtils.GetCoherenceConfiguration();

@@ -19,7 +19,8 @@ set SYS_OPTS=-Dcoherence.log=..\build\ensure.log -Dtangosol.coherence.localhost=
 
 :spawn
 start "DefaultCacheServer-9099" /I start-test-server.cmd 9099 9040 8040 9098 9490 9600 9700 9800 9900
-start "DefaultCacheServer-9100" /I start-test-server.cmd 9100 9050 8050 9198 9590 9601 9701 9801 9901
+@rem to support docker, only run one server for now
+@rem start "DefaultCacheServer-9100" /I start-test-server.cmd 9100 9050 8050 9198 9590 9601 9701 9801 9901
 
 :ensure
 @echo on

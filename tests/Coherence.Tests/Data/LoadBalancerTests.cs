@@ -13,6 +13,7 @@ using Tangosol.Net;
 namespace Tangosol.Data
 {
     [TestFixture]
+    [Ignore("Ignore Docker Test")]
     public class LoadBalancerTests
     {
         [Test]

@@ -11,6 +11,7 @@ using NUnit.Framework;
 namespace Tangosol.Net.Impl
 {
     [TestFixture]
+    [Ignore("Ignore Docker Test")]
     public class RemoteNameServiceTests
     {
         NameValueCollection appSettings = TestUtils.AppSettings;

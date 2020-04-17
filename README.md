@@ -223,10 +223,16 @@ Map (welcomes): bye
 # <a name="testing"></a>Testing
 
 To run Coherence for .NET test suite, you must have a coherence.jar.  Using ant, you can provide a build.properties file in the tools\ant directory to specify a maven repository from which coherence.jar can be downloaded.
-The test suite starts two Coherence servers for the .NET clients to connect to run the tests.
+The test suite starts a Coherence server for the .NET clients to connect to run the tests.
 
 ```
 msbuild /t:test Coherence.msbuild
+```
+
+To run Coherence for .NET test suite starting a Coherence server in docker container, use the following commaond:
+
+```
+msbuild /t:test Coherence.docker
 ```
 
 # <a name="docs"></a>Documentation
