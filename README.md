@@ -8,7 +8,7 @@
 -->
 
 -----
-<img src=https://coherence.java.net/assets/img/logo-community.png><img>
+<img src=https://oracle.github.io/coherence/assets/images/logo-red.png><img>
 
 [![License](http://img.shields.io/badge/license-UPL%201.0-blue.svg)](https://oss.oracle.com/licenses/upl/)
 
@@ -26,25 +26,29 @@
 
 # <a name="intro"></a>Introduction to Coherence
 
-[Coherence](http://coherence.java.net/) is scalable, fault-tolerant, cloud-ready,
+[Coherence](http://coherence.community/) is a scalable, fault-tolerant, cloud-ready,
 distributed platform for building grid-based applications and reliably storing data.
-The product is used at scale, for both compute and raw storage, in a vast array of
-industries including critical financial trading systems, high performance telecommunication
-products and eCommerce applications to name but a few. Typically these deployments
-do not tolerate any downtime and Coherence is chosen due its novel features in 
-death detection, application data evolvability, and the robust, battle-hardened 
-core of the product allowing it to be seamlessly deployed and adapt within any ecosystem.
+The product is used at scale, for both compute and raw storage, in a vast array of 
+industries such as critical financial trading systems, high performance telecommunication
+products and eCommerce applications. 
 
-At a high level, Coherence provides an implementation of the all too familiar `IDictionary`
+Typically these deployments do not tolerate any downtime and Coherence is chosen due to its 
+novel features in death detection, application data evolvability, and the robust,
+battle-hardened core of the product that enables it to be seamlessly deployed and 
+adapted within any ecosystem.
+
+At a high level, Coherence provides an implementation of the familiar `IDictionary`
 interface but rather than storing the associated data in the local process it is partitioned
-(or sharded if you prefer) across a number of designated remote nodes. This allows
+(or sharded) across a number of designated remote nodes. This partitioning enables
 applications to not only distribute (and therefore scale) their storage across multiple
 processes, machines, racks, and data centers but also to perform grid-based processing
-to truly harness the cpu resources of the machines. The Coherence interface `INamedCache`
-(an extension of `IDictionary`) provides methods to query, aggregate (map/reduce style) and
-compute (send functions to storage nodes for locally executed mutations) the data set.
-These capabilities, in addition to numerous other features, allows Coherence to be used
-as a framework to write robust, distributed applications. 
+to truly harness the CPU resources of the machines. 
+
+The Coherence interface `INamedCache` (an extension of `IDictionary`) provides methods
+to query, aggregate (map/reduce style) and compute (send functions to storage nodes
+for locally executed mutations) the data set. These capabilities, in addition to 
+numerous other features, enable Coherence to be used as a framework for writing robust,
+distributed applications.
 
 # <a name="acquire"></a>How to Get Coherence Community Edition
 
@@ -160,7 +164,7 @@ msbuild /t:clean /t:build
 ## Start a Coherence server
 
 ```
-"%JAVA_HOME%\bin\java" -Dcoherence.pof.enabled=true -Dcoherence.cacheconfig=Resources\server-cache-config.xml -Dcoherence.log.level=6 -jar coherence.jar
+"%JAVA_HOME%\bin\java" -Dcoherence.pof.enabled=true -Dcoherence.cacheconfig=Resources\server-cache-config.xml -jar coherence.jar
 ```
 
 ## Run the Hello Coherence example
@@ -249,7 +253,7 @@ The resulting files:
 
 `dist\14.1.2.0b0` - Coherence MSI installer
 
-For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/develop-remote-clients/creating-net-extend-clients.html).
+For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/develop-remote-clients/creating-net-extend-clients.html).
 
 # <a name="contrib"></a>Contribute
 
