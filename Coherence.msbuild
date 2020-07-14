@@ -283,7 +283,8 @@
       <ZipFiles Include="$(MsiFile)"/>
     </ItemGroup>
 
-    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressFiles="@(ZipFiles)" ZipFileName="$(ZipFile)"  />
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressFiles="@(ZipFiles)" 
+	                                       RemoveRoot="$(DistVersionDir)" ZipFileName="$(ZipFile)"  />
   </Target>
 
   <!-- Escrow target -->
