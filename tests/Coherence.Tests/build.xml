@@ -35,7 +35,7 @@
   <property name="src.dir"             value="${basedir}/Java"/>
   <property name="build.dir"           value="${env.DEV_ROOT}/build"/>
   <property name="classes.dir"         value="${build.dir}/classes"/>
-  <property name="build.version_maven" value="14.1.2-0-0"/>
+  <property name="build.version_maven" value="14.1.1-0-1"/>
   <property name="lib.dir"             value="${env.DEV_ROOT}/lib/java"/>
 
   <!-- Ivy -->

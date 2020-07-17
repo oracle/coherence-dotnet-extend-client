@@ -8,6 +8,6 @@
 <ivy-module version="2.0">
   <info organisation="com.oracle" module="coherence"/>
   <dependencies>
-    <dependency org="com.oracle.coherence" name="coherence" rev="${build.version_maven}-SNAPSHOT" changing="true"/>
+    <dependency org="com.oracle.coherence.ce" name="coherence" rev="${build.version_maven}" conf="default->master"/>
   </dependencies>
 </ivy-module>
