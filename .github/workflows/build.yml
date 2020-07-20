@@ -20,6 +20,10 @@ on:
       - committed
     branches:
     - '*'
+  pull_request_review:
+    types:
+      - submitted
+      - edited
 
 jobs:
   build:
