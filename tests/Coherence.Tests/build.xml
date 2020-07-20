@@ -28,7 +28,7 @@
   <!-- Define global project properties                                  -->
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
   <property environment="env"/>
-  
+
     <!-- properties specific to this build environment; e.g. artifactory location -->
   <property file="${ant.home}/build.properties"/>
 
