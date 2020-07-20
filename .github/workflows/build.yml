@@ -108,4 +108,4 @@ jobs:
       if: failure()
       with:
         name: test-reports
-        path: **\*tests.xml
+        path: build\**\*tests.xml
