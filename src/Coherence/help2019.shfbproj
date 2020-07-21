@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Import the common properties to support NuGet restore -->
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -20,7 +20,7 @@
     <OutputPath>..\..\build\Help\</OutputPath>
     <HtmlHelpName>Coherence</HtmlHelpName>
     <Language>en-US</Language>
-    <HelpFileFormat>HtmlHelp1, MSHelpViewer</HelpFileFormat>
+    <HelpFileFormat>HtmlHelp1, MSHelpViewer, Website</HelpFileFormat>
     <SyntaxFilters>C#</SyntaxFilters>
     <PresentationStyle>VS2013</PresentationStyle>
     <CleanIntermediates>True</CleanIntermediates>
@@ -74,45 +74,46 @@ the client application.</ProjectSummary>
     <SdkLinkType>Index</SdkLinkType>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Tangosol.Config" isDocumented="True">Contains a configuration section handler and related classes for configuring Coherence for .NET.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Internal.Util.Processor" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.IO" isDocumented="True">Contains low-level I/O classes and interfaces.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.IO.Pof" isDocumented="True">Contains classes and interfaces for writing and reading .NET objects to and from a binary Portable Object Format (POF) or Portable Invocation Format (PIF).</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.IO.Resources" isDocumented="True">Contains classes and interfaces for accessing different types of resources that can provide a System.IO.Stream to read from.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Net" isDocumented="True">Contains classes and interfaces used to establish a connection to a remote Coherence cluster and to access clustered services, such as caches and invocation services.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Net.Cache" isDocumented="True">Contains classes and interface that provide various caching functionality.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Net.Cache.Support" isDocumented="True">Contains support classes for caching functionality.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Net.Impl" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Net.Messaging" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl.CacheService" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl.InvocationService" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl.NameService" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl.NamedCache" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Util" isDocumented="True">Contains miscellaneous utility classes and interfaces.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Util.Aggregator" isDocumented="True">Contains various aggregator implementations.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Util.Collections" isDocumented="True">Contains various collection implementations.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Util.Comparator" isDocumented="True">Contains various comparator implementations.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Util.Daemon" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Util.Daemon.QueueProcessor" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Util.Daemon.QueueProcessor.Service" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Util.Daemon.QueueProcessor.Service.Peer" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Util.Extractor" isDocumented="True">Contains various extractor implementations.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Util.Filter" isDocumented="True">Contains various filter implementations.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Util.Logging" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Util.Processor" isDocumented="True">Contains various processor implementations.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Util.Transformer" isDocumented="True">Contains various event transformer implementations.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Web" isDocumented="True">Contains a Coherence-backed ASP.NET 2.0 session store provider implementation and related utility classes.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.IO.Pof.Reflection" isDocumented="True">Contains classes related to Portable Object Format (POF) stream navigation and manipulation.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Net.Internal" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Net.Security" isDocumented="True">Contains interfaces related to the Coherence Security Framework.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Net.Security.Impl" isDocumented="True">Contains Coherence Security Framework implementation classes.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Run.Xml" isDocumented="True">Contains classes and interfaces providing basic XML related functionality.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.Web.Model" isDocumented="True">Contains session item collection implementations used by the ASP.NET 2.0 session store provider.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.IO.Pof.Annotation" isDocumented="True">Contains custom attribute classes used by the attribute-driven POF serializer.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.IO.Pof.Schema.Annotation" isDocumented="True">Contains custom attribute classes used for marking class as portable and optionally defining type identifier.</NamespaceSummaryItem>
-        <NamespaceSummaryItem name="Tangosol.IO.Pof.Reflection.Internal" isDocumented="False" />
-        <NamespaceSummaryItem name="Tangosol.Net.Partition" isDocumented="True">Contains classes related to partitioned services.</NamespaceSummaryItem></NamespaceSummaries>
+      <NamespaceSummaryItem name="Tangosol.Internal.Util.Processor" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.IO" isDocumented="True">Contains low-level I/O classes and interfaces.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.IO.Pof" isDocumented="True">Contains classes and interfaces for writing and reading .NET objects to and from a binary Portable Object Format (POF) or Portable Invocation Format (PIF).</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.IO.Resources" isDocumented="True">Contains classes and interfaces for accessing different types of resources that can provide a System.IO.Stream to read from.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Net" isDocumented="True">Contains classes and interfaces used to establish a connection to a remote Coherence cluster and to access clustered services, such as caches and invocation services.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Net.Cache" isDocumented="True">Contains classes and interface that provide various caching functionality.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Net.Cache.Support" isDocumented="True">Contains support classes for caching functionality.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Net.Impl" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Net.Messaging" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl.CacheService" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl.InvocationService" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl.NameService" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Net.Messaging.Impl.NamedCache" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Util" isDocumented="True">Contains miscellaneous utility classes and interfaces.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Util.Aggregator" isDocumented="True">Contains various aggregator implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Util.Collections" isDocumented="True">Contains various collection implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Util.Comparator" isDocumented="True">Contains various comparator implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Util.Daemon" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Util.Daemon.QueueProcessor" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Util.Daemon.QueueProcessor.Service" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Util.Daemon.QueueProcessor.Service.Peer" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Util.Extractor" isDocumented="True">Contains various extractor implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Util.Filter" isDocumented="True">Contains various filter implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Util.Logging" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Util.Processor" isDocumented="True">Contains various processor implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Util.Transformer" isDocumented="True">Contains various event transformer implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Web" isDocumented="True">Contains a Coherence-backed ASP.NET 2.0 session store provider implementation and related utility classes.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.IO.Pof.Reflection" isDocumented="True">Contains classes related to Portable Object Format (POF) stream navigation and manipulation.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Net.Internal" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Net.Security" isDocumented="True">Contains interfaces related to the Coherence Security Framework.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Net.Security.Impl" isDocumented="True">Contains Coherence Security Framework implementation classes.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Run.Xml" isDocumented="True">Contains classes and interfaces providing basic XML related functionality.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.Web.Model" isDocumented="True">Contains session item collection implementations used by the ASP.NET 2.0 session store provider.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.IO.Pof.Annotation" isDocumented="True">Contains custom attribute classes used by the attribute-driven POF serializer.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.IO.Pof.Schema.Annotation" isDocumented="True">Contains custom attribute classes used for marking class as portable and optionally defining type identifier.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Tangosol.IO.Pof.Reflection.Internal" isDocumented="False" />
+      <NamespaceSummaryItem name="Tangosol.Net.Partition" isDocumented="True">Contains classes related to partitioned services.</NamespaceSummaryItem>
+    </NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
