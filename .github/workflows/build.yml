@@ -1,0 +1,107 @@
+# Copyright 2020 Oracle Corporation and/or its affiliates.  All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# http://oss.oracle.com/licenses/upl.
+
+# ---------------------------------------------------------------------------
+# Coherence .NET Extend Client GitHub Actions CI build.
+# ---------------------------------------------------------------------------
+
+name: CI Build
+
+on:
+  push:
+    branches-ignore:
+    - gh-pages
+    - p4-integ*
+    - last-p4-*
+  pull_request:
+    types:
+      - opened
+      - committed
+    branches:
+    - '*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@2008f912f56e61277eefaac6d1888b750582aa16
+
+    # Install and Set up dependencies/tools which are required by build
+    - name: Build Setup
+      run: |
+        Get-ChildItem Env: | Sort name
+        # Install msbuild.extension.pack
+        mkdir -p tools\internal\msbuild
+        $client = new-object System.Net.WebClient
+        $client.DownloadFile("https://www.nuget.org/api/v2/package/MSBuild.Extension.Pack/1.9.1","$Env:TEMP\msbuild.extension.pack.1.9.1.nupkg")
+        unzip $Env:TEMP\msbuild.extension.pack.1.9.1.nupkg -d tools\internal\msbuild
+        dir tools\internal\msbuild
+
+        # Install nunit and nunit.runner
+        $client.DownloadFile("https://launchpad.net/nunitv2/trunk/2.6.2/+download/NUnit-2.6.2.zip","$Env:TEMP\NUnit-2.6.2.zip")
+        unzip $Env:TEMP\NUnit-2.6.2.zip -d tools\internal\
+        move tools\internal\NUnit-2.6.2 tools\internal\nunit
+        mkdir tools\internal\nunit\lib
+        xcopy tools\internal\nunit\bin\framework\nunit.framework.dll tools\internal\nunit\lib
+        mkdir tools\internal\nunit.runners
+        $client.DownloadFile("https://www.nuget.org/api/v2/package/NUnit.Runners/2.6.2","$Env:TEMP\nunit.runners.2.6.2.nupkg")
+        unzip $Env:TEMP\nunit.runners.2.6.2.nupkg -d tools\internal\nunit.runners\
+
+        # Install ant under tools\internal\ant
+        $client.DownloadFile("https://archive.apache.org/dist/ant/binaries/apache-ant-1.7.0-bin.zip","$Env:TEMP\ant.zip")
+        mkdir -p tools\internal\ant
+        unzip $Env:TEMP\ant.zip -d tools\internal\
+        move tools\internal\apache-ant-1.7.0 tools\internal\ant
+
+        # Install Sandcastle Help File Builder and Tools
+        mkdir -p tools\internal\shfb
+        $client.DownloadFile("https://www.nuget.org/api/v2/package/EWSoftware.SHFB/2019.11.17", "$Env:TEMP\shfb.nupkg")
+        unzip $Env:TEMP\shfb.nupkg -d tools\internal\shfb\
+        move tools\internal\shfb\tools\* tools\internal\shfb\
+
+        # Install winhttpcertcfg and certmgr required for running tests.
+        mkdir -p tools\internal\resourcekit
+        choco install winhttpcertcfg
+        move C:\ProgramData\chocolatey\lib\WinHttpCertCfg\tools\* tools\internal\resourcekit\
+        xcopy "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\x64\certmgr.exe" "C:\ProgramData\Chocolatey\bin"
+
+    # Build
+    - name: Build
+      run: |
+        $Env:DEV_ROOT = pwd
+        bin\cfgbuild.cmd
+        msbuild /t:clean /t:build Coherence.msbuild
+
+    # Verify
+    - name: Verify
+      run: |
+        $Env:DEV_ROOT = pwd
+        bin\cfgbuild.cmd
+        msbuild /t:test Coherence.msbuild
+
+    # Capture logs and test reports for diagnosing failures
+    - name: Capture test logs
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: build-output
+        path: build\**\*.log
+
+    - name: Capture test reports
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: test-reports
+        path: build\**\*tests.xml
