@@ -49,7 +49,7 @@
   <property  name="ivy.cache"                       value="${ivy.dir}/ivycache"/>
   <property  name="ivy.version"                     value="2.4.0"/>
   <property  name="ivy.jar"                         value="${ivy.dir}/ivy-${ivy.version}.jar"/>
-  <property  name="ivy.file"                        value="ivy.xml"
+  <property  name="ivy.file"                        value="ivy.xml"/>
   <available property="ivy-exists"                  file="${ivy.jar}"/>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
