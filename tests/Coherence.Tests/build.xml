@@ -35,6 +35,7 @@
   <property name="src.dir"             value="${basedir}/Java"/>
   <property name="build.dir"           value="${env.DEV_ROOT}/build"/>
   <property name="classes.dir"         value="${build.dir}/classes"/>
+  <property name="build.groupId_maven" value="com.oracle.coherence.ce"/>
   <property name="build.version_maven" value="14.1.1-0-1"/>
   <property name="lib.dir"             value="${env.DEV_ROOT}/lib/java"/>
 
@@ -48,6 +49,7 @@
   <property  name="ivy.cache"                       value="${ivy.dir}/ivycache"/>
   <property  name="ivy.version"                     value="2.4.0"/>
   <property  name="ivy.jar"                         value="${ivy.dir}/ivy-${ivy.version}.jar"/>
+  <property  name="ivy.file"                        value="ivy.xml"
   <available property="ivy-exists"                  file="${ivy.jar}"/>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -83,7 +85,7 @@
   <!-- Resolve dependencies -->
   <target name="resolve" description="Resolve dependencies." depends="init">
     <ivy:settings file   ="${basedir}/ivy-settings.xml"/>
-    <ivy:resolve  file   ="${basedir}/ivy.xml"/>
+    <ivy:resolve  file   ="${basedir}/${ivy.file}"/>
     <ivy:retrieve pattern="${lib.dir}/[artifact].[ext]"/>
   </target>
 
