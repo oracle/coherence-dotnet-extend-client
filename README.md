@@ -10,6 +10,7 @@
 -----
 <img src=https://coherence.java.net/assets/img/logo-community.png><img>
 
+![CI Build](https://github.com/oracle/coherence-dotnet-extend-client/workflows/CI%20Build/badge.svg)
 [![License](http://img.shields.io/badge/license-UPL%201.0-blue.svg)](https://oss.oracle.com/licenses/upl/)
 
 # Oracle Coherence for .NET - Community Edition
