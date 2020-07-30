@@ -260,7 +260,7 @@ namespace Tangosol.Net
 
                     ClientCertificates = certificateCollection;
                     // Configure the local certificate selector
-                    xmlSub = xml.GetElement("selector");
+                    xmlSub = xmlSub.GetElement("selector");
                     LocalCertificateSelector = xmlSub == null
                             ? LocalCertificatePicker
                             : XmlHelper.CreateDelegate<LocalCertificateSelectionCallback>(xmlSub.GetElement("delegate"));
