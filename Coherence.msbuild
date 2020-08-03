@@ -51,7 +51,7 @@
     <NunitExec>$(ToolsDir)\internal\nunit.runners\tools\nunit-console.exe</NunitExec>
 
     <!--- NuGet ApiKey used to publish package to nuget.org -->
-	<nugetApiKey>oy2nxtp5mb5o2uosc6pai2pfx5aey5gebbc35rr2de7ipq</nugetApiKey>
+	<nugetApiKey>$(nugetKey)</nugetApiKey>
   </PropertyGroup>
 
   <!-- Import the MSBuild extensions -->
