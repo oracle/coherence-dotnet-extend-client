@@ -49,6 +49,9 @@
 
     <!--- Define where the nunit runner is located -->
     <NunitExec>$(ToolsDir)\internal\nunit.runners\tools\nunit-console.exe</NunitExec>
+
+    <!--- NuGet ApiKey used to publish package to nuget.org -->
+	<nugetApiKey>oy2nxtp5mb5o2uosc6pai2pfx5aey5gebbc35rr2de7ipq</nugetApiKey>
   </PropertyGroup>
 
   <!-- Import the MSBuild extensions -->
@@ -93,6 +96,7 @@
     <RemoveDir ContinueOnError="true" Directories="@(Files)"/>
     <Delete Condition="'$(ClearDist)' != ''" ContinueOnError="true" Files="@(Dist)"/>
     <Delete ContinueOnError="true" Files="$(ProjectDir)\AssemblyInfo.cs" />
+    <Delete ContinueOnError="true" Files="$(SrcDir)\coherence\Coherence.$(BuildVersion).nupkg" />
   </Target>
 
   <!-- Build Target -->
@@ -422,4 +426,22 @@
     <Copy OverwriteReadOnlyFiles="true" SourceFiles="$(ProjectDir)\AssemblyInfo.cs"  DestinationFiles="$(PropertiesDir)\AssemblyInfo.cs"/>
     <Delete Files="$(ProjectDir)\AssemblyInfo.cs" />
   </Target>
+  
+  <Target Name="GenerateNuPkg" DependsOnTargets="build" >
+    <Delete Files="$(SrcDir)\coherence\Coherence.$(BuildVersion).nupkg" />
+    <Exec Command="$(ToolsDir)\internal\nuget\nuget.exe pack Coherence.2010.csproj.nuspec -Properties version=$(BuildVersion)" WorkingDirectory="$(SrcDir)\coherence"/>
+  </Target>
+
+  <!--- Required to publish package to nuget.org -->
+  <Target Name="SetApiKeyNuPkg" >
+    <Exec Command="$(ToolsDir)\internal\nuget\nuget.exe setApiKey $(nugetApiKey)"/>
+  </Target>
+  
+  <!-- Note: NuGet.org does not allow a package to be deleted once it is uploaded. 
+             Therefore, please make sure Coherence.properties has the same version as the CE in github
+			 we want to release	before packaging and publishing it to neget.org  -->
+  <Target Name="PublishNuPkg" DependsOnTargets="GenerateNuPkg;SetApiKeyNuPkg" >
+    <Exec Command="$(ToolsDir)\internal\nuget\nuget.exe push Coherence.$(BuildVersion).nupkg -Source https://api.nuget.org/v3/index.json" WorkingDirectory="$(SrcDir)\coherence"/>
+  </Target>
+  
 </Project>
