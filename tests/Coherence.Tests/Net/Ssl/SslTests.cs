@@ -68,7 +68,7 @@ namespace Tangosol.Net.Ssl
         }
 
         [Test]
-        [ExpectedException(typeof(IOException))]
+        [ExpectedException(typeof(System.IO.IOException))]
         public void TestSslClientAuthenticationException()
         {
             var location = new IPEndPoint(IPAddress.Loopback, 5055);

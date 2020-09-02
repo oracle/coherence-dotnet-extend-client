@@ -73,10 +73,16 @@ namespace Tangosol.Net
                 X509Certificate remoteCertificate,
                 string[] acceptableIssuers)
         {
+            Console.WriteLine("SslStreamProvider.LocalCertificatePicker(), localCertificates: ", localCertificates);
+
             if (localCertificates == null || localCertificates.Count == 0)
             {
                 return null;
             }
+
+            Console.WriteLine("SslStreamProvider.LocalCertificatePicker(), localCertificates.Count: ", localCertificates.Count);
+
+            Console.WriteLine("SslStreamProvider.LocalCertificatePicker(), acceptableIssuers: ", acceptableIssuers);
 
             if (acceptableIssuers != null && acceptableIssuers.Length > 0)
             {
@@ -85,10 +91,13 @@ namespace Tangosol.Net
                 {
                     if (((IList<string>)acceptableIssuers).Contains(certificate.Issuer))
                     {
+                        Console.WriteLine("SslStreamProvider.LocalCertificatePicker(), certificate: ", certificate);
                         return certificate;
                     }
                 }
             }
+
+            Console.WriteLine("SslStreamProvider.LocalCertificatePicker(), localCertificates[0]: " + localCertificates[0]);
 
             // As a last resort, return the first certificate in the localCertificates.
             return localCertificates[0];
