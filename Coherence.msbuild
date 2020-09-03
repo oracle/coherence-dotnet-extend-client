@@ -427,7 +427,9 @@
     <Delete Files="$(ProjectDir)\AssemblyInfo.cs" />
   </Target>
   
-  <Target Name="GenerateNuPkg" DependsOnTargets="build" >
+  <!--- Add dependency on "build" if we want to make this part of the release process -->
+  <!--- Right now, stage the build\Coherence.2010\Release from the bin directory in the install of the released .NET client -->
+  <Target Name="GenerateNuPkg" >
     <Delete Files="$(SrcDir)\coherence\Coherence.$(BuildVersion).nupkg" />
     <Exec Command="$(ToolsDir)\internal\nuget\nuget.exe pack Coherence.2010.csproj.nuspec -Properties version=$(BuildVersion)" WorkingDirectory="$(SrcDir)\coherence"/>
   </Target>
