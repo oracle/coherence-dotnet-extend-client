@@ -68,7 +68,7 @@ namespace Tangosol.Net.Ssl
         }
 
         [Test]
-        [ExpectedException(typeof(System.IO.IOException))]
+//        [ExpectedException(typeof(System.IO.IOException))]
         public void TestSslClientAuthenticationException()
         {
             var location = new IPEndPoint(IPAddress.Loopback, 5055);
@@ -90,8 +90,12 @@ namespace Tangosol.Net.Ssl
                             };
                 client.Connect();
 
-                string echo = client.Echo("Hello World");
-                Assert.AreEqual(echo, "Hello World");
+                Assert.Fail("Should've thrown IOException.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                Assert.IsTrue(e is IOException);
             }
             finally
             {
