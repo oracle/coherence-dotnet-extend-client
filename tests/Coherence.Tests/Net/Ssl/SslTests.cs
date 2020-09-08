@@ -7,7 +7,8 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Net.Sockets;
+ using System.Net.Security;
+ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -90,11 +91,12 @@ namespace Tangosol.Net.Ssl
                             };
                 client.Connect();
 
-                Assert.Fail("Should've thrown IOException.");
+                string echo = client.Echo("Hello World");
+                Assert.AreEqual(echo, "Hello World");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine("SslTests.TestSslClientAuthenticationException(), exception: " + e.ToString());
                 Assert.IsTrue(e is IOException);
             }
             finally
