@@ -171,6 +171,7 @@
     <Compile Include="Net\Messaging\ConnectionExceptionTests.cs" />
     <Compile Include="Net\Messaging\Impl\CacheService\CacheServiceTests.cs" />
     <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheTests.cs" />
+    <Compile Include="Net\Ssl\ClientCertificateSelector.cs" />
     <Compile Include="Net\Ssl\SslTests.cs" />
     <Compile Include="Net\Ssl\SslClient.cs" />
     <Compile Include="Net\Ssl\SslServer.cs" />
@@ -368,6 +369,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Net\Ssl\Configs\config5.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\Configs\config6.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Resources\s4hc-test-config-defaultserializer-included.xml" />

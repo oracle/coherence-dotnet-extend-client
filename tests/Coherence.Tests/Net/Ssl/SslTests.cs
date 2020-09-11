@@ -4,11 +4,11 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
- using System.Net.Security;
- using System.Net.Sockets;
+using System.Net.Security;
+using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -301,5 +301,41 @@ namespace Tangosol.Net.Ssl
             }
         }
 
+        [Test]
+        public void TestSslConfigurationWithSelector()
+        {
+            IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config6.xml");
+            Assert.NotNull(xmlDoc);
+
+            IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
+            Assert.NotNull(streamProvider);
+            Assert.IsTrue(streamProvider is SslStreamProvider);
+
+            SslStreamProvider sslStreamProvider = (streamProvider as SslStreamProvider);
+            Assert.IsTrue(sslStreamProvider.LocalCertificateSelector is LocalCertificateSelectionCallback);
+
+            var location = new IPEndPoint(IPAddress.Loopback, 5055);
+            server = new SslServer(location)
+            {
+                ServerCertificate = SslServer.LoadCertificate(serverCert),
+                AuthenticateClient = true
+            };
+            server.Start();
+
+            TcpClient client = new TcpClient();
+            try
+            {
+                client.Connect(location);
+                Stream stream = streamProvider.GetStream(client);
+
+                string echo = SslClient.Echo(stream, "Hello World");
+                Assert.AreEqual(echo, "Hello World");
+            }
+            finally
+            {
+                client.Close();
+                server.Stop();
+            }
+        }
     }
 }

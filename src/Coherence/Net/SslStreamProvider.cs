@@ -4,7 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -260,7 +260,7 @@ namespace Tangosol.Net
 
                     ClientCertificates = certificateCollection;
                     // Configure the local certificate selector
-                    xmlSub = xml.GetElement("selector");
+                    xmlSub = xmlSub.GetElement("selector");
                     LocalCertificateSelector = xmlSub == null
                             ? LocalCertificatePicker
                             : XmlHelper.CreateDelegate<LocalCertificateSelectionCallback>(xmlSub.GetElement("delegate"));
