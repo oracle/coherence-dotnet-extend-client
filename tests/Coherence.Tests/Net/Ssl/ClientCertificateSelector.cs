@@ -32,7 +32,12 @@ namespace Tangosol.Net.Ssl
             Console.WriteLine(typeof(ClientCertificateSelector).Name +
                     ": Using custom delegate method for client certificate selector.");
 
-            return localCertificates[0];
+            if (localCertificates != null && localCertificates.Count > 0)
+            {
+                return localCertificates[0];
+            }
+
+            throw new InvalidOperationException("Expected one or more client certificates.");
         }
     }
 }
