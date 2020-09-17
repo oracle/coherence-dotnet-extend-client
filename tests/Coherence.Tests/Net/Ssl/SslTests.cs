@@ -49,14 +49,14 @@ namespace Tangosol.Net.Ssl
             };
             server.Start();
 
-            try
-            {
-                SslClient client =
-                 new SslClient(location)
-                 {
+            SslClient client =
+                new SslClient(location)
+                    {
                      ServerName = "MyServerName",
                      Protocol = SslProtocols.Default
-                 };
+                    };
+            try
+            {
                 client.Connect();
 
                 string echo = client.Echo("Hello World");
@@ -64,6 +64,7 @@ namespace Tangosol.Net.Ssl
             }
             finally
             {
+                client.Close();
                 server.Stop();  
             }
         }
@@ -81,14 +82,15 @@ namespace Tangosol.Net.Ssl
                                  AuthenticateClient = true
             };
             server.Start();
+
+            SslClient client =
+                    new SslClient(location)
+                        {
+                            ServerName = "MyServerName",
+                            Protocol = SslProtocols.Default
+                        };
             try
             {
-                SslClient client =
-                        new SslClient(location)
-                            {
-                                ServerName = "MyServerName",
-                                Protocol = SslProtocols.Default
-                            };
                 client.Connect();
 
                 string echo = client.Echo("Hello World");
@@ -101,6 +103,7 @@ namespace Tangosol.Net.Ssl
             }
             finally
             {
+                client.Close();
                 server.Stop();
             }
         }
@@ -118,14 +121,14 @@ namespace Tangosol.Net.Ssl
             };
             server.Start();
 
+            SslClient client =
+                    new SslClient(location)
+                        {
+                            ServerName = "MyServerName",
+                            Protocol = SslProtocols.Default
+                        };
             try
             {
-                SslClient client =
-                        new SslClient(location)
-                            {
-                                ServerName = "MyServerName",
-                                Protocol = SslProtocols.Default
-                            };
                 client.AppendCertificate( new X509Certificate(clientCert, clientCertPassword));
                 client.Connect();
 
@@ -134,6 +137,7 @@ namespace Tangosol.Net.Ssl
             }
             finally
             {
+                client.Close();
                 server.Stop();
             }
         }
@@ -330,6 +334,13 @@ namespace Tangosol.Net.Ssl
 
                 string echo = SslClient.Echo(stream, "Hello World");
                 Assert.AreEqual(echo, "Hello World");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("SslTests.TestSslConfigurationWithSelector(), exception: " + e.ToString());
+                Assert.IsTrue(e is AuthenticationException);
+                Assert.NotNull(e.Message);
+                Assert.IsTrue(e.Message.Contains("RemoteCertificateNameMismatch"));
             }
             finally
             {
