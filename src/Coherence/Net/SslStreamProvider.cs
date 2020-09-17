@@ -269,7 +269,7 @@ namespace Tangosol.Net
                 // configure the remote certificate validator
                 xmlSub = xml.GetElement("remote-certificate-validator");
                 RemoteCertificateValidator = xmlSub == null
-                        ? DefaultCertificateValidation
+                        ? StrictCertificateValidation  // COH-21950 - use strict validation for remote cert
                         : XmlHelper.CreateDelegate<RemoteCertificateValidationCallback>(xmlSub.GetElement("delegate"));
             }
             get
