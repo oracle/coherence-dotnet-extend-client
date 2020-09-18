@@ -374,6 +374,9 @@
     <Content Include="Net\Ssl\Configs\config6.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Net\Ssl\Configs\config7.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Resources\s4hc-test-config-defaultserializer-included.xml" />
     <EmbeddedResource Include="Resources\s4hc-test-config-defaultserializer.xml" />
     <EmbeddedResource Include="Resources\s4hc-test-coherence.xml" />

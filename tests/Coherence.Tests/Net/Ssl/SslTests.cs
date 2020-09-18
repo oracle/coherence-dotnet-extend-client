@@ -52,8 +52,8 @@ namespace Tangosol.Net.Ssl
             SslClient client =
                 new SslClient(location)
                     {
-                     ServerName = "MyServerName",
-                     Protocol = SslProtocols.Default
+                        ServerName = "MyServerName",
+                        Protocol   = SslProtocols.Default
                     };
             try
             {
@@ -70,24 +70,22 @@ namespace Tangosol.Net.Ssl
         }
 
         [Test]
-//        [ExpectedException(typeof(System.IO.IOException))]
+        [ExpectedException(typeof(System.IO.IOException))]
         public void TestSslClientAuthenticationException()
         {
             var location = new IPEndPoint(IPAddress.Loopback, 5055);
             server = new SslServer(location)
-                         {
-                                 ServerCertificate =
-                                         SslServer.LoadCertificate(
-                                         serverCert),
-                                 AuthenticateClient = true
-            };
+                    {
+                        ServerCertificate  = SslServer.LoadCertificate(serverCert),
+                        AuthenticateClient = true
+                    };
             server.Start();
 
             SslClient client =
                     new SslClient(location)
                         {
                             ServerName = "MyServerName",
-                            Protocol = SslProtocols.Default
+                            Protocol   = SslProtocols.Default
                         };
             try
             {
@@ -95,11 +93,6 @@ namespace Tangosol.Net.Ssl
 
                 string echo = client.Echo("Hello World");
                 Assert.AreEqual(echo, "Hello World");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("SslTests.TestSslClientAuthenticationException(), exception: " + e.ToString());
-                Assert.IsTrue(e is IOException);
             }
             finally
             {
@@ -125,7 +118,7 @@ namespace Tangosol.Net.Ssl
                     new SslClient(location)
                         {
                             ServerName = "MyServerName",
-                            Protocol = SslProtocols.Default
+                            Protocol   = SslProtocols.Default
                         };
             try
             {
@@ -333,7 +326,7 @@ namespace Tangosol.Net.Ssl
                 Stream stream = streamProvider.GetStream(client);
 
                 string echo = SslClient.Echo(stream, "Hello World");
-                Assert.AreEqual(echo, "Hello World");
+                Assert.Fail("Expected Exception, but got none");
             }
             catch (Exception e)
             {
@@ -341,6 +334,45 @@ namespace Tangosol.Net.Ssl
                 Assert.IsTrue(e is AuthenticationException);
                 Assert.NotNull(e.Message);
                 Assert.IsTrue(e.Message.Contains("RemoteCertificateNameMismatch"));
+            }
+            finally
+            {
+                client.Close();
+                server.Stop();
+            }
+        }
+
+        [Test]
+        public void TestSslRemoteCertValidation()
+        {
+            IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config7.xml");
+            Assert.NotNull(xmlDoc);
+
+            IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
+            Assert.NotNull(streamProvider);
+            Assert.IsTrue(streamProvider is SslStreamProvider);
+
+            SslStreamProvider sslStreamProvider = (streamProvider as SslStreamProvider);
+            Assert.IsTrue(sslStreamProvider.RemoteCertificateValidator is RemoteCertificateValidationCallback);
+
+            var location = new IPEndPoint(IPAddress.Loopback, 5055);
+            server = new SslServer(location)
+            {
+                ServerCertificate = SslServer.LoadCertificate(serverCert),
+                AuthenticateClient = true
+            };
+            server.Start();
+
+            TcpClient client = new TcpClient();
+            try
+            {
+                client.Connect(location);
+                Stream stream = streamProvider.GetStream(client);
+                Assert.NotNull(stream);
+                Assert.AreEqual(sslStreamProvider.ServerName, "MyServerName");
+
+                string echo = SslClient.Echo(stream, "Hello World");
+                Assert.AreEqual(echo, "Hello World");
             }
             finally
             {
