@@ -643,6 +643,17 @@
     </xs:annotation>
   </xs:element>
 
+  <xs:element name="server" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        The string representing either remote server Fully Qualified Dns Name(FQDN)
+        or IP address which will be matched in remote certificate for validation.
+
+        Used in: ssl
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
   <xs:element name="protocol" type="parameterizable-string">
     <xs:annotation>
       <xs:documentation>
@@ -734,6 +745,7 @@
 
   <xs:complexType name="ssl">
     <xs:sequence>
+      <xs:element ref="server" minOccurs="0"/>
       <xs:element ref="protocol" minOccurs="0"/>
       <xs:element ref="local-certificates" minOccurs="0"/>
       <xs:element ref="remote-certificate-validator" minOccurs="0"/>
