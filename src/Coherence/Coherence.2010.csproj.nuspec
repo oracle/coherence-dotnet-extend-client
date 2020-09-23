@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/oracle/coherence-dotnet-extend-client/</projectUrl>
     <icon>coherenceIcon.png</icon>
     <description>Oracle Coherence for .NET Extend Client, Community Edition.</description>
-    <releaseNotes>This is the first Coherence Community Edition release ($version$) of .NET Extend Client available on nuget.org. Coherence has empowered developers to build scalable, fault tolerant, distributed applications for almost 20 years and now Coherence CE allows everyone to take advantage of this novel product.</releaseNotes>
+    <releaseNotes>This is a Coherence Community Edition patch release ($version$) of .NET Extend Client available on nuget.org. Coherence has empowered developers to build scalable, fault tolerant, distributed applications for almost 20 years and now Coherence CE allows everyone to take advantage of this novel product.</releaseNotes>
     <copyright>Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</copyright>
 	<language>en-US</language>
     <tags>Coherence .NET cache</tags>
