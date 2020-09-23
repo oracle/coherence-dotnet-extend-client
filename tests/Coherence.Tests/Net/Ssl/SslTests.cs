@@ -29,11 +29,13 @@ namespace Tangosol.Net.Ssl
         [SetUp]
         public void SetUp()
         {
+            server = null;
         }
 
         [TearDown]
         public void TearDown()
         {
+            server = null;
         }
 
 
@@ -65,7 +67,8 @@ namespace Tangosol.Net.Ssl
             finally
             {
                 client.Close();
-                server.Stop();  
+                server.Stop();
+                client = null;
             }
         }
 
@@ -98,6 +101,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
 
@@ -122,7 +126,7 @@ namespace Tangosol.Net.Ssl
                         };
             try
             {
-                client.AppendCertificate( new X509Certificate(clientCert, clientCertPassword));
+                client.AppendCertificate(new X509Certificate(clientCert, clientCertPassword));
                 client.Connect();
 
                 string echo = client.Echo("Hello World");
@@ -132,6 +136,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
 
@@ -164,6 +169,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
 
@@ -197,6 +203,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
 
@@ -229,6 +236,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
 
@@ -262,6 +270,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
 
@@ -295,6 +304,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
 
@@ -339,6 +349,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
 
@@ -378,6 +389,7 @@ namespace Tangosol.Net.Ssl
             {
                 client.Close();
                 server.Stop();
+                client = null;
             }
         }
     }
