@@ -73,7 +73,7 @@ namespace Tangosol.Net.Ssl
         }
 
         [Test]
-        [ExpectedException(typeof(System.IO.IOException))]
+        [ExpectedException(typeof(IOException))]
         public void TestSslClientAuthenticationException()
         {
             var location = new IPEndPoint(IPAddress.Loopback, 5055);
@@ -87,8 +87,9 @@ namespace Tangosol.Net.Ssl
             SslClient client =
                     new SslClient(location)
                         {
-                            ServerName = "MyServerName",
-                            Protocol   = SslProtocols.Default
+                            ServerName   = "MyServerName",
+                            Protocol     = SslProtocols.Default,
+                            Certificates = null
                         };
             try
             {
