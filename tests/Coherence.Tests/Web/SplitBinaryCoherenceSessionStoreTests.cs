@@ -153,7 +153,7 @@ namespace Tangosol.Web
             catch (Exception /* e */)
                 {
                 // sleep a bit to make sure session is initialized...
-                Thread.Sleep(500);
+                Thread.Sleep(3000);
                 Assert.AreEqual(1, m_extAttrCache.Count);
                 }
         }
