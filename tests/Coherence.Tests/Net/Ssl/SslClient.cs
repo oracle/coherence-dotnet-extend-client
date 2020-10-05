@@ -32,6 +32,11 @@ namespace Tangosol.Net.Ssl
             Certificates.Add(certificate);
         }
 
+        public void ClearCertificate()
+        {
+            Certificates.Clear();
+        }
+
         public void Connect()
         {
             TcpClient.Connect(ServerAddress);

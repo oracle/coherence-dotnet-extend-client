@@ -135,6 +135,7 @@ namespace Tangosol.Net.Ssl
             }
             finally
             {
+                client.ClearCertificate();
                 client.Close();
                 server.Stop();
                 client = null;
