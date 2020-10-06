@@ -238,10 +238,12 @@ namespace Tangosol.Web
                 {
                 Assert.AreEqual(BLOB, session["blob"]);
                 }
-            catch (Exception /* e */)
+            catch (Exception e)
                 {
+                Console.WriteLine("AbstractCoherenceSessionStoreTests.AssertSessionDefaults() got Execption e: " + e);
+
                 // sleep a bit to make sure blob got into the external cache...
-                Thread.Sleep(100);
+                Thread.Sleep(3000);
                 Assert.AreEqual(BLOB, session["blob"]);
                 }
             Assert.AreEqual(PERSON.Name, ((PortablePerson) session["person"]).Name);
