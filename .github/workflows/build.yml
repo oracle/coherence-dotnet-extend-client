@@ -51,7 +51,6 @@ jobs:
         $client = new-object System.Net.WebClient
         $client.DownloadFile("https://www.nuget.org/api/v2/package/MSBuild.Extension.Pack/1.9.1","$Env:TEMP\msbuild.extension.pack.1.9.1.nupkg")
         unzip $Env:TEMP\msbuild.extension.pack.1.9.1.nupkg -d tools\internal\msbuild
-        dir tools\internal\msbuild
 
         # Install nunit and nunit.runner
         $client.DownloadFile("https://launchpad.net/nunitv2/trunk/2.6.2/+download/NUnit-2.6.2.zip","$Env:TEMP\NUnit-2.6.2.zip")
