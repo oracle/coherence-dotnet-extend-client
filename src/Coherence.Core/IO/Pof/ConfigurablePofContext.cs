@@ -63,7 +63,7 @@ namespace Tangosol.IO.Pof
     ///       &lt;type-id&gt;53&lt;/type-id&gt;
     ///       &lt;class-name&gt;My.Example.Data.Trade, MyAssembly&lt;/class-name&gt;
     ///       &lt;serializer&gt;
-    ///         &lt;class-name&gt;Tangosol.IO.Pof.PortableObjectSerializer, Coherence&lt;/class-name&gt;
+    ///         &lt;class-name&gt;Tangosol.IO.Pof.PortableObjectSerializer, Coherence.Core&lt;/class-name&gt;
     ///         &lt;init-params&gt;
     ///           &lt;init-param&gt;
     ///             &lt;param-type&gt;System.Int32&lt;/param-type&gt;
@@ -88,7 +88,7 @@ namespace Tangosol.IO.Pof
     ///   &lt;allow-subclasses&gt;false&lt;/allow-subclasses&gt;
     ///
     ///   &lt;default-serializer&gt;
-    ///     &lt;class-name&gt;Tangosol.IO.Pof.XmlPofSerializer, Coherence&lt;/class-name&gt;
+    ///     &lt;class-name&gt;Tangosol.IO.Pof.XmlPofSerializer, Coherence.Core&lt;/class-name&gt;
     ///     &lt;init-params&gt;
     ///       &lt;init-param&gt;
     ///         &lt;param-type&gt;System.Int32&lt;/param-type&gt;
