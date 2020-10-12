@@ -10,7 +10,7 @@
   <defaults>
     <serializer>
       <instance>
-        <class-name>Tangosol.IO.TestSerializer, Coherence.Tests</class-name>
+        <class-name>Tangosol.IO.TestSerializer, Coherence.Core.Tests</class-name>
         <init-params>
            <init-param>
               <param-type>string</param-type>

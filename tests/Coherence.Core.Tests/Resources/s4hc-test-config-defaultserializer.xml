@@ -19,14 +19,14 @@
 
     <user-type>
       <type-id>1201</type-id>
-      <class-name>Tangosol.Address, Coherence.Tests</class-name>
+      <class-name>Tangosol.Address, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1002</type-id>
-      <class-name>Tangosol.PortablePersonLite, Coherence.Tests</class-name>
+      <class-name>Tangosol.PortablePersonLite, Coherence.Core.Tests</class-name>
       <serializer>
-        <class-name>Tangosol.IO.Pof.XmlPofSerializer, Coherence</class-name>
+        <class-name>Tangosol.IO.Pof.XmlPofSerializer, Coherence.Core</class-name>
       </serializer>
     </user-type>
 
@@ -36,6 +36,6 @@
   <allow-subclasses>false</allow-subclasses>
 
   <default-serializer>
-    <class-name>Tangosol.IO.Pof.DummyDefaultPofSerializer, Coherence.Tests</class-name>
+    <class-name>Tangosol.IO.Pof.DummyDefaultPofSerializer, Coherence.Core.Tests</class-name>
   </default-serializer>
 </pof-config>

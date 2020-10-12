@@ -12,168 +12,168 @@
 
     <user-type>
       <type-id>1002</type-id>
-      <class-name>Tangosol.PortablePersonLite, Coherence.Tests</class-name>
+      <class-name>Tangosol.PortablePersonLite, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1005</type-id>
-      <class-name>Tangosol.PortablePerson, Coherence.Tests</class-name>
+      <class-name>Tangosol.PortablePerson, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1006</type-id>
-      <class-name>Tangosol.EvolvablePortablePerson, Coherence.Tests</class-name>
+      <class-name>Tangosol.EvolvablePortablePerson, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1011</type-id>
-      <class-name>Tangosol.IntegerComparer, Coherence.Tests</class-name>
+      <class-name>Tangosol.IntegerComparer, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1013</type-id>
-      <class-name>Tangosol.Util.Comparator.AirDealComparer, Coherence.Tests</class-name>
+      <class-name>Tangosol.Util.Comparator.AirDealComparer, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1014</type-id>
-      <class-name>Tangosol.Util.Comparator.AirDealComparer+AirDeal, Coherence.Tests</class-name>
+      <class-name>Tangosol.Util.Comparator.AirDealComparer+AirDeal, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1024</type-id>
-      <class-name>Tangosol.Util.Collections.HashSet, Coherence</class-name>
+      <class-name>Tangosol.Util.Collections.HashSet, Coherence.Core</class-name>
       <serializer>
-        <class-name>Tangosol.IO.Pof.SetSerializer, Coherence.Tests</class-name>
+        <class-name>Tangosol.IO.Pof.SetSerializer, Coherence.Core.Tests</class-name>
       </serializer>
     </user-type>
 
     <user-type>
       <type-id>1101</type-id>
-      <class-name>Tangosol.Temperature, Coherence.Tests</class-name>
+      <class-name>Tangosol.Temperature, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1201</type-id>
-      <class-name>Tangosol.Address, Coherence.Tests</class-name>
+      <class-name>Tangosol.Address, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1202</type-id>
-      <class-name>Tangosol.SimpleAddressComparer, Coherence.Tests</class-name>
+      <class-name>Tangosol.SimpleAddressComparer, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1203</type-id>
-      <class-name>Tangosol.CustomKeyClass, Coherence.Tests</class-name>
+      <class-name>Tangosol.CustomKeyClass, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1204</type-id>
-      <class-name>Tangosol.ProcessorPrintUUIDTimestamp, Coherence.Tests</class-name>
+      <class-name>Tangosol.ProcessorPrintUUIDTimestamp, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1600</type-id>
-      <class-name>Tangosol.ProxyStopInvocable, Coherence.Tests</class-name>
+      <class-name>Tangosol.ProxyStopInvocable, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>2001</type-id>
-      <class-name>Tangosol.BadPersonLite, Coherence.Tests</class-name>
+      <class-name>Tangosol.BadPersonLite, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>2002</type-id>
-      <class-name>Tangosol.SkippingPersonLite, Coherence.Tests</class-name>
+      <class-name>Tangosol.SkippingPersonLite, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>2003</type-id>
-      <class-name>Tangosol.Score, Coherence.Tests</class-name>
+      <class-name>Tangosol.Score, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3001</type-id>
-      <class-name>Tangosol.EmptyInvocable, Coherence.Tests</class-name>
+      <class-name>Tangosol.EmptyInvocable, Coherence.Core.Tests</class-name>
     </user-type>
 
      <user-type>
       <type-id>3002</type-id>
-      <class-name>Tangosol.POFObjectInvocable, Coherence.Tests</class-name>
+      <class-name>Tangosol.POFObjectInvocable, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3003</type-id>
-      <class-name>Tangosol.MBeanInvocable, Coherence.Tests</class-name>
+      <class-name>Tangosol.MBeanInvocable, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3004</type-id>
-      <class-name>Tangosol.TestContact, Coherence.Tests</class-name>
+      <class-name>Tangosol.TestContact, Coherence.Core.Tests</class-name>
     </user-type>
 
    <user-type>
       <type-id>3005</type-id>
-      <class-name>Tangosol.FilterFetcher, Coherence.Tests</class-name>
+      <class-name>Tangosol.FilterFetcher, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3006</type-id>
-      <class-name>Tangosol.ExampleAddress, Coherence.Tests</class-name>
+      <class-name>Tangosol.ExampleAddress, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3009</type-id>
-      <class-name>Tangosol.Util.TriggerListenerTests+PersonMapTrigger, Coherence.Tests</class-name>
+      <class-name>Tangosol.Util.TriggerListenerTests+PersonMapTrigger, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3010</type-id>
-      <class-name>Tangosol.SimplePerson, Coherence.Tests</class-name>
+      <class-name>Tangosol.SimplePerson, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3011</type-id>
-      <class-name>Tangosol.TestObject, Coherence.Tests</class-name>
+      <class-name>Tangosol.TestObject, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3012</type-id>
-      <class-name>Tangosol.SlowProcessor, Coherence.Tests</class-name>
+      <class-name>Tangosol.SlowProcessor, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3013</type-id>
-      <class-name>Tangosol.SlowAggregator, Coherence.Tests</class-name>
+      <class-name>Tangosol.SlowAggregator, Coherence.Core.Tests</class-name>
     </user-type>
 
     <!-- KeyAssociate-related test classes -->
 
     <user-type>
       <type-id>4001</type-id>
-      <class-name>Tangosol.Order, Coherence.Tests</class-name>
+      <class-name>Tangosol.Order, Coherence.Core.Tests</class-name>
     </user-type>
     <user-type>
       <type-id>4002</type-id>
-      <class-name>Tangosol.OrderKey, Coherence.Tests</class-name>
+      <class-name>Tangosol.OrderKey, Coherence.Core.Tests</class-name>
     </user-type>
     <user-type>
       <type-id>4003</type-id>
-      <class-name>Tangosol.Item, Coherence.Tests</class-name>
+      <class-name>Tangosol.Item, Coherence.Core.Tests</class-name>
     </user-type>
     <user-type>
       <type-id>4004</type-id>
-      <class-name>Tangosol.ItemKey, Coherence.Tests</class-name>
+      <class-name>Tangosol.ItemKey, Coherence.Core.Tests</class-name>
     </user-type>
     <user-type>
       <type-id>4005</type-id>
-      <class-name>Tangosol.KAFValidationInvocable, Coherence.Tests</class-name>
+      <class-name>Tangosol.KAFValidationInvocable, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>4010</type-id>
-      <class-name>Tangosol.EventTransformerTestObject, Coherence.Tests</class-name>
+      <class-name>Tangosol.EventTransformerTestObject, Coherence.Core.Tests</class-name>
     </user-type>
 
   </user-type-list>

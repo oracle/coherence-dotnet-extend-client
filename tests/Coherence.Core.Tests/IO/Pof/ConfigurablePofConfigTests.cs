@@ -76,7 +76,7 @@ namespace Tangosol.IO.Pof
             Assert.AreEqual("Tangosol.PortablePerson", ctx.GetTypeName(1005));
 
             Assert.AreEqual(1002, ctx.GetUserTypeIdentifier(typeof(PortablePersonLite)));
-            Assert.AreEqual(1005, ctx.GetUserTypeIdentifier("Tangosol.PortablePerson, Coherence.Tests"));
+            Assert.AreEqual(1005, ctx.GetUserTypeIdentifier("Tangosol.PortablePerson, Coherence.Core.Tests"));
 
             Address home = new Address("Palmira Toljatija 50", "Belgrade",
                                         "Serbia", "11070");
@@ -89,9 +89,9 @@ namespace Tangosol.IO.Pof
             Assert.AreEqual("Tangosol.SkippingPersonLite", ctx.GetTypeName(2002));
 
             Assert.AreEqual(1002, ctx.GetUserTypeIdentifier(typeof(PortablePersonLite)));
-            Assert.AreEqual(1005, ctx.GetUserTypeIdentifier("Tangosol.PortablePerson, Coherence.Tests"));
+            Assert.AreEqual(1005, ctx.GetUserTypeIdentifier("Tangosol.PortablePerson, Coherence.Core.Tests"));
             Assert.AreEqual(2001, ctx.GetUserTypeIdentifier(typeof(BadPersonLite)));
-            Assert.IsTrue(ctx.IsUserType("Tangosol.PortablePersonLite, Coherence.Tests"));
+            Assert.IsTrue(ctx.IsUserType("Tangosol.PortablePersonLite, Coherence.Core.Tests"));
         }
 
         [Test]

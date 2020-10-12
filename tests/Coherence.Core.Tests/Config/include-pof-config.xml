@@ -14,29 +14,29 @@
 
         <user-type>
           <type-id>2000</type-id>
-          <class-name>Tangosol.IO.Pof.NestedType, Coherence.Tests</class-name>
+          <class-name>Tangosol.IO.Pof.NestedType, Coherence.Core.Tests</class-name>
         </user-type>
 
         <user-type>
           <type-id>2001</type-id>
-          <class-name>Tangosol.IO.Pof.SimpleType, Coherence.Tests</class-name>
+          <class-name>Tangosol.IO.Pof.SimpleType, Coherence.Core.Tests</class-name>
         </user-type>
 
         <user-type>
           <type-id>2002</type-id>
-          <class-name>Tangosol.IO.Pof.GenericCollectionsType, Coherence.Tests</class-name>
+          <class-name>Tangosol.IO.Pof.GenericCollectionsType, Coherence.Core.Tests</class-name>
         </user-type>
 
         <user-type>
           <type-id>2003</type-id>
-          <class-name>Tangosol.IO.Pof.PersonV1, Coherence.Tests</class-name>
+          <class-name>Tangosol.IO.Pof.PersonV1, Coherence.Core.Tests</class-name>
         </user-type>
 
         <user-type>
           <type-id>2004</type-id>
-          <class-name>Tangosol.IO.Pof.Child, Coherence.Tests</class-name>
+          <class-name>Tangosol.IO.Pof.Child, Coherence.Core.Tests</class-name>
           <serializer>
-            <class-name>Tangosol.IO.Pof.PofAnnotationSerializer, Coherence</class-name>
+            <class-name>Tangosol.IO.Pof.PofAnnotationSerializer, Coherence.Core</class-name>
             <init-params>
               <init-param>
                 <param-type>int</param-type>

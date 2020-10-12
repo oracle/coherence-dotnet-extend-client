@@ -11,17 +11,17 @@
 
     <user-type>
       <type-id>0</type-id>
-      <class-name>Tangosol.IO.Pof.PofMaster, Coherence.Tests</class-name>
+      <class-name>Tangosol.IO.Pof.PofMaster, Coherence.Core.Tests</class-name>
       <serializer>
-        <class-name>Tangosol.IO.Pof.PortableObjectSerializer, Coherence</class-name>
+        <class-name>Tangosol.IO.Pof.PortableObjectSerializer, Coherence.Core</class-name>
       </serializer>
     </user-type>
 
     <user-type>
       <type-id>1</type-id>
-      <class-name>Tangosol.IO.Pof.PofChild, Coherence.Tests</class-name>
+      <class-name>Tangosol.IO.Pof.PofChild, Coherence.Core.Tests</class-name>
       <serializer>
-        <class-name>Tangosol.IO.Pof.PortableObjectSerializer, Coherence</class-name>
+        <class-name>Tangosol.IO.Pof.PortableObjectSerializer, Coherence.Core</class-name>
         <init-params>
           <init-param>
             <param-type>int</param-type>
@@ -33,56 +33,56 @@
 
     <user-type>
       <type-id>101</type-id>
-      <class-name>Tangosol.PortablePerson, Coherence.Tests</class-name>
+      <class-name>Tangosol.PortablePerson, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>102</type-id>
-      <class-name>Tangosol.PortablePersonReference, Coherence.Tests</class-name>
+      <class-name>Tangosol.PortablePersonReference, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>201</type-id>
-      <class-name>Tangosol.util.CompositeKey, Coherence</class-name>
+      <class-name>Tangosol.util.CompositeKey, Coherence.Core</class-name>
     </user-type>
 
     <user-type>
       <type-id>3000</type-id>
-      <class-name>Tangosol.IO.Pof.Balance, Coherence.Tests</class-name>
+      <class-name>Tangosol.IO.Pof.Balance, Coherence.Core.Tests</class-name>
       <serializer>
-        <class-name>Tangosol.IO.Pof.ModuleSerializer+BalanceSerializer, Coherence.Tests</class-name>
+        <class-name>Tangosol.IO.Pof.ModuleSerializer+BalanceSerializer, Coherence.Core.Tests</class-name>
       </serializer>
     </user-type>
 
     <user-type>
       <type-id>3001</type-id>
-      <class-name>Tangosol.IO.Pof.Product, Coherence.Tests</class-name>
+      <class-name>Tangosol.IO.Pof.Product, Coherence.Core.Tests</class-name>
       <serializer>
-        <class-name>Tangosol.IO.Pof.ModuleSerializer+ProductSerializer, Coherence.Tests</class-name>
+        <class-name>Tangosol.IO.Pof.ModuleSerializer+ProductSerializer, Coherence.Core.Tests</class-name>
       </serializer>
     </user-type>
 
     <user-type>
       <type-id>3002</type-id>
-      <class-name>Tangosol.IO.Pof.Customer, Coherence.Tests</class-name>
+      <class-name>Tangosol.IO.Pof.Customer, Coherence.Core.Tests</class-name>
       <serializer>
-        <class-name>Tangosol.IO.Pof.ModuleSerializer+CustomerSerializer, Coherence.Tests</class-name>
+        <class-name>Tangosol.IO.Pof.ModuleSerializer+CustomerSerializer, Coherence.Core.Tests</class-name>
       </serializer>
     </user-type>
 
     <user-type>
       <type-id>3010</type-id>
-      <class-name>Tangosol.Address, Coherence.Tests</class-name>
+      <class-name>Tangosol.Address, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3011</type-id>
-      <class-name>Tangosol.BooleanHolder, Coherence.Tests</class-name>
+      <class-name>Tangosol.BooleanHolder, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>3012</type-id>
-      <class-name>Tangosol.IO.Pof.Reflection.PofValueTests+TestValue, Coherence.Tests</class-name>
+      <class-name>Tangosol.IO.Pof.Reflection.PofValueTests+TestValue, Coherence.Core.Tests</class-name>
     </user-type>
 
   </user-type-list>

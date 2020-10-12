@@ -14,7 +14,7 @@
     <filters>
       <filter>
         <filter-name>simple-filter</filter-name>
-        <filter-class>Tangosol.TestFilterWithArguments, Coherence.Tests</filter-class>
+        <filter-class>Tangosol.TestFilterWithArguments, Coherence.Core.Tests</filter-class>
         <init-params>
           <init-param>
             <param-name>buffer</param-name>
@@ -29,11 +29,11 @@
     </filters>
     <serializers>
       <serializer id="test">
-        <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence</class-name>
+        <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence.Core</class-name>
       </serializer>
       <serializer id="xml">
         <instance>
-          <class-name>Tangosol.IO.TestSerializerXmlConfigurable, Coherence.Tests</class-name>
+          <class-name>Tangosol.IO.TestSerializerXmlConfigurable, Coherence.Core.Tests</class-name>
           <init-params>
             <init-param>
               <param-name>SerializerName</param-name>

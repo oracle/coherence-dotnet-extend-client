@@ -16,7 +16,7 @@
     <remote-certificate-validator>
       <delegate>
         <type>static</type>
-        <class-name>Tangosol.Net.SslNetworkStreamFactory, Coherence2</class-name>
+        <class-name>Tangosol.Net.SslNetworkStreamFactory, Coherence.Core2</class-name>
         <method-name>DefaultCertificateValidation</method-name>
       </delegate>
     </remote-certificate-validator>

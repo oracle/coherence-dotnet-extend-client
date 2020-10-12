@@ -125,19 +125,19 @@ namespace Tangosol.Net
                "    <filters>" +
                "      <filter>" +
                "        <filter-name>foo</filter-name>" +
-               "        <filter-class>Tangosol.Net.CompressionFilter, Coherence</filter-class>" +
+               "        <filter-class>Tangosol.Net.CompressionFilter, Coherence.Core</filter-class>" +
                "      </filter>" +
                "      <filter>" +
                "        <filter-name>bar</filter-name>" +
-               "        <filter-class>Tangosol.Net.CompressionFilter, Coherence</filter-class>" +
+               "        <filter-class>Tangosol.Net.CompressionFilter, Coherence.Core</filter-class>" +
                "      </filter>" +
                "      <filter>" +
                "        <filter-name>baz</filter-name>" +
-               "        <filter-class>Tangosol.Net.CompressionFilter, Coherence</filter-class>" +
+               "        <filter-class>Tangosol.Net.CompressionFilter, Coherence.Core</filter-class>" +
                "      </filter>" +
                "      <filter>" +
  	 	 	   "        <filter-name>TestNetworkFilter</filter-name>" +
-               "        <filter-class>Tangosol.Net.TestNetworkFilter, Coherence.Tests</filter-class>" +
+               "        <filter-class>Tangosol.Net.TestNetworkFilter, Coherence.Core.Tests</filter-class>" +
                "        <init-params>" +
                "          <init-param>" +
                "            <param-name>dummy1</param-name>" +
@@ -153,7 +153,7 @@ namespace Tangosol.Net
                "    <serializers>" +
                "      <serializer id=\"pof\">" +
                "        <instance>" +
-               "          <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence</class-name>" +
+               "          <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence.Core</class-name>" +
                "          <init-params>" +
                "            <init-param>" +
                "              <param-type>string</param-type>" +
@@ -166,7 +166,7 @@ namespace Tangosol.Net
                "    <address-providers>" +
                "      <address-provider id=\"ap1\">" +
                "        <instance>" +
-               "          <class-name>Tangosol.Net.ConfigurableAddressProviderTests+LoopbackAddressProvider, Coherence.Tests</class-name>" +
+               "          <class-name>Tangosol.Net.ConfigurableAddressProviderTests+LoopbackAddressProvider, Coherence.Core.Tests</class-name>" +
                "        </instance>" +
                "      </address-provider>" +
                "    </address-providers>" +
@@ -182,10 +182,10 @@ namespace Tangosol.Net
                "  </license-config>" +
                "  <security-config>" +
                "    <identity-asserter>" +
-               "      <class-name>Tangosol.Net.TestIdentityAsserter, Coherence.Tests</class-name>" +
+               "      <class-name>Tangosol.Net.TestIdentityAsserter, Coherence.Core.Tests</class-name>" +
                "    </identity-asserter>" +
                "    <identity-transformer>" +
-               "      <class-name>Tangosol.Net.TestIdentityTransformer, Coherence.Tests</class-name>" +
+               "      <class-name>Tangosol.Net.TestIdentityTransformer, Coherence.Core.Tests</class-name>" +
                "    </identity-transformer>" +
                "    <principal-scope>true</principal-scope>" +
                "  </security-config>" +

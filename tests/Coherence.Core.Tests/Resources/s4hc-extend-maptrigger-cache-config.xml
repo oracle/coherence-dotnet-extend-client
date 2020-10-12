@@ -36,7 +36,7 @@
         </use-filters>
         <serializer>
           <instance>
-            <class-name>Tangosol.IO.TestPofSerializer, Coherence.Tests</class-name>
+            <class-name>Tangosol.IO.TestPofSerializer, Coherence.Core.Tests</class-name>
             <init-params>
               <init-param>
                 <param-type>string</param-type>
@@ -48,7 +48,7 @@
       </initiator-config>
       <listener>
         <class-scheme>
-           <class-factory-name>Tangosol.Util.TriggerListenerTests, Coherence.Tests</class-factory-name>
+           <class-factory-name>Tangosol.Util.TriggerListenerTests, Coherence.Core.Tests</class-factory-name>
            <method-name>CreateTriggerListener</method-name>
            <init-params>
               <init-param>

@@ -36,7 +36,7 @@
         </outgoing-message-handler>
         <serializer>
            <instance>
-           <class-name>Tangosol.IO.TestPofSerializer, Coherence.Tests</class-name>
+           <class-name>Tangosol.IO.TestPofSerializer, Coherence.Core.Tests</class-name>
             <init-params>
               <init-param>
                 <param-type>string</param-type>

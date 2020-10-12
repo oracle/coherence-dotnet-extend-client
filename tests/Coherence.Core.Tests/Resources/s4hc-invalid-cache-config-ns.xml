@@ -49,7 +49,7 @@
         -->
 
         <!--serializer>
-          <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence</class-name>
+          <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence.Core</class-name>
           <init-params>
             <init-param>
               <param-type>string</param-type>

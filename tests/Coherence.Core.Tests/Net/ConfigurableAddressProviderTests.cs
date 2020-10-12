@@ -159,7 +159,7 @@ namespace Tangosol.Net
         [Test]
         public void TestCreateAddressProvider2()
         {
-            string xml = "<remote-addresses xmlns=\"http://schemas.tangosol.com/cache\"><address-provider><class-name>Tangosol.Net.ConfigurableAddressProviderTests+LoopbackAddressProvider, Coherence.Tests</class-name></address-provider></remote-addresses>";
+            string xml = "<remote-addresses xmlns=\"http://schemas.tangosol.com/cache\"><address-provider><class-name>Tangosol.Net.ConfigurableAddressProviderTests+LoopbackAddressProvider, Coherence.Core.Tests</class-name></address-provider></remote-addresses>";
             IXmlDocument config = XmlHelper.LoadXml(new StringReader(xml));
             Assert.IsNotNull(config);
 

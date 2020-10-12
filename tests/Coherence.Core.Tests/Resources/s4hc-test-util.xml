@@ -11,9 +11,9 @@
 
     <user-type>
       <type-id>1201</type-id>
-      <class-name>Tangosol.Address, Coherence.Tests</class-name>
+      <class-name>Tangosol.Address, Coherence.Core.Tests</class-name>
       <serializer>
-        <class-name>Tangosol.Run.Xml.XmlHelperTests+Dummy, Coherence.Tests</class-name>
+        <class-name>Tangosol.Run.Xml.XmlHelperTests+Dummy, Coherence.Core.Tests</class-name>
         <init-params>
           <init-param>
             <param-type>long</param-type>

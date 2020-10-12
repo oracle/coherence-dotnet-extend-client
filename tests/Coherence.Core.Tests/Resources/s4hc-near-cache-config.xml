@@ -50,7 +50,7 @@
       </back-scheme>
       <listener>
         <class-scheme>
-          <class-name>Tangosol.Net.Cache.NearCacheTests+SyncListenerStatic, Coherence.Tests</class-name>
+          <class-name>Tangosol.Net.Cache.NearCacheTests+SyncListenerStatic, Coherence.Core.Tests</class-name>
         </class-scheme>
       </listener>
     </near-scheme>

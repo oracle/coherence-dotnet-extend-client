@@ -101,7 +101,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 }
 
                 remoteAddressNode.AddElement("address-provider").AddElement("class-name").SetString(
-                    "Tangosol.Net.ConfigurableAddressProviderTests+LoopbackAddressProvider, Coherence.Tests");
+                    "Tangosol.Net.ConfigurableAddressProviderTests+LoopbackAddressProvider, Coherence.Core.Tests");
             }
 
             IXmlElement initConfig = xmlConfig.FindElement("caching-schemes/remote-cache-scheme/initiator-config");

@@ -13,22 +13,22 @@
 
     <user-type>
       <type-id>1201</type-id>
-      <class-name>Tangosol.Address, Coherence.Tests</class-name>
+      <class-name>Tangosol.Address, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1002</type-id>
-      <class-name>Tangosol.PortablePersonLite, Coherence.Tests</class-name>
+      <class-name>Tangosol.PortablePersonLite, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1003</type-id>
-      <class-name>Tangosol.BadPersonLite, Coherence.Tests</class-name>
+      <class-name>Tangosol.BadPersonLite, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
       <type-id>1004</type-id>
-      <class-name>Tangosol.SkippingPersonLite, Coherence.Tests</class-name>
+      <class-name>Tangosol.SkippingPersonLite, Coherence.Core.Tests</class-name>
     </user-type>
 
     <user-type>
@@ -38,7 +38,7 @@
 
     <user-type>
       <type-id>1005</type-id>
-      <class-name>Tangosol.PortablePerson, Coherence.Tests</class-name>
+      <class-name>Tangosol.PortablePerson, Coherence.Core.Tests</class-name>
     </user-type>
 
   </user-type-list>

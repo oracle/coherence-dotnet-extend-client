@@ -481,7 +481,7 @@ namespace Tangosol.Net
             {
                 IXmlElement pofSerializer = new SimpleElement("serializer");
                 IXmlElement xmlInstance   = pofSerializer.EnsureElement("instance");
-                xmlInstance.EnsureElement("class-name").SetString("Tangosol.IO.Pof.ConfigurablePofContext, Coherence");
+                xmlInstance.EnsureElement("class-name").SetString("Tangosol.IO.Pof.ConfigurablePofContext, Coherence.Core");
 
                 ConfigurableSerializerFactory factory = new ConfigurableSerializerFactory();
                 factory.Config = pofSerializer;

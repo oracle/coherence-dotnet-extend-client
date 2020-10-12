@@ -16,7 +16,7 @@
             <selector>
               <delegate>
                 <type>static</type>
-                <class-name>Tangosol.Net.Ssl.ClientCertificateSelector, Coherence.Tests</class-name>
+                <class-name>Tangosol.Net.Ssl.ClientCertificateSelector, Coherence.Core.Tests</class-name>
                 <method-name>SelectClientCertificate</method-name>
               </delegate>
             </selector>

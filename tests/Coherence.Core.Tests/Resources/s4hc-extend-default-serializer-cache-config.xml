@@ -9,7 +9,7 @@
   <defaults>
     <serializer>
       <instance>
-        <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence</class-name>
+        <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence.Core</class-name>
       </instance>
     </serializer>
   </defaults>

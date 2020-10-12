@@ -667,7 +667,7 @@ namespace Tangosol.Run.Xml
         {
             // no params
             IXmlElement xmlClass = new SimpleElement();
-            xmlClass.AddElement("class-name").SetString("Tangosol.Run.Xml.XmlHelperTests+Dummy, Coherence.Tests");
+            xmlClass.AddElement("class-name").SetString("Tangosol.Run.Xml.XmlHelperTests+Dummy, Coherence.Core.Tests");
             Assert.IsFalse(XmlHelper.IsInstanceConfigEmpty(xmlClass));
             object o = XmlHelper.CreateInstance(xmlClass, null);
             Assert.IsNotNull(o);
@@ -677,7 +677,7 @@ namespace Tangosol.Run.Xml
             Assert.AreEqual(d.FloatValue, 0.0);
 
             IXmlElement xmlClassFactory = new SimpleElement();
-            xmlClassFactory.AddElement("class-factory-name").SetString("Tangosol.Run.Xml.XmlHelperTests+Dummy, Coherence.Tests");
+            xmlClassFactory.AddElement("class-factory-name").SetString("Tangosol.Run.Xml.XmlHelperTests+Dummy, Coherence.Core.Tests");
             xmlClassFactory.AddElement("method-name").SetString("CreateDummyInstance");
             o = XmlHelper.CreateInstance(xmlClassFactory, null);
             Assert.IsNotNull(o);
@@ -722,7 +722,7 @@ namespace Tangosol.Run.Xml
             Assert.IsNotNull(d);
             Assert.AreEqual(d.StringValue, "test");
 
-            xmlClassFactory.GetElement("class-factory-name").SetString("Tangosol.Run.Xml.XmlHelperTests+Dummy, Coherence.Tests");
+            xmlClassFactory.GetElement("class-factory-name").SetString("Tangosol.Run.Xml.XmlHelperTests+Dummy, Coherence.Core.Tests");
             xmlClassFactory.GetElement("method-name").SetString("CreateDummyInstanceWithParams");
             xmlClassFactory.ElementList.Add(initParams);
             o = XmlHelper.CreateInstance(xmlClassFactory, null);
@@ -736,7 +736,7 @@ namespace Tangosol.Run.Xml
             IXmlElement config = new SimpleElement("config");
             XmlHelper.TransformInitParams(config, initParams);
 
-            xmlClass.GetElement("class-name").SetString("Tangosol.Run.Xml.XmlHelperTests+ConfigurableDummy, Coherence.Tests");
+            xmlClass.GetElement("class-name").SetString("Tangosol.Run.Xml.XmlHelperTests+ConfigurableDummy, Coherence.Core.Tests");
             o = XmlHelper.CreateInstance(xmlClass, null);
             Assert.IsNotNull(o);
             Assert.IsInstanceOf(typeof(ConfigurableDummy), o);
@@ -746,7 +746,7 @@ namespace Tangosol.Run.Xml
             Assert.IsNotNull(cd.Config);
             Assert.IsTrue(cd.Config.Equals(config));
 
-            xmlClassFactory.GetElement("class-factory-name").SetString("Tangosol.Run.Xml.XmlHelperTests+ConfigurableDummy, Coherence.Tests");
+            xmlClassFactory.GetElement("class-factory-name").SetString("Tangosol.Run.Xml.XmlHelperTests+ConfigurableDummy, Coherence.Core.Tests");
             xmlClassFactory.GetElement("method-name").SetString("CreateConfigurableDummyInstance");
             xmlClassFactory.ElementList.Add(initParams);
             o = XmlHelper.CreateInstance(xmlClassFactory, null);
@@ -759,7 +759,7 @@ namespace Tangosol.Run.Xml
             Assert.IsTrue(cd.Config.Equals(config));
 
             e = null;
-            xmlClassFactory.GetElement("class-factory-name").SetString("Tangosol.Run.Xml.XmlHelperTests+ConfigurableDummy1, Coherence.Tests");
+            xmlClassFactory.GetElement("class-factory-name").SetString("Tangosol.Run.Xml.XmlHelperTests+ConfigurableDummy1, Coherence.Core.Tests");
             try
             {
                 XmlHelper.CreateInstance(xmlClassFactory, null);

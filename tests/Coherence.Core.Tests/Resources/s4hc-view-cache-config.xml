@@ -64,7 +64,7 @@
       <scheme-name>view-filter</scheme-name>
       <view-filter>
         <class-scheme>
-          <class-name>Tangosol.Util.Filter.NeverFilter, Coherence</class-name>
+          <class-name>Tangosol.Util.Filter.NeverFilter, Coherence.Core</class-name>
         </class-scheme>
       </view-filter>
       <back-scheme>
@@ -78,7 +78,7 @@
       <scheme-name>view-filter-with-params</scheme-name>
       <view-filter>
         <class-scheme>
-          <class-name>Tangosol.Util.Filter.GreaterFilter, Coherence</class-name>
+          <class-name>Tangosol.Util.Filter.GreaterFilter, Coherence.Core</class-name>
           <init-params>
             <init-param>
               <param-type>string</param-type>
@@ -102,7 +102,7 @@
       <scheme-name>view-filter-invalid</scheme-name>
       <view-filter>
         <class-scheme>
-          <class-name>Tangosol.Util.Filter.NonExistentFilter, Coherence</class-name>
+          <class-name>Tangosol.Util.Filter.NonExistentFilter, Coherence.Core</class-name>
         </class-scheme>
       </view-filter>
       <back-scheme>
@@ -121,7 +121,7 @@
       </back-scheme>
       <transformer>
         <class-scheme>
-          <class-name>Tangosol.Util.Extractor.IdentityExtractor, Coherence</class-name>
+          <class-name>Tangosol.Util.Extractor.IdentityExtractor, Coherence.Core</class-name>
         </class-scheme>
       </transformer>
     </view-scheme>
@@ -135,7 +135,7 @@
       </back-scheme>
       <transformer>
         <class-scheme>
-          <class-name>Tangosol.Util.Extractor.KeyExtractor, Coherence</class-name>
+          <class-name>Tangosol.Util.Extractor.KeyExtractor, Coherence.Core</class-name>
           <init-params>
             <init-param>
               <param-type>string</param-type>
@@ -175,7 +175,7 @@
       </back-scheme>
       <listener>
         <class-scheme>
-          <class-name>Tangosol.TestCacheListener, Coherence.Tests</class-name>
+          <class-name>Tangosol.TestCacheListener, Coherence.Core.Tests</class-name>
         </class-scheme>
       </listener>
     </view-scheme>
@@ -184,7 +184,7 @@
       <scheme-name>view-with-macro</scheme-name>
       <view-filter>
         <class-scheme>
-          <class-name>Tangosol.Util.Filter.GreaterFilter, Coherence</class-name>
+          <class-name>Tangosol.Util.Filter.GreaterFilter, Coherence.Core</class-name>
           <init-params>
             <init-param>
               <param-type>string</param-type>
