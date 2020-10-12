@@ -435,7 +435,7 @@ namespace Tangosol.Net
                         // the default cache config resource was not found. Use a subset of the default java cache config,
                         // i.e. extend applicable part
                         resource = ResourceLoader.GetResource(
-                            "assembly://Coherence/Tangosol.Config/coherence-cache-config.xml");
+                            "assembly://Coherence.Core/Tangosol.Config/coherence-cache-config.xml");
                     }
                 }
                 config = XmlHelper.LoadResource(resource,
