@@ -920,7 +920,7 @@ namespace Tangosol.Util.Aggregator {
         [Test]
         public void TestAggregatorSerialization()
         {
-            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml");
+            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml");
             Assert.IsNotNull(ctx);
 
             ComparableMax comparableMax = new ComparableMax("member1");

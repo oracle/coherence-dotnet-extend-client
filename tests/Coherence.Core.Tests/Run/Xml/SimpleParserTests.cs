@@ -15,7 +15,7 @@ namespace Tangosol.Run.Xml
         public void TestSimpleParser()
         {
             SimpleParser parser = new SimpleParser();
-            IXmlDocument xmlDoc = parser.ParseXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config.xml");
+            IXmlDocument xmlDoc = parser.ParseXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config.xml");
             Assert.IsNotNull(xmlDoc);
             Assert.AreEqual(xmlDoc.Name, "cache-config");
         }

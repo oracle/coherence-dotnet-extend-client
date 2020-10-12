@@ -22,7 +22,7 @@ namespace Tangosol.Net
         public void SetUp()
         {
             var ccf    = CacheFactory.ConfigurableCacheFactory;
-            var config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-msg-size.xml");
+            var config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config-msg-size.xml");
             ccf.Config = config;
 
             namedCache = CacheFactory.GetCache("dist-extend-direct");

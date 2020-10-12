@@ -46,7 +46,7 @@ namespace Tangosol.Net
         public void TestJmxConnectionInformation()
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
-            IXmlDocument config           = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config.xml");
+            IXmlDocument config           = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config.xml");
             ccf.Config                    = config;
             IInvocationService service    = (IInvocationService) CacheFactory.GetService("RemoteInvocationService");
             IMember member                = ((DefaultConfigurableCacheFactory) ccf).OperationalContext.LocalMember;

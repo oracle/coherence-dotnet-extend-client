@@ -35,7 +35,7 @@ namespace Tangosol.Net.Internal
         /// <summary>
         /// Create a new NameServicePofContext.
         /// </summary>
-        public NameServicePofContext() : base("assembly://Coherence/Tangosol.Config/coherence-pof-config.xml")
+        public NameServicePofContext() : base("assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml")
         {
         }
 

@@ -26,7 +26,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf =
                             new DefaultConfigurableCacheFactory(
-                                "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-nameservice.xml");
+                                "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config-nameservice.xml");
 
             try
             {

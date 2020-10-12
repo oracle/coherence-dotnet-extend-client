@@ -20,7 +20,7 @@ namespace Tangosol.IO.Pof
         [Test]
         public void TestLocalMemberPof()
         {
-            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence/Tangosol.Config/coherence-pof-config.xml");
+            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml");
 
             Type type = ctx.GetType(160);
             Assert.AreEqual(typeof(LocalMember), type);

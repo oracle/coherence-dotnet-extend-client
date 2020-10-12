@@ -42,7 +42,7 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-timeout-cache-config5.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-timeout-cache-config5.xml");
             ccf.Config = config;
 
             m_cache = CacheFactory.GetCache("dist-test");

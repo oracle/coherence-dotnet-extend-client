@@ -246,7 +246,7 @@ namespace Tangosol.Util.Filter
         protected static HashSet     s_setKeys;
         protected static HashSet     s_setKeysTenToTwenty;
 
-        protected ConfigurablePofContext m_serializer = new ConfigurablePofContext("assembly://Coherence/Tangosol.Config/coherence-pof-config.xml");
+        protected ConfigurablePofContext m_serializer = new ConfigurablePofContext("assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml");
         protected IValueExtractor        m_extractor = IdentityExtractor.Instance;
     }
 }

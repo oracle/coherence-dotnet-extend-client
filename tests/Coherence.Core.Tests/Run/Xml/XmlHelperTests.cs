@@ -34,7 +34,7 @@ namespace Tangosol.Run.Xml
             xmlDoc2 = XmlHelper.LoadXml(stream, Encoding.UTF8);
             Assert.IsNotNull(xmlDoc2);
             Assert.AreEqual(xmlDoc, xmlDoc2);
-            xmlDoc2 = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            xmlDoc2 = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             Assert.AreEqual(xmlDoc, xmlDoc2);
         }
 
@@ -612,7 +612,7 @@ namespace Tangosol.Run.Xml
             }
             Assert.IsNotNull(e);
 
-            IXmlDocument xml = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-util.xml");
+            IXmlDocument xml = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-util.xml");
 
             IXmlElement el = xml.FindElement("user-type-list/user-type/serializer/init-params");
             object[] o = XmlHelper.ParseInitParams(el);
@@ -651,7 +651,7 @@ namespace Tangosol.Run.Xml
                 Assert.AreEqual(root.GetElement("name" + i).GetInt(), i);
             }
 
-            IXmlDocument xml = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-util-transformparams.xml");
+            IXmlDocument xml = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-util-transformparams.xml");
 
             IXmlElement el = xml.FindElement("configurable-cache-factory-config/init-params");
 
@@ -770,7 +770,7 @@ namespace Tangosol.Run.Xml
             }
             Assert.IsNotNull(e);
 
-            IXmlDocument xml = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-util.xml");
+            IXmlDocument xml = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-util.xml");
             IXmlElement el = xml.FindElement("user-type-list/user-type/serializer");
 
             o = XmlHelper.CreateInstance(el, null);

@@ -28,7 +28,7 @@ namespace Tangosol.Net
         {
             String sReturnedValue = "TestSerializer";
             String cacheName      = "custom-serializer";
-            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-custom-serializer-cache-config.xml");
+            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-custom-serializer-cache-config.xml");
 
             runTest(config, cacheName, sReturnedValue);
         }
@@ -43,7 +43,7 @@ namespace Tangosol.Net
 
             String sReturnedValue = "TestSerializerXmlConfigurable";
             String cacheName      = "custom-serializer-xmlconfigurable";
-            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-custom-serializerxml-cache-config.xml");
+            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-custom-serializerxml-cache-config.xml");
 
             runTest(config, cacheName, sReturnedValue);
         }
@@ -57,7 +57,7 @@ namespace Tangosol.Net
         {
             String sReturnedValue = "TestPofSerializer";
             String cacheName      = "custom-pof-serializer";
-            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-custom-pof-serializer-cache-config.xml");
+            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-custom-pof-serializer-cache-config.xml");
 
             runTest(config, cacheName, sReturnedValue);
         }
@@ -71,7 +71,7 @@ namespace Tangosol.Net
         {
             String sReturnedValue = "TestSerializer";
             String cacheName      = "custom-serializer";
-            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-custom-serializer-as-default-cache-config.xml");
+            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-custom-serializer-as-default-cache-config.xml");
 
             runTest(config, cacheName, sReturnedValue);
         }
@@ -85,7 +85,7 @@ namespace Tangosol.Net
         {
             String sReturnedValue = "TestSerializerXmlConfigurable";
             String cacheName      = "custom-serializer";
-            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-custom-serializerxml-as-named-default-cache-config.xml");
+            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-custom-serializerxml-as-named-default-cache-config.xml");
 
             runTest(config, cacheName, sReturnedValue);
         }
@@ -99,7 +99,7 @@ namespace Tangosol.Net
         {
             String sReturnedValue = "TestSerializerXmlConfigurable";
             String cacheName      = "custom-serializer-xmlconfigurable";
-            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-custom-serializerxml-byname-cache-config.xml");
+            IXmlDocument config   = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-custom-serializerxml-byname-cache-config.xml");
 
             runTest(config, cacheName, sReturnedValue);
         }

@@ -850,7 +850,7 @@ namespace Tangosol.Util.Processor
         [Test]
         public void TestProcessorSerialization()
         {
-            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml");
+            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml");
             Assert.IsNotNull(ctx);
 
             CompositeProcessor compositeProcessor = new CompositeProcessor();

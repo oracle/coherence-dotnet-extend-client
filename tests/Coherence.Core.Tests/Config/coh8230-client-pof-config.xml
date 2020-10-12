@@ -8,6 +8,6 @@
 
 <pof-config xmlns="http://schemas.tangosol.com/pof">
   <user-type-list>
-    <include>assembly://Coherence/Tangosol.Config/coherence-pof-config.xml</include>
+    <include>assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml</include>
   </user-type-list>
 </pof-config>

@@ -9,7 +9,7 @@
 <pof-config xmlns="http://schemas.tangosol.com/pof">
   <user-type-list>
 
-    <include>assembly://Coherence/Tangosol.Config/coherence-pof-config.xml</include>
+    <include>assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml</include>
 
     <user-type>
       <type-id>1201</type-id>
@@ -26,7 +26,7 @@
       <class-name>Tangosol.PortablePerson, Coherence.Core.Tests</class-name>
     </user-type>
 
-    <include>assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config-link.xml</include>
+    <include>assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config-link.xml</include>
   </user-type-list>
 
   <allow-interfaces>true</allow-interfaces>

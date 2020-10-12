@@ -89,7 +89,7 @@ namespace Tangosol.Run.Xml
             Environment.SetEnvironmentVariable("coherence.profile", "client");
 
             DefaultConfigurableCacheFactory factory
-                = new DefaultConfigurableCacheFactory("assembly://Coherence/Tangosol.Config/coherence-cache-config.xml");
+                = new DefaultConfigurableCacheFactory("assembly://Coherence.Core/Tangosol.Config/coherence-cache-config.xml");
             IXmlDocument config = (IXmlDocument) factory.Config;
             config.IterateThroughAllNodes(CacheFactory.PreprocessProp);
             Assert.IsTrue(config.ToString().Contains("client-remote"));
@@ -204,7 +204,7 @@ namespace Tangosol.Run.Xml
         [Test]
         public void TestSerialization()
         {
-            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml");
+            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml");
             Assert.IsNotNull(ctx);
 
             SimpleDocument sd = new SimpleDocument();

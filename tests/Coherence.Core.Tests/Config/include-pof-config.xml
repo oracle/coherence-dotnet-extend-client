@@ -10,7 +10,7 @@
     <user-type-list>
 
         <!-- coherence POF user types -->
-        <include>assembly://Coherence/Tangosol.Config/coherence-pof-config.xml</include>
+        <include>assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml</include>
 
         <user-type>
           <type-id>2000</type-id>

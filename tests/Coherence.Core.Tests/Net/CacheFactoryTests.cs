@@ -97,7 +97,7 @@ namespace Tangosol.Net
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config.xml");
             ccf.Config = config;
 
             IService service = CacheFactory.GetService("RemoteInvocationService");
@@ -136,7 +136,7 @@ namespace Tangosol.Net
         public void TestMemberRemoteInvocation()
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
-            IXmlDocument config           = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config.xml");
+            IXmlDocument config           = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config.xml");
             ccf.Config                    = config;
             IInvocationService service    = (IInvocationService) CacheFactory.GetService("RemoteInvocationService");
 
@@ -170,7 +170,7 @@ namespace Tangosol.Net
         public void TestCompositeKeyRemoteInvocation()
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
-            IXmlDocument config           = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config.xml");
+            IXmlDocument config           = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config.xml");
             ccf.Config                    = config;
             IInvocationService service    = (IInvocationService)CacheFactory.GetService("RemoteInvocationService");
 
@@ -192,7 +192,7 @@ namespace Tangosol.Net
         public void TestSerializerAccessor()
         {
             var ccf = CacheFactory.ConfigurableCacheFactory;
-            var config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config.xml");
+            var config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config.xml");
             ccf.Config = config;
 
             var cache = CacheFactory.GetCache("dist-extend-direct");

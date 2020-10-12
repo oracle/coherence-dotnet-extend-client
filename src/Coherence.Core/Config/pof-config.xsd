@@ -34,7 +34,7 @@
       <pof-config xmlns="http://schemas.tangosol.com/pof"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://schemas.tangosol.com/pof
-                  assembly://Coherence/Tangosol.Config/pof-config.xsd">]]>
+                  assembly://Coherence.Core/Tangosol.Config/pof-config.xsd">]]>
     </xs:documentation>
   </xs:annotation>
 

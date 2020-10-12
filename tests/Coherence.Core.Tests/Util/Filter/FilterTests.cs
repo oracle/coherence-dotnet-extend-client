@@ -2231,7 +2231,7 @@ namespace Tangosol.Util.Filter
         [Test]
         public void TestFilterSerialization()
         {
-            var ctx = new ConfigurablePofContext("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml");
+            var ctx = new ConfigurablePofContext("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml");
             Assert.IsNotNull(ctx);
 
             var array = new ArrayList(new[] { 1, 3, 7 });

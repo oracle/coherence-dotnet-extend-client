@@ -34,7 +34,7 @@
       <cache-config xmlns="http://schemas.tangosol.com/cache"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://schemas.tangosol.com/cache
-                    assembly://Coherence/Tangosol.Config/cache-config.xsd">]]>
+                    assembly://Coherence.Core/Tangosol.Config/cache-config.xsd">]]>
     </xs:documentation>
   </xs:annotation>
 

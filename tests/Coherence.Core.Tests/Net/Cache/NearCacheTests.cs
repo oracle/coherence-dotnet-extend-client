@@ -211,7 +211,7 @@ namespace Tangosol.Net.Cache
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
             IXmlDocument config =
-                XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-near-cache-config.xml");
+                XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-near-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("dist-extend-direct");
@@ -288,7 +288,7 @@ namespace Tangosol.Net.Cache
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
             IXmlDocument config =
-                XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-near-cache-config.xml");
+                XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-near-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("dist-extend-direct-listener");
@@ -318,7 +318,7 @@ namespace Tangosol.Net.Cache
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
             IXmlDocument config =
-                XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-near-cache-config.xml");
+                XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-near-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("dist-extend-direct");

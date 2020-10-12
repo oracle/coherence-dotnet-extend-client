@@ -119,7 +119,7 @@ namespace Tangosol.Net.Cache
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-view-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-view-cache-config.xml");
             ccf.Config          = config;
 
             return CacheFactory.GetCache(cacheName);    

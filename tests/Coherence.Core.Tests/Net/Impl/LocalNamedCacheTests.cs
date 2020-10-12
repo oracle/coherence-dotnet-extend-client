@@ -36,7 +36,7 @@ namespace Tangosol.Net.Impl
 
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -67,7 +67,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -156,7 +156,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -204,7 +204,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -241,7 +241,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -307,7 +307,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -342,7 +342,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -388,7 +388,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -471,7 +471,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -584,7 +584,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -612,7 +612,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -643,7 +643,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -670,7 +670,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-custom-highunits");
@@ -745,7 +745,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-with-init");
@@ -819,7 +819,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -853,7 +853,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -880,7 +880,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -917,7 +917,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -955,7 +955,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-default");
@@ -981,7 +981,7 @@ namespace Tangosol.Net.Impl
         public void TestLocalNamedCacheDispose()
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
             INamedCache cache;
             string[] keys = { "key1", "key2", "key3", "key4" };
@@ -1016,7 +1016,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-custom-eviction");
@@ -1039,7 +1039,7 @@ namespace Tangosol.Net.Impl
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = CacheFactory.GetCache("local-custom-unit-calculator");

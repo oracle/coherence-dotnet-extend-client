@@ -535,7 +535,7 @@ namespace Tangosol.Util.Extractor
         [Test]
         public void TestExtractorSerialization()
         {
-            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml");
+            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml");
             Assert.IsNotNull(ctx);
 
             ChainedExtractor chainedExtractor = new ChainedExtractor("member1");

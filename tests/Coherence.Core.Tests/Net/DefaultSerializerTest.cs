@@ -23,7 +23,7 @@ namespace Tangosol.Net
         [Test]
         public void TestDefaultPofSerializer()
         {
-            IXmlElement xmlConfig = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-default-serializer-cache-config.xml");
+            IXmlElement xmlConfig = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-default-serializer-cache-config.xml");
             CacheFactory.Configure(xmlConfig,null);
             INamedCache cache = CacheFactory.GetCache("dist-default");
             cache.Clear();
@@ -47,7 +47,7 @@ namespace Tangosol.Net
         [Test]
         public void TestNamedDefaultSerializer()
         {
-            IXmlElement xmlConfig = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-named-default-serializer-cache-config.xml");
+            IXmlElement xmlConfig = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-named-default-serializer-cache-config.xml");
             CacheFactory.Configure(xmlConfig,null);
             INamedCache cache = CacheFactory.GetCache("dist-default");
             cache.Clear();
@@ -71,7 +71,7 @@ namespace Tangosol.Net
         [Test]
         public void TestNamedDefaultPofSerializer()
         {
-            IXmlElement xmlConfig = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-extend-named-pof-default-serializer-cache-config.xml");
+            IXmlElement xmlConfig = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-extend-named-pof-default-serializer-cache-config.xml");
             CacheFactory.Configure(xmlConfig,null);
             INamedCache cache = CacheFactory.GetCache("dist-default");
             cache.Clear();

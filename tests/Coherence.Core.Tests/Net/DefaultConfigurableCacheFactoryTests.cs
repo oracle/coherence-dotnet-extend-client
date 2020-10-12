@@ -59,7 +59,7 @@ namespace Tangosol.Net
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-local-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache1 = ccf.EnsureCache("local-default");
@@ -218,7 +218,7 @@ namespace Tangosol.Net
         {
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
-            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-near-cache-config.xml");
+            IXmlDocument config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-near-cache-config.xml");
             ccf.Config = config;
 
             INamedCache cache = ccf.EnsureCache("dist-extend-direct");
@@ -261,7 +261,7 @@ namespace Tangosol.Net
             DefaultConfigurableCacheFactory ccf = null;
             try
             {
-                ccf = new DefaultConfigurableCacheFactory("assembly://Coherence.Tests/Tangosol.Resources/s4hc-invalid-cache-config.xml");
+                ccf = new DefaultConfigurableCacheFactory("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-invalid-cache-config.xml");
                 ccf.OperationalContext = ((DefaultConfigurableCacheFactory) CacheFactory
                         .ConfigurableCacheFactory).OperationalContext;
             }
@@ -281,7 +281,7 @@ namespace Tangosol.Net
             DefaultConfigurableCacheFactory ccf = null;
             try
             {
-                ccf = new DefaultConfigurableCacheFactory("assembly://Coherence.Tests/Tangosol.Resources/s4hc-invalid-cache-config-ns.xml");
+                ccf = new DefaultConfigurableCacheFactory("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-invalid-cache-config-ns.xml");
                 ccf.OperationalContext = ((DefaultConfigurableCacheFactory) CacheFactory
                         .ConfigurableCacheFactory).OperationalContext;
             }
@@ -300,7 +300,7 @@ namespace Tangosol.Net
             DefaultConfigurableCacheFactory.CacheInfo cacheInfo = null;
             try
             {
-                ccf       = new DefaultConfigurableCacheFactory("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-with-spaces.xml");
+                ccf       = new DefaultConfigurableCacheFactory("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config-with-spaces.xml");
                 cacheInfo = ccf.FindSchemeMapping("test-GetsPutsCache");
             }
             catch
@@ -322,7 +322,7 @@ namespace Tangosol.Net
             IXmlDocument config = null;
             try
             {
-                config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/bogus-cache-config.xml");
+                config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/bogus-cache-config.xml");
             }
             catch (IOException e)
             {
@@ -341,7 +341,7 @@ namespace Tangosol.Net
             IXmlDocument config = null;
             try
             {
-                config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-illegal.xml");
+                config = XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config-illegal.xml");
             }
             catch (XmlException e)
             {

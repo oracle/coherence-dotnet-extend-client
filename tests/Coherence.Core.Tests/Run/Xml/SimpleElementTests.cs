@@ -107,7 +107,7 @@ namespace Tangosol.Run.Xml
         [Test]
         public void TestSerialization()
         {
-            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml");
+            ConfigurablePofContext ctx = new ConfigurablePofContext("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml");
             Assert.IsNotNull(ctx);
 
             SimpleElement se = new SimpleElement("name", 5);

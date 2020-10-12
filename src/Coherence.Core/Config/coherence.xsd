@@ -33,7 +33,7 @@
       <coherence xmlns="http://schemas.tangosol.com/coherence"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://schemas.tangosol.com/coherence
-                  assembly://Coherence/Tangosol.Config/coherence.xsd">]]>
+                  assembly://Coherence.Core/Tangosol.Config/coherence.xsd">]]>
     </xs:documentation>
   </xs:annotation>
 

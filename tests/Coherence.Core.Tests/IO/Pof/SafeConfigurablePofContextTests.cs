@@ -278,7 +278,7 @@ namespace Tangosol.IO.Pof
         [Test]
         public void testSetSerializer()
         {
-            IPofContext ctx    = new ConfigurablePofContext("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml");
+            IPofContext ctx    = new ConfigurablePofContext("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml");
             var         set    = new HashSet();
             Assert.IsTrue(ctx.IsUserType(set));
             Assert.IsTrue(ctx.IsUserType(typeof(HashSet)));
@@ -294,7 +294,7 @@ namespace Tangosol.IO.Pof
             Assert.IsTrue(o is HashSet);
             buffer.Close();
 
-            ctx = new SafeConfigurablePofContext("assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml");
+            ctx = new SafeConfigurablePofContext("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml");
             Assert.IsTrue(ctx.IsUserType(set));
             Assert.IsTrue(ctx.IsUserType(typeof(HashSet)));
             Assert.IsTrue(ctx.IsUserType(typeof(HashSet).AssemblyQualifiedName));

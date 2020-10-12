@@ -461,7 +461,7 @@ namespace Tangosol.IO.Pof
         {
             ConfigurablePofContext.DefaultPofConfig = XmlHelper.LoadResource(
                 ResourceLoader.GetResource(
-                    "assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-reference-config.xml"),
+                    "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-reference-config.xml"),
                     "POF configuration");
             INamedCache cache = CacheFactory.GetCache("dist-pof-test");
 
@@ -485,7 +485,7 @@ namespace Tangosol.IO.Pof
         {
             ConfigurablePofContext.DefaultPofConfig = XmlHelper.LoadResource(
                 ResourceLoader.GetResource(
-                    "assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-reference-config.xml"),
+                    "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-reference-config.xml"),
                     "POF configuration");
             INamedCache cache = CacheFactory.GetCache("dist-pof-test");
 
