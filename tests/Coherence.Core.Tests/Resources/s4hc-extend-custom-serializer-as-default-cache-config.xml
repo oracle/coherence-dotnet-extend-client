@@ -14,7 +14,7 @@
         <init-params>
            <init-param>
               <param-type>string</param-type>
-              <param-value>Config\coh8230-client-pof-config.xml</param-value>
+              <param-value>Config/coh8230-client-pof-config.xml</param-value>
            </init-param>
         </init-params>
       </instance>

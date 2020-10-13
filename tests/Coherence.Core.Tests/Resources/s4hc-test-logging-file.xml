@@ -8,7 +8,7 @@
 
 <coherence xmlns="http://schemas.tangosol.com/coherence">
   <logging-config>
-    <destination>C:\temp\logout.txt</destination>
+    <destination>Coherence.Core.Tests.log</destination>
     <severity-level>5</severity-level>
     <message-format>{date} {product} {version} &lt;{level}&gt; (thread={thread}, member={member}): {text}</message-format>
     <character-limit>8192</character-limit>

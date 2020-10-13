@@ -118,7 +118,7 @@ namespace Tangosol.IO.Pof
              pofwriter.WriteString(0, "invalid value");
 
              initPOFReader();
-             Assert.That(pofreader.ReadInt32(0), Throws.TypeOf<IOException>());
+             Assert.That(() => pofreader.ReadInt32(0), Throws.TypeOf<IOException>());
          }
 
         [Test]

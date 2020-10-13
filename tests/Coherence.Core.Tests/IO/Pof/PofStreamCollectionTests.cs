@@ -608,8 +608,9 @@ namespace Tangosol.IO.Pof
         public void TestReadReminder()
         {
             initPOFWriter();
+            Assert.That(() => pofwriter.WriteRemainder(new Binary(new byte[] { 1, 2, 3 })), Throws.InvalidOperationException);
+
             initPOFReader();
-            pofwriter.WriteRemainder(new Binary(new byte[] { 1, 2, 3 }));
             Assert.That(() => pofreader.ReadRemainder(), Throws.InvalidOperationException);
         }
 

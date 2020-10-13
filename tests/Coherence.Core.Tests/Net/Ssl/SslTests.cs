@@ -20,9 +20,9 @@ namespace Tangosol.Net.Ssl
     [TestFixture]
     public class SslTest 
     {
-        private const string serverCert = @".\Net\Ssl\Server.cer";
-        private const string clientCert = @".\Net\Ssl\Client.pfx";
-        private const string clientCertPassword = @"password";
+        private const string serverCert = "./Net/Ssl/Server.cer";
+        private const string clientCert = "./Net/Ssl/Client.pfx";
+        private const string clientCertPassword = "password";
 
         private SslServer server;
 
@@ -107,9 +107,7 @@ namespace Tangosol.Net.Ssl
             var location = new IPEndPoint(IPAddress.Loopback, 5055);
             server = new SslServer(location)
             {
-                ServerCertificate =
-                        SslServer.LoadCertificate(
-                        serverCert),
+                ServerCertificate = SslServer.LoadCertificate(serverCert),
                 AuthenticateClient = true
             };
             server.Start();
@@ -127,6 +125,11 @@ namespace Tangosol.Net.Ssl
 
                 string echo = client.Echo("Hello World");
                 Assert.AreEqual(echo, "Hello World");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
             finally
             {
@@ -170,36 +173,11 @@ namespace Tangosol.Net.Ssl
         }
 
         [Test]
-        //[ExpectedException(typeof(TypeLoadException))]
         public void TestSslClientConfiguration2()
         {
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
-            {
-                ServerCertificate =
-                        SslServer.LoadCertificate(
-                        serverCert),
-                AuthenticateClient = true
-            };
-            server.Start();
-            TcpClient client = new TcpClient();
-            try
-            {
-                IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config2.xml");
+            IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config2.xml");
 
-                IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
-
-                client.Connect(location);
-                Stream stream = streamProvider.GetStream(client);
-
-                string echo = SslClient.Echo(stream, "Hello World");
-                Assert.AreEqual(echo, "Hello World");
-            }
-            finally
-            {
-                client.Close();
-                server.Stop();
-            }
+            Assert.That(() => StreamProviderFactory.CreateProvider(xmlDoc), Throws.TypeOf<TypeLoadException>());
         }
 
         [Test]
@@ -270,37 +248,10 @@ namespace Tangosol.Net.Ssl
         }
 
         [Test]
-        //[ExpectedException(typeof(CryptographicException))]
         public void TestSslClientConfiguration5()
         {
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
-            {
-                ServerCertificate =
-                        SslServer.LoadCertificate(
-                        serverCert),
-                AuthenticateClient = true
-            };
-            server.Start();
-            TcpClient client = new TcpClient();
-            try
-            {
-                IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config5.xml");
-
-                IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
-
-                client.Connect(location);
-                Stream stream = streamProvider.GetStream(client);
-
-                string echo = SslClient.Echo(stream, "Hello World");
-                Assert.AreEqual(echo, "Hello World");
-            }
-            finally
-            {
-                client.Close();
-                server.Stop();
-                client = null;
-            }
+            IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config5.xml");
+            Assert.That(() => StreamProviderFactory.CreateProvider(xmlDoc), Throws.InstanceOf<CryptographicException>());
         }
 
         [Test]

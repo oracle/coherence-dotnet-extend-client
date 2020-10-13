@@ -98,7 +98,7 @@ namespace Tangosol.IO.Resources
                 {
                     // files should be relative to the directory the application
                     // executable is in, not the current working directory
-                    rawName = AppDomain.CurrentDomain.BaseDirectory + "\\" + rawName;
+                    rawName = AppDomain.CurrentDomain.BaseDirectory + rawName;
                 }
                 else if (protocol.Equals("web"))
                 {

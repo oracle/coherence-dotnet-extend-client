@@ -39,10 +39,8 @@ namespace Tangosol.Util
             // TODO: we still check for the legacy "tangosol-coherence" config
             // section for backwards compatibility; this check should be
             // removed in a future release
-            object config = ConfigurationManager.GetSection(_CONFIG_SECTION_NAME);
-            return config == null
-                    ? ConfigurationManager.GetSection(CONFIG_SECTION_NAME)
-                    : config;
+            return ConfigurationManager.GetSection(CONFIG_SECTION_NAME) 
+                   ?? ConfigurationManager.GetSection(_CONFIG_SECTION_NAME);
         }
 
         /// <summary>

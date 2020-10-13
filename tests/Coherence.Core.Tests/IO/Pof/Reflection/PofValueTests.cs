@@ -930,7 +930,7 @@ namespace Tangosol.IO.Pof.Reflection
         {
             if (isRefEnabled)
             {
-                return new ConfigurablePofContext("config/reference-pof-config.xml");
+                return new ConfigurablePofContext("Config/reference-pof-config.xml");
             }
             SimplePofContext ctx = new SimplePofContext();
             ctx.RegisterUserType(3010, typeof(Address), new PortableObjectSerializer(3010));

@@ -76,7 +76,7 @@ namespace Tangosol.IO.Pof
             MemoryStream           buffer = new MemoryStream(1000);
             DataWriter             writer = new DataWriter(buffer);
             DataReader             reader = new DataReader(buffer);
-            ConfigurablePofContext cpc    = new ConfigurablePofContext("config/include-pof-config.xml");
+            ConfigurablePofContext cpc    = new ConfigurablePofContext("Config/include-pof-config.xml");
             GenericCollectionsType gct    = new GenericCollectionsType();
 
             cpc.Serialize(writer, gct);

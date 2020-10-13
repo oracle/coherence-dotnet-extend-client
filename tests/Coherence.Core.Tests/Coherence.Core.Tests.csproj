@@ -11,6 +11,7 @@
     <NoWarn>162, 618, 675</NoWarn>
 
     <IsPackable>false</IsPackable>
+    <OutputType>Library</OutputType>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,4 +24,24 @@
     <ProjectReference Include="..\..\src\Coherence.Core\Coherence.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\*.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\*.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\*.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\*.cer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\*.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Net\Ssl\Configs\*.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

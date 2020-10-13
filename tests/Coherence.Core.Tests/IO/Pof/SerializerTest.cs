@@ -46,7 +46,7 @@ namespace Tangosol.IO.Pof
         [Test]
         public void testSerialization()
         {
-            String sPath = "config/reference-pof-config.xml";
+            String sPath = "Config/reference-pof-config.xml";
             var    ctx   = new ConfigurablePofContext(sPath);
             var    bal   = new Balance();
             var    p     = new Product(bal);

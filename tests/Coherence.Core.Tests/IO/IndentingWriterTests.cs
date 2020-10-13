@@ -4,7 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
-using System;
+
 using System.IO;
 
 using NUnit.Framework;
@@ -40,9 +40,9 @@ namespace Tangosol.IO
             Assert.AreEqual("line1\nline2\nline3", strWriter.ToString());
             indWriter.Resume();
             indWriter.WriteLine();
-            Assert.AreEqual("line1\nline2\nline3\r\n", strWriter.ToString());
+            Assert.AreEqual("line1\nline2\nline3\n", strWriter.ToString());
             indWriter.Write(line1);
-            Assert.AreEqual("line1\nline2\nline3\r\n    line1", strWriter.ToString());
+            Assert.AreEqual("line1\nline2\nline3\n    line1", strWriter.ToString());
 
             strWriter = new StringWriter();
             indWriter = new IndentingWriter(strWriter, "ZZZ");

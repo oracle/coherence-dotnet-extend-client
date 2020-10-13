@@ -125,8 +125,8 @@ namespace Tangosol.Net.Ssl
             try
             {
                 sslStream.AuthenticateAsServer(ServerCertificate,
-                                               AuthenticateClient, Protocol, CheckClientCertRevocation);
-              
+                    AuthenticateClient, Protocol, CheckClientCertRevocation);
+
                 // Set timeouts
                 sslStream.ReadTimeout = ReadTimeout;
                 sslStream.WriteTimeout = WriteTimeout;
@@ -137,7 +137,7 @@ namespace Tangosol.Net.Ssl
 
                 // Write a message to the client.
                 byte[] message =
-                        Encoding.UTF8.GetBytes(messageData);
+                    Encoding.UTF8.GetBytes(messageData);
                 Console.WriteLine("Sending hello message '{0}'.", messageData);
                 sslStream.Write(message);
             }
@@ -147,12 +147,19 @@ namespace Tangosol.Net.Ssl
                 if (e.InnerException != null)
                 {
                     Console.WriteLine("Inner exception: {0}",
-                                      e.InnerException.Message);
+                        e.InnerException.Message);
                 }
+
                 Console.WriteLine(
-                        "Authentication failed - closing the connection.");
+                    "Authentication failed - closing the connection.");
                 sslStream.Close();
                 client.Close();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: {0}", e.Message);
+                Console.WriteLine(e.StackTrace);
                 throw;
             }
             finally

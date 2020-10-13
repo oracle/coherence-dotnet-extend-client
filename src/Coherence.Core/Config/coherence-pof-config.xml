@@ -573,43 +573,6 @@
       <class-name>Tangosol.Util.SimpleQueryRecord+PartialResult+IndexLookupRecord, Coherence.Core</class-name>
     </user-type>
 
-    <!-- Tangosol.Web namespace (300-349) -->
-
-    <user-type>
-      <type-id>300</type-id>
-      <class-name>Tangosol.Web.SessionHolder, Coherence.Core</class-name>
-    </user-type>
-
-    <user-type>
-      <type-id>301</type-id>
-      <class-name>Tangosol.Web.SessionKey, Coherence.Core</class-name>
-    </user-type>
-
-    <user-type>
-      <type-id>302</type-id>
-      <class-name>Tangosol.Web.Model.AbstractSessionModelManager+AcquireSessionProcessor, Coherence.Core</class-name>
-    </user-type>
-
-    <user-type>
-      <type-id>303</type-id>
-      <class-name>Tangosol.Web.Model.AbstractSessionModelManager+ReleaseSessionProcessor, Coherence.Core</class-name>
-    </user-type>
-
-    <user-type>
-      <type-id>304</type-id>
-      <class-name>Tangosol.Web.Model.AbstractSessionModelManager+ResetSessionTimeoutProcessor, Coherence.Core</class-name>
-    </user-type>
-
-    <user-type>
-      <type-id>305</type-id>
-      <class-name>Tangosol.Web.Model.AbstractSessionModelManager+SaveSessionProcessor, Coherence.Core</class-name>
-    </user-type>
-
-    <user-type>
-      <type-id>306</type-id>
-      <class-name>Tangosol.Web.Model.SplitSessionModel+ExternalAttributeKey, Coherence.Core</class-name>
-    </user-type>
-
     <!-- Tangosol.Internal.Util.Processor package (470-489) -->
     <user-type>
       <type-id>470</type-id>

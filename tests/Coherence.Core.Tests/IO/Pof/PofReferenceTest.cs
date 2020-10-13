@@ -26,7 +26,7 @@ namespace Tangosol.IO.Pof
         [Test]
         public void TestEnableReferenceConfig()
         {
-            const string path   = "config/reference-pof-config.xml";
+            const string path   = "Config/reference-pof-config.xml";
             var          ctx    = new ConfigurablePofContext(path);
             IXmlElement  config = ctx.Config;
             Assert.IsTrue(ctx.IsReferenceEnabled);
@@ -52,7 +52,7 @@ namespace Tangosol.IO.Pof
                 }
                 else
                 {
-                    const String sPath = "config/reference-pof-config.xml";
+                    const String sPath = "Config/reference-pof-config.xml";
                     m_ctx = new ConfigurablePofContext(sPath);
                 }
 
@@ -387,7 +387,7 @@ namespace Tangosol.IO.Pof
         [Test]
         public void testNestedReferences()
         {
-            const String sPath = "config/reference-pof-config.xml";
+            const String sPath = "Config/reference-pof-config.xml";
             m_ctx = new ConfigurablePofContext(sPath);
             IXmlElement config = ((ConfigurablePofContext) m_ctx).Config;
           

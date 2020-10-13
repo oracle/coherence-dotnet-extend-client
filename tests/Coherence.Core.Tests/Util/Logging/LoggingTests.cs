@@ -122,7 +122,7 @@ namespace Tangosol.Util.Logging
             Logger logger = new Logger();
             logger.Configure(ctx);
 
-            Assert.AreEqual(logger.Destination, "C:\\temp\\logout.txt");
+            Assert.AreEqual(logger.Destination, "Coherence.Core.Tests.log");
             logger.Start();
 
             Exception e = new Exception("TestFileLoggingException");

@@ -10,7 +10,7 @@
         <protocol>Tls</protocol>
         <local-certificates>
             <certificate>
-              <url>./Net/Ssl/client.pfx</url>
+              <url>./Net/Ssl/Client.pfx</url>
               <password>password</password>
             </certificate>
             <selector>

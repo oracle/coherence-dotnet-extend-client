@@ -344,7 +344,7 @@ namespace Tangosol.Run.Xml
             content = new SimpleValue(bin);
             writer = new StringWriter();
             content.WriteValue(writer, true);
-            Assert.IsTrue(writer.ToString().IndexOf("\n") >= 0);
+            Assert.IsTrue(writer.ToString().IndexOf("\n", StringComparison.Ordinal) >= 0);
         }
     }
 }

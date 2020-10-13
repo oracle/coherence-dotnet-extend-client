@@ -783,8 +783,7 @@ namespace Tangosol.IO.Pof
             {
                 var coherence = (CoherenceConfig)
                         ConfigurationUtils.GetCoherenceConfiguration();
-                var resource = (coherence == null ? null : coherence.PofConfig)
-                        ?? DefaultPofConfigResource;
+                var resource = coherence?.PofConfig ?? DefaultPofConfigResource;
                 config = XmlHelper.LoadResource(resource,
                         "POF configuration");
             }

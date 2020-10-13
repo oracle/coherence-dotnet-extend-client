@@ -25,13 +25,15 @@ namespace Tangosol.IO.Pof
             Type type = ctx.GetType(160);
             Assert.AreEqual(typeof(LocalMember), type);
 
-            LocalMember member      = new LocalMember();
-            member.MachineName      = "machine1";
-            member.MemberName       = "member1";
-            member.ProcessName      = "process1";
-            member.RackName         = "rack1";
-            member.RoleName         = "role1";
-            member.SiteName         = "site1";
+            LocalMember member = new LocalMember
+            {
+                MachineName = "machine1",
+                MemberName = "member1",
+                ProcessName = "process1",
+                RackName = "rack1",
+                RoleName = "role1",
+                SiteName = "site1"
+            };
 
             MemoryStream memstream  = new MemoryStream();
 
@@ -314,14 +316,14 @@ namespace Tangosol.IO.Pof
         [Test]
         public void TestMultipleIncludes()
         {
-            ConfigurablePofContext ctx = new ConfigurablePofContext("config/multiple-include-pof-config.xml");
+            ConfigurablePofContext ctx = new ConfigurablePofContext("Config/multiple-include-pof-config.xml");
             ctx.IsUserType(typeof(PortablePerson));
         }
 
         [Test]
         public void TestPofAnnotationSerializer()
         {
-            ConfigurablePofContext ctx = new ConfigurablePofContext("config/multiple-include-pof-config.xml");
+            ConfigurablePofContext ctx = new ConfigurablePofContext("Config/multiple-include-pof-config.xml");
 
             Assert.IsInstanceOf(typeof(PortableObjectSerializer), ctx.GetPofSerializer(2000));
             Assert.IsInstanceOf(typeof(PofAnnotationSerializer), ctx.GetPofSerializer(2003));
