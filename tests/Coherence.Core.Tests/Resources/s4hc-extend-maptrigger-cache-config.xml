@@ -40,7 +40,7 @@
             <init-params>
               <init-param>
                 <param-type>string</param-type>
-                <param-value>Resources\s4hc-test-config.xml</param-value>
+                <param-value>Resources/s4hc-test-config.xml</param-value>
               </init-param>
             </init-params>
           </instance>

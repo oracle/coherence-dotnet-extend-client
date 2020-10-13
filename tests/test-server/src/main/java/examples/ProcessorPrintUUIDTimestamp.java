@@ -37,7 +37,7 @@ public class ProcessorPrintUUIDTimestamp
     public Object process(Entry entry)
         {
         // format to .NET DateTime output form: "1/10/2013 12:19:40 PM", UTC
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("M/d/yyyy h:mm:ss a");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         return simpleDateFormat.format(new Date(((UUID) entry.getValue()).getTimestamp()));
         }

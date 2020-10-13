@@ -44,7 +44,7 @@ namespace Tangosol.Util
 
             INamedCache cache = CacheFactory.GetCache(CACHE_NAME);
 
-            cache.Clear();
+            cache.Truncate();
 
             SimplePerson pIn = new SimplePerson("123-45-6789", "Eddie", "Van Halen", 1955, 
                     "987-65-4321", new String[] {"456-78-9123"});

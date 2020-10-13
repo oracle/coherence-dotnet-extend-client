@@ -18,9 +18,9 @@ namespace Tangosol.Util
         {
             Uri uri = new Uri("http://www.s4hc.com/services#1");
             Assert.AreEqual("//www.s4hc.com/services", UriUtils.GetSchemeSpecificPart(uri));
-            uri = new Uri("//www.s4hc.com/");
+            uri = new Uri("http://www.s4hc.com/");
             Assert.AreEqual("//www.s4hc.com/", UriUtils.GetSchemeSpecificPart(uri));
-            uri = new Uri("//www.s4hc.com/services");
+            uri = new Uri("https://www.s4hc.com/services");
             Assert.AreEqual("//www.s4hc.com/services", UriUtils.GetSchemeSpecificPart(uri));
 
         }

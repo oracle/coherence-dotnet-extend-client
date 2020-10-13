@@ -6,6 +6,7 @@
  */
 using System;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -120,7 +121,7 @@ namespace Tangosol.Util
             cache[uuidKey]  = uuid;
             UUID cachedUUID = (UUID) cache[uuidKey];
             Assert.AreEqual(uuid, cachedUUID);
-            Assert.AreEqual(DateTimeUtils.GetDateTime(uuid.Timestamp).ToString(), cache.Invoke(uuidKey, new ProcessorPrintUUIDTimestamp()));
+            Assert.AreEqual(DateTimeUtils.GetDateTime(uuid.Timestamp).ToString(CultureInfo.InvariantCulture), cache.Invoke(uuidKey, new ProcessorPrintUUIDTimestamp()));
             cache.Clear();
             CacheFactory.Shutdown();
         }
