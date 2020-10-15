@@ -37,11 +37,51 @@ namespace Tangosol.Web
 
         #endregion
 
+        #region Setup and Teardown
+
+        [SetUp]
+        public new void CreateSession()
+        {
+            base.CreateSession();
+            try
+            {
+                // sleep a bit to make sure session is initialized...
+                Thread.Sleep(100);
+                Assert.AreEqual(1, m_extAttrCache.Count);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("SplitBinaryCoherenceSessionStoreTests.CreateSession() got Exception e: " + e);
+                // sleep a bit and try again
+                Thread.Sleep(3000);
+                Assert.AreEqual(1, m_extAttrCache.Count);
+            }
+        }
+
+        [TearDown]
+        public new void RemoveSession()
+        {
+            base.RemoveSession();
+            try
+            {
+                // sleep a bit to make sure session is removed...
+                Thread.Sleep(100);
+                Assert.AreEqual(0, m_extAttrCache.Count);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("SplitBinaryCoherenceSessionStoreTests.RemoveSession() got Exception e: " + e);
+                // sleep a bit and try again
+                Thread.Sleep(3000);
+                Assert.AreEqual(0, m_extAttrCache.Count);
+            }
+        }
+
+        #endregion
+
         [Test]
         public void TestExternalAttributeRemovalOnSessionRemoval()
         {
-            CheckCacheIsReady();
-
             m_store.RemoveItem(null, SESSION_ID, null, null);
 
             // external attributes are removed asynchronously
@@ -53,8 +93,6 @@ namespace Tangosol.Web
         [Test]
         public void TestExternalAttributeReplacement()
         {
-            CheckCacheIsReady();
-
             bool locked;
             TimeSpan lockAge;
             object lockId;
@@ -75,8 +113,6 @@ namespace Tangosol.Web
         [Test]
         public void TestExternalAttributeReadBeforeWrite()
         {
-            CheckCacheIsReady();
-
             bool locked;
             TimeSpan lockAge;
             object lockId;
@@ -97,8 +133,6 @@ namespace Tangosol.Web
         [Test]
         public void TestExternalAttributeMultipleWrites()
         {
-            CheckCacheIsReady();
-
             bool locked;
             TimeSpan lockAge;
             object lockId;
@@ -125,8 +159,6 @@ namespace Tangosol.Web
         [Test]
         public void TestExternalAttributeReplaceSmall()
         {
-            CheckCacheIsReady();
-
             bool locked;
             TimeSpan lockAge;
             object lockId;
@@ -142,20 +174,6 @@ namespace Tangosol.Web
             m_store.SetAndReleaseItemExclusive(null, SESSION_ID, data, lockId, false);
 
             Assert.AreEqual(1, m_extAttrCache.Count);
-        }
-
-        private void CheckCacheIsReady()
-        {
-            try
-                {
-                Assert.AreEqual(1, m_extAttrCache.Count);
-                }
-            catch (Exception /* e */)
-                {
-                // sleep a bit to make sure session is initialized...
-                Thread.Sleep(3000);
-                Assert.AreEqual(1, m_extAttrCache.Count);
-                }
         }
 
         protected INamedCache m_extAttrCache;
