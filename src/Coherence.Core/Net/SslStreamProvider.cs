@@ -114,7 +114,7 @@ namespace Tangosol.Net
                     sException.Append("\n");
                 }
                 sException.Append(
-                        "The certificate chain was issued to a diffent name.");
+                        "The certificate chain was issued to a different name.");
             }
 
             if ((errors & SslPolicyErrors.RemoteCertificateNotAvailable) ==
@@ -126,7 +126,9 @@ namespace Tangosol.Net
                 }
                 sException.Append("The certificate was not available.");
             }
-            throw new AuthenticationException(errors.ToString());
+            Console.WriteLine("SSL errors:\n" + sException);
+            return false;
+            //throw new AuthenticationException(errors.ToString());
         }
 
         /// <summary>
@@ -174,9 +176,14 @@ namespace Tangosol.Net
                         : ServerName;
 
                 if (LocalCertificateSelector == null)
-                    {
+                {
                     LocalCertificateSelector = LocalCertificatePicker;
-                    }
+                }
+                if (RemoteCertificateValidator == null)
+                {
+                    RemoteCertificateValidator = DefaultCertificateValidation;
+                }
+                
                 SslStream stream = new SslStream(client.GetStream(), false,
                                  RemoteCertificateValidator, LocalCertificateSelector);
                 stream.AuthenticateAsClient(serverName, ClientCertificates, Protocols, false);

@@ -23,7 +23,20 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Coherence.Core\Coherence.Core.csproj" />
   </ItemGroup>
-
+  
+  <!--  
+    This is necessary to support various test runners, as the main assembly effectively
+    changes based on which test runner is used, and the tests fail because the config 
+    file cannot be found.
+    
+    See https://github.com/dotnet/runtime/issues/22720 for details.
+    -->
+  <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
+    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.x86.dll.config" />
+    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\ReSharperTestRunner64.dll.config" />
+  </Target>
+  
   <ItemGroup>
     <None Remove="Resources\*.xml" />
   </ItemGroup>

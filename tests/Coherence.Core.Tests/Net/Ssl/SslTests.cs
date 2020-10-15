@@ -6,12 +6,12 @@
  */
 using System;
 using System.IO;
-using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using NUnit.Framework;
 using Tangosol.Run.Xml;
 
@@ -20,39 +20,21 @@ namespace Tangosol.Net.Ssl
     [TestFixture]
     public class SslTest 
     {
-        private const string serverCert = "./Net/Ssl/Server.cer";
-        private const string clientCert = "./Net/Ssl/Client.pfx";
-        private const string clientCertPassword = "password";
-
-        private SslServer server;
-
-        [SetUp]
-        public void SetUp()
-        {
-            server = null;
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            server = null;
-        }
-
+        private const string SERVER_CERT = "./Net/Ssl/Server.pfx";
+        private const string CLIENT_CERT = "./Net/Ssl/Client.pfx";
+        private const string CLIENT_CERT_PASSWORD = "password";
 
         [Test]
         public void TestSslServerAuthentication()
         {
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            Console.WriteLine(Directory.GetCurrentDirectory());
-            server = new SslServer(location)
+            var server = new SslServer()
             {
-                ServerCertificate =
-                        SslServer.LoadCertificate(serverCert)
+                ServerCertificate = SslServer.LoadCertificate(SERVER_CERT)
             };
             server.Start();
 
-            SslClient client =
-                new SslClient(location)
+            var client =
+                new SslClient(server.EndPoint)
                     {
                         ServerName = "MyServerName",
                         Protocol   = SslProtocols.Default
@@ -61,30 +43,28 @@ namespace Tangosol.Net.Ssl
             {
                 client.Connect();
 
-                string echo = client.Echo("Hello World");
+                var echo = client.Echo("Hello World");
                 Assert.AreEqual(echo, "Hello World");
             }
             finally
             {
                 client.Close();
                 server.Stop();
-                client = null;
             }
         }
 
         [Test]
         public void TestSslClientAuthenticationException()
         {
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
+            var server = new SslServer()
                     {
-                        ServerCertificate  = SslServer.LoadCertificate(serverCert),
+                        ServerCertificate  = SslServer.LoadCertificate(SERVER_CERT),
                         AuthenticateClient = true
                     };
             server.Start();
 
-            SslClient client =
-                    new SslClient(location)
+            var client =
+                    new SslClient(server.EndPoint)
                         {
                             ServerName   = "MyServerName",
                             Protocol     = SslProtocols.Default,
@@ -92,7 +72,12 @@ namespace Tangosol.Net.Ssl
                         };
             try
             {
-                Assert.That(() => client.Connect(), Throws.TypeOf<IOException>());
+                client.Connect();
+                
+                // the server should've closed the connection because the client certificate is missing,
+                // so the following should fail
+                Thread.Sleep(500);
+                Assert.That(() => client.Echo("Hello World"), Throws.TypeOf<IOException>());
             }
             finally
             {
@@ -104,32 +89,26 @@ namespace Tangosol.Net.Ssl
         [Test]
         public void TestSslClientAuthentication()
         {
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
+            var server = new SslServer()
             {
-                ServerCertificate = SslServer.LoadCertificate(serverCert),
+                ServerCertificate = SslServer.LoadCertificate(SERVER_CERT),
                 AuthenticateClient = true
             };
             server.Start();
 
-            SslClient client =
-                    new SslClient(location)
+            var client =
+                new SslClient(server.EndPoint)
                         {
                             ServerName = "MyServerName",
                             Protocol   = SslProtocols.Default
                         };
             try
             {
-                client.AppendCertificate(new X509Certificate(clientCert, clientCertPassword));
+                client.AppendCertificate(new X509Certificate2(CLIENT_CERT, CLIENT_CERT_PASSWORD));
                 client.Connect();
 
-                string echo = client.Echo("Hello World");
-                Assert.AreEqual(echo, "Hello World");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
+                var echo = client.Echo("Hello World");
+                Assert.AreEqual("Hello World", echo);
             }
             finally
             {
@@ -142,40 +121,36 @@ namespace Tangosol.Net.Ssl
         [Test]
         public void TestSslClientConfiguration()
         {
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
+            var server = new SslServer()
             {
-                ServerCertificate =
-                        SslServer.LoadCertificate(
-                        serverCert),
+                ServerCertificate = SslServer.LoadCertificate(SERVER_CERT),
                 AuthenticateClient = true
             };
             server.Start();
-            TcpClient client = new TcpClient();
+            var client = new TcpClient();
             try
             {
-                IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config.xml");
+                var xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config.xml");
                 
-                IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
+                var streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
 
-                client.Connect(location);
-                Stream stream = streamProvider.GetStream(client);
+                client.Connect(server.EndPoint);
+                var stream = streamProvider.GetStream(client);
                 
-                string echo = SslClient.Echo(stream, "Hello World");
+                var echo = SslClient.Echo(stream, "Hello World");
                 Assert.AreEqual(echo, "Hello World");
             }
             finally
             {
                 client.Close();
                 server.Stop();
-                client = null;
             }
         }
 
         [Test]
         public void TestSslClientConfiguration2()
         {
-            IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config2.xml");
+            var xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config2.xml");
 
             Assert.That(() => StreamProviderFactory.CreateProvider(xmlDoc), Throws.TypeOf<TypeLoadException>());
         }
@@ -183,159 +158,142 @@ namespace Tangosol.Net.Ssl
         [Test]
         public void TestSslClientConfiguration3()
         {
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
+            var server = new SslServer()
             {
-                ServerCertificate =
-                        SslServer.LoadCertificate(
-                        serverCert),
+                ServerCertificate = SslServer.LoadCertificate(SERVER_CERT),
                 AuthenticateClient = true
             };
             server.Start();
-            TcpClient client = new TcpClient();
+            var client = new TcpClient();
             try
             {
-                IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config3.xml");
+                var xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config3.xml");
 
-                IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
+                var streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
 
-                client.Connect(location);
-                Stream stream = streamProvider.GetStream(client);
+                client.Connect(server.EndPoint);
+                var stream = streamProvider.GetStream(client);
 
-                string echo = SslClient.Echo(stream, "Hello World");
+                var echo = SslClient.Echo(stream, "Hello World");
                 Assert.AreEqual(echo, "Hello World");
             }
             finally
             {
                 client.Close();
                 server.Stop();
-                client = null;
             }
         }
 
         [Test]
-        //[ExpectedException(typeof(AuthenticationException))]
         public void TestSslClientConfiguration4()
         {
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
+            var server = new SslServer()
             {
-                ServerCertificate =
-                        SslServer.LoadCertificate(
-                        serverCert),
+                ServerCertificate = SslServer.LoadCertificate(SERVER_CERT),
                 AuthenticateClient = true
             };
             server.Start();
-            TcpClient client = new TcpClient();
+            
+            var client = new TcpClient();
             try
             {
-                IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config4.xml");
+                var xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config4.xml");
+                var streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
 
-                IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
-
-                client.Connect(location);
-                Stream stream = streamProvider.GetStream(client);
-
-                string echo = SslClient.Echo(stream, "Hello World");
-                Assert.AreEqual(echo, "Hello World");
+                client.Connect(server.EndPoint);
+                Assert.That(() => streamProvider.GetStream(client), Throws.TypeOf<AuthenticationException>());
             }
             finally
             {
                 client.Close();
                 server.Stop();
-                client = null;
             }
         }
 
         [Test]
         public void TestSslClientConfiguration5()
         {
-            IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config5.xml");
+            var xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config5.xml");
             Assert.That(() => StreamProviderFactory.CreateProvider(xmlDoc), Throws.InstanceOf<CryptographicException>());
         }
 
         [Test]
         public void TestSslConfigurationWithSelector()
         {
-            IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config6.xml");
+            var xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config6.xml");
             Assert.NotNull(xmlDoc);
 
-            IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
+            var streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
             Assert.NotNull(streamProvider);
             Assert.IsTrue(streamProvider is SslStreamProvider);
 
-            SslStreamProvider sslStreamProvider = (streamProvider as SslStreamProvider);
+            var sslStreamProvider = (streamProvider as SslStreamProvider);
             Assert.IsTrue(sslStreamProvider.LocalCertificateSelector is LocalCertificateSelectionCallback);
 
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
+            var server = new SslServer()
             {
-                ServerCertificate = SslServer.LoadCertificate(serverCert),
+                ServerCertificate = SslServer.LoadCertificate(SERVER_CERT),
                 AuthenticateClient = true
             };
             server.Start();
 
-            TcpClient client = new TcpClient();
+            var client = new TcpClient();
             try
             {
-                client.Connect(location);
-                Stream stream = streamProvider.GetStream(client);
+                client.Connect(server.EndPoint);
+                var stream = streamProvider.GetStream(client);
 
-                string echo = SslClient.Echo(stream, "Hello World");
+                var echo = SslClient.Echo(stream, "Hello World");
                 Assert.Fail("Expected Exception, but got none");
             }
             catch (Exception e)
             {
                 Console.WriteLine("SslTests.TestSslConfigurationWithSelector(), exception: " + e.ToString());
                 Assert.IsTrue(e is AuthenticationException);
-                Assert.NotNull(e.Message);
-                Assert.IsTrue(e.Message.Contains("RemoteCertificateNameMismatch"));
+                Assert.AreEqual("The remote certificate is invalid according to the validation procedure.", e.Message);
             }
             finally
             {
                 client.Close();
                 server.Stop();
-                client = null;
             }
         }
 
         [Test]
         public void TestSslRemoteCertValidation()
         {
-            IXmlDocument xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config7.xml");
+            var xmlDoc = XmlHelper.LoadXml("./Net/Ssl/Configs/config7.xml");
             Assert.NotNull(xmlDoc);
 
-            IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
+            var streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
             Assert.NotNull(streamProvider);
             Assert.IsTrue(streamProvider is SslStreamProvider);
 
-            SslStreamProvider sslStreamProvider = (streamProvider as SslStreamProvider);
+            var sslStreamProvider = (streamProvider as SslStreamProvider);
             Assert.IsTrue(sslStreamProvider.RemoteCertificateValidator is RemoteCertificateValidationCallback);
 
-            var location = new IPEndPoint(IPAddress.Loopback, 5055);
-            server = new SslServer(location)
+            var server = new SslServer()
             {
-                ServerCertificate = SslServer.LoadCertificate(serverCert),
+                ServerCertificate = SslServer.LoadCertificate(SERVER_CERT),
                 AuthenticateClient = true
             };
             server.Start();
 
-            TcpClient client = new TcpClient();
+            var client = new TcpClient();
             try
             {
-                client.Connect(location);
-                Stream stream = streamProvider.GetStream(client);
+                client.Connect(server.EndPoint);
+                var stream = streamProvider.GetStream(client);
                 Assert.NotNull(stream);
                 Assert.AreEqual(sslStreamProvider.ServerName, "MyServerName");
 
-                string echo = SslClient.Echo(stream, "Hello World");
+                var echo = SslClient.Echo(stream, "Hello World");
                 Assert.AreEqual(echo, "Hello World");
             }
             finally
             {
                 client.Close();
                 server.Stop();
-                client = null;
             }
         }
     }
