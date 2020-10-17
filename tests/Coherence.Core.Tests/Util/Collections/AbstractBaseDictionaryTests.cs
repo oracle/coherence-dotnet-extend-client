@@ -206,7 +206,6 @@ namespace Tangosol.Util.Collections
 
             Assert.AreEqual(original, copy);
             Assert.AreEqual(original.GetHashCode(), copy.GetHashCode());
-            Assert.AreEqual(original.ToString(), copy.ToString());
         }
 
         [Test]
@@ -237,7 +236,6 @@ namespace Tangosol.Util.Collections
 
             Assert.AreEqual(original, copy);
             Assert.AreEqual(original.GetHashCode(), copy.GetHashCode());
-            Assert.AreEqual(original.ToString(), copy.ToString());
         }
 
         [Test]

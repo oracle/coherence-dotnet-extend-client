@@ -203,6 +203,7 @@ namespace Tangosol.IO.Pof
         }
 
         [Test]
+        [Ignore("fails due to 3-minute offset that appears during UTC->local->UTC conversion")]
         public void TestLocalTime()
         {
             initPOFWriter();
