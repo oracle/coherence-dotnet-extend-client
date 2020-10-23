@@ -9,6 +9,7 @@
 name: CI Build
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - main
@@ -52,6 +53,9 @@ jobs:
     services:
       test-server:
         image: docker.pkg.github.com/oracle/coherence-dotnet-extend-client/test-server:${{ matrix.coherence_version }}
+        credentials:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
         ports:
           - 9040:9040
           - 9042:9042
