@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+
+<pof-config xmlns="http://schemas.tangosol.com/pof">
+    <user-type-list>
+
+        <!-- coherence POF user types -->
+        <include>assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml</include>
+
+        <user-type>
+          <type-id>2000</type-id>
+          <class-name>Tangosol.IO.Pof.NestedType, Coherence.Core.Tests</class-name>
+        </user-type>
+
+        <user-type>
+          <type-id>2001</type-id>
+          <class-name>Tangosol.IO.Pof.SimpleType, Coherence.Core.Tests</class-name>
+        </user-type>
+
+        <user-type>
+          <type-id>2002</type-id>
+          <class-name>Tangosol.IO.Pof.GenericCollectionsType, Coherence.Core.Tests</class-name>
+        </user-type>
+
+        <user-type>
+          <type-id>2003</type-id>
+          <class-name>Tangosol.IO.Pof.PersonV1, Coherence.Core.Tests</class-name>
+        </user-type>
+
+        <user-type>
+          <type-id>2004</type-id>
+          <class-name>Tangosol.IO.Pof.Child, Coherence.Core.Tests</class-name>
+          <serializer>
+            <class-name>Tangosol.IO.Pof.PofAnnotationSerializer, Coherence.Core</class-name>
+            <init-params>
+              <init-param>
+                <param-type>int</param-type>
+                <param-value>{type-id}</param-value>
+              </init-param>
+              <init-param>
+                <param-type>class</param-type>
+                <param-value>{class}</param-value>
+              </init-param>
+              <init-param>
+                <param-type>bool</param-type>
+                <param-value>true</param-value>
+              </init-param>
+            </init-params>
+          </serializer>
+        </user-type>
+
+   </user-type-list>
+   <allow-interfaces>true</allow-interfaces>
+   <allow-subclasses>true</allow-subclasses>
+</pof-config>

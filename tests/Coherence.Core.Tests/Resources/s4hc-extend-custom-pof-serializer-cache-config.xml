@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<cache-config xmlns="http://schemas.tangosol.com/cache">
+
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>custom-pof-serializer</cache-name>
+      <scheme-name>extend-custom-pof-serializer</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+    <remote-cache-scheme>
+      <scheme-name>extend-custom-pof-serializer</scheme-name>
+      <service-name>ExtendTcpCacheServiceCustomPofSerializer</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9490</port>
+            </socket-address>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9590</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <request-timeout>5s</request-timeout>
+        </outgoing-message-handler>
+        <serializer>
+           <instance>
+           <class-name>Tangosol.IO.TestPofSerializer, Coherence.Core.Tests</class-name>
+            <init-params>
+              <init-param>
+                <param-type>string</param-type>
+                <param-value>Config/coh8230-client-pof-config.xml</param-value>
+              </init-param>
+            </init-params>
+           </instance>
+        </serializer>
+        <connect-timeout>10s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+  </caching-schemes>
+
+</cache-config>
