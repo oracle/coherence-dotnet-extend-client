@@ -727,15 +727,7 @@ namespace Tangosol.Net.Cache
         public virtual object Invoke(object key, IEntryProcessor agent)
         {
             INamedCache cache = Cache;
-            if (Contains(key) || !cache.Contains(key))
-            {
-                return cache.Invoke(key, agent);
-            }
-            else
-            {
-                throw new InvalidOperationException(CacheName + ": key=" + key +
-                    " is outside the ContinuousQueryCache");
-            }
+            return cache.Invoke(key, agent);
         }
 
         /// <summary>
@@ -765,15 +757,6 @@ namespace Tangosol.Net.Cache
             // underlying cache (assumption is most keys in the collection are
             // already in the ContinuousQueryCache)
             INamedCache cache   = Cache;
-            HashSet     colView = new HashSet(GetInternalKeysCollection());
-            foreach (object key in keys)
-            {
-                if (!colView.Contains(key) && cache.Contains(key))
-                {
-                    throw new InvalidOperationException(CacheName
-                             + ": key=" + key + " is outside the ContinuousQueryCache");
-                }
-            }
             return cache.InvokeAll(keys, agent);
         }
 
@@ -841,16 +824,6 @@ namespace Tangosol.Net.Cache
             // underlying cache (assumption is most keys in the collection are
             // already in the ContinuousQueryCache)
             INamedCache cache   = Cache;
-            HashSet     colView = new HashSet(GetInternalKeysCollection());
-            foreach (object key in keys)
-            {
-                if (!colView.Contains(key) && cache.Contains(key))
-                {
-                    throw new InvalidOperationException(CacheName
-                                                        + ": key=" + key
-                                                        + " is outside the ContinuousQueryCache");
-                }
-            }
             return cache.Aggregate(keys, agent);
         }
 
