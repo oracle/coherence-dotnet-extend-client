@@ -20,47 +20,58 @@ on:
     branches:
     - main
     - v14.1.1.0-net-core
-  pull_request_review:
-    types:
-      - submitted
-      - edited
 
 jobs:
   build:
-    runs-on: windows-latest
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.x
+    # Build
+    - name: Build
+      run: |
+        dotnet restore
+        dotnet build --configuration Release --no-restore
 
-    # Restore
-    - name: Restore
-      run: dotnet restore
+    # Run Tests
+    # - name: Run Tests
+    #  run: dotnet test --configuration Release --no-restore
+
+  test:
+    # we have to test on Linux in order to use Docker for test server
+    name: Test against Coherence ${{ matrix.coherence_version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        coherence_version: [14.1.1-0-2, 20.06.1]
+    services:
+      test-server:
+        image: docker.pkg.github.com/oracle/coherence-dotnet-extend-client/test-server:${{ matrix.coherence_version }}
+        ports:
+          - 9040:9040
+          - 9042:9042
+          - 9043:9043
+          - 9098:9098
+          - 9099:9099
+          - 9490:9490
+          - 9700:9700
+          - 9800:9800
+          - 9900:9900
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
 
     # Build
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: |
+        dotnet restore
+        dotnet build --configuration Release --no-restore
 
-    # Restore
-    - name: Restore
+    # Run Tests
+    - name: Run Tests
       run: dotnet test --configuration Release --no-restore
-
-    # Capture logs and test reports for diagnosing failures
-    - name: Capture test logs
-      uses: actions/upload-artifact@v2
-      if: failure()
-      with:
-        name: build-output
-        path: build\**\*.log
-
-    - name: Capture test reports
-      uses: actions/upload-artifact@v2
-      if: failure()
-      with:
-        name: test-reports
-        path: build\**\*tests.xml
