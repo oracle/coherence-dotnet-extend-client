@@ -70,6 +70,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    # Install SSL certificates
+    - name: Install SSL certificates
+      run: |
+        sudo cp tests/Coherence.Core.Tests/Config/testcert.cer /usr/local/share/ca-certificates/testcert.crt
+        sudo cp tests/Coherence.Core.Tests/Net/Ssl/CA.cer /usr/local/share/ca-certificates/CA.crt
+        sudo cp tests/Coherence.Core.Tests/Net/Ssl/Server.cer /usr/local/share/ca-certificates/Server.crt
+        sudo update-ca-certificates
+        
     # Build
     - name: Build
       run: |
