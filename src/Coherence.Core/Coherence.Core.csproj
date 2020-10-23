@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
+    <RootNamespace>Tangosol</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DefineConstants>NET_4_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>162, 618, 675</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Config\cache-config.xsd" />
+    <None Remove="Config\coherence-cache-config.xml" />
+    <None Remove="Config\pof-config.xsd" />
+    <None Remove="Config\coherence.xml" />
+    <None Remove="Config\coherence-pof-config.xml" />
+    <None Remove="Config\coherence.xsd" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <EmbeddedResource Include="Config\cache-config.xsd" />
+    <EmbeddedResource Include="Config\coherence-cache-config.xml" />
+    <EmbeddedResource Include="Config\pof-config.xsd" />
+    <EmbeddedResource Include="Config\coherence.xml" />
+    <EmbeddedResource Include="Config\coherence-pof-config.xml" />
+    <EmbeddedResource Include="Config\coherence.xsd" />
+  </ItemGroup>
+</Project>

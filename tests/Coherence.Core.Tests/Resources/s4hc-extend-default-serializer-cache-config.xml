@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<cache-config  xmlns="http://schemas.tangosol.com/cache">
+  <defaults>
+    <serializer>
+      <instance>
+        <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence.Core</class-name>
+      </instance>
+    </serializer>
+  </defaults>
+
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>dist-*</cache-name>
+      <scheme-name>extend-dist</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+    <remote-cache-scheme>
+      <scheme-name>extend-dist</scheme-name>
+      <service-name>ExtendTcpCacheServicePOF</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9099</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <request-timeout>5s</request-timeout>
+        </outgoing-message-handler>
+        <use-filters>
+          <filter-name>gzip</filter-name>
+        </use-filters>
+        <connect-timeout>10s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+  </caching-schemes>
+</cache-config>

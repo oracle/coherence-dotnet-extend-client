@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<cache-config xmlns="http://schemas.tangosol.com/cache">
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>dist-extend-direct</cache-name>
+      <scheme-name>example-near-1</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>dist-extend-direct-listener</cache-name>
+      <scheme-name>example-near-2</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+  <caching-schemes>
+    <near-scheme>
+      <scheme-name>example-near-1</scheme-name>
+      <front-scheme>
+        <local-scheme>
+          <scheme-ref>example-local-1</scheme-ref>
+        </local-scheme>
+      </front-scheme>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+    </near-scheme>
+    <near-scheme>
+      <scheme-name>example-near-2</scheme-name>
+      <front-scheme>
+        <local-scheme>
+          <scheme-ref>example-local-1</scheme-ref>
+        </local-scheme>
+      </front-scheme>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+      <listener>
+        <class-scheme>
+          <class-name>Tangosol.Net.Cache.NearCacheTests+SyncListenerStatic, Coherence.Core.Tests</class-name>
+        </class-scheme>
+      </listener>
+    </near-scheme>
+    <local-scheme>
+      <scheme-name>example-local-1</scheme-name>
+    </local-scheme>
+    <remote-cache-scheme>
+      <scheme-name>extend-direct</scheme-name>
+      <service-name>ExtendTcpCacheService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9099</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+          <request-timeout>30s</request-timeout>
+        </outgoing-message-handler>
+        <use-filters>
+          <filter-name>gzip</filter-name>
+        </use-filters>
+        <connect-timeout>5s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+  </caching-schemes>
+</cache-config>

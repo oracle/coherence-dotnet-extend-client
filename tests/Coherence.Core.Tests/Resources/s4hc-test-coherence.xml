@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+
+<coherence xmlns="http://schemas.tangosol.com/coherence">
+  <cluster-config>
+    <member-identity>
+      <cluster-name>DotNetTest</cluster-name>
+    </member-identity>
+    <filters>
+      <filter>
+        <filter-name>simple-filter</filter-name>
+        <filter-class>Tangosol.TestFilterWithArguments, Coherence.Core.Tests</filter-class>
+        <init-params>
+          <init-param>
+            <param-name>buffer</param-name>
+            <param-value>256</param-value>
+          </init-param>
+          <init-param>
+            <param-name>strategy</param-name>
+            <param-value>huffman</param-value>
+          </init-param>
+        </init-params>
+      </filter>
+    </filters>
+    <serializers>
+      <serializer id="test">
+        <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence.Core</class-name>
+      </serializer>
+      <serializer id="xml">
+        <instance>
+          <class-name>Tangosol.IO.TestSerializerXmlConfigurable, Coherence.Core.Tests</class-name>
+          <init-params>
+            <init-param>
+              <param-name>SerializerName</param-name>
+              <param-value>TestSerializerXmlConfigurable</param-value>
+            </init-param>
+            <init-param>
+              <param-name>pof-config</param-name>
+              <param-value>Config/coh8230-client-pof-config.xml</param-value>
+            </init-param>
+          </init-params>
+        </instance>
+      </serializer>
+
+    </serializers>
+    <address-providers>
+      <address-provider id="ap1">
+        <socket-address>
+          <address system-property="coherence.proxy.address">127.0.0.1</address>
+          <port system-property="coherence.proxy.port1">9099</port>
+        </socket-address>
+      </address-provider>
+      <address-provider id="ap2">
+        <socket-address>
+          <address system-property="coherence.proxy.address">127.0.0.1</address>
+          <port system-property="coherence.proxy.port2">7574</port>
+        </socket-address>
+      </address-provider>
+      <!--used by PofCircularReference test -->
+      <address-provider id="ap3">
+        <socket-address>
+          <address system-property="coherence.proxy.address">127.0.0.1</address>
+          <port system-property="coherence.proxy.port3">9040</port>
+        </socket-address>
+      </address-provider>
+    </address-providers>
+  </cluster-config>
+  <logging-config>
+    <destination>stderr</destination>
+    <severity-level>6</severity-level>
+    <message-format>{date} {product} {version} (TEST) &lt;{level}&gt; (thread={thread}): {text}</message-format>
+    <character-limit>8192</character-limit>
+  </logging-config>
+  <security-config>
+    <principal-scope>true</principal-scope>
+  </security-config>
+</coherence>
