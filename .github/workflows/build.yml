@@ -40,7 +40,7 @@ jobs:
 
     # Restore
     - name: Restore
-      run: dotnet restore --configuration Release
+      run: dotnet restore
 
     # Build
     - name: Build
