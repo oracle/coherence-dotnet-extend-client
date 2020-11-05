@@ -267,7 +267,7 @@
                 <delegate>
                   <type>static</type>
                   <class-name>Tangosol.Net.SslStreamProvider, Coherence</class-name>
-                  <method-name>DefaultCertificateValidation</method-name>
+                  <method-name>IgnoreCommonNameCertificateValidation</method-name>
                 </delegate>
               </remote-certificate-validator>
             </ssl>
@@ -303,7 +303,7 @@
                 <delegate>
                   <type>static</type>
                   <class-name>Tangosol.Net.SslStreamProvider, Coherence</class-name>
-                  <method-name>DefaultCertificateValidation</method-name>
+                  <method-name>IgnoreCommonNameCertificateValidation</method-name>
                 </delegate>
               </remote-certificate-validator>
             </ssl>
@@ -346,7 +346,7 @@
                 <delegate>
                   <type>static</type>
                   <class-name>Tangosol.Net.SslStreamProvider, Coherence</class-name>
-                  <method-name>DefaultCertificateValidation</method-name>
+                  <method-name>IgnoreCommonNameCertificateValidation</method-name>
                 </delegate>
               </remote-certificate-validator>
             </ssl>

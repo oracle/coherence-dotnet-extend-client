@@ -151,10 +151,24 @@ namespace Tangosol.Net
         /// <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
         /// <param name="sslPolicyErrors">One or more errors associated with the remote certificate.</param>
         /// <returns>A Boolean value that determines whether the specified certificate is accepted for authentication.</returns>
-        public static bool DefaultCertificateValidation(object sender, X509Certificate certificate,
+        public static bool IgnoreCommonNameCertificateValidation(object sender, X509Certificate certificate,
             X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return CheckRemoteValidationErrors(sslPolicyErrors, SslPolicyErrors.RemoteCertificateNameMismatch);
+        }
+
+        /// <summary>
+        /// Verifies the remote Secure Sockets Layer (SSL) certificate used for authentication.
+        /// </summary>
+        /// <param name="sender">An object that contains state information for this validation.</param>
+        /// <param name="certificate">The certificate used to authenticate the remote party.</param>
+        /// <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
+        /// <param name="sslPolicyErrors">One or more errors associated with the remote certificate.</param>
+        /// <returns>A Boolean value that determines whether the specified certificate is accepted for authentication.</returns>
+        public static bool DefaultCertificateValidation(object sender, X509Certificate certificate,
+            X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return CheckRemoteValidationErrors(sslPolicyErrors, SslPolicyErrors.None);
         }
         #endregion
 
@@ -269,7 +283,7 @@ namespace Tangosol.Net
                 // configure the remote certificate validator
                 xmlSub = xml.GetElement("remote-certificate-validator");
                 RemoteCertificateValidator = xmlSub == null
-                        ? StrictCertificateValidation  // COH-21950 - use strict validation for remote cert
+                        ? DefaultCertificateValidation
                         : XmlHelper.CreateDelegate<RemoteCertificateValidationCallback>(xmlSub.GetElement("delegate"));
             }
             get
