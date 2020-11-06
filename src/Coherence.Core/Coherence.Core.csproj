@@ -20,21 +20,42 @@
 
   <!-- AssemblyInfo metadata -->
   <PropertyGroup>
-    <PackageId>Coherence.Core</PackageId>
-    <AssemblyTitle>Oracle Coherence .NET Client</AssemblyTitle>
+    <AssemblyTitle>Oracle Coherence .NET Extend Client</AssemblyTitle>
     <VersionPrefix Condition="'$(VersionPrefix)' == ''">14.1.1.2</VersionPrefix>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+    <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
     
     <Company>Oracle</Company>
     <Copyright>Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</Copyright>
-    <Product>Oracle Coherence .NET Client</Product>
-    <Description Condition="'$(Description)' == ''">Internal Build</Description>
-    
+    <Product>Oracle Coherence</Product>
+  </PropertyGroup>
+
+  <!-- NuGet metadata -->
+  <PropertyGroup>
+    <PackageId>Coherence.Core</PackageId>
+    <Title>Oracle Coherence .NET Extend Client</Title>
+    <PackageProjectUrl>https://coherence.community/</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/oracle/coherence-dotnet-extend-client/main/assets/coherence-logo.png</PackageIconUrl>
+    <PackageIcon>coherence-logo.png</PackageIcon>
+    <PackageDescription>
+      This is a .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence .NET Extend Client. 
+    </PackageDescription>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReleaseNotes>
+      For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$(Version)-core/.  
+    </PackageReleaseNotes>
+    <PackageTags>IMDG;Scalable;Distributed;DB;Cache;Microservices</PackageTags>
+    <Authors>Aleks Seovic,Patrick Fry,Luk Ho,Vaso Putica,Ana Cikic,Ivan Cikic,Goran Milosavljevic,Jason Howes</Authors>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/oracle/coherence-dotnet-extend-client</RepositoryUrl>
+    <PackageLicenseExpression>UPL-1.0</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <NuspecProperties>documentation=readme.md</NuspecProperties>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
@@ -56,5 +77,10 @@
     <EmbeddedResource Include="Config\coherence.xml" />
     <EmbeddedResource Include="Config\coherence-pof-config.xml" />
     <EmbeddedResource Include="Config\coherence.xsd" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="../../assets/coherence-logo.png" Pack="true" PackagePath="/"/>
+    <None Include="../../assets/nuget-readme.md" Pack="true" PackagePath="readme.md"/>
   </ItemGroup>
 </Project>
