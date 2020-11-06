@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
     <RootNamespace>Tangosol</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <DefineConstants>NET_4_0</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -11,6 +11,30 @@
     <NoWarn>162, 618, 675</NoWarn>
   </PropertyGroup>
 
+  <!-- Strong name configuration -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <AssemblyOriginatorKeyFile>../../keys/Coherence-AssemblyKey.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign>true</PublicSign>
+  </PropertyGroup>
+
+  <!-- AssemblyInfo metadata -->
+  <PropertyGroup>
+    <PackageId>Coherence.Core</PackageId>
+    <AssemblyTitle>Oracle Coherence .NET Client</AssemblyTitle>
+    <VersionPrefix Condition="'$(VersionPrefix)' == ''">14.1.1.2</VersionPrefix>
+    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+    <FileVersion>$(VersionPrefix)</FileVersion>
+    
+    <Company>Oracle</Company>
+    <Copyright>Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</Copyright>
+    <Product>Oracle Coherence .NET Client</Product>
+    <Description Condition="'$(Description)' == ''">Internal Build</Description>
+    
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/oracle/coherence-dotnet-extend-client</RepositoryUrl>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
