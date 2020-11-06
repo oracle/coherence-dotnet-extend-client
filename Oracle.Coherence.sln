@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C8FFDB4E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coherence.Core.Tests", "tests\Coherence.Core.Tests\Coherence.Core.Tests.csproj", "{9A62D342-5A1A-44C1-B92C-A641E170D22F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coherence.Pof.Tests", "tests\Coherence.Pof.Tests\Coherence.Pof.Tests.csproj", "{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,9 +50,22 @@ Global
 		{9A62D342-5A1A-44C1-B92C-A641E170D22F}.Release|x64.Build.0 = Release|Any CPU
 		{9A62D342-5A1A-44C1-B92C-A641E170D22F}.Release|x86.ActiveCfg = Release|Any CPU
 		{9A62D342-5A1A-44C1-B92C-A641E170D22F}.Release|x86.Build.0 = Release|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Debug|x64.Build.0 = Debug|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Debug|x86.Build.0 = Debug|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Release|x64.ActiveCfg = Release|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Release|x64.Build.0 = Release|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Release|x86.ActiveCfg = Release|Any CPU
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3D8C8E78-480C-4223-84FD-035026E5C22C} = {4CB74234-AEC9-46F5-944E-6E721BD09E1C}
 		{9A62D342-5A1A-44C1-B92C-A641E170D22F} = {C8FFDB4E-1972-4437-8061-D3804D9C872A}
+		{3FF8F84A-0535-46D0-B54D-2FBEFF74523C} = {C8FFDB4E-1972-4437-8061-D3804D9C872A}
 	EndGlobalSection
 EndGlobal

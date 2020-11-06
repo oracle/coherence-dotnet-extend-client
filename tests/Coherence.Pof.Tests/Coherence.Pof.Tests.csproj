@@ -2,18 +2,32 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Tangosol.Data</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DefineConstants>NET_4_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
 
     <IsPackable>false</IsPackable>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Coherence.Core\Coherence.Core.csproj" />
+    <ProjectReference Include="..\Coherence.Core.Tests\Coherence.Core.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Java\*.data" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Java\*.data" />
   </ItemGroup>
 
 </Project>
