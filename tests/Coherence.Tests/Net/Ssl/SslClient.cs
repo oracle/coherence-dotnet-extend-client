@@ -4,7 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -50,7 +50,6 @@ namespace Tangosol.Net.Ssl
 
         public void Close()
         {
-            Stream.Dispose();
             TcpClient.Close();
         }
 
