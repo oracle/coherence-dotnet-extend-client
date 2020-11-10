@@ -151,8 +151,6 @@ namespace Tangosol.Net.Ssl
                 }
                 Console.WriteLine(
                         "Authentication failed - closing the connection.");
-                sslStream.Close();
-                client.Close();
                 throw;
             }
             finally
