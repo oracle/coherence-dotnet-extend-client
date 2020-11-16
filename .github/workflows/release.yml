@@ -1,0 +1,45 @@
+# Copyright 2020 Oracle Corporation and/or its affiliates.  All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# http://oss.oracle.com/licenses/upl.
+
+# ---------------------------------------------------------------------------
+# Coherence .NET Extend Client GitHub Actions CI build.
+# ---------------------------------------------------------------------------
+
+name: Release to NuGet
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  release:
+    name: Release to NuGet 
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+        dotnet restore
+        dotnet build -c Release --no-restore
+
+    - name: Pack
+      run: dotnet pack -c Release
+
+    - name: Sign
+      env:
+        CERT: ${{ secrets.CODE_SIGNING_CERT }}
+      run: |
+        CERT > cert.b64
+        certutil -decode cert.b64 cert.cer
+        certutil -enterprise -f -addstore Root cert.cer
+        certutil -dump
+        nuget sign src/Coherence.Core/bin/Release/Coherence.Core.14.1.1.2.nupkg -CertificatePath cert.cer -Timestamper http://timestamp.digicert.com
+        nuget verify -Signatures src/Coherence.Core/bin/Release/Coherence.Core.14.1.1.2.nupkg -CertificateFingerprint 17BCE26A73BD38D3ABF4E79C66E771C71462C77CCEED92FEEA93760287CE9C15
+
+    # - name: Publish
+    #   env:
+    #     API_KEY: ${{ secrets.NUGET_API_KEY }}
+    #   run: dotnet nuget push "src/Coherence.Core/bin/Release/Coherence.Core.14.1.1.2.nupkg" --api-key %API_KEY% --source https://api.nuget.org/v3/index.json       
+
