@@ -10,7 +10,10 @@ name: Release to NuGet
 
 on:
   workflow_dispatch:
-  
+  push:
+    branches:
+    - v14.1.1.0-net-core  
+
 jobs:
   release:
     name: Release to NuGet 
