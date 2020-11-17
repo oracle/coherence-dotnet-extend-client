@@ -34,12 +34,13 @@ jobs:
       env:
         CERT: ${{ secrets.CODE_SIGNING_CERT }}
       run: |
-        CERT > cert.b64
+        echo %CERT% > cert.b64
         certutil -decode cert.b64 cert.cer
         certutil -enterprise -f -addstore Root cert.cer
         certutil -dump
         nuget sign src/Coherence.Core/bin/Release/Coherence.Core.14.1.1.2.nupkg -CertificatePath cert.cer -Timestamper http://timestamp.digicert.com
         nuget verify -Signatures src/Coherence.Core/bin/Release/Coherence.Core.14.1.1.2.nupkg -CertificateFingerprint 17BCE26A73BD38D3ABF4E79C66E771C71462C77CCEED92FEEA93760287CE9C15
+        del cert.*
 
     # - name: Publish
     #   env:
