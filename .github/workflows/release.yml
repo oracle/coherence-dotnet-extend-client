@@ -34,7 +34,8 @@ jobs:
       env:
         CERT: ${{ secrets.CODE_SIGNING_CERT }}
       run: |
-        echo %CERT% > cert.b64
+        echo "%CERT%" > cert.b64
+        dir
         certutil -decode cert.b64 cert.cer
         certutil -enterprise -f -addstore Root cert.cer
         certutil -dump
