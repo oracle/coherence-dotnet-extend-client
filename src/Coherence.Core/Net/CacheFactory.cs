@@ -447,10 +447,9 @@ namespace Tangosol.Net
 
                     // output the product startup banner
                     logger.Log((int)LogLevel.Always,
-                        string.Format("\n{0} Version {1} Build {2}\n {3} Build\n{4}\n",
+                        string.Format("\n{0} Version {1}\n {2} Build\n{3}\n",
                            logger.Product,
-                           logger.Version,
-                           logger.BuildInfo,
+                           logger.Version + (logger.BuildInfo == "0" ? "" : " Build " + logger.BuildInfo),
                            logger.Edition + " " + logger.BuildType,
                            logger.Copyright), null);
 
