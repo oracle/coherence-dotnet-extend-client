@@ -31,10 +31,11 @@ jobs:
       run: dotnet pack -c Release
 
     - name: Sign
+      shell: pwsh
       env:
         CERT: ${{ secrets.CODE_SIGNING_CERT }}
       run: |
-        echo "%CERT%" > cert.b64
+        echo "$env:CERT" > cert.b64
         dir
         certutil -decode cert.b64 cert.cer
         certutil -enterprise -f -addstore Root cert.cer
