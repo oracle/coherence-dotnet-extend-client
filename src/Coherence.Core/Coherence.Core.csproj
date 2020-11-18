@@ -43,8 +43,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/oracle/coherence-dotnet-extend-client/main/assets/coherence-logo.png</PackageIconUrl>
     <PackageIcon>coherence-logo.png</PackageIcon>
     <PackageDescription>
-      This is a .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence .NET Extend Client. 
-      For .NET Framework 4.x compatible implementation, see https://www.nuget.org/packages/Coherence/.
+      This is a .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence .NET Extend Client. For .NET Framework 4.x compatible implementation, see https://www.nuget.org/packages/Coherence/.
     </PackageDescription>
     <PackageReleaseNotes>
       For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$(Version)-core/.  
