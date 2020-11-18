@@ -39,10 +39,6 @@ jobs:
         dotnet restore
         dotnet build --configuration Release --no-restore
 
-    # Run Tests
-    # - name: Run Tests
-    #  run: dotnet test --configuration Release --no-restore
-
   test:
     # we have to test on Linux in order to use Docker for test server
     name: Test against Coherence ${{ matrix.coherence_version }}

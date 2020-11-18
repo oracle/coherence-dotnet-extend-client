@@ -1,3 +1,14 @@
+# Oracle® Coherence Client for .NET Documentation
+
+This is documentation for the .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence Client for .NET. 
+
+> [!Note]
+> The documentation for the .NET Framework 4.0 (or later) compatible implementation of Oracle Coherence Client for .NET is available [here](https://coherence.community/14.1.1.0/api/dotnet/).
+
+### [API Documentation](api/)
+
+### About Oracle Coherence
+
 **Oracle Coherence CE** (Community Edition) is a free and open source edition of [Oracle Coherence](https://www.oracle.com/middleware/technologies/coherence.html), first and market-leading in-memory data grid. 
 
 Since its initial release in 2001, it has been used by thousands of customers across many industries to power some of the mission critical systems you use every day. Often imitated, but never duplicated, it is now available for everyone to use free of charge.

@@ -1,3 +1,12 @@
+# API Documentation
+
+This is API documentation for the .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence Client for .NET. 
+
+> [!Note]
+> The API documentation for the .NET Framework 4.0 (or later) compatible implementation of Oracle Coherence Client for .NET is available [here](https://coherence.community/14.1.1.0/api/dotnet/).
+
+### About Oracle Coherence
+
 **Oracle Coherence CE** (Community Edition) is a free and open source edition of [Oracle Coherence](https://www.oracle.com/middleware/technologies/coherence.html), first and market-leading in-memory data grid. 
 
 Since its initial release in 2001, it has been used by thousands of customers across many industries to power some of the mission critical systems you use every day. Often imitated, but never duplicated, it is now available for everyone to use free of charge.
@@ -17,3 +26,4 @@ An `INamedCache` instance is retrieved via the `CacheFactory.GetCache()` API cal
 * [Oracle Coherence YouTube Channel](https://www.youtube.com/user/OracleCoherence)
 * [Oracle Coherence CE Source Code](https://github.com/oracle/coherence)
 * [Oracle Coherence for .NET Source Code](https://github.com/oracle/coherence-dotnet-extend-client)
+
