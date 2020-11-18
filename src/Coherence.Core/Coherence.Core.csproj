@@ -28,35 +28,34 @@
     
     <Company>Oracle</Company>
     <Copyright>Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</Copyright>
-    <Product>Oracle Coherence .NET Client</Product>
+    <Product>Oracle Coherence Client for .NET</Product>
 
     <Description Condition="'$(Official)' == ''" >$(Version) ($(USER))</Description>
     <Description Condition="'$(Official)' != ''" >$(Version)</Description>
-    <AssemblyTitle>Oracle Coherence for .NET $(Version)</AssemblyTitle>
+    <AssemblyTitle>Oracle Coherence Client for .NET $(Version)</AssemblyTitle>
   </PropertyGroup>
 
   <!-- NuGet metadata -->
   <PropertyGroup>
     <PackageId>Coherence.Core</PackageId>
-    <Title>Oracle Coherence for .NET $(Version)</Title>
+    <Title>Oracle Coherence Client for .NET $(Version)</Title>
     <PackageProjectUrl>https://coherence.community/</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/oracle/coherence-dotnet-extend-client/main/assets/coherence-logo.png</PackageIconUrl>
     <PackageIcon>coherence-logo.png</PackageIcon>
     <PackageDescription>
       This is a .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence .NET Extend Client. 
+      For .NET Framework 4.x compatible implementation, see https://www.nuget.org/packages/Coherence/.
     </PackageDescription>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageReleaseNotes>
       For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$(Version)-core/.  
     </PackageReleaseNotes>
     <PackageTags>IMDG;Scalable;Distributed;DB;Cache;Microservices</PackageTags>
-    <Authors>Aleks Seovic,Patrick Fry,Luk Ho,Vaso Putica,Ana Cikic,Ivan Cikic,Goran Milosavljevic,Jason Howes</Authors>
+    <Authors>Oracle</Authors>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/oracle/coherence-dotnet-extend-client</RepositoryUrl>
     <PackageLicenseExpression>UPL-1.0</PackageLicenseExpression>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <NuspecProperties>documentation=readme.md</NuspecProperties>
   </PropertyGroup>
 
   <ItemGroup>

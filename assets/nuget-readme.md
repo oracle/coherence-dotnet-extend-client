@@ -10,10 +10,11 @@ Coherence Client for .NET is a lightweight .NET library that connects to a Coher
 
 An `INamedCache` instance is retrieved via the `CacheFactory.GetCache()` API call. Once it is obtained, a client accesses the `INamedCache` in the same way as it would if it were part of the Coherence cluster. The fact that cache operations are being sent and executed on a remote cluster node (over TCP/IP) is completely transparent to the client application.
 
+For more information, see [Oracle Coherence Client for .NET Documentation](https://coherence.community/14.1.1.0/api/dotnet-core/index.html).
 ### Additional Information
 
 * [Oracle Coherence CE Web Site](https://coherence.community/)
 * [Oracle Coherence CE Blog](https://medium.com/oracle-coherence)
 * [Oracle Coherence YouTube Channel](https://www.youtube.com/user/OracleCoherence)
 * [Oracle Coherence CE Source Code](https://github.com/oracle/coherence)
-* [Oracle Coherence for .NET Source Code](https://github.com/oracle/coherence-dotnet-extend-client)
+* [Oracle Coherence Client for .NET Source Code](https://github.com/oracle/coherence-dotnet-extend-client/tree/v14.1.1.0-net-core)
