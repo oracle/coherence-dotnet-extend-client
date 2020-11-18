@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package >
+<package>
   <metadata>
     <id>Coherence</id>
     <version>$version$</version>
-    <authors>Coherence</authors>
+    <title>Oracle Coherence for .NET $version$</title>
+    <authors>Oracle</authors>
     <owners>Oracle</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="file">LICENSE.txt</license>
-    <projectUrl>https://github.com/oracle/coherence-dotnet-extend-client/</projectUrl>
+    <license type="expression">UPL-1.0</license>
+    <projectUrl>https://coherence.community/</projectUrl>
+    <repository type="git" url="https://github.com/oracle/coherence-dotnet-extend-client" branch="v14.1.1.0" />
     <icon>coherence-logo.png</icon>
-    <description>Oracle Coherence for .NET Extend Client, Community Edition.</description>
-    <releaseNotes>This is a Coherence Community Edition patch release ($version$) of .NET Extend Client available on nuget.org. Coherence has empowered developers to build scalable, fault tolerant, distributed applications for almost 20 years and now Coherence CE allows everyone to take advantage of this novel product.</releaseNotes>
+    <description>This is a .NET Framework 4.0 (or later) compatible implementation of Oracle Coherence .NET Extend Client. For .NET Core 3.1 compatible implementation, see https://www.nuget.org/packages/Coherence.Core/.</description>
+    <releaseNotes>For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$version$/.</releaseNotes>
     <copyright>Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</copyright>
-	<language>en-US</language>
-    <tags>Coherence .NET cache</tags>
+    <language>en-US</language>
+    <tags>IMDG;Scalable;Distributed;DB;Cache;Microservices</tags>
   </metadata>
   <files>
     <file src="..\..\build\Coherence.2010\Release\Coherence.dll" target="lib\Coherence.dll" />
@@ -24,7 +26,6 @@
     <file src="config\coherence.xsd" target="config\coherence.xsd" />
     <file src="config\coherence-pof-config.xml" target="config\coherence-pof-config.xml" />
     <file src="config\pof-config.xsd" target="config\pof-config.xsd" />
-    <file src="..\..\LICENSE.txt" target="LICENSE.txt" />
     <file src="..\..\README.md" target="README.md" />
     <file src="coherence-logo.png" target="" />
   </files>
