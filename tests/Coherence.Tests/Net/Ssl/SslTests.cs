@@ -12,6 +12,7 @@ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using NUnit.Framework;
 using Tangosol.Run.Xml;
 
@@ -69,7 +70,7 @@ namespace Tangosol.Net.Ssl
             }
         }
 
-        [Test]
+        [Test, RequiresThread]
         [ExpectedException(typeof(IOException))]
         public void TestSslClientAuthenticationException()
         {
@@ -85,11 +86,12 @@ namespace Tangosol.Net.Ssl
                     new SslClient(location)
                         {
                             ServerName   = "MyServerName",
-                            Protocol     = SslProtocols.Default,
+                            Protocol     = SslProtocols.Default
                         };
             try
             {
                 client.Connect();
+                Thread.Sleep(1000);
                 string echo = client.Echo("Hello World");
             }
             finally
