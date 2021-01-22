@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2021, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   http://oss.oracle.com/licenses/upl.
@@ -13,7 +13,7 @@
 
   <xs:annotation>
     <xs:documentation>
-      Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+      Copyright (c) 2000, 2021, Oracle and/or its affiliates. All rights reserved.
 
       Oracle is a registered trademarks of Oracle Corporation and/or its affiliates.
       This software is the confidential and proprietary information of
@@ -43,7 +43,7 @@
       <xs:element ref="logging-config"/>
       <xs:element ref="configurable-cache-factory-config" minOccurs="0"/>
       <xs:element ref="license-config" minOccurs="0"/>
-      <xs:element ref="security-config" minOccurs="0"/>    
+      <xs:element ref="security-config" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="coherence" type="coherence">
@@ -784,7 +784,7 @@
       <xs:element ref="identity-asserter" minOccurs="0"/>
       <xs:element ref="identity-transformer" minOccurs="0"/>
       <xs:element ref="principal-scope" minOccurs="0"/>
-    </xs:sequence> 
+    </xs:sequence>
   </xs:complexType>
   <xs:element name="security-config" type="security-config">
     <xs:annotation>

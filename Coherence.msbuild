@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2021, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   http://oss.oracle.com/licenses/upl.
@@ -178,7 +178,7 @@
     <Exec IgnoreExitCode="False" Command="$(NunitExec) /xml:all-tests.xml /framework:net-$(TestTargetVersion) $(BuildDir)\Coherence.Tests.2010\$(BuildType)\Coherence.Tests.dll"/>
 
     <Oracle.MSBuild.Sleep Timeout="60000" />
-    
+
     <Exec IgnoreExitCode="False" Command="$(NunitExec) /xml:all-tests.xml /framework:net-4.0 $(BuildDir)\Coherence.Tests.2010\$(BuildType)\Coherence.Tests.dll"/>
     <CallTarget Targets="Stop-Test-Server"/>
     <OnError ExecuteTargets="Stop-Test-Server"/>
@@ -283,7 +283,7 @@
       <ZipFiles Include="$(MsiFile)"/>
     </ItemGroup>
 
-    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressFiles="@(ZipFiles)" 
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressFiles="@(ZipFiles)"
 	                                       RemoveRoot="$(DistVersionDir)" ZipFileName="$(ZipFile)"  />
   </Target>
 
@@ -339,7 +339,7 @@
 	<PropertyGroup>
 		<BuildVersionPatch>$(AssemblyPatch)</BuildVersionPatch>
 	</PropertyGroup>
-	
+
     <Error Condition="'$(BuildVersionPatch)' == '0'" Text="Not a patch build: $(BuildVersion)"/>
     <Error Condition="'$(BuildVersionPatch)' == ''" Text="Not a patch build: $(BuildVersion)"/>
 
@@ -352,7 +352,7 @@
     </PropertyGroup>
 
     <Message Text="Building patch: $(PatchName) in $(PatchDir)"/>
-   
+
     <Error Condition="!Exists($(PatchDir))" Text="Missing patch directory: $(PatchDir)"/>
 
     <!-- Create the patch -->
@@ -362,7 +362,7 @@
     <ItemGroup>
       <BinFiles Include="$(BuildDir)\Coherence.2010\$(BuildType)\Coherence.*" />
     </ItemGroup>
-    
+
     <Copy SourceFiles="@(BinFiles)"  DestinationFolder="$(BinDir)"/>
 
     <ItemGroup>
@@ -370,9 +370,9 @@
       <ZipFiles Include="$(BinDir)\**"/>
     </ItemGroup>
 
-    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" 
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create"
                         CompressFiles="@(ZipFiles)" ZipFileName="$(PatchFile)" RemoveRoot="$(Root)" />
-    
+
     <RemoveDir Directories="$(BinDir)" />
   </Target>
 
@@ -396,7 +396,7 @@
         AssemblyConfiguration="$(BuildType)"
         AssemblyInfoFiles="@(AssemblyInfoFiles)"
         AssemblyCompany="Oracle"
-        AssemblyCopyright="Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved."
+        AssemblyCopyright="Copyright (c) 2000, 2021, Oracle and/or its affiliates. All rights reserved."
         AssemblyDescription="$(AssemblyDescription)"
         AssemblyKeyFile="src\Coherence\Coherence-AssemblyKey.snk"
         AssemblyKeyName=""
