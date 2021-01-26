@@ -67,6 +67,11 @@
       <scheme-name>extend-direct</scheme-name>
     </cache-mapping>
 
+    <cache-mapping>
+      <cache-name>remote-invoke-cache</cache-name>
+      <scheme-name>invoke-service-ssl</scheme-name>
+    </cache-mapping>
+
     <!-- these mappings are used only for mapping testing, schemes do not exist -->
     <cache-mapping>
       <cache-name>nr-*</cache-name>
@@ -401,6 +406,46 @@
         <use-filters>
           <filter-name>gzip</filter-name>
         </use-filters>
+        <serializer>pof</serializer>
+        <connect-timeout>5s</connect-timeout>
+      </initiator-config>
+    </remote-invocation-scheme>
+
+    <remote-invocation-scheme>
+      <scheme-name>invoke-service-ssl</scheme-name>
+      <service-name>RemoteInvocationServiceSSL</service-name>
+      <proxy-service-name>ExtendTcpProxyServiceTwoWaySSL</proxy-service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <stream-provider>
+            <ssl>
+              <server>TestCert</server>
+              <protocol>Tls</protocol>
+              <local-certificates>
+                <certificate>
+                  <url>./Config/testcert.pfx</url>
+                  <password>password</password>
+                  <flags>DefaultKeySet</flags>
+                </certificate>
+              </local-certificates>
+            </ssl>
+          </stream-provider>
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9800</port>
+            </socket-address>
+             <socket-address>
+              <address>127.0.0.1</address>
+              <port>9801</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+          <request-timeout>30s</request-timeout>
+        </outgoing-message-handler>
         <serializer>pof</serializer>
         <connect-timeout>5s</connect-timeout>
       </initiator-config>

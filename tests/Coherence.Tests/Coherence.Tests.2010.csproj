@@ -165,6 +165,7 @@
     <Compile Include="Net\Impl\LocalNamedCacheTests.cs" />
     <Compile Include="Net\Impl\RemoteNamedCacheTests.cs" />
     <Compile Include="Net\Impl\SSLOneWayRemoteNamedCacheTests.cs" />
+    <Compile Include="Net\Impl\SSLRemoteInvocationTests.cs" />
     <Compile Include="Net\Impl\SSLTwoWayRemoteNamedCacheTests.cs" />
     <Compile Include="Net\Impl\TLS12OneWayRemoteNamedCacheTests.cs" />
     <Compile Include="Net\MessageSizeTests.cs" />
