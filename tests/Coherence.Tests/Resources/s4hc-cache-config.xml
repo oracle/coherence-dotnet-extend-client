@@ -267,7 +267,7 @@
         <tcp-initiator>
           <stream-provider>
             <ssl>
-              <protocol>Tls</protocol>
+              <protocol>Tls12</protocol>
               <remote-certificate-validator>
                 <delegate>
                   <type>static</type>
@@ -303,7 +303,7 @@
         <tcp-initiator>
           <stream-provider>
             <ssl>
-              <protocol>Tls11,Tls12</protocol>
+              <protocol>Tls12</protocol>
               <remote-certificate-validator>
                 <delegate>
                   <type>static</type>
@@ -339,7 +339,7 @@
         <tcp-initiator>
           <stream-provider>
             <ssl>
-              <protocol>Tls</protocol>
+              <protocol>Tls2</protocol>
               <local-certificates>
                 <certificate>
                    <url>./Config/testcert.pfx</url>
@@ -420,7 +420,7 @@
           <stream-provider>
             <ssl>
               <server>TestCert</server>
-              <protocol>Tls</protocol>
+              <protocol>Tls2</protocol>
               <local-certificates>
                 <certificate>
                   <url>./Config/testcert.pfx</url>
