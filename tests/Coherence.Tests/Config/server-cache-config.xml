@@ -344,7 +344,6 @@
         <tcp-acceptor>
           <socket-provider>
             <ssl>
-              <protocol>TLS</protocol>
               <identity-manager>
                 <algorithm>SunX509</algorithm>
                 <key-store>
@@ -382,7 +381,6 @@
         <tcp-acceptor>
           <socket-provider>
             <ssl>
-              <protocol>TLS</protocol>
               <identity-manager>
                 <algorithm>SunX509</algorithm>
                 <key-store>
@@ -422,7 +420,6 @@
         <tcp-acceptor>
           <socket-provider>
             <ssl>
-              <protocol>TLS</protocol>
               <identity-manager>
                 <algorithm>SunX509</algorithm>
                 <key-store>
