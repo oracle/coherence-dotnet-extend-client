@@ -339,7 +339,7 @@
         <tcp-initiator>
           <stream-provider>
             <ssl>
-              <protocol>Tls2</protocol>
+              <protocol>Tls12</protocol>
               <local-certificates>
                 <certificate>
                    <url>./Config/testcert.pfx</url>
@@ -420,7 +420,7 @@
           <stream-provider>
             <ssl>
               <server>TestCert</server>
-              <protocol>Tls2</protocol>
+              <protocol>Tls12</protocol>
               <local-certificates>
                 <certificate>
                   <url>./Config/testcert.pfx</url>
