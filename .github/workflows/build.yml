@@ -10,6 +10,8 @@ name: CI Build
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"
   push:
     branches:
     - main
@@ -42,6 +44,7 @@ jobs:
   test:
     # we have to test on Linux in order to use Docker for test server
     name: Test against Coherence ${{ matrix.coherence_version }}
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -69,11 +72,10 @@ jobs:
     # Install SSL certificates
     - name: Install SSL certificates
       run: |
-        sudo certutil -f -p password -importpfx tests/Coherence.Core.Tests/Net/Ssl/Client.pfx
-        sudo certutil -f -p password -importpfx tests/Coherence.Core.Tests/Net/Ssl/Server.pfx
-        sudo certutil -f -p password -importpfx tests/Coherence.Core.Tests/Net/Ssl/CA.pfx
-        sudo certutil -addstore -enterprise -f -v root tests/Coherence.Core.Tests/Config/testcert.cer
-        sudo certutil -addstore -enterprise -f -v root tests/Coherence.Core.Tests/Net/Ssl/CA.cer
+        sudo cp tests/Coherence.Core.Tests/Config/testcert.pem /usr/local/share/ca-certificates/testcert.crt
+        sudo cp tests/Coherence.Core.Tests/Net/Ssl/CA.cer /usr/local/share/ca-certificates/CA.crt
+        sudo cp tests/Coherence.Core.Tests/Net/Ssl/Server.cer /usr/local/share/ca-certificates/Server.crt
+        sudo update-ca-certificates
         
     # Build
     - name: Build
@@ -84,12 +86,3 @@ jobs:
     # Run Tests
     - name: Run Tests
       run: dotnet test --configuration Release --no-restore
-
-    # Uninstall SSL certificates
-    - name: Uninstall SSL certificates
-      run: |
-        sudo certutil -delstore -v My MyClient
-        sudo certutil -delstore -v My MyServerName
-        sudo certutil -delstore -v My "Test And Dev Root Authority"
-        sudo certutil -delstore -enterprise -f -v root TestCert
-        sudo certutil -delstore -enterprise -f -v root "Test And Dev Root Authority"
