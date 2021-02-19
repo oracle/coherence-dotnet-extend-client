@@ -14,7 +14,12 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription(".NET Client API Tests for Oracle Coherence")]
 [assembly: AssemblyCompany("Oracle")]
 [assembly: AssemblyProduct("Oracle Coherence.NET Tests")]
-[assembly: AssemblyCopyright("Copyright (c) 2000, 2010, Oracle and/or its affiliates. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.")]
+
+// sign assembly when RELEASE configuration is used, in order to get access to Coherence.Core internals
+#if RELEASE
+[assembly: AssemblyKeyFile("../../keys/Coherence-AssemblyKey.snk")]
+#endif
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from

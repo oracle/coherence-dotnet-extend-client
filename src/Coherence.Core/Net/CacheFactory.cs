@@ -32,16 +32,22 @@ namespace Tangosol.Net
     /// methods described further below because:</p>
     /// <list type="bullet">
     /// <item>
+    /// <description>
     /// complex cache topology could be configured declaratively in the cache
     /// configuration XML rather then programmaticaly via API;
+    /// </description>
     /// </item>
     /// <item>
+    /// <description>
     /// the caller's code could become completely generic and agnostic to the
     /// cache topology;
+    /// </description>
     /// </item>
     /// <item>
+    /// <description>
     /// the cache topology decision could be deferred and made much later in
     /// the development cycle without changing the application code.
+    /// </description>
     /// </item>
     /// </list>
     /// <p>
@@ -447,10 +453,9 @@ namespace Tangosol.Net
 
                     // output the product startup banner
                     logger.Log((int)LogLevel.Always,
-                        string.Format("\n{0} Version {1} Build {2}\n {3} Build\n{4}\n",
+                        string.Format("\n{0} Version {1}\n {2} Build\n{3}\n",
                            logger.Product,
-                           logger.Version,
-                           logger.BuildInfo,
+                           logger.Version + (logger.BuildInfo == "0" ? "" : " Build " + logger.BuildInfo),
                            logger.Edition + " " + logger.BuildType,
                            logger.Copyright), null);
 

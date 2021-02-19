@@ -1,0 +1,22 @@
+apiRules:
+- exclude:
+    uidRegex: ^Tangosol\.Internal
+    type: Namespace
+- exclude:
+    uidRegex: ^Tangosol\.IO\.Pof\.Reflection\.Internal
+    type: Namespace
+- exclude:
+    uidRegex: ^Tangosol\.Net\.Impl
+    type: Namespace
+- exclude:
+    uidRegex: ^Tangosol\.Net\.Internal
+    type: Namespace
+- exclude:
+    uidRegex: ^Tangosol\.Net\.Messaging
+    type: Namespace
+- exclude:
+    uidRegex: ^Tangosol\.Util\.Daemon
+    type: Namespace
+- exclude:
+    uidRegex: ^Tangosol\.Util\.Logging
+    type: Namespace

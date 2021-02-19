@@ -3,12 +3,58 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
     <RootNamespace>Tangosol</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <DefineConstants>NET_4_0</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>162, 618, 675</NoWarn>
+  </PropertyGroup>
+
+  <!-- Strong name configuration -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <AssemblyOriginatorKeyFile>../../keys/Coherence-AssemblyKey.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign>true</PublicSign>
+  </PropertyGroup>
+
+  <!-- AssemblyInfo metadata -->
+  <PropertyGroup>
+    <VersionPrefix Condition="'$(VersionPrefix)' == ''">14.1.1.3</VersionPrefix>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+    <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
+    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+    <FileVersion>$(VersionPrefix)</FileVersion>
+    
+    <Company>Oracle</Company>
+    <Copyright>Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</Copyright>
+    <Product>Oracle Coherence Client for .NET</Product>
+
+    <Description Condition="'$(Official)' == ''" >$(Version) ($(USER))</Description>
+    <Description Condition="'$(Official)' != ''" >$(Version)</Description>
+    <AssemblyTitle>Oracle Coherence Client for .NET $(Version)</AssemblyTitle>
+  </PropertyGroup>
+
+  <!-- NuGet metadata -->
+  <PropertyGroup>
+    <PackageId>Coherence.Core</PackageId>
+    <Title>Oracle Coherence Client for .NET $(Version)</Title>
+    <PackageProjectUrl>https://coherence.community/</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/oracle/coherence-dotnet-extend-client/main/assets/coherence-logo.png</PackageIconUrl>
+    <PackageIcon>coherence-logo.png</PackageIcon>
+    <PackageDescription>
+      This is a .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence .NET Extend Client. For .NET Framework 4.x compatible implementation, see https://www.nuget.org/packages/Coherence/.
+    </PackageDescription>
+    <PackageReleaseNotes>
+      For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$(Version)-core/.  
+    </PackageReleaseNotes>
+    <PackageTags>IMDG;Scalable;Distributed;DB;Cache;Microservices</PackageTags>
+    <Authors>Oracle</Authors>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/oracle/coherence-dotnet-extend-client</RepositoryUrl>
+    <PackageLicenseExpression>UPL-1.0</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,5 +78,10 @@
     <EmbeddedResource Include="Config\coherence.xml" />
     <EmbeddedResource Include="Config\coherence-pof-config.xml" />
     <EmbeddedResource Include="Config\coherence.xsd" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="../../assets/coherence-logo.png" Pack="true" PackagePath="/"/>
+    <None Include="../../assets/nuget-readme.md" Pack="true" PackagePath="readme.md"/>
   </ItemGroup>
 </Project>
