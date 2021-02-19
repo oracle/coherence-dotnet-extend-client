@@ -78,14 +78,14 @@ jobs:
     - name: Build test server
       run: |
         pushd tests/test-server
-        mvn clean install
+        mvn clean install -Drevision=${{ matrix.coherence_version }}
         popd
 
     # Start test server
     - name: Start test server
       run: |
         pushd tests/test-server
-        mvn exec:exec &
+        mvn exec:exec -Drevision=${{ matrix.coherence_version }} &
         popd
 
     # Run Tests
