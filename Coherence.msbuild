@@ -125,17 +125,19 @@
 
   <!-- Install certificates -->
   <Target Name="InstallCerts">
-    <Exec Command="$(ToolsDir)\internal\resourcekit\winhttpcertcfg.exe -i $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pfx -p password -c LOCAL_MACHINE\My -a &quot;$(USERNAME)&quot;"/>
-    <Exec Command="$(ToolsDir)\internal\resourcekit\winhttpcertcfg.exe -i $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pfx -p password -c LOCAL_MACHINE\My -a &quot;$(USERNAME)&quot;"/>
-    <Exec Command="$(ToolsDir)\internal\resourcekit\winhttpcertcfg.exe -i $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pfx -p password -c LOCAL_MACHINE\My -a &quot;$(USERNAME)&quot;"/>
-    <Exec Command="certmgr.exe -add $(TestsDir)\Coherence.Tests\Config\testcert.cer -c -n TestCert -s -r localMachine root" />
+    <Exec Command="certutil -f -p password -importpfx $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pfx"/>
+    <Exec Command="certutil -f -p password -importpfx $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pfx"/>
+    <Exec Command="certutil -f -p password -importpfx $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pfx"/>
+    <Exec Command="certutil -addstore -enterprise -f -v root $(TestsDir)\Coherence.Tests\Config\testcert.cer"/>
+    <Exec Command="certutil -addstore -enterprise -f -v root $(TestsDir)\Coherence.Tests\Net\Ssl\CA.cer"/>
   </Target>
 
   <Target Name="RemoveCerts">
-    <Exec ContinueOnError="true" Command="certmgr.exe -del -c -n &quot;MyClient&quot; -s -r localMachine my" />
-    <Exec ContinueOnError="true" Command="certmgr.exe -del -c -n &quot;MyServerName&quot; -s -r localMachine my"/>
-    <Exec ContinueOnError="true" Command="certmgr.exe -del -c -n &quot;Test And Dev Root Authority&quot; -s -r localMachine root"/>
-    <Exec Command="certmgr.exe -del -c -n TestCert -s -r localMachine root" />
+    <Exec ContinueOnError="true" Command="certutil -delstore -v My MyClient"/>
+    <Exec ContinueOnError="true" Command="certutil -delstore -v My MyServerName"/>
+    <Exec ContinueOnError="true" Command="certutil -delstore -v My &quot;Test And Dev Root Authority&quot;"/>
+    <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -f -v root TestCert"/>
+    <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -f -v root &quot;Test And Dev Root Authority&quot;"/>
   </Target>
 
   <!-- Test Target -->
