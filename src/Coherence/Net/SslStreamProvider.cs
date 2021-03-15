@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2021, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -23,6 +23,11 @@ namespace Tangosol.Net
     public class SslStreamProvider : IStreamProvider
     {
         #region Properties
+
+        /// <summary>
+        /// Address of remote server which the client is connected to.
+        /// </summary>
+        public virtual string RemoteAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the host server specified by the client.
@@ -184,13 +189,17 @@ namespace Tangosol.Net
             try
             {
                 string serverName = string.IsNullOrEmpty(ServerName)
-                        ? ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString()
+                        ? RemoteAddress
                         : ServerName;
+                if (serverName == null)
+                {
+                    serverName = ((IPEndPoint) client.Client.RemoteEndPoint).Address.ToString();
+                }
 
                 if (LocalCertificateSelector == null)
-                    {
+                {
                     LocalCertificateSelector = LocalCertificatePicker;
-                    }
+                }
                 SslStream stream = new SslStream(client.GetStream(), false,
                                  RemoteCertificateValidator, LocalCertificateSelector);
                 stream.AuthenticateAsClient(serverName, ClientCertificates, Protocols, false);
@@ -202,6 +211,7 @@ namespace Tangosol.Net
                 throw;
             }
         }
+
         #endregion
 
         #region IXmlConfigurable implementation
