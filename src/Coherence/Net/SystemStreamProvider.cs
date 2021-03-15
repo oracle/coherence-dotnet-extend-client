@@ -26,6 +26,11 @@ namespace Tangosol.Net
         {
             return client.GetStream();
         }
+
+        /// <summary>
+        /// address of a remote server this client is connected to.
+        /// </summary>
+        public virtual string RemoteAddress { get; set; }
         #endregion
 
         #region IXmlConfigurable implementation
