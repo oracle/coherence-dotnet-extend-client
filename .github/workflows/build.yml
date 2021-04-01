@@ -74,7 +74,7 @@ jobs:
         unzip $Env:TEMP\shfb.nupkg -d tools\internal\shfb\
         move tools\internal\shfb\tools\* tools\internal\shfb\
 
-        # Install winhttpcertcfg and certmgr required for running tests.
+        # Install winhttpcertcfg and certmgr required for running tests
         mkdir -p tools\internal\resourcekit
         choco install winhttpcertcfg
         move C:\ProgramData\chocolatey\lib\WinHttpCertCfg\tools\* tools\internal\resourcekit\
