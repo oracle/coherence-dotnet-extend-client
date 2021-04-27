@@ -4,7 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
- using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -18,7 +18,6 @@ namespace Tangosol.Net.Ssl
 {
     public sealed class SslServer
     {
-        private EventWaitHandle waitHandle = new AutoResetEvent(false);
         public Thread Thread { get; set; }
 
         public TcpListener Listener { get;  set; }
@@ -37,16 +36,14 @@ namespace Tangosol.Net.Ssl
 
         private bool Running { get; set; }
 
-        public IPEndPoint EndPoint => (IPEndPoint) Listener.LocalEndpoint;
-
         public static X509Certificate LoadCertificate(string path)
         {
-            return new X509Certificate2(path, "password");
+            return X509Certificate.CreateFromCertFile(path);
         }
 
-        public SslServer()
+        public SslServer(IPEndPoint localEp)
         {
-            Listener = new TcpListener(new IPEndPoint(IPAddress.Any, 0)); 
+            Listener = new TcpListener(IPAddress.Any, localEp.Port); 
             ReadTimeout = 5000;
             WriteTimeout = 5000;
             CheckClientCertRevocation = false;
@@ -58,28 +55,30 @@ namespace Tangosol.Net.Ssl
         {
             Running = true;
             Thread = new Thread(AcceptClients);
-            Thread.Start();
-            waitHandle.WaitOne();
+            Thread.Start(); 
         }
 
         public void Stop()
         {
+            Listener.Stop();
             Running = false;
             Thread.Join();
-            Listener.Stop();
             Console.WriteLine("Stopped SslServer.");
         }
 
         private void AcceptClients()
         {
-            Listener.Start();
-            waitHandle.Set();
-            while (Running)
+            try
             {
-                if (Listener.Pending())
+                Listener.Start();
+                while (Running)
                 {
                     ProcessClient(Listener.AcceptTcpClient());
                 }
+            }
+            catch
+            {
+                //nothing
             }
         }
 
@@ -97,15 +96,21 @@ namespace Tangosol.Net.Ssl
         public static bool DefaultCertificateValidation(object sender, X509Certificate certificate,
             X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
-            // Allow RemoteCertificateChainErrors and RemoteCertificateNameMismatch because self signed certificate may not be trusted.
-            sslPolicyErrors &= ~(SslPolicyErrors.RemoteCertificateNameMismatch | SslPolicyErrors.RemoteCertificateChainErrors);
-            if (sslPolicyErrors == SslPolicyErrors.None)
-            {
-                return true;
-            }
+            // Allow RemoteCertificateChainErrors because self signed certificate may not be trusted.
+            if ((sslPolicyErrors & ~(SslPolicyErrors.RemoteCertificateNameMismatch | SslPolicyErrors.RemoteCertificateChainErrors)) == SslPolicyErrors.None) return true;
 
-            Console.WriteLine("SSL errors: " + sslPolicyErrors);
-            return false;
+            StringBuilder sException = new StringBuilder();
+
+            if ((sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) ==
+                SslPolicyErrors.RemoteCertificateNotAvailable)
+            {
+                if (sException.Length > 0)
+                {
+                    sException.Append("\n");
+                }
+                sException.Append("The certificate was not available.");
+            }
+            throw new AuthenticationException(sslPolicyErrors.ToString());
         }
 
         private void ProcessClient(TcpClient client)
@@ -116,23 +121,23 @@ namespace Tangosol.Net.Ssl
             var sslStream = AuthenticateClient ? new SslStream(client.GetStream(), false, DefaultCertificateValidation)
                 : new SslStream(client.GetStream(), false);
 
-            // Authenticate the server, and optionally the client
+            // Authenticate the server but don't require the client to authenticate.
             try
             {
-                sslStream.AuthenticateAsServer(ServerCertificate, AuthenticateClient, Protocol, CheckClientCertRevocation);
-
+                sslStream.AuthenticateAsServer(ServerCertificate,
+                                               AuthenticateClient, Protocol, CheckClientCertRevocation);
+              
                 // Set timeouts
                 sslStream.ReadTimeout = ReadTimeout;
                 sslStream.WriteTimeout = WriteTimeout;
-                
                 // Read a message from the client.   
                 Console.WriteLine("Waiting for client message...");
-                var messageData = ReadMessage(sslStream);
+                string messageData = ReadMessage(sslStream);
                 Console.WriteLine("Received: {0}", messageData);
 
                 // Write a message to the client.
-                var message =
-                    Encoding.UTF8.GetBytes(messageData);
+                byte[] message =
+                        Encoding.UTF8.GetBytes(messageData);
                 Console.WriteLine("Sending hello message '{0}'.", messageData);
                 sslStream.Write(message);
             }
@@ -142,18 +147,10 @@ namespace Tangosol.Net.Ssl
                 if (e.InnerException != null)
                 {
                     Console.WriteLine("Inner exception: {0}",
-                        e.InnerException.Message);
+                                      e.InnerException.Message);
                 }
-
                 Console.WriteLine(
-                    "Authentication failed - closing the connection.");
-                sslStream.Close();
-                client.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: {0}", e.Message);
-                Console.WriteLine(e.StackTrace);
+                        "Authentication failed - closing the connection.");
                 throw;
             }
             finally
@@ -181,7 +178,7 @@ namespace Tangosol.Net.Ssl
 
                 // Use Decoder class to convert from bytes to UTF8
                 // in case a character spans two buffers.
-                var decoder = Encoding.UTF8.GetDecoder();
+                Decoder decoder = Encoding.UTF8.GetDecoder();
                 var chars = new char[decoder.GetCharCount(buffer, 0, bytes)];
                 decoder.GetChars(buffer, 0, bytes, chars, 0);
                 messageData.Append(chars);

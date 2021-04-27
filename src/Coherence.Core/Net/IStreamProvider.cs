@@ -24,5 +24,10 @@ namespace Tangosol.Net
         /// <param name="client">A connected <b>TcpClient</b>.</param>
         /// <returns>A <b>Stream</b></returns>
         Stream GetStream(TcpClient client);
+
+        /// <summary>
+        /// address of a remote server this client is connected to.
+        /// </summary>
+        string RemoteAddress { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2021, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -421,6 +421,11 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 }
 
                 string address = NetworkUtils.ToString(addr, subport);
+                if (RemoteAddressProvider is ConfigurableAddressProvider)
+                {
+                    StreamProvider.RemoteAddress = ((ConfigurableAddressProvider) RemoteAddressProvider).RemoteHostAddress;
+                }
+
                 if (addresses.Length > 1)
                 {
                     addresses.Append(", ");
@@ -477,7 +482,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 if (subport != -1)
                 {
                     bool secure = connection.IsSecure;
-                    Stream stream = connection.Stream = StreamProvider.GetStream(client); 
+                    Stream stream = connection.Stream = StreamProvider.GetStream(client);
                     if (secure)
                     {
                         Monitor.Enter(stream);
@@ -592,14 +597,9 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 NetworkUtils.SetKeepAlive(client, IsKeepAliveEnabled);
                 NetworkUtils.SetReuseAddress(client, IsLocalAddressReusable);
                 NetworkUtils.SetTcpNoDelay(client, !IsTcpDelayEnabled);
-                if (ReceiveBufferSize > 0)
-                {
-                    NetworkUtils.SetReceiveBufferSize(client, (int) ReceiveBufferSize);
-                }
-                if (SendBufferSize > 0)
-                {
-                    NetworkUtils.SetSendBufferSize(client, (int) SendBufferSize);
-                }
+                NetworkUtils.SetReceiveBufferSize(client,
+                                                  (int) ReceiveBufferSize);
+                NetworkUtils.SetSendBufferSize(client, (int) SendBufferSize);
 
                 long millis = LingerTimeout;
                 int secs = millis >= 0 ? (int) (millis/1000L) : -1; // seconds

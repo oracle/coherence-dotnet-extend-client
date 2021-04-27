@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2021, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -101,7 +101,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 }
 
                 remoteAddressNode.AddElement("address-provider").AddElement("class-name").SetString(
-                    "Tangosol.Net.ConfigurableAddressProviderTests+LoopbackAddressProvider, Coherence.Core.Tests");
+                    "Tangosol.Net.ConfigurableAddressProviderTests+LoopbackAddressProvider, Coherence.Tests");
             }
 
             IXmlElement initConfig = xmlConfig.FindElement("caching-schemes/remote-cache-scheme/initiator-config");
@@ -150,6 +150,25 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
             Assert.IsNull(conn);
             Assert.IsTrue(exceptionCaught);
             initiator.Stop();
+        }
+
+        [Test]
+        public void TestTcpConnectionRemoteHostAddress()
+        {
+            TcpInitiator initiator = GetInitiator();
+            IAddressProvider addressProvider = initiator.RemoteAddressProvider;
+            Assert.IsTrue(addressProvider is ConfigurableAddressProvider);
+
+            TcpConnection conn = (TcpConnection) initiator.EnsureConnection();
+            Assert.IsNotNull(conn);
+            Assert.AreEqual(conn.IsOpen, true);
+            Assert.True(addressProvider is ConfigurableAddressProvider);
+            Assert.AreEqual(((ConfigurableAddressProvider) addressProvider).RemoteHostAddress, "127.0.0.1");
+            conn.Close();
+            Assert.AreEqual(conn.IsOpen, false);
+
+            initiator.Stop();
+            Assert.AreEqual(initiator.IsRunning, false);
         }
 
         [Test]

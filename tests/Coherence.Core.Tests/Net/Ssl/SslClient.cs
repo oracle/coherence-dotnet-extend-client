@@ -4,11 +4,10 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
-﻿using System;
+using System;
 using System.IO;
 using System.Net;
- using System.Net.Security;
- using System.Net.Sockets;
+using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -31,11 +30,6 @@ namespace Tangosol.Net.Ssl
         public void AppendCertificate(X509Certificate certificate)
         {
             Certificates.Add(certificate);
-        }
-
-        public void ClearCertificate()
-        {
-            Certificates.Clear();
         }
 
         public void Connect()
