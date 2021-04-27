@@ -92,8 +92,10 @@ namespace Tangosol.Net.Ssl
                 client.Connect();
                 Thread.Sleep(1000);
                 string echo = client.Echo("Hello World");
-                Assert.That(() => client.Echo("Hello World"), Throws.TypeOf<IOException>());
+                Assert.Fail("Expected IOException, but got none");
             }
+            catch (IOException e)
+            {}
             finally
             {
                 client.Close();
@@ -186,12 +188,10 @@ namespace Tangosol.Net.Ssl
 
                 IStreamProvider streamProvider = StreamProviderFactory.CreateProvider(xmlDoc);
 
-                client.Connect(location);
-                Stream stream = streamProvider.GetStream(client);
-
-                string echo = SslClient.Echo(stream, "Hello World");
-                Assert.That(() => SslClient.Echo(stream, "Hello World"), Throws.TypeOf<TypeLoadException>());
+                Assert.Fail("Expected TypeLoadException, but got none");
             }
+            catch (TypeLoadException e)
+            {}
             finally
             {
                 client.Close();
@@ -254,8 +254,10 @@ namespace Tangosol.Net.Ssl
                 Stream stream = streamProvider.GetStream(client);
 
                 string echo = SslClient.Echo(stream, "Hello World");
-                Assert.That(() => SslClient.Echo(stream, "Hello World"), Throws.TypeOf<AuthenticationException>());
+                Assert.Fail("Expected AuthenticationException, but got none.");
             }
+            catch (AuthenticationException e)
+            {}
             finally
             {
                 client.Close();
@@ -284,10 +286,10 @@ namespace Tangosol.Net.Ssl
 
                 client.Connect(location);
                 Stream stream = streamProvider.GetStream(client);
-
-                string echo = SslClient.Echo(stream, "Hello World");
-                Assert.That(() => SslClient.Echo(stream, "Hello World"), Throws.TypeOf<CryptographicException>());
+                Assert.Fail("Expected CryptographicException, but got none.");
             }
+            catch (CryptographicException e)
+            {}
             finally
             {
                 client.Close();
