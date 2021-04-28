@@ -597,9 +597,14 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 NetworkUtils.SetKeepAlive(client, IsKeepAliveEnabled);
                 NetworkUtils.SetReuseAddress(client, IsLocalAddressReusable);
                 NetworkUtils.SetTcpNoDelay(client, !IsTcpDelayEnabled);
-                NetworkUtils.SetReceiveBufferSize(client,
-                                                  (int) ReceiveBufferSize);
-                NetworkUtils.SetSendBufferSize(client, (int) SendBufferSize);
+                if (ReceiveBufferSize > 0)
+                {
+                    NetworkUtils.SetReceiveBufferSize(client, (int) ReceiveBufferSize);
+                }
+                if (SendBufferSize > 0)
+                {
+                    NetworkUtils.SetSendBufferSize(client, (int) SendBufferSize);
+                }
 
                 long millis = LingerTimeout;
                 int secs = millis >= 0 ? (int) (millis/1000L) : -1; // seconds

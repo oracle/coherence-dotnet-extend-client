@@ -131,7 +131,9 @@ namespace Tangosol.Net
                 }
                 sException.Append("The certificate was not available.");
             }
-            throw new AuthenticationException(errors.ToString());
+            Console.WriteLine("SSL errors:\n" + sException);
+            return false;
+            //throw new AuthenticationException(errors.ToString());
         }
 
         /// <summary>
@@ -200,6 +202,10 @@ namespace Tangosol.Net
                 {
                     LocalCertificateSelector = LocalCertificatePicker;
                 }
+                if (RemoteCertificateValidator == null)
+                {
+                    RemoteCertificateValidator = DefaultCertificateValidation;
+                }
                 SslStream stream = new SslStream(client.GetStream(), false,
                                  RemoteCertificateValidator, LocalCertificateSelector);
                 stream.AuthenticateAsClient(serverName, ClientCertificates, Protocols, false);
@@ -211,7 +217,6 @@ namespace Tangosol.Net
                 throw;
             }
         }
-
         #endregion
 
         #region IXmlConfigurable implementation
@@ -293,7 +298,7 @@ namespace Tangosol.Net
                 // configure the remote certificate validator
                 xmlSub = xml.GetElement("remote-certificate-validator");
                 RemoteCertificateValidator = xmlSub == null
-                        ? DefaultCertificateValidation
+                        ? StrictCertificateValidation  // COH-21950 - use strict validation for remote cert
                         : XmlHelper.CreateDelegate<RemoteCertificateValidationCallback>(xmlSub.GetElement("delegate"));
             }
             get
