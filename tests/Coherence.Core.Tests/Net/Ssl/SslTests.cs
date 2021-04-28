@@ -55,7 +55,6 @@ namespace Tangosol.Net.Ssl
         }
 
         [Test]
-        [Ignore("fails intermittently due to some threading issue")]
         public void TestSslClientAuthenticationException()
         {
             var server = new SslServer()
@@ -75,12 +74,14 @@ namespace Tangosol.Net.Ssl
             try
             {
                 client.Connect();
-                
                 // the server should've closed the connection because the client certificate is missing,
                 // so the following should fail
                 Thread.Sleep(500);
-                Assert.That(() => client.Echo("Hello World"), Throws.TypeOf<IOException>());
+                client.Echo("Hello World");
+                Assert.Fail("Expected IOException, but got none.");
             }
+            catch (IOException e)
+            {}
             finally
             {
                 client.Close();

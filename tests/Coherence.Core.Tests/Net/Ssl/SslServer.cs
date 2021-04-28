@@ -4,7 +4,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
- using System;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -46,7 +46,7 @@ namespace Tangosol.Net.Ssl
 
         public SslServer()
         {
-            Listener = new TcpListener(new IPEndPoint(IPAddress.Any, 0)); 
+            Listener = new TcpListener(new IPEndPoint(IPAddress.Any, 0));
             ReadTimeout = 5000;
             WriteTimeout = 5000;
             CheckClientCertRevocation = false;
@@ -124,7 +124,6 @@ namespace Tangosol.Net.Ssl
                 // Set timeouts
                 sslStream.ReadTimeout = ReadTimeout;
                 sslStream.WriteTimeout = WriteTimeout;
-                
                 // Read a message from the client.   
                 Console.WriteLine("Waiting for client message...");
                 var messageData = ReadMessage(sslStream);
@@ -147,8 +146,6 @@ namespace Tangosol.Net.Ssl
 
                 Console.WriteLine(
                     "Authentication failed - closing the connection.");
-                sslStream.Close();
-                client.Close();
             }
             catch (Exception e)
             {
