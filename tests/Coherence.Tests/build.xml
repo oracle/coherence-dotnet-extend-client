@@ -36,7 +36,7 @@
   <property name="build.dir"           value="${env.DEV_ROOT}/build"/>
   <property name="classes.dir"         value="${build.dir}/classes"/>
   <property name="build.groupId_maven" value="com.oracle.coherence.ce"/>
-  <property name="build.version_maven" value="14.1.1-0-3"/>
+  <property name="build.version_maven" value="14.1.1-0-4"/>
   <property name="lib.dir"             value="${env.DEV_ROOT}/lib/java"/>
 
   <!-- Ivy -->
