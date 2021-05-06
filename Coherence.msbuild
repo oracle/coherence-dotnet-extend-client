@@ -96,7 +96,7 @@
   </Target>
 
   <!-- Build Target -->
-  <Target Name="Build" DependsOnTargets="GenerateAssembly">
+  <Target Name="Build" DependsOnTargets="GenerateCerts;GenerateAssembly">
     <MakeDir Directories="$(BuildDir)"/>
 
     <ItemGroup>
@@ -123,6 +123,28 @@
                         WorkingDirectory="$(BinDir)" WaitForExit="true"/>
   </Target>
 
+  <!-- Generate certificates -->
+  <Target Name="GenerateCerts">
+    <!-- generate CA cert and create required client and server cert using that -->
+    <Exec Command="openssl genrsa -passout pass:password -des3 -out $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pem 4096"/>
+    <Exec Command="openssl genrsa -passout pass:password -des3 -out $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pem 4096"/>
+    <Exec Command="openssl genrsa -passout pass:password -des3 -out $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem 4096"/>
+    <Exec Command="openssl req -passin pass:password -new -x509 -key $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pem -out $(TestsDir)\Coherence.Tests\Net\Ssl\CA.cer -subj &quot;/CN=Test And Dev Root Authority&quot;"/>
+    <Exec Command="openssl req -passin pass:password -nodes -new -key $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pem -out $(TestsDir)\Coherence.Tests\Net\Ssl\Client.csr -subj &quot;/CN=MyClient&quot;"/>
+    <Exec Command="openssl req -passin pass:password -nodes -new -key $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem -out $(TestsDir)\Coherence.Tests\Net\Ssl\Server.csr -subj &quot;/CN=MyServerName&quot;"/>
+    <Exec Command="openssl x509 -req -passin pass:password -in $(TestsDir)\Coherence.Tests\Net\Ssl\Client.csr -CA $(TestsDir)\Coherence.Tests\Net\Ssl\CA.cer -CAkey $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pem -set_serial 01 -out $(TestsDir)\Coherence.Tests\Net\Ssl\Client.cer"/>
+    <Exec Command="openssl x509 -req -passin pass:password -in $(TestsDir)\Coherence.Tests\Net\Ssl\Server.csr -CA $(TestsDir)\Coherence.Tests\Net\Ssl\CA.cer -CAkey $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pem -set_serial 01 -out $(TestsDir)\Coherence.Tests\Net\Ssl\Server.cer"/>
+    <Exec Command="openssl pkcs12 -name testcert -export -passin pass:password -passout pass:password -out $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pfx -inkey $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem -in $(TestsDir)\Coherence.Tests\Net\Ssl\Server.cer"/>
+    <Exec Command="openssl pkcs12 -export -passout pass:password -passin pass:password -out $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pfx -inkey $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pem -in $(TestsDir)\Coherence.Tests\Net\Ssl\CA.cer"/>
+    <Exec Command="openssl pkcs12 -export -passout pass:password -passin pass:password -out $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pfx -inkey $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pem -in $(TestsDir)\Coherence.Tests\Net\Ssl\Client.cer"/>
+
+    <!-- create testcert and keystrore from that testcert -->
+    <Exec Command="openssl req -passin pass:password -nodes -x509 -new -key $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem -out $(TestsDir)\Coherence.Tests\Config\testcert.cer -subj &quot;/CN=TestCert/OU=Coherence/O=Oracle/C=US&quot;"/>
+    <Exec Command="openssl pkcs12 -name testcert -export -passin pass:password -passout pass:password -out $(TestsDir)\Coherence.Tests\Net\Ssl\testcert.p12 -inkey $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem -in $(TestsDir)\Coherence.Tests\Config\testcert.cer"/>
+    <Exec Command="openssl pkcs12 -name testcert -export -passin pass:password -passout pass:password -out $(TestsDir)\Coherence.Tests\Config\testcert.pfx -inkey $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem -in $(TestsDir)\Coherence.Tests\Config\testcert.cer"/>
+    <Exec Command="keytool -importkeystore -srcstoretype PKCS12 -noprompt -alias testcert -srckeystore $(TestsDir)\Coherence.Tests\Net\Ssl\testcert.p12 -keypass password -destkeystore $(TestsDir)\Coherence.Tests\Config\testcert.jks -srcstorepass password -storepass password"/>
+  </Target>
+
   <!-- Install certificates -->
   <Target Name="InstallCerts">
     <Exec Command="certutil -f -p password -importpfx $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pfx"/>
@@ -138,6 +160,13 @@
     <Exec ContinueOnError="true" Command="certutil -delstore -v My &quot;Test And Dev Root Authority&quot;"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -f -v root TestCert"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -f -v root &quot;Test And Dev Root Authority&quot;"/>
+    <!-- Remove/clean all generated cert files -->
+    <Delete Files="$(TestsDir)\Coherence.Tests\Config\testcert.*"/>
+    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.csr"/>
+    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.pem"/>
+    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.pfx"/>
+    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.cer"/>
+    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.p12"/>
   </Target>
 
   <!-- Test Target -->
