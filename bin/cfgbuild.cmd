@@ -1,5 +1,5 @@
 rem
-rem  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+rem  Copyright (c) 2000, 2021, Oracle and/or its affiliates.
 rem
 rem  Licensed under the Universal Permissive License v 1.0 as shown at
 rem  http://oss.oracle.com/licenses/upl.
@@ -109,6 +109,15 @@ if defined JAVA_HOME (
  echo JAVA_HOME not set.
  goto exit_err
 )
+
+:: --------------------------------------------------------------------------------------------
+:: Install OpenSSL
+:: --------------------------------------------------------------------------------------------
+if exist %DEV_ROOT%\tools\internal\bin\cfgwindows.cmd (
+  echo Downloading openssl for generating certs required for running tests.
+  call %DEV_ROOT%\tools\internal\bin\cfgwindows.cmd
+)
+openssl version
 
 :: --------------------------------------------------------------------------------------------
 :: Display settings
