@@ -60,12 +60,21 @@ namespace Tangosol.Util
         /// </returns>
         public static IPAddress GetLocalHostAddress(long cMillis)
         {
-            foreach (IPAddress localAddress in GetAllAddresses(Dns.GetHostName(), cMillis))
+            try
             {
-                if (VerifyIpAddress(localAddress))
+                foreach (IPAddress localAddress in GetAllAddresses(Dns.GetHostName(), cMillis))
                 {
-                    return localAddress;
+                    if (VerifyIpAddress(localAddress))
+                    {
+                        return localAddress;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                CacheFactory.Log("Failed to resolve local host name " + Dns.GetHostName() + " with exception: " + e
+                                 + "\n Get local host name from NetworkInterface...",
+                    CacheFactory.LogLevel.Debug);
             }
 
             IPAddress bestAddress = null;
