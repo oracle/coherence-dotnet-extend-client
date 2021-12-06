@@ -164,13 +164,12 @@
     <Exec ContinueOnError="true" Command="certutil -delstore -v My &quot;Test And Dev Root Authority&quot;"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -f -v root TestCert"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -f -v root &quot;Test And Dev Root Authority&quot;"/>
+
     <!-- Remove/clean all generated cert files -->
-    <Delete Files="$(TestsDir)\Coherence.Tests\Config\testcert.*"/>
-    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.csr"/>
-    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.pem"/>
-    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.pfx"/>
-    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.cer"/>
-    <Delete Files="$(TestsDir)\Coherence.Tests\Net\Ssl\*.p12"/>
+    <ItemGroup>
+      <CertFiles Include="$(TestsDir)\Coherence.Tests\Config\testcert.*; $(TestsDir)\Coherence.Tests\Config\testcert.*; $(TestsDir)\Coherence.Tests\Net\Ssl\*.csr; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pem; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pfx; $(TestsDir)\Coherence.Tests\Net\Ssl\*.cer; $(TestsDir)\Coherence.Tests\Net\Ssl\*.p12"/>
+    </ItemGroup>
+    <Delete Files="@(CertFiles)"/>
   </Target>
 
   <!-- Test Target -->
