@@ -84,15 +84,18 @@
       <Files Include="$(SrcDir)\Coherence\bin"/>
       <Files Include="$(SrcDir)\Coherence\obj"/>
       <Files Include="$(TestsDir)\Coherence.Tests\bin"/>
-      <Files Include="$(TestDir)\Coherence.Tests\obj"/>
+      <Files Include="$(TestsDir)\Coherence.Tests\obj"/>
 
       <Dist Include="$(DistVersionDir)"/>
       <Dist Include="$(DistDir)\coherence-net-$(BuildOracleVersion)b$(BuildNumber).zip"/>
+
+      <Certs Include="$(TestsDir)\Coherence.Tests\Config\testcert.*; $(TestsDir)\Coherence.Tests\Net\Ssl\*.csr; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pem; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pfx; $(TestsDir)\Coherence.Tests\Net\Ssl\*.cer; $(TestsDir)\Coherence.Tests\Net\Ssl\*.p12"/>
     </ItemGroup>
 
     <RemoveDir ContinueOnError="true" Directories="@(Files)"/>
     <Delete Condition="'$(ClearDist)' != ''" ContinueOnError="true" Files="@(Dist)"/>
     <Delete ContinueOnError="true" Files="$(ProjectDir)\AssemblyInfo.cs" />
+    <Delete ContinueOnError="true" Files="@(Certs)"/>
   </Target>
 
   <!-- Build Target -->
@@ -158,12 +161,12 @@
     <Exec ContinueOnError="true" Command="certutil -delstore -v My MyClient"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -v My MyServerName"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -v My &quot;Test And Dev Root Authority&quot;"/>
-    <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -f -v root TestCert"/>
-    <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -f -v root &quot;Test And Dev Root Authority&quot;"/>
+    <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root TestCert"/>
+    <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root &quot;Test And Dev Root Authority&quot;"/>
 
     <!-- Remove/clean all generated cert files -->
     <ItemGroup>
-      <CertFiles Include="$(TestsDir)\Coherence.Tests\Config\testcert.*; $(TestsDir)\Coherence.Tests\Config\testcert.*; $(TestsDir)\Coherence.Tests\Net\Ssl\*.csr; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pem; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pfx; $(TestsDir)\Coherence.Tests\Net\Ssl\*.cer; $(TestsDir)\Coherence.Tests\Net\Ssl\*.p12"/>
+      <CertFiles Include="$(TestsDir)\Coherence.Tests\Config\testcert.*; $(TestsDir)\Coherence.Tests\Net\Ssl\*.csr; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pem; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pfx; $(TestsDir)\Coherence.Tests\Net\Ssl\*.cer; $(TestsDir)\Coherence.Tests\Net\Ssl\*.p12"/>
     </ItemGroup>
     <Delete Files="@(CertFiles)"/>
   </Target>
