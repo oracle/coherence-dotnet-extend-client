@@ -78,7 +78,7 @@
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
   <!-- Remove all build artifacts -->
-  <Target Name="Clean">
+  <Target Name="Clean" DependsOnTargets="RemoveCerts">
     <ItemGroup>
       <Files Include="$(BuildDir)"/>
       <Files Include="$(SrcDir)\Coherence\bin"/>
@@ -88,8 +88,6 @@
 
       <Dist Include="$(DistVersionDir)"/>
       <Dist Include="$(DistDir)\coherence-net-$(BuildOracleVersion)b$(BuildNumber).zip"/>
-
-      <Certs Include="$(TestsDir)\Coherence.Tests\Config\testcert.*; $(TestsDir)\Coherence.Tests\Net\Ssl\*.csr; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pem; $(TestsDir)\Coherence.Tests\Net\Ssl\*.pfx; $(TestsDir)\Coherence.Tests\Net\Ssl\*.cer; $(TestsDir)\Coherence.Tests\Net\Ssl\*.p12"/>
     </ItemGroup>
 
     <RemoveDir ContinueOnError="true" Directories="@(Files)"/>
