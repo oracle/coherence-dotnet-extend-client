@@ -152,27 +152,203 @@ command:
 ```
 msbuild /t:clean Coherence.msbuild
 ```
-The 
+
 # <a name="started"></a>CLI Hello Coherence Example
-Note: You can skipt this section for now till the Hello Coherence console example is available.
-## Build the example
-The Hello Coherence example is in the examples\Hello directory.
+The following example illustrates starting a storage enabled Coherence server, followed by running the HelloCoherence console application. The HelloCoherence application inserts and retrieves data from the Coherence server.
+
+## Build HelloCoherence
+1. Using dotnet-cli to create a HelloCoherence console application:
 ```
-cd examples\Hello
-msbuild /t:clean /t:build
+dotnet new console -name "HelloCoherence"
+```
+1. Add the following references to the HelloCoherence.csproj (provide the Coherence.Core.dll location in the `<HintPath>`):
+```
+  <ItemGroup>
+    <Reference Include="Coherence.Core, Version=14.1.1.4, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+      <HintPath>Coherence.Core.dll</HintPath>
+    </Reference>
+    <PackageReference Include="Common.Logging" Version="3.4.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+```
+Also include any Coherence configuration files you may have.
+
+1. Replace Program.cs code with the following source:
+```
+/*
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+ *
+ * Licensed under the Universal Permissive License v 1.0 as shown at
+ * http://oss.oracle.com/licenses/upl.
+ */
+using System;
+using Tangosol.Net;
+using Tangosol.Net.Cache;
+using Tangosol.Run.Xml;
+namespace Hello
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Display title as the C# console Coherence app and
+            // show user the valid commands:
+            Console.WriteLine("Coherence for .NET Extend Client");
+            Console.WriteLine("The following are the available cache operations:");
+            Console.WriteLine("\tcache <cacheName> - specify a cache name to use");
+            Console.WriteLine("\tput <key> <value> - put a <key, value> pair into the cache");
+            Console.WriteLine("\tget <key> - get the value of a given key from the cache");
+            Console.WriteLine("\tremove <key> - remove an entry of the given key from the cache");
+            Console.WriteLine("\tlist - list all the entries in the cache");
+            Console.WriteLine("\tsize - get the size of the cache");
+            Console.WriteLine("\tbye - exit the console");
+            Console.WriteLine();
+            Console.Write("Map (?): ");
+
+            // Declare variabs.
+            String      cacheName  = null;
+            INamedCache namedCache = null;
+            String      op         = Console.ReadLine().ToLower();
+            String[]    opList     = op.Split();
+
+            // Processing cache operations.
+            while (opList[0].CompareTo("bye") != 0)
+            {
+                String key;
+                String value;
+
+                if (!opList[0].Equals("cache") && namedCache == null)
+                {
+                    Console.WriteLine("No named cache.  Please specify a named cache to use.");
+                }
+                else
+                {
+                    switch (opList[0])
+                    {
+                        case "cache":
+						    if (opList.Length < 2)
+							{
+								Console.WriteLine("No cache name.  Please specify a cache name to use.");
+							}
+							else
+							{
+								cacheName = opList[1];
+								namedCache = CacheFactory.GetCache(cacheName);
+							}
+                            break;
+
+                        case "put":
+						    if (opList.Length < 3)
+							{
+								Console.WriteLine("No key/value pair.  Please specify the key and value to be put into the cache.");
+							}
+							else
+							{
+								key = opList[1];
+								value = opList[2];
+								namedCache[key] = value;
+							}
+                            break;
+
+                        case "get":
+						    if (opList.Length < 2)
+							{
+								Console.WriteLine("No key.  Please specify the key to get.");
+							}
+							else
+							{
+								key = opList[1];
+								var result = namedCache[key];
+								Console.WriteLine(result == null ? "NULL" : namedCache[key]);
+							}
+                            break;
+
+                        case "remove":
+						    if (opList.Length < 2)
+							{
+								Console.WriteLine("No key.  Please specify the key to remove.");
+							}
+							else
+							{
+								key = opList[1];
+								namedCache.Remove(key);
+							}
+                            break;
+
+                        case "list":
+                            foreach (ICacheEntry entry in namedCache.Entries)
+                            {
+                                Console.WriteLine(entry.Key + " = " + entry.Value);
+                            }
+                            break;
+
+                        case "size":
+                            Console.WriteLine(namedCache.Count);
+                            break;
+
+                        default:
+                            Console.WriteLine("Valid operations are: cache, put, get, remove, list, size, and bye.");
+                            break;
+                    }
+                }
+
+                Console.WriteLine("");
+                if (namedCache == null)
+                {
+                    Console.Write("Map (?): ");
+                }
+                else
+                {
+                    Console.Write("Map (" + cacheName + "): ");
+                }
+
+                // Read cache operation
+                op = Console.ReadLine().ToLower();
+                opList = op.Split();
+            }
+        }
+    }
+}
+```
+
+By default, you need to provide a POF configure file, pof-config.xml, in the TargetFramework directory. Below are a sample pof-config.xml file:
+
+```
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<pof-config xmlns="http://schemas.tangosol.com/pof">
+  <user-type-list>
+    <!-- include all "standard" Coherence POF user types -->
+    <include>assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml</include>
+
+    <!-- include all application POF user types -->
+  </user-type-list>
+</pof-config>
+```
+
+4. Build the HelloCoherence project
+```
+dotnet build
 ```
 
 ## Start a Coherence server
 
 ```
-"%JAVA_HOME%\bin\java" -Dcoherence.pof.enabled=true -Dcoherence.cacheconfig=Resources\server-cache-config.xml -jar coherence.jar
+"%JAVA_HOME%\bin\java" -Dcoherence.pof.enabled=true -Dcoherence.log.level=9 -jar coherence.jar
 ```
 
 ## Run the Hello Coherence example
 
 ```shell script
-cd examples\Hello\Hello\bin\Debug
-Hello.exe
+dotnet run
+```
+
+```
 Coherence for .NET Extend Client
 The following are the available cache operations:
         cache <cacheName> - specify a cache name to use
@@ -203,8 +379,13 @@ english = Hello
 spanish = Hola
 
 Map (welcomes): bye
+```
 
-Hello.exe
+```
+dotnet run
+```
+
+```
 Coherence for .NET Extend Client
 The following are the available cache operations:
         cache <cacheName> - specify a cache name to use
