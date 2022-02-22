@@ -2402,7 +2402,7 @@ namespace Tangosol.Net.Cache
             {
                 while (true)
                 {
-                    lock (mapLock.SyncRoot)
+                    using (BlockingLock l = BlockingLock.Lock(mapLock.SyncRoot))
                     {
                         cacheLock = (CacheLock) mapLock[key];
                         if (cacheLock == null)
@@ -2424,7 +2424,7 @@ namespace Tangosol.Net.Cache
                         }
                     }
 
-                    lock (cacheLock)
+                    using (BlockingLock l = BlockingLock.Lock(cacheLock))
                     {
                         // make sure the lock didn't just get removed
                         if (cacheLock == mapLock[key])
@@ -2508,7 +2508,7 @@ namespace Tangosol.Net.Cache
                     break;
                 }
 
-                lock (cacheLock)
+                using (BlockingLock l = BlockingLock.Lock(cacheLock))
                 {
                     if (mapLock[key] == cacheLock)
                     {
@@ -5137,7 +5137,7 @@ namespace Tangosol.Net.Cache
                     const int MAX_WAIT = 1000;
                     int millis = (waitMillis <= 0 || waitMillis > MAX_WAIT) ? MAX_WAIT : (int) waitMillis;
 
-                    Monitor.Wait(this, millis);
+                    Blocking.Wait(this, millis);
                 }
                 finally
                 {

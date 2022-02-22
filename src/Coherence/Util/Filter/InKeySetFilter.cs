@@ -101,7 +101,7 @@ namespace Tangosol.Util.Filter
         /// <since>12.2.1</since>
         public virtual void EnsureConverted(IConverter converter)
         {
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 if (!m_isConverted)
                 {

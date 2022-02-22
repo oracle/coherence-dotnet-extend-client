@@ -417,7 +417,7 @@ namespace Tangosol.Net
                 throw new ArgumentNullException("factory");
             }
 
-            lock (typeof(CacheFactory))
+            using (BlockingLock l = BlockingLock.Lock(typeof(CacheFactory)))
             {
                 IConfigurableCacheFactory factoryOld = s_factory;
                 if (factoryOld != null)
@@ -455,7 +455,7 @@ namespace Tangosol.Net
                            logger.Copyright), null);
 
                     IList initLogMessages = s_initLogMessages;
-                    lock (initLogMessages)
+                    using (BlockingLock l2 = BlockingLock.Lock(initLogMessages))
                     {
                         foreach (object[] logMessage in initLogMessages)
                         {
@@ -495,7 +495,7 @@ namespace Tangosol.Net
         /// <since>Coherence 1.0</since>
         public static void Shutdown()
         {
-            lock (typeof(CacheFactory))
+            using (BlockingLock l = BlockingLock.Lock(typeof(CacheFactory)))
             {
                 var factory = s_factory;
                 if (factory != null)
@@ -784,7 +784,7 @@ namespace Tangosol.Net
             if (logger == null)
             {
                 IList list = s_initLogMessages;
-                lock (list)
+                using (BlockingLock l = BlockingLock.Lock(list))
                 {
                     logger = s_logger;
                     if (logger == null)

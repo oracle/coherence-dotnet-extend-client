@@ -230,7 +230,7 @@ namespace Tangosol.Util
         /// </returns>
         public override string ToString()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 string state;
                 switch (Status)
@@ -317,7 +317,7 @@ namespace Tangosol.Util
                 return true;
             }
 
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 while (true)
                 {
@@ -382,7 +382,7 @@ namespace Tangosol.Util
             bool          reenter     = false;
             bool          reopen      = false;
 
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 try
                 {
@@ -475,7 +475,7 @@ namespace Tangosol.Util
         /// </remarks>
         public virtual void Destroy()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 switch (Status)
                 {
@@ -572,7 +572,7 @@ namespace Tangosol.Util
                         case ThreadGateState.Closed:
                             // we know that we were not already in the gate, and are
                             // not the one closing the gate; wait for it to open
-                            lock (this)
+                            using (BlockingLock l = BlockingLock.Lock(this))
                             {
                                 ThreadGateState state = Status;
                                 if (state == ThreadGateState.Closing || state == ThreadGateState.Closed)
@@ -628,7 +628,7 @@ namespace Tangosol.Util
             {
                 // we were the last to exit, and the gate is in the CLOSING state
                 // notify everyone, to ensure that we notify the closing thread
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     Monitor.PulseAll(this);
                 }
@@ -664,7 +664,7 @@ namespace Tangosol.Util
                         Version = version;
                         SetThreadLocalCount(m_slotThreadEnterVersion, version);
 
-                        lock (this)
+                        using (BlockingLock l = BlockingLock.Lock(this))
                         {
                             UpdateStatus(ThreadGateState.Open);
                             ClosingThread = null;
@@ -801,11 +801,11 @@ namespace Tangosol.Util
             {
                 if (millis < 0 || millis > int.MaxValue)
                 {
-                    Monitor.Wait(this, Timeout.Infinite);
+                    Blocking.Wait(this, Timeout.Infinite);
                 }
                 else
                 {
-                    Monitor.Wait(this, (int) millis);
+                    Blocking.Wait(this, (int) millis);
                 }
             }
             catch (ThreadInterruptedException e)

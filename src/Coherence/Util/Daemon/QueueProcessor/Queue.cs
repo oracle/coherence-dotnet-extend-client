@@ -82,7 +82,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor
         /// </exception>
         public virtual bool Add(object obj)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 ElementList.Add(obj);
 
@@ -101,7 +101,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor
         /// <seealso cref="Add"/>
         public virtual bool AddHead(object obj)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 ElementList.Insert(0, obj);
 
@@ -161,7 +161,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor
         /// <seealso cref="Remove"/>
         public virtual object PeekNoWait()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 IList list = ElementList;
                 return list.Count == 0 ? null : list[0];
@@ -183,12 +183,12 @@ namespace Tangosol.Util.Daemon.QueueProcessor
         /// <seealso cref="RemoveNoWait"/>
         public virtual object Remove()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 IList list = ElementList;
                 while (list.Count == 0)
                 {
-                    Monitor.Wait(this);
+                    Blocking.Wait(this);
                 }
                 object obj = list[0];
                 list.RemoveAt(0);
@@ -211,7 +211,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor
         /// <seealso cref="Remove"/>
         public virtual object RemoveNoWait()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 IList list = ElementList;
                 if (list.Count == 0)
@@ -232,7 +232,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor
         /// </summary>
         public virtual void Flush()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 Monitor.Pulse(this);
             }

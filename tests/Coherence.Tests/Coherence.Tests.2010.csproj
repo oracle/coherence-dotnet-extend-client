@@ -221,6 +221,7 @@
     <Compile Include="Util\SimpleEnumeratorTests.cs" />
     <Compile Include="Util\StringUtilsTests.cs" />
     <Compile Include="Util\ThreadGateTests.cs" />
+    <Compile Include="Util\TimeoutTests.cs" />
     <Compile Include="Util\Transformer\ExtractorEventTransformerTests.cs" />
     <Compile Include="Util\Transformer\SemiLiteEventTransformerTests.cs" />
     <Compile Include="Util\TriggerListenerTests.cs" />

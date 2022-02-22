@@ -411,7 +411,7 @@ namespace Tangosol.Net.Cache
                     }
                     return;
                 }
-                Thread.Sleep(10);
+                Blocking.Sleep(10);
             }
 
             try
@@ -634,7 +634,7 @@ namespace Tangosol.Net.Cache
                         RegisterListener(key);
 
                         bool isPrimed;
-                        lock (listEvents.SyncRoot)
+                        using (BlockingLock l = BlockingLock.Lock(listEvents.SyncRoot))
                         {
                             int c;
                             switch (c = listEvents.Count)
@@ -670,7 +670,7 @@ namespace Tangosol.Net.Cache
                             }
                         }
 
-                        lock (listEvents.SyncRoot)
+                        using (BlockingLock l = BlockingLock.Lock(listEvents.SyncRoot))
                         {
                             if (value == null)
                             {
@@ -970,7 +970,7 @@ namespace Tangosol.Net.Cache
                         // through priming events
                         RegisterListeners(setLocked);
 
-                        lock (listEvents.SyncRoot)
+                        using (BlockingLock l = BlockingLock.Lock(listEvents.SyncRoot))
                         {
                             for (int i = listEvents.Count - 1; i >= 0; --i)
                             {
@@ -1034,7 +1034,7 @@ namespace Tangosol.Net.Cache
                     HashSet setAdd      = new HashSet(setLocked);
 
                     // remove entries invalidated during the getAll() call
-                    lock (listEvents.SyncRoot)
+                    using (BlockingLock l = BlockingLock.Lock(listEvents.SyncRoot))
                     {
                         // GetAll() operation itself can generate not more
                         // than one synthetic INSERT per key; anything else
@@ -1622,7 +1622,7 @@ namespace Tangosol.Net.Cache
             else
             {
                 // validate events and update the front if possible
-                lock (listEvents.SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(listEvents.SyncRoot))
                 {
                     // put operation itself should generate one "natural"
                     // INSERT or UPDATE; anything else should be considered
@@ -1769,7 +1769,7 @@ namespace Tangosol.Net.Cache
                         }
                     }
 
-                    lock (listEvents.SyncRoot)
+                    using (BlockingLock l = BlockingLock.Lock(listEvents.SyncRoot))
                     {
                         IList listKey = (IList) cacheControl[key];
                         if (listEvents == listKey ||
@@ -2363,7 +2363,7 @@ namespace Tangosol.Net.Cache
                 case CompositeCacheStrategyType.ListenPresent:
                     if (m_strategyCurrent != CompositeCacheStrategyType.ListenPresent)
                     {
-                        lock (GLOBAL_KEY)
+                        using (BlockingLock l = BlockingLock.Lock(GLOBAL_KEY))
                         {
                             if (m_strategyCurrent != CompositeCacheStrategyType.ListenPresent)
                             {
@@ -2380,7 +2380,7 @@ namespace Tangosol.Net.Cache
                 case CompositeCacheStrategyType.ListenAll:
                     if (m_strategyCurrent != strategyTarget)
                     {
-                        lock (GLOBAL_KEY)
+                        using (BlockingLock l = BlockingLock.Lock(GLOBAL_KEY))
                         {
                             if (m_strategyCurrent != strategyTarget)
                             {

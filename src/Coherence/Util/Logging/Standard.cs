@@ -189,7 +189,7 @@ namespace Tangosol.Util.Logging
         {
             TextWriter stream = PrintStream;
 
-            lock (stream)
+            using (BlockingLock l = BlockingLock.Lock(stream))
             {
                 if (message != null)
                 {

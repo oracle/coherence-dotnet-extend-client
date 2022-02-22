@@ -123,7 +123,7 @@ namespace Tangosol.Net
             {
                 ValidateConfig(value);
 
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     value       = (IXmlElement) value.Clone();
                     m_xmlConfig = value;
@@ -297,7 +297,7 @@ namespace Tangosol.Net
                 return cache;
             }
 
-            lock(storeCache)
+            using (BlockingLock l = BlockingLock.Lock(storeCache))
             {
                 // since we first checked, someone could create it
                 cache = storeCache.GetCache(cacheName);
@@ -385,7 +385,7 @@ namespace Tangosol.Net
         /// </summary>
         public virtual void Shutdown()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 ScopedReferenceStore storeCache = StoreCache;
                 // release all caches
@@ -846,7 +846,7 @@ namespace Tangosol.Net
                 serviceName = serviceType.ToString();
             }
 
-            lock (typeof(CacheFactory))
+            using (BlockingLock l = BlockingLock.Lock(typeof(CacheFactory)))
             {
                 IService service = EnsureService(serviceName, serviceType);
 
@@ -1576,7 +1576,7 @@ namespace Tangosol.Net
             ScopedReferenceStore storeCache = StoreCache;
             String               cacheName  = cache.CacheName;
 
-            lock(storeCache)
+            using (BlockingLock l = BlockingLock.Lock(storeCache))
             {
                 bool fFound = storeCache.ReleaseCache(cache);
 
@@ -1659,7 +1659,7 @@ namespace Tangosol.Net
                 return service;
             }
 
-            lock(storeService)
+            using (BlockingLock l = BlockingLock.Lock(storeService))
             {
                 service = storeService.GetService(serviceName);
                 if (service != null && service.IsRunning)

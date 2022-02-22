@@ -12,6 +12,7 @@ using System.Threading;
 
 using Tangosol.IO.Pof;
 using Tangosol.Net.Impl;
+using Tangosol.Util;
 using Tangosol.Util.Daemon.QueueProcessor.Service.Peer;
 
 namespace Tangosol.Net.Messaging.Impl
@@ -386,7 +387,7 @@ namespace Tangosol.Net.Messaging.Impl
                     Debug.Assert(!IsClosed && value != null && Response == null);
 
                     Channel channel;
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         if (IsClosed)
                         {
@@ -485,7 +486,7 @@ namespace Tangosol.Net.Messaging.Impl
                 }
 
                 Channel channel;
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (IsClosed)
                     {
@@ -551,13 +552,13 @@ namespace Tangosol.Net.Messaging.Impl
 
                 if (millis <= 0L || millis > int.MaxValue)
                 {
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         while (!IsClosed)
                         {
                             try
                             {
-                                Monitor.Wait(this);
+                                Blocking.Wait(this);
                             }
                             catch (Exception caught) // only ThreadInterruptedException can be caught here
                             {
@@ -569,7 +570,7 @@ namespace Tangosol.Net.Messaging.Impl
                 }
                 else
                 {
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         long start  = -1L;
                         long remain = millis;
@@ -583,7 +584,7 @@ namespace Tangosol.Net.Messaging.Impl
 
                             try
                             {
-                                Monitor.Wait(this, (int) remain);
+                                Blocking.Wait(this, (int) remain);
                             }
                             catch (Exception caught) // only ThreadInterruptedException can be caught here
                             {

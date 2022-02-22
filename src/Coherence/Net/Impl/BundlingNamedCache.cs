@@ -64,7 +64,7 @@ namespace Tangosol.Net.Impl
         /// </returns>
         public AbstractBundler EnsureGetBundler(int bundleThreshold)
         {
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 if (bundleThreshold > 0)
                 {
@@ -94,7 +94,7 @@ namespace Tangosol.Net.Impl
         /// </returns>
         public AbstractBundler EnsureInsertBundler(int bundleThreshold)
         {
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 if (bundleThreshold > 0)
                 {
@@ -124,7 +124,7 @@ namespace Tangosol.Net.Impl
         /// </returns>
         public AbstractBundler EnsureRemoveBundler(int bundleThreshold)
         {
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 if (bundleThreshold > 0)
                 {

@@ -12,6 +12,7 @@ using NUnit.Framework;
 
 using Tangosol.IO;
 using Tangosol.Net;
+using Tangosol.Util;
 using Tangosol.Web.Model;
 
 namespace Tangosol.Web
@@ -86,7 +87,7 @@ namespace Tangosol.Web
 
             // external attributes are removed asynchronously
             // sleep a bit to make sure they are removed...
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
             Assert.AreEqual(0, m_extAttrCache.Count);
         }
 

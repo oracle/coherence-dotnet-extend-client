@@ -382,7 +382,7 @@ namespace Tangosol.Net.Cache
 
             // we may need to create a new Bundle; synchronize to prevent the
             // creation of unnecessary bundles
-            lock (listBundle)
+            using (BlockingLock l = BlockingLock.Lock(listBundle))
             {
                 // double check under synchronization
                 cBundles = listBundle.Count;
@@ -523,7 +523,7 @@ namespace Tangosol.Net.Cache
             /// An object that serves as a mutex for thread synchronization.
             /// </value>
             /// <seealso cref="Monitor.PulseAll(object)"/>
-            /// <seealso cref="Monitor.Wait(object)"/>
+            /// <seealso cref="Blocking.Wait(object)"/>
             protected virtual object Lock
             {
                 get
@@ -593,7 +593,7 @@ namespace Tangosol.Net.Cache
             /// </param>
             protected void SetStatus(int status)
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     bool isValid;
                     switch (m_status)
@@ -675,7 +675,7 @@ namespace Tangosol.Net.Cache
                             long lDelay = Bundler.DelayMillis;
                             do
                             {
-                                Monitor.Wait(Lock, (int) lDelay);
+                                Blocking.Wait(Lock, (int) lDelay);
                                 lDelay = 0L;
                             } 
                             while (IsPending());
@@ -684,7 +684,7 @@ namespace Tangosol.Net.Cache
                         {
                             while (true)
                             {
-                                Monitor.Wait(Lock);
+                                Blocking.Wait(Lock);
 
                                 if (IsProcessed())
                                 {
@@ -787,7 +787,7 @@ namespace Tangosol.Net.Cache
             /// </returns>
             protected bool ReleaseThread()
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     Debug.Assert(IsProcessed() && m_cThreads > 0);
 

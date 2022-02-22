@@ -28,7 +28,7 @@ namespace Tangosol.Util
         /// <returns>true if the lock has been acquired.</returns>
         public bool Close(long millis)
         {
-            return m_lock.TryEnterWriteLock(millis > int.MaxValue ? 0 : (int) millis);
+            return Blocking.TryEnterWriteLock(m_lock, millis > int.MaxValue ? 0 : (int) millis);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Tangosol.Util
         /// <returns>true if the lock has been acquired.</returns>
         public bool Enter(long millis)
         {
-            return m_lock.TryEnterReadLock(millis > int.MaxValue ? 0 : (int) millis);
+            return Blocking.TryEnterReadLock(m_lock, millis > int.MaxValue ? 0 : (int) millis);
         }
 
         /// <summary>

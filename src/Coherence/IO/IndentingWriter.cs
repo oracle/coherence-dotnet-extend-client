@@ -91,7 +91,7 @@ namespace Tangosol.IO
         /// </param>
         public override void Write(char value)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (value == '\n')
                 {
@@ -118,7 +118,7 @@ namespace Tangosol.IO
         /// </param>
         public override void Write(char[] buffer)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (buffer != null)
                 {
@@ -141,7 +141,7 @@ namespace Tangosol.IO
         /// </param>
         public override void Write(char[] buffer, int index, int count)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 for (int i = 0; i < count; ++i)
                 {
@@ -158,7 +158,7 @@ namespace Tangosol.IO
         /// </param>
         public override void Write(string value)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 Write(value.ToCharArray());
             }
