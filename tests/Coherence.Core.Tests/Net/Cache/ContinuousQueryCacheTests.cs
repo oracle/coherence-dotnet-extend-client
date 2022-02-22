@@ -301,7 +301,7 @@ namespace Tangosol.Net.Cache
             // when the next cache operation occurrs.  So, change
             // the test accordingly.
             cache.Insert("key6", 173, 200);
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
             Assert.AreNotEqual(null, cache["key6"]);
             Thread.Sleep(400);
             Assert.AreEqual(null, cache.Cache["key6"]);
@@ -914,7 +914,7 @@ namespace Tangosol.Net.Cache
                     && !lcAccessor.Finished
                     && (DateTime.Now < endTime))
                 {
-                Thread.Sleep(250);
+                Blocking.Sleep(250);
                 }
             bool IsEntriesSuccess = (cqcAccessor.Error == null);
 
@@ -941,7 +941,7 @@ namespace Tangosol.Net.Cache
                     && !lcAccessor.Finished
                     && (DateTime.Now < endTime))
                 {
-                Thread.Sleep(250);
+                Blocking.Sleep(250);
                 }
             bool IsKeysSuccess = (cqcAccessor.Error == null);
 
@@ -968,7 +968,7 @@ namespace Tangosol.Net.Cache
                     && !lcAccessor.Finished
                     && (DateTime.Now < endTime))
                 {
-                Thread.Sleep(250);
+                Blocking.Sleep(250);
                 }
             bool IsValuesSuccess = (cqcAccessor.Error == null);
 

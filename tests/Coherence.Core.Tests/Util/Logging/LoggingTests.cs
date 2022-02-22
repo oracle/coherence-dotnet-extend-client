@@ -108,7 +108,7 @@ namespace Tangosol.Util.Logging
             lock (this)
             {
                 //so that daemon does not shut down before the last message is written
-                Monitor.Wait(this, 1000);
+                Blocking.Wait(this, 1000);
             }
             logger.Shutdown();
         }

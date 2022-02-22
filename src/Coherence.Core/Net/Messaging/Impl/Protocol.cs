@@ -9,6 +9,7 @@ using System.Collections;
 using System.Diagnostics;
 
 using Tangosol.Net.Impl;
+using Tangosol.Util;
 using Tangosol.Util.Collections;
 
 namespace Tangosol.Net.Messaging.Impl
@@ -123,7 +124,7 @@ namespace Tangosol.Net.Messaging.Impl
         /// <seealso cref="IProtocol.GetMessageFactory"/>
         public virtual IMessageFactory GetMessageFactory(int version)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (version < SupportedVersion || version > CurrentVersion)
                 {

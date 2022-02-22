@@ -192,7 +192,7 @@ namespace Tangosol.IO.Pof
                 if (IsUserType(type))
                 {
                     nTypeId = GetGenericTypeId(type);
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         IDictionary mapTypeIdByType =
                                 GetPofConfig().m_mapTypeIdByType;
@@ -235,7 +235,7 @@ namespace Tangosol.IO.Pof
                 if (IsUserType(typeName))
                 {
                     nTypeId = GetGenericTypeId(TypeResolver.Resolve(typeName));
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         IDictionary mapTypeIdByTypeName =
                                 GetPofConfig().m_mapTypeIdByTypeName;

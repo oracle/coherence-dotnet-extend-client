@@ -103,7 +103,7 @@ namespace Tangosol.Util.Collections
 
             if (IsSynchronized)
             {
-                Monitor.Enter(dict.SyncRoot);
+                Blocking.Enter(dict.SyncRoot);
                 entered = true;
             }
             try
@@ -150,7 +150,7 @@ namespace Tangosol.Util.Collections
 
             if (IsSynchronized)
             {
-                Monitor.Enter(dict.SyncRoot);
+                Blocking.Enter(dict.SyncRoot);
                 entered = true;
             }
             try

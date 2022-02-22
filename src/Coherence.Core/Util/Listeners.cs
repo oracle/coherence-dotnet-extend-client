@@ -143,7 +143,7 @@ namespace Tangosol.Util
         /// </param>
         public virtual void Add(ICacheListener listener)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 // Swing (Kestrel) will add/remove null listeners
                 if (listener == null)
@@ -172,7 +172,7 @@ namespace Tangosol.Util
         /// </param>
         public virtual void Remove(ICacheListener listener)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 // Swing (Kestrel) will add/remove null listeners
                 if (listener == null)
@@ -221,7 +221,7 @@ namespace Tangosol.Util
         /// </param>
         public virtual void AddAll(Listeners listeners)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (listeners == null)
                 {
@@ -237,7 +237,7 @@ namespace Tangosol.Util
         /// </summary>
         public virtual void RemoveAll()
         {
-            lock(this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 AsynchronousListeners = BLANKLIST;
                 SynchronousListeners  = BLANKLIST;
