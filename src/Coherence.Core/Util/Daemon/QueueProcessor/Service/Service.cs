@@ -647,7 +647,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
                 // give the chance for the daemon to drain it's queue
                 try
                 {
-                    daemon.Thread.Join(1000);
+                    daemon.Join(1000);
                 }
                 catch (ThreadInterruptedException)
                 {
