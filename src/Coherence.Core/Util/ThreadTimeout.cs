@@ -128,8 +128,22 @@ namespace Tangosol.Util
         {
             get
             {
-                LongHolder mlTimeout = s_tloTimeout.Value;
-                long       lTimeout  = mlTimeout.Value;
+                LongHolder mlTimeout = null;
+                try
+                {
+                    mlTimeout = s_tloTimeout.Value;
+                }
+                catch (ObjectDisposedException)
+                {
+                }
+
+                if (mlTimeout == null)
+                {
+                    // no timeout configured; avoid pulling local time
+                    return Int32.MaxValue;
+                }
+
+                long lTimeout = mlTimeout.Value;
                 if (lTimeout == Int64.MaxValue)
                 {
                     // no timeout configured; avoid pulling local time
@@ -171,9 +185,20 @@ namespace Tangosol.Util
         /// <param name="forceOverride">True if this timeout is allowed to extend a parent timeout.</param>
         protected ThreadTimeout(int millis, bool forceOverride)
         {
+            LongHolder lhTimeout = s_tloTimeout.Value;
+            if (lhTimeout == null)
+            {
+                s_tloTimeout.Value = lhTimeout = new LongHolder(Int64.MaxValue);
+                f_tloCreator = true;
+            }
+            else
+            {
+                f_tloCreator = false;
+            }
+
             // convert Timeout.Infinite to Int64.MaxValue
             long lMillis   = millis == Timeout.Infinite ? Int64.MaxValue : millis;
-            f_lhTimeout    = s_tloTimeout.Value;
+            f_lhTimeout    = lhTimeout;
             f_lTimeoutOrig = f_lhTimeout.Value;
 
             if (f_lTimeoutOrig == Int64.MaxValue) // orig is disabled (common)
@@ -225,6 +250,11 @@ namespace Tangosol.Util
         public void Dispose()
         {
             // we must always restore the former timeout, even if it is expired
+            if (f_tloCreator)
+            {
+                s_tloTimeout.Value = null;
+            }
+            else
             if (f_lTimeoutOrig < 0) // orig was never realized
             {
                 long lTimeoutCurr = f_lhTimeout.Value;
@@ -326,6 +356,11 @@ namespace Tangosol.Util
         #region Data members
 
         /// <summary>
+        /// True iff this Timeout created (and thus must ultimately destroy) the TLO.
+        /// </summary>
+        protected readonly bool f_tloCreator;
+
+        /// <summary>
         /// Cached reference to the thread's <see cref="LongHolder"/> holding it's current timeout.
         /// </summary>
         protected readonly LongHolder f_lhTimeout;
@@ -346,7 +381,7 @@ namespace Tangosol.Util
         /// realized into a timestamp.  This allows for an optimization where we can avoid obtaining
         /// the current time when "setting" the timeout, and defer it until we are about to block.
         /// </summary>
-        protected static ThreadLocal<LongHolder> s_tloTimeout = new ThreadLocal<LongHolder>(() => new LongHolder(Int64.MaxValue));
+        protected static ThreadLocal<LongHolder> s_tloTimeout = new ThreadLocal<LongHolder>();
 
         #endregion
     }
