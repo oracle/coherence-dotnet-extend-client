@@ -1248,11 +1248,6 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                 {
                     status.WaitForResponse(RequestTimeout);
                 }
-                catch (ThreadInterruptedException e)
-                {
-                    connection.Close(false, e);
-                    throw;
-                }
                 catch (RequestTimeoutException e)
                 {
                     connection.Close(false, e);
