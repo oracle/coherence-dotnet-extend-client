@@ -464,6 +464,12 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                 {
                     CacheFactory.Log("An exception occurred while deserializing an identity token",
                         ex, CacheFactory.LogLevel.Error);
+
+                    if (ex is ThreadInterruptedException)
+                    {
+                        throw;
+                    }
+
                     throw new SecurityException("invalid identity token");
                 }
             }
@@ -497,6 +503,12 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                 {
                     CacheFactory.Log("An exception occurred while serializing an identity token",
                         ex, CacheFactory.LogLevel.Error);
+
+                    if (ex is ThreadInterruptedException)
+                    {
+                        throw;
+                    }
+
                     throw new SecurityException("unable to produce identity token");
                 }
             }
@@ -1235,6 +1247,11 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                 try
                 {
                     status.WaitForResponse(RequestTimeout);
+                }
+                catch (ThreadInterruptedException e)
+                {
+                    connection.Close(false, e);
+                    throw;
                 }
                 catch (RequestTimeoutException e)
                 {
