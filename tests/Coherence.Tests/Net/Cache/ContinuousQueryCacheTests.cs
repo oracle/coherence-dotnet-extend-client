@@ -16,7 +16,6 @@ using Tangosol.Net.Internal;
 using Tangosol.Run.Xml;
 using Tangosol.Util;
 using Tangosol.Util.Aggregator;
-using Tangosol.Util.Collections;
 using Tangosol.Util.Comparator;
 using Tangosol.Util.Extractor;
 using Tangosol.Util.Filter;
@@ -1072,11 +1071,11 @@ namespace Tangosol.Net.Cache
             Assert.That(theCQC.IsActive, Is.True);
             
             Assert.That(() => deactivationListener.GetActualTotal(), Is.EqualTo(1).After(500, 50));
-            Assert.That(deactivationListener.evt, Is.Not.Null);
-            Assert.That(deactivationListener.evt.EventType, Is.EqualTo(CacheEventType.Updated));
-            Assert.That(deactivationListener.evt.Key, Is.Null);
-            Assert.That(deactivationListener.evt.OldValue, Is.Null);
-            Assert.That(deactivationListener.evt.NewValue, Is.Null);
+            Assert.That(deactivationListener.m_evt, Is.Not.Null);
+            Assert.That(deactivationListener.m_evt.EventType, Is.EqualTo(CacheEventType.Updated));
+            Assert.That(deactivationListener.m_evt.Key, Is.Null);
+            Assert.That(deactivationListener.m_evt.OldValue, Is.Null);
+            Assert.That(deactivationListener.m_evt.NewValue, Is.Null);
         }
         
         [Test]

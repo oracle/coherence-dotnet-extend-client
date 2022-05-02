@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -142,6 +142,18 @@ namespace Tangosol.Net.Cache
             get { return m_isPriming; }
         }
 
+        /// <summary>
+        /// Return <b>true</b> if this event is an expired event.
+        /// </summary>
+        /// <value>
+        /// <b>true</b> if this event is an expired event.
+        /// </value>
+        /// <since>14.1.1.0.10</since>
+        public virtual bool IsExpired
+        {
+            get { return m_isExpired; }
+        }
+
         #endregion
 
         #region Constructors
@@ -241,9 +253,53 @@ namespace Tangosol.Net.Cache
         /// <b>true</b> if the event is a priming event.
         /// </param>
         public CacheEventArgs(IObservableCache source, CacheEventType eventType,
+            object key, object valueOld, object valueNew,
+            bool isSynthetic, TransformationState transformState,
+            bool isPriming)
+            : this(source, eventType, key, valueOld, valueNew, isSynthetic, TransformationState.TRANSFORMABLE, isPriming, false)
+        {
+        }
+
+        /// <summary>
+        /// Constructs a new CacheEventArgs.
+        /// </summary>
+        /// <param name="source">
+        /// The <see cref="IObservableCache"/> object that fired the
+        /// event.
+        /// </param>
+        /// <param name="eventType">
+        /// This event's type, one of <see cref="CacheEventType"/>
+        /// values.
+        /// </param>
+        /// <param name="key">
+        /// The key into the cache.
+        /// </param>
+        /// <param name="valueOld">
+        /// The old value (for update and delete events).
+        /// </param>
+        /// <param name="valueNew">
+        /// The new value (for insert and update events).
+        /// </param>
+        /// <param name="isSynthetic">
+        /// <b>true</b> if the event is caused by the cache internal
+        /// processing such as eviction or loading.
+        /// </param>
+        /// <param name="transformState">
+        /// <b>true</b> if the event is a priming event.
+        /// has been or should be transformed.
+        /// </param>
+        /// <param name="isPriming">
+        /// <b>true</b> if the event is a priming event.
+        /// </param>
+        /// <param name="isExpired">
+        /// <b>true</b> if the event is an expired event.
+        /// </param>
+        /// <since>14.1.1.0.10</since>
+        public CacheEventArgs(IObservableCache source, CacheEventType eventType,
                               object key, object valueOld, object valueNew,
                               bool isSynthetic, TransformationState transformState,
-                              bool isPriming)
+                              bool isPriming,
+                              bool isExpired)
         {
             m_source         = source;
             m_eventType      = eventType;
@@ -253,6 +309,7 @@ namespace Tangosol.Net.Cache
             m_isSynthetic    = isSynthetic;
             m_transformState = transformState;
             m_isPriming      = isPriming;
+            m_isExpired      = isExpired;
         }
 
         #endregion
@@ -316,7 +373,8 @@ namespace Tangosol.Net.Cache
             string evt = GetType().Name;
             string src = m_source.GetType().Name;
 
-            return evt + '{' + src + GetDescription() + (IsSynthetic ? ", synthetic" : "") + (IsPriming ? ", priming" : "") + '}';
+            return evt + '{' + src + GetDescription() + (IsSynthetic ? ", synthetic" : "") 
+                   + (IsPriming ? ", priming" : "") + (IsExpired ? ", expired" : "") + '}';
         }
 
         /// <summary>
@@ -436,6 +494,12 @@ namespace Tangosol.Net.Cache
         /// The priming event flag.
         /// </summary>
         protected bool m_isPriming;
+
+        /// <summary>
+        /// The expired event flag.
+        /// </summary>
+        /// <since>14.1.1.0.10</since>
+        protected bool m_isExpired;
 
         #endregion
     }

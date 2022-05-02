@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -2977,8 +2977,11 @@ namespace Tangosol.Net.Cache
         /// </param>
         protected virtual void RemoveExpired(Entry entry, bool removeInternal)
         {
-            KeyMask mask = CurrentKeyMask;
-            bool fSynthetic = mask.EnsureSynthetic();
+            long    expiry       = entry.ExpiryMillis;
+            bool    fExpired     = expiry != 0 && (expiry & ~0xFFL) < DateTimeUtils.GetSafeTimeMillis();
+            KeyMask mask         = CurrentKeyMask;
+            bool    fSynthetic   = mask.EnsureSynthetic();
+            bool    fPrevExpired = fExpired ? mask.EnsureExpired() : false;
             try
             {
                 RemoveInternal(entry, removeInternal);
@@ -2986,6 +2989,7 @@ namespace Tangosol.Net.Cache
             finally
             {
                 mask.IsSynthetic = fSynthetic;
+                mask.IsExpired   = fPrevExpired;
             }
         }
 
@@ -3301,7 +3305,7 @@ namespace Tangosol.Net.Cache
         protected virtual CacheEventArgs InstantiateCacheEvent(CacheEventType type, object key, object valueOld,
                                                                object valueNew)
         {
-            return new CacheEventArgs(this, type, key, valueOld, valueNew, CurrentKeyMask.IsSynthetic);
+            return new CacheEventArgs(this, type, key, valueOld, valueNew, CurrentKeyMask.IsSynthetic, CacheEventArgs.TransformationState.TRANSFORMABLE, false, CurrentKeyMask.IsExpired);
         }
 
         /// <summary>
@@ -4694,7 +4698,7 @@ namespace Tangosol.Net.Cache
             /// internally initiated.
             /// </summary>
             /// <value>
-            /// <b>true</b> if the the current operation is internal.
+            /// <b>true</b> if the current operation is internal.
             /// </value>
             public virtual bool IsSynthetic
             {
@@ -4731,6 +4735,37 @@ namespace Tangosol.Net.Cache
                 }
                 return isSynthetic;
             }
+
+            /// <summary>
+            /// Check whether or not the currently performed operation has been initiated
+            /// because the entry expired.
+            /// </summary>
+            /// <value>
+            /// <b>true</b> iff the entry has expired
+            /// </value>
+            /// <since>14.1.1.0.10</since>
+            public virtual bool IsExpired
+            {
+                get { return true; }
+                set { }
+            }
+
+            /// <summary>
+            /// Ensure that the expired flag is set.
+            /// </summary>
+            /// <returns>
+            /// The previous value of the flag.
+            /// </returns>
+            /// <since>14.1.1.0.10</since>
+            public virtual bool EnsureExpired()
+            {
+                bool isExpired = IsExpired;
+                if (!isExpired)
+                {
+                    IsExpired = true;
+                }
+                return isExpired;
+            }
         }
 
         #endregion
@@ -4750,6 +4785,16 @@ namespace Tangosol.Net.Cache
             /// <b>true</b> if the current operation is internal.
             /// </value>
             public override bool IsSynthetic { get; set; }
+
+            /// <summary>
+            /// Check whether or not the currently performed operation is
+            /// due to entry expired.
+            /// </summary>
+            /// <value>
+            /// <b>true</b> if the current operation is due to entry expired.
+            /// </value>
+            /// <since>14.1.1.0.10</since>
+            public override bool IsExpired { get; set; }
         }
 
         /// <summary>
