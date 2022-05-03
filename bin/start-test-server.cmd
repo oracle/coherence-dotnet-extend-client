@@ -24,7 +24,7 @@ set JAVA_OPTS=-Xms%MEMORY% -Xmx%MEMORY%
 set /a port11=%2+2
 set /a port12=%2+3
 
-set SYS_OPTS=-Dcoherence.log=..\build\DefaultCacheServer-%1.log -Dtangosol.coherence.localhost=127.0.0.1 -Dcoherence.wka=127.0.0.1 -Dcoherence.ttl=0 -Dtangosol.coherence.proxy.port=%1 -Dtangosol.coherence.proxy.port2=%2 -Dtangosol.coherence.localport=%3 -Dtangosol.coherence.proxy.port4=%4 -Dtangosol.coherence.proxy.port5=%5 -Dtangosol.coherence.proxy.port6=%6 -Dtangosol.coherence.proxy.port9=%9 -Dtangosol.coherence.proxy.port9=%9 -Dtangosol.coherence.proxy.port11=%port11% -Dtangosol.coherence.proxy.port12=%port12% -Dtangosol.coherence.localport.adjust=false -Dcoherence.cacheconfig=server-cache-config.xml -Dcoherence.management=all -Dcoherence.cluster=DotNetTest
+set SYS_OPTS=-Dcoherence.log=..\build\DefaultCacheServer-%1.log -Dtangosol.coherence.localhost=127.0.0.1 -Dcoherence.wka=127.0.0.1 -Dcoherence.ttl=0 -Dtangosol.coherence.proxy.port=%1 -Dtangosol.coherence.proxy.port2=%2 -Dtangosol.coherence.localport=%3 -Dtangosol.coherence.proxy.port4=%4 -Dtangosol.coherence.proxy.port5=%5 -Dtangosol.coherence.proxy.port6=%6 -Dtangosol.coherence.proxy.port7=%7 -Dtangosol.coherence.proxy.port8=%8 -Dtangosol.coherence.proxy.port9=%9 -Dtangosol.coherence.proxy.port11=%port11% -Dtangosol.coherence.proxy.port12=%port12% -Dtangosol.coherence.localport.adjust=false -Dcoherence.cacheconfig=server-cache-config.xml -Dcoherence.management=all -Dcoherence.cluster=DotNetTest
 
 :launch
 @echo on
