@@ -50,6 +50,11 @@
     </user-type>
 
     <user-type>
+      <type-id>1210</type-id>
+      <class-name>examples.TestEntryProcessor</class-name>
+    </user-type>
+
+    <user-type>
       <type-id>2003</type-id>
       <class-name>examples.Score</class-name>
     </user-type>

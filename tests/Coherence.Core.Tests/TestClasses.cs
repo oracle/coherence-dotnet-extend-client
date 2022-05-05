@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 using Tangosol.IO;
 using Tangosol.IO.Pof;
@@ -1347,10 +1348,10 @@ namespace Tangosol
 
     public class TestCacheListener : CacheListenerSupport.ISynchronousListener
     {
-        public int inserted = 0;
-        public int updated = 0;
-        public int deleted = 0;
-        public CacheEventArgs evt = null;
+        public int m_inserted = 0;
+        public int m_updated = 0;
+        public int m_deleted = 0;
+        public CacheEventArgs m_evt = null;
 
         /// <summary>
         /// Invoked when a cache entry has been inserted.
@@ -1361,8 +1362,8 @@ namespace Tangosol
         /// </param>
         public void EntryInserted(CacheEventArgs evt)
         {
-            this.evt = evt;
-            inserted++;
+            this.m_evt = evt;
+            m_inserted++;
         }
 
         /// <summary>
@@ -1374,8 +1375,8 @@ namespace Tangosol
         /// </param>
         public void EntryUpdated(CacheEventArgs evt)
         {
-            this.evt = evt;
-            updated++;
+            this.m_evt = evt;
+            m_updated++;
         }
 
         /// <summary>
@@ -1387,8 +1388,8 @@ namespace Tangosol
         /// </param>
         public void EntryDeleted(CacheEventArgs evt)
         {
-            this.evt = evt;
-            deleted++;
+            this.m_evt = evt;
+            m_deleted++;
         }
 
         public override bool Equals(object obj)
@@ -1405,16 +1406,61 @@ namespace Tangosol
 
         public int GetActualTotal()
         {
-            return inserted + updated + deleted;
+            return m_inserted + m_updated + m_deleted;
         }
 
         public void ResetActualTotal()
         {
-            inserted = 0;
-            updated  = 0;
-            deleted  = 0;
+            m_inserted = 0;
+            m_updated  = 0;
+            m_deleted  = 0;
         }
-        
+
+        ///<summary>
+        ///Return the MapEvent received by this MapListener, blocking for 1 second
+        /// in the case that an event hasn't been received yet.
+        ///</summary>
+        ///<return>the CacheEvent received by this MapListener</return>
+        public CacheEventArgs WaitForEvent()
+        {
+            return WaitForEvent(1000L);
+        }
+
+        ///<Summary>
+        ///Return the CacheEvent received by this MapListener, blocking for the
+        ///specified number of milliseconds in the case that an event hasn't been
+        ///received yet.
+        ///</Summary>
+        ///<param name="millis">the number of milliseconds to wait for an event</param>
+        ///<return>The MapEvent received by this MapListener.</return>
+        public CacheEventArgs WaitForEvent(long millis)
+        {
+            CacheEventArgs evt = m_evt;
+            if (evt == null)
+            {
+                try
+                {
+                    Thread.Sleep((int) millis);
+                    evt = m_evt;
+                }
+                catch (ThreadInterruptedException)
+                {
+                    Thread.CurrentThread.Interrupt();
+                }
+            }
+
+            ClearEvent();
+            return evt;
+        }
+
+        /// <summary>
+        /// Reset the CacheEvent property.
+        /// </summary>
+        public void ClearEvent()
+        {
+            m_evt = null;
+        }
+
         #endregion
     }
 
@@ -2925,5 +2971,84 @@ namespace Tangosol
             : base(IdentityExtractor.Instance)
         {
         }
+    }
+
+    public class TestEntryProcessor : AbstractProcessor, IPortableObject
+    {
+        #region Constructors
+
+        /// <summary>
+        /// Default constructor (necessary for IPortableObject implementation).
+        /// </summary>
+        public TestEntryProcessor()
+                :this(false)
+        {
+        }
+
+        public TestEntryProcessor(bool fRemove)
+        {
+            f_fRemoveSynthetic = fRemove;
+        }
+        #endregion
+
+        #region IEntryProcessor implementation
+
+        public override Object Process(IInvocableCacheEntry entry)
+        {
+            CacheFactory.Log("entrytype is " + entry.GetType().Name, CacheFactory.LogLevel.Always);
+            if (f_fRemoveSynthetic)
+            {
+                entry.Remove(true);
+            }
+            else
+            {
+                entry.SetValue("EPSetValue", true);
+            }
+            return "OK";
+        }
+
+        public override IDictionary ProcessAll(ICollection entries)
+        {
+            return null;
+        }
+
+        #endregion
+
+        #region IPortableObject implementation
+
+        /// <summary>
+        /// Restore the contents of a user type instance by reading its state
+        /// using the specified <see cref="IPofReader"/> object.
+        /// </summary>
+        /// <param name="reader">
+        /// The <b>IPofReader</b> from which to read the object's state.
+        /// </param>
+        /// <exception cref="IOException">
+        /// If an I/O error occurs.
+        /// </exception>
+        public virtual void ReadExternal(IPofReader reader)
+        {
+        }
+
+        /// <summary>
+        /// Save the contents of a POF user type instance by writing its
+        /// state using the specified <see cref="IPofWriter"/> object.
+        /// </summary>
+        /// <param name="writer">
+        /// The <b>IPofWriter</b> to which to write the object's state.
+        /// </param>
+        /// <exception cref="IOException">
+        /// If an I/O error occurs.
+        /// </exception>
+        public virtual void WriteExternal(IPofWriter writer)
+        {
+        }
+
+        #endregion
+        #region data members
+
+        protected readonly bool f_fRemoveSynthetic;
+
+        #endregion
     }
 }

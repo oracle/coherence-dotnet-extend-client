@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -4099,7 +4099,7 @@ namespace Tangosol.Util
             /// <b>CacheEventArgs</b>' values.
             /// </param>
             public ConverterCacheEventArgs(IObservableCache source, CacheEventArgs evt, IConverter convKey, IConverter convVal)
-                : base(source, evt.EventType, null, null, null, evt.IsSynthetic, evt.TransformState, evt.IsPriming)
+                : base(source, evt.EventType, null, null, null, evt.IsSynthetic, evt.TransformState, evt.IsPriming, evt.IsExpired)
             {
                 m_event   = evt;
                 m_convKey = convKey;

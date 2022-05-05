@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -104,8 +104,8 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
         /// </value>
         public virtual bool IsSynthetic
         {
-            get { return m_isSynthetic; }
-            set { m_isSynthetic = value; }
+            get { return (m_Flags & SYNTHETIC) != 0 ; }
+            set { m_Flags |= value ? SYNTHETIC : 0; }
         }
 
         /// <summary>
@@ -132,8 +132,8 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
         /// <since>12.2.1</since>
         public virtual bool IsTruncate
         {
-            get { return m_isTruncate; }
-            set { m_isTruncate = value; }
+            get { return (m_Flags & TRUNCATE) != 0; }
+            set { m_Flags |= value ? TRUNCATE : 0; }
         }
 
         /// <summary>
@@ -147,8 +147,21 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
         /// <since>12.2.1.2</since>
         public virtual bool IsPriming
         {
-            get { return m_isPriming; }
-            set { m_isPriming = value; }
+            get { return (m_Flags & PRIMING) != 0; }
+            set { m_Flags |= value ? PRIMING : 0; }
+        }
+
+        /// <summary>
+        /// <b>true</b> if the <b>CacheEvent</b> was caused cache entry expired.
+        /// </summary>
+        /// <value>
+        /// <b>true</b> if the <b>CacheEvent</b> was caused by cache entry expired
+        /// </value>
+        /// <since>14.1.1.0.10</since>
+        public virtual bool IsExpired
+        {
+            get { return (m_Flags & EXPIRED) != 0; }
+            set { m_Flags |= value ? EXPIRED : 0; }
         }
 
         /// <summary>
@@ -237,7 +250,7 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
             Key         = reader.ReadObject(2);
             ValueNew    = reader.ReadObject(3);
             ValueOld    = reader.ReadObject(4);
-            IsSynthetic = reader.ReadBoolean(5);
+            m_Flags    |= reader.ReadBoolean(5) ? SYNTHETIC : 0;
 
             // COH-9355
             if (implVersion > 4)
@@ -248,13 +261,19 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
             // COH-13916
             if (implVersion > 5)
             {
-                IsTruncate = reader.ReadBoolean(7);
+                m_Flags |= reader.ReadBoolean(7) ? TRUNCATE : 0;
             }
 
             // COH-18376
             if (implVersion > 6)
             {
-                IsPriming = reader.ReadBoolean(8);
+                m_Flags |= reader.ReadBoolean(8) ? PRIMING : 0;
+            }
+
+            // COH-24927
+            if (implVersion > 8)
+            {
+                m_Flags |= reader.ReadBoolean(9) ? EXPIRED : 0;
             }
         }
 
@@ -304,6 +323,12 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
             {
                 writer.WriteBoolean(8, IsPriming);
             }
+
+            // COH-24927
+            if (implVersion > 8)
+            {
+                writer.WriteBoolean(9, IsExpired);
+            }
         }
 
         #endregion
@@ -333,7 +358,7 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
             else
             {
                 cache.BinaryCache.Dispatch(EventType, FilterIds, Key, ValueOld, ValueNew, 
-                    IsSynthetic, (int) TransformState, IsPriming);   
+                    IsSynthetic, (int) TransformState, IsPriming, IsExpired);   
             }
         }
 
@@ -356,9 +381,38 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
                    + ", OldValue="  + (oOldValue == null ? "null" : oOldValue.GetType().Name + "(HashCode=" + oOldValue.GetHashCode() + ')')
                    + ", NewValue="  + (oNewValue == null ? "null" : oNewValue.GetType().Name + "(HashCode=" + oNewValue.GetHashCode() + ')')
                    + ", Synthetic=" + IsSynthetic
-                   + ", Priming="   + IsPriming;
+                   + ", Priming="   + IsPriming
+                   + ", Expired="   + IsExpired;
         }
-        
+
+        #endregion
+
+        #region Constants
+
+        /// <summary>
+        /// true if the CacheEvent was caused by the cache internal
+        /// processing such as eviction or loading.
+        /// </summary>
+        private const int SYNTHETIC = 0x00000001;
+
+        /// <summary>
+        /// The value of true indicates that this is a priming event.
+        /// </summary>
+        /// <since>12.2.1.2</since>
+        private const int PRIMING = 0x00000002;
+
+        /// <summary>
+        /// The value of true indicates that this is an expired event.
+        /// </summary>
+        /// <since>14.1.1.0.10</since>
+        private const int EXPIRED = 0x00000004;
+
+        /// <summary>
+        /// The value of true indicates that this is a cache truncate request.
+        /// </summary>
+        /// <since>12.2.1</since>
+        private const int TRUNCATE = 0x00000008;
+
         #endregion
 
         #region Data members
@@ -386,28 +440,16 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
         private object m_key;
 
         /// <summary>
-        /// true if the CacheEvent was caused by the cache internal
-        /// processing such as eviction or loading.
-        /// </summary>
-        private bool m_isSynthetic;
-
-        /// <summary>
         /// The transformation value of the event.
         /// See CacheEvent$TransformatioState enum.
         /// </summary>
         private CacheEventArgs.TransformationState m_transformationState;
 
         /// <summary>
-        /// The value of true indicates that this is a cache truncate request.
+        ///  Flags holder for event details such as whether the event is synthetic
         /// </summary>
-        /// <since>12.2.1</since>
-        private bool m_isTruncate;
-
-        /// <summary>
-        /// The value of true indicates that this is a priming event.
-        /// </summary>
-        /// <since>12.2.1.2</since>
-        private bool m_isPriming;
+        /// <since>14.1.1.0.10</since>
+        protected int m_Flags;
 
         /// <summary>
         /// The type identifier for this Message class.

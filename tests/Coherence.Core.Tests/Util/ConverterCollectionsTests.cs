@@ -486,22 +486,22 @@ namespace Tangosol.Util
             Assert.IsNotNull(convCache);
             //AddCacheListener(listener)
             convCache.AddCacheListener(listener);
-            Assert.AreEqual(listener.inserted, 0);
+            Assert.AreEqual(listener.m_inserted, 0);
             convCache.Add(1, 1);
-            Assert.AreEqual(listener.inserted, 1);
-            Assert.AreEqual(listener.updated, 0);
+            Assert.AreEqual(listener.m_inserted, 1);
+            Assert.AreEqual(listener.m_updated, 0);
             convCache[1] = 2;
-            Assert.AreEqual(listener.updated, 1);
-            Assert.AreEqual(listener.deleted, 0);
+            Assert.AreEqual(listener.m_updated, 1);
+            Assert.AreEqual(listener.m_deleted, 0);
             convCache.Remove(1);
-            Assert.AreEqual(listener.deleted, 1);
+            Assert.AreEqual(listener.m_deleted, 1);
             //RemoveCacheListener(listener)
             convCache.RemoveCacheListener(listener);
-            Assert.AreEqual(listener.inserted, 1);
+            Assert.AreEqual(listener.m_inserted, 1);
             convCache.Add(1, 1);
-            Assert.AreEqual(listener.inserted, 1);
+            Assert.AreEqual(listener.m_inserted, 1);
 
-            listener.inserted = listener.updated = listener.deleted = 0;
+            listener.m_inserted = listener.m_updated = listener.m_deleted = 0;
             convCache.Clear();
             //AddCacheListener(listener, key, isLite);
             convCache.AddCacheListener(listener, "1", true);
@@ -509,26 +509,26 @@ namespace Tangosol.Util
             {
                 convCache.Add(i, i);
             }
-            Assert.AreEqual(listener.inserted, 1);
-            Assert.AreEqual(listener.updated, 0);
-            Assert.AreEqual(listener.deleted, 0);
+            Assert.AreEqual(listener.m_inserted, 1);
+            Assert.AreEqual(listener.m_updated, 0);
+            Assert.AreEqual(listener.m_deleted, 0);
             for (int i = 0; i < 3; i++ )
             {
                 convCache[i] = i + 1;
             }
-            Assert.AreEqual(listener.inserted, 1);
-            Assert.AreEqual(listener.updated, 1);
-            Assert.AreEqual(listener.deleted, 0);
+            Assert.AreEqual(listener.m_inserted, 1);
+            Assert.AreEqual(listener.m_updated, 1);
+            Assert.AreEqual(listener.m_deleted, 0);
             convCache.Clear();
-            Assert.AreEqual(listener.inserted, 1);
-            Assert.AreEqual(listener.updated, 1);
-            Assert.AreEqual(listener.deleted, 1);
+            Assert.AreEqual(listener.m_inserted, 1);
+            Assert.AreEqual(listener.m_updated, 1);
+            Assert.AreEqual(listener.m_deleted, 1);
             //RemoveCacheListener(listener, key)
             convCache.RemoveCacheListener(listener, "1");
             convCache.Add(1, 1);
-            Assert.AreEqual(listener.inserted, 1);
+            Assert.AreEqual(listener.m_inserted, 1);
 
-            listener.inserted = listener.updated = listener.deleted = 0;
+            listener.m_inserted = listener.m_updated = listener.m_deleted = 0;
             convCache.Clear();
             IFilter filter = AlwaysFilter.Instance;
             //AddCacheListener(listener, filter, isLite)
@@ -537,24 +537,24 @@ namespace Tangosol.Util
             {
                 convCache.Add(i, i);
             }
-            Assert.AreEqual(listener.inserted, 3);
-            Assert.AreEqual(listener.updated, 0);
-            Assert.AreEqual(listener.deleted, 0);
+            Assert.AreEqual(listener.m_inserted, 3);
+            Assert.AreEqual(listener.m_updated, 0);
+            Assert.AreEqual(listener.m_deleted, 0);
             for (int i = 0; i < 3; i++)
             {
                 convCache[i] = i + 1;
             }
-            Assert.AreEqual(listener.inserted, 3);
-            Assert.AreEqual(listener.updated, 3);
-            Assert.AreEqual(listener.deleted, 0);
+            Assert.AreEqual(listener.m_inserted, 3);
+            Assert.AreEqual(listener.m_updated, 3);
+            Assert.AreEqual(listener.m_deleted, 0);
             convCache.Clear();
-            Assert.AreEqual(listener.inserted, 3);
-            Assert.AreEqual(listener.updated, 3);
-            Assert.AreEqual(listener.deleted, 3);
+            Assert.AreEqual(listener.m_inserted, 3);
+            Assert.AreEqual(listener.m_updated, 3);
+            Assert.AreEqual(listener.m_deleted, 3);
             //RemoveCacheListener(listener, filter)
             convCache.RemoveCacheListener(listener, filter);
             convCache.Add(1, 1);
-            Assert.AreEqual(listener.inserted, 3);
+            Assert.AreEqual(listener.m_inserted, 3);
 
             Assert.IsInstanceOf(typeof(ConverterCollections.ConverterObservableCache), convCache);
             ConverterCollections.ConverterObservableCache coc =
@@ -677,11 +677,11 @@ namespace Tangosol.Util
             ICacheListener convListener = new ConverterCollections.ConverterCacheListener(cache, listener, cUp, cUp);
 
             Assert.IsNotNull(convListener);
-            Assert.AreEqual(listener.inserted, 0);
+            Assert.AreEqual(listener.m_inserted, 0);
             convListener.EntryInserted(evt);
-            Assert.AreEqual(listener.inserted, 1);
-            Assert.IsNotNull(listener.evt);
-            CacheEventArgs listenerEvt = listener.evt;
+            Assert.AreEqual(listener.m_inserted, 1);
+            Assert.IsNotNull(listener.m_evt);
+            CacheEventArgs listenerEvt = listener.m_evt;
             Assert.AreEqual(listenerEvt.Cache, convEvt.Cache);
             Assert.AreEqual(listenerEvt.EventType, convEvt.EventType);
             Assert.AreEqual(listenerEvt.IsSynthetic, convEvt.IsSynthetic);
@@ -689,13 +689,13 @@ namespace Tangosol.Util
             Assert.AreEqual(listenerEvt.NewValue, convEvt.NewValue);
             Assert.AreEqual(listenerEvt.OldValue, convEvt.OldValue);
 
-            Assert.AreEqual(listener.updated, 0);
+            Assert.AreEqual(listener.m_updated, 0);
             convListener.EntryUpdated(evt);
-            Assert.AreEqual(listener.updated, 1);
+            Assert.AreEqual(listener.m_updated, 1);
 
-            Assert.AreEqual(listener.deleted, 0);
+            Assert.AreEqual(listener.m_deleted, 0);
             convListener.EntryDeleted(evt);
-            Assert.AreEqual(listener.deleted, 1);
+            Assert.AreEqual(listener.m_deleted, 1);
 
             Assert.IsInstanceOf(typeof (ConverterCollections.ConverterCacheListener), convListener);
             ConverterCollections.ConverterCacheListener ccl =
