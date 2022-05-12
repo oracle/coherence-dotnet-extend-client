@@ -112,6 +112,7 @@
     <Compile Include="IO\IndentingWriterTests.cs" />
     <Compile Include="IO\Pof\ConfigurablePofConfigTests.cs" />
     <Compile Include="IO\Pof\BinaryPofSerializerTests.cs" />
+    <Compile Include="IO\Pof\Coh25103Tests.cs" />
     <Compile Include="IO\Pof\DataReaderAndWriterTests.cs" />
     <Compile Include="IO\Pof\PofAnnotationSerializerTests.cs" />
     <Compile Include="IO\Pof\PofNestedBuffers.cs" />

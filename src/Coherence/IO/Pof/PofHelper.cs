@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -987,12 +987,6 @@ namespace Tangosol.IO.Pof
                     tempReader.BaseStream.Seek(1, SeekOrigin.Current);
                     break;
 
-                case PofConstants.T_OCTET_STRING:
-                    length     = reader.ReadPackedInt32();
-                    tempReader = reader;
-                    tempReader.BaseStream.Seek(length, SeekOrigin.Current);
-                    break;
-
                 case PofConstants.T_CHAR:
                     switch (reader.ReadByte() & 0xF0)
                     {
@@ -1009,8 +1003,15 @@ namespace Tangosol.IO.Pof
                     }
                     break;
 
-                case PofConstants.T_CHAR_STRING: // char-string
-                    length     = reader.ReadPackedInt32();
+                case PofConstants.T_OCTET_STRING:  // octet-string
+                case PofConstants.T_CHAR_STRING:   // char-string
+                    length = reader.ReadPackedInt32();
+
+                    if (length == PofConstants.V_REFERENCE_NULL)
+                    {
+                        break;
+                    }
+
                     tempReader = reader;
                     tempReader.BaseStream.Seek(length, SeekOrigin.Current);
                     break;
@@ -1878,10 +1879,10 @@ namespace Tangosol.IO.Pof
         /// <remarks>
         /// Time format is the simplest applicable of the following formats:
         /// <list type="bullet">
-        /// <item><tt>HH:MM±HH:MM</tt></item>
-        /// <item><tt>HH:MM:SS±HH:MM</tt></item>
-        /// <item><tt>HH:MM:SS.MMM±HH:MM</tt></item>
-        /// <item><tt>HH:MM:SS.NNNNNNNNN±HH:MM</tt></item>
+        /// <item><tt>HH:MM(+|-)HH:MM</tt></item>
+        /// <item><tt>HH:MM:SS(+|-)HH:MM</tt></item>
+        /// <item><tt>HH:MM:SS.MMM(+|-)HH:MM</tt></item>
+        /// <item><tt>HH:MM:SS.NNNNNNNNN(+|-)HH:MM</tt></item>
         /// </list>
         /// </remarks>
         /// <param name="hour">
