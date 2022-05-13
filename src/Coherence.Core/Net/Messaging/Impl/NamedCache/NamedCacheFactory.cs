@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 
@@ -75,6 +75,7 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
         /// </summary>
         private Type[] messagingTypes = { typeof(AggregateAllRequest),
                                           typeof(AggregateFilterRequest),
+                                          typeof(CacheEvent),
                                           typeof(ClearRequest),
                                           typeof(ContainsAllRequest),
                                           typeof(ContainsKeyRequest),
@@ -88,15 +89,15 @@ namespace Tangosol.Net.Messaging.Impl.NamedCache
                                           typeof(ListenerFilterRequest),
                                           typeof(ListenerKeyRequest),
                                           typeof(LockRequest),
-                                          typeof(CacheEvent),
                                           typeof(NamedCachePartialResponse),
+                                          typeof(NamedCacheResponse),
+                                          typeof(NoStorageMembers),
                                           typeof(PutAllRequest),
                                           typeof(PutRequest),
                                           typeof(QueryRequest),
                                           typeof(RemoveAllRequest),
                                           typeof(RemoveRequest),
                                           typeof(SizeRequest),
-                                          typeof(UnlockRequest),
-                                          typeof(NamedCacheResponse) };
+                                          typeof(UnlockRequest) };
     }
 }
