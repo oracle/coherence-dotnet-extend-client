@@ -167,7 +167,7 @@ namespace Tangosol.Util
             using (BlockingLock l = BlockingLock.Lock(o))
             {
                 thread.Start();
-                Blocking.Sleep(10); // give the other thread some time to get to BlockingLock call
+                Blocking.Sleep(60); // give the other thread some time to get to BlockingLock call
                 Assert.IsTrue(thread.ThreadState == ThreadState.WaitSleepJoin);
                 thread.Interrupt();
             }
