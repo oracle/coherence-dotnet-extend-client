@@ -332,6 +332,7 @@
     <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheProtocol.cs" />
     <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheRequest.cs" />
     <Compile Include="Net\Messaging\Impl\NamedCache\NamedCacheResponse.cs" />
+    <Compile Include="Net\Messaging\Impl\NamedCache\NoStorageMembers.cs" />
     <Compile Include="Net\Messaging\Impl\NamedCache\PutAllRequest.cs" />
     <Compile Include="Net\Messaging\Impl\NamedCache\PutRequest.cs" />
     <Compile Include="Net\Messaging\Impl\NamedCache\QueryRequest.cs" />
