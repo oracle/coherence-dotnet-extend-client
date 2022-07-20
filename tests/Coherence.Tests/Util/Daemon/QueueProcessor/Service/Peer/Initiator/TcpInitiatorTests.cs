@@ -76,7 +76,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
             Assert.IsNotNull(conn);
             Assert.AreEqual(conn.IsOpen, true);
             conn.Client.Close();
-            Thread.Sleep(2000);
+            Blocking.Sleep(2000);
             Assert.AreEqual(conn.IsOpen, false);
             initiator.Stop();
         }

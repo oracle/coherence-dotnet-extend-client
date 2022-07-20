@@ -115,7 +115,9 @@ namespace Tangosol.Util
         /// </returns>
         protected long UpdateSafeTimeMillis(long ldtUnsafe)
         {
-            lock (this)
+            // cannot use BlockingLock here as will end up in a cycle between
+            // ThreadTimeout.RemainingTimeMillis and DateTimeUtils.GetSafeTimeMillis()
+            lock (f_thisLock)
             {
                 long lJitter     = m_lJitter;
                 long ldtLastSafe = m_ldtLastSafe;
@@ -183,8 +185,13 @@ namespace Tangosol.Util
 
         /// <summary>
         /// The maximum expected jitter exposed by the underlying unsafe clock.
-        /// </summary>c
+        /// </summary>
         protected readonly long m_lJitter;
+
+        /// <summary>
+        /// Private lock for synchronizing UpdateSafeTimeMillis().
+        /// </summary>
+        private readonly Object f_thisLock = new Object();
 
         #endregion
 

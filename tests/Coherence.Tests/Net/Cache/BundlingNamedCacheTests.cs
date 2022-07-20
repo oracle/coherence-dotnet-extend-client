@@ -11,6 +11,7 @@ using System.Threading;
 using NUnit.Framework;
 
 using Tangosol.Net.Impl;
+using Tangosol.Util;
 using Tangosol.Util.Collections;
 
 namespace Tangosol.Net.Cache
@@ -373,7 +374,7 @@ namespace Tangosol.Net.Cache
                 {
                     try
                     {
-                        Monitor.Wait(SEMAPHORE);
+                        Blocking.Wait(SEMAPHORE);
                     }
                     catch (ThreadInterruptedException) {/*do nothing*/}
                 }

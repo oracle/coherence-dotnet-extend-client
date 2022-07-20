@@ -1572,7 +1572,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
             get
             {
                 IDictionary map = ProtocolMap;
-                lock (map.SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(map.SyncRoot))
                 {
                     return new HashDictionary(map);
                 }
@@ -1596,7 +1596,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
             get
             {
                 IDictionary map = ReceiverMap;
-                lock (map.SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(map.SyncRoot))
                 {
                     return new HashDictionary(map);
                 }
@@ -1816,7 +1816,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
         /// </exception>
         public override void Configure(IXmlElement xml)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 base.Configure(xml);
                 if (xml == null)
@@ -2300,7 +2300,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
         /// </remarks>
         public override void Shutdown()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (IsStarted)
                 {
@@ -2318,7 +2318,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                     // wait for the service to stop or the thread to die
                     while (IsStarted && ServiceState < ServiceState.Stopped)
                     {
-                        Monitor.Wait(this);
+                        Blocking.Wait(this);
                     }
 
                     if (ServiceState != ServiceState.Stopped)

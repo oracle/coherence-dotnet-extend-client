@@ -381,7 +381,7 @@ namespace Tangosol.Net.Cache
             Assert.IsTrue(entry.IsPresent);
             Assert.AreEqual(entry.TouchCount, 1);
 
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
             entry.Touch();
             Assert.AreEqual(entry.TouchCount, 2);
             Assert.IsTrue(entry.LastTouchMillis > entry.CreatedMillis);
@@ -390,7 +390,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(value, "value1");
 
             entry.ExpiryMillis = DateTimeUtils.GetSafeTimeMillis() + 25;
-            Thread.Sleep(50);
+            Blocking.Sleep(50);
             Assert.IsTrue(entry.IsExpired);
 
             entry.Remove(true);
@@ -505,7 +505,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(entry.ExpiryMillis, 0);
             Assert.IsFalse(entry.IsExpired);
             entry.ExpiryMillis = DateTimeUtils.GetSafeTimeMillis() + 25;
-            Thread.Sleep(50);
+            Blocking.Sleep(50);
             Assert.IsTrue(entry.IsExpired);
             entry = (Entry) localCache.GetCacheEntry("key1");
             Assert.IsNull(entry);
@@ -750,7 +750,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(localCache.FlushDelay, DEFAULT_FLUSH);
             Assert.IsTrue(localCache.FlushTime != long.MaxValue);
 
-            Thread.Sleep(50);
+            Blocking.Sleep(50);
             Assert.IsTrue(entry.IsExpired);
         }
         /// <summary>
@@ -807,7 +807,7 @@ namespace Tangosol.Net.Cache
 
             Assert.AreEqual(5, localCache.Count);
 
-            Thread.Sleep(400);
+            Blocking.Sleep(400);
             Assert.AreEqual(0, localCache.Count);
 
             CacheFactory.Shutdown();
@@ -1058,7 +1058,7 @@ namespace Tangosol.Net.Cache
             localCache.RemoveIndex(IdentityExtractor.Instance);
         }
 
-       [Test]
+        [Test]
         public void TestInvoke()
         {
             LocalCache localCache = new LocalCache();
@@ -1306,7 +1306,7 @@ namespace Tangosol.Net.Cache
             cache.Insert("key1", value1);
 
             // wait for expiration
-            Thread.Sleep(50);
+            Blocking.Sleep(50);
             Assert.IsNull(cache["key1"]);
             Assert.IsFalse(value1.Stream.CanRead);
         }
@@ -1359,7 +1359,7 @@ namespace Tangosol.Net.Cache
             Assert.Contains("three", keys);
             Assert.Contains("four", keys);
 
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
             Assert.AreEqual(0, localCache.Keys.Count);
         }
 
@@ -1383,7 +1383,7 @@ namespace Tangosol.Net.Cache
             Assert.Contains(3, values);
             Assert.Contains(4, values);
 
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
 
             values = new ArrayList(localCache.Values);
             Assert.AreEqual(0, values.Count);
@@ -1413,7 +1413,7 @@ namespace Tangosol.Net.Cache
             Assert.Contains(entry3, entries);
             Assert.Contains(entry4, entries);
 
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
 
             entries = new ArrayList(localCache.Keys);
             Assert.AreEqual(0, entries.Count);
@@ -1439,7 +1439,7 @@ namespace Tangosol.Net.Cache
                 values2[i] = null;
             }
 
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
 
             localCache.CopyTo(values2, 0);
             for (int i = 0; i < values.Count; i++)

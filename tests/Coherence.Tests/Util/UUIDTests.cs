@@ -205,7 +205,7 @@ namespace Tangosol.Util
                 {
                     try
                     {
-                        Monitor.Wait(SEMAPHORE);
+                        Blocking.Wait(SEMAPHORE);
                     }
                     catch (ThreadInterruptedException) {/*do nothing*/}
                 }

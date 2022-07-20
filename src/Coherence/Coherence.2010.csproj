@@ -404,6 +404,8 @@
     <Compile Include="Util\AtomicCounter.cs" />
     <Compile Include="Util\Binary.cs" />
     <Compile Include="Util\BinaryMemoryStream.cs" />
+    <Compile Include="Util\Blocking.cs" />
+    <Compile Include="Util\BlockingLock.cs" />
     <Compile Include="Util\CacheTriggerListener.cs" />
     <Compile Include="Util\Collections\DictionarySet.cs" />
     <Compile Include="Util\Collections\HashSet.cs" />
@@ -493,6 +495,7 @@
     <Compile Include="Util\SimpleQueryRecord.cs" />
     <Compile Include="Util\SimpleQueryRecordReporter.cs" />
     <Compile Include="Util\ThreadGateSlim.cs" />
+    <Compile Include="Util\ThreadTimeout.cs" />
     <Compile Include="Util\Transformer\ExtractorEventTransformer.cs" />
     <Compile Include="Util\Extractor\IdentityExtractor.cs" />
     <Compile Include="Util\Extractor\KeyExtractor.cs" />

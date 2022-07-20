@@ -7,9 +7,12 @@
 using System;
 using System.Threading;
 using System.Web.SessionState;
+
 using NUnit.Framework;
+
 using Tangosol.IO;
 using Tangosol.Net;
+using Tangosol.Util;
 using Tangosol.Web.Model;
 
 namespace Tangosol.Web
@@ -121,7 +124,7 @@ namespace Tangosol.Web
             Assert.IsNotNull(lockId);
             Assert.AreEqual(SessionStateActions.None, actions);
 
-            Thread.Sleep(50);
+            Blocking.Sleep(50);
 
             TimeSpan lockAge2;
             object lockId2;

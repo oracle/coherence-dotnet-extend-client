@@ -760,7 +760,7 @@ namespace Tangosol.Net.Impl
             cache.InsertAll(ht);
             lock(this)
             {
-                Monitor.Wait(this, 50);
+                Blocking.Wait(this, 50);
             }
 
             foreach (ICacheEntry entry in cache)
@@ -782,7 +782,7 @@ namespace Tangosol.Net.Impl
             cache.InsertAll(ht);
             lock (this)
             {
-                Monitor.Wait(this, 50);
+                Blocking.Wait(this, 50);
             }
 
             foreach (ICacheEntry entry in cache)
@@ -802,7 +802,7 @@ namespace Tangosol.Net.Impl
             
             lock (this)
             {
-                Monitor.Wait(this, 2300);
+                Blocking.Wait(this, 2300);
             }
 
             foreach (ICacheEntry entry in localCache)
@@ -867,7 +867,7 @@ namespace Tangosol.Net.Impl
 
             lock(this)
             {
-                Monitor.Wait(this, 400);
+                Blocking.Wait(this, 400);
             }
 
             Assert.IsNull(localNamedCache["key1"]);
@@ -1128,7 +1128,7 @@ namespace Tangosol.Net.Impl
             {
                 if (CacheEvent == null)
                 {
-                    Monitor.Wait(this, millis);
+                    Blocking.Wait(this, millis);
                 }
             }
         }

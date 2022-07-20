@@ -40,11 +40,11 @@ namespace Tangosol.Net.Cache
             cache.AddIndex(IdentityExtractor.Instance, false, null);
 
             DoPutALL doDoPutAll = new DoPutALL(cache, "collection");
-            lock (doDoPutAll.m_myLock)
+            using (BlockingLock l = BlockingLock.Lock(doDoPutAll.m_myLock))
             {
                 Thread thread = new Thread(new ThreadStart(doDoPutAll.Run));
                 thread.Start();
-                Thread.Sleep(2222);
+                Blocking.Sleep(2222);
 
                 ArrayList qname = new ArrayList();
                 qname.Add("test");
@@ -57,7 +57,7 @@ namespace Tangosol.Net.Cache
                 }
 
                 // signal the PutAll thread to stop
-                Monitor.Wait(doDoPutAll.m_myLock);
+                Blocking.Wait(doDoPutAll.m_myLock);
                 thread.Join();
             }
         }
@@ -77,11 +77,11 @@ namespace Tangosol.Net.Cache
             cache.AddIndex(IdentityExtractor.Instance, false, null);
             DoPutALL doDoPutAll = new DoPutALL(cache, "array");
 
-            lock (doDoPutAll.m_myLock)
+            using (BlockingLock l = BlockingLock.Lock(doDoPutAll.m_myLock))
             {
                 Thread thread = new Thread(new ThreadStart(doDoPutAll.Run));
                 thread.Start();
-                Thread.Sleep(2222);
+                Blocking.Sleep(2222);
 
                 ArrayList qname = new ArrayList();
                 qname.Add("test");
@@ -94,7 +94,7 @@ namespace Tangosol.Net.Cache
                 }
 
                 // signal the PutAll thread to stop
-                Monitor.Wait(doDoPutAll.m_myLock);
+                Blocking.Wait(doDoPutAll.m_myLock);
                 thread.Join();
             }
         }

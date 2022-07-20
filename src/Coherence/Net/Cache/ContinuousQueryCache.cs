@@ -142,7 +142,7 @@ namespace Tangosol.Net.Cache
             }
             set
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     if (value != m_cacheValues)
                     {
@@ -185,7 +185,7 @@ namespace Tangosol.Net.Cache
             }
             set
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     if (value != m_isReadOnly)
                     {
@@ -236,7 +236,7 @@ namespace Tangosol.Net.Cache
             }
             set
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     if (value != m_hasListeners)
                     {
@@ -274,7 +274,7 @@ namespace Tangosol.Net.Cache
                         break;
 
                     case CacheState.Configuring:
-                        lock (SyncRoot)
+                        using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                         {
                             CacheState statePrev = m_state;
                             Debug.Assert(statePrev == CacheState.Disconnected || statePrev == CacheState.Synchronized);
@@ -285,7 +285,7 @@ namespace Tangosol.Net.Cache
                         break;
 
                     case CacheState.Configured:
-                        lock (SyncRoot)
+                        using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                         {
                             if (m_state == CacheState.Configuring)
                             {
@@ -299,7 +299,7 @@ namespace Tangosol.Net.Cache
                         break;
 
                     case CacheState.Synchronized:
-                        lock (SyncRoot)
+                        using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                         {
                             if (m_state == CacheState.Configured)
                             {
@@ -998,7 +998,7 @@ namespace Tangosol.Net.Cache
         /// </param>
         public virtual void AddIndex(IValueExtractor extractor, bool isOrdered, IComparer comparer)
         {
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 if (CacheValues)
                 {
@@ -1047,7 +1047,7 @@ namespace Tangosol.Net.Cache
         /// </returns>
         protected virtual IDictionary EnsureIndexMap()
         {
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 IDictionary indexMap = m_indexMap;
                 if (indexMap == null)
@@ -1243,7 +1243,7 @@ namespace Tangosol.Net.Cache
                 throw new ArgumentException("ContinuousQueryCache does not support CacheListenerTriggers");
             }
 
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 // need to cache values locally to provide standard (not lite) 
                 // events
@@ -1272,7 +1272,7 @@ namespace Tangosol.Net.Cache
         {
             Debug.Assert(listener != null);
 
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 InternalCache.RemoveCacheListener(
                         InstantiateEventRouter(listener, false), key);
@@ -1317,7 +1317,7 @@ namespace Tangosol.Net.Cache
                 throw new ArgumentException("ContinuousQueryCache does not support CacheListenerTriggers");
             }
 
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 // need to cache values locally to provide event filtering and
                 // to provide standard (not lite) events
@@ -1347,7 +1347,7 @@ namespace Tangosol.Net.Cache
         {
             Debug.Assert(listener != null);
 
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 InternalCache.RemoveCacheListener(
                         InstantiateEventRouter(listener, false), filter);
@@ -1668,7 +1668,7 @@ namespace Tangosol.Net.Cache
             // shut down the event queue
             ShutdownEventQueue();
 
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 ReleaseListeners();
              
@@ -2203,7 +2203,7 @@ namespace Tangosol.Net.Cache
         /// </param>
         protected void ConfigureSynchronization(bool reload)
         {
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 IObservableCache cacheLocal = null;
                 try
@@ -2339,7 +2339,7 @@ namespace Tangosol.Net.Cache
                         {
                             // used to cache only keys, now caching values too
                             object[] keys;
-                            lock (cacheLocal.SyncRoot) // COHNET-160
+                            using (BlockingLock l2 = BlockingLock.Lock(cacheLocal.SyncRoot)) // COHNET-160
                             {
                                 keys = CollectionUtils.ToArray(cacheLocal.Keys);
                             }
@@ -2370,12 +2370,12 @@ namespace Tangosol.Net.Cache
                     if (cacheSyncReq.Count != 0)
                     {
                         object[] keys;
-                        lock (cacheSyncReq.SyncRoot) // COHNET-160
+                        using (BlockingLock l2 = BlockingLock.Lock(cacheSyncReq.SyncRoot)) // COHNET-160
                         {
                             keys = CollectionUtils.ToArray(cacheSyncReq.Keys);
                         }
                         IDictionary cacheSyncValues = cache.GetAll(keys);
-                        lock (cacheSyncReq.SyncRoot)
+                        using (BlockingLock l2 = BlockingLock.Lock(cacheSyncReq.SyncRoot))
                         {
                             foreach (object key in cacheSyncReq.Keys)
                             {
@@ -2499,7 +2499,7 @@ namespace Tangosol.Net.Cache
                 int       attempts = isDisconnectAllowed ? 1 : 3;
                 for (int i = 0; i < attempts; ++i)
                 {
-                    lock (SyncRoot)
+                    using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                     {
                         CacheState state = State;
                         if (state == CacheState.Disconnected)
@@ -3261,7 +3261,7 @@ namespace Tangosol.Net.Cache
         /// </returns>
         protected virtual EventDispatcher EnsureEventDispatcher()
         {
-            lock (SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(SyncRoot))
             {
                 EventDispatcher dispatcher = m_eventDispatcher;
                 if (dispatcher == null)

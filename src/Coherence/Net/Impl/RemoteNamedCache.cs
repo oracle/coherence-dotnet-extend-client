@@ -2313,7 +2313,7 @@ namespace Tangosol.Net.Impl
                 {
                     ILongArray laFilters   = FilterArray;
                     ArrayList  listFilters = null;
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         for (int i = 0; i < cFilters; i++)
                         {
@@ -2867,7 +2867,7 @@ namespace Tangosol.Net.Impl
                     Binary binKey = (Binary) BinaryToUndecoratedBinaryConverter.Convert(key);
 
                     CacheListenerSupport support = CacheListenerSupport;
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         wasEmpty = support.IsEmpty(binKey);
                         wasLite  = !wasEmpty && !support.ContainsStandardListeners(binKey);
@@ -2923,7 +2923,7 @@ namespace Tangosol.Net.Impl
 
                     IConverter conv = BinaryToUndecoratedBinaryConverter;
 
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                         {
                             foreach (object key in keys)
                             {
@@ -2938,7 +2938,7 @@ namespace Tangosol.Net.Impl
                     bool isEmpty;
                     long filterId = 0L;
 
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         support.RemoveListener(listener, filter);
                         isEmpty = support.IsEmpty(filter);
@@ -3006,7 +3006,7 @@ namespace Tangosol.Net.Impl
 
                     IConverter conv = BinaryToUndecoratedBinaryConverter;
 
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                         {
                             foreach (object key in keys)
                             {
@@ -3021,7 +3021,7 @@ namespace Tangosol.Net.Impl
                     }
                     catch (Exception)
                     {
-                        lock (support)
+                        using (BlockingLock l = BlockingLock.Lock(support))
                         {
                             foreach (object key in Keys)
                             {
@@ -3038,7 +3038,7 @@ namespace Tangosol.Net.Impl
                     bool wasLite;
                     long filterId;
 
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         wasEmpty = support.IsEmpty(filter);
                         wasLite  = !wasEmpty && !support.ContainsStandardListeners(filter);
@@ -3054,7 +3054,7 @@ namespace Tangosol.Net.Impl
                         }
                         catch (Exception)
                         {
-                            lock (support)
+                            using (BlockingLock l = BlockingLock.Lock(support))
                             {
                                 if (wasEmpty)
                                 {
@@ -3102,7 +3102,7 @@ namespace Tangosol.Net.Impl
                     Binary binKey = (Binary) BinaryToUndecoratedBinaryConverter.Convert(key);
 
                     CacheListenerSupport support = CacheListenerSupport;
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         support.RemoveListener(listener, binKey);
                         isEmpty = support.IsEmpty(binKey);

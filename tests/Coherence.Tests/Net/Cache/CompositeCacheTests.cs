@@ -11,6 +11,7 @@ using System.Threading;
 using NUnit.Framework;
 
 using Tangosol.Net.Impl;
+using Tangosol.Util;
 
 namespace Tangosol.Net.Cache
 {
@@ -410,11 +411,11 @@ namespace Tangosol.Net.Cache
             compositeCache.Insert("key1", "value1", 50);
             Assert.AreEqual("value1", compositeCache["key1"]);
 
-            Thread.Sleep(20);
+            Blocking.Sleep(20);
             // entry still didn't expire
             Assert.AreEqual("value1", compositeCache["key1"]);
 
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
             // should expire by now
             Assert.IsNull(compositeCache["key1"]);
         }

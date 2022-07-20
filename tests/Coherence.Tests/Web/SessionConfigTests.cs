@@ -7,9 +7,12 @@
 using System;
 using System.Threading;
 using System.Web.SessionState;
+
 using NUnit.Framework;
+
 using Tangosol.IO;
 using Tangosol.Net;
+using Tangosol.Util;
 using Tangosol.Web.Model;
 
 namespace Tangosol.Web
@@ -60,10 +63,10 @@ namespace Tangosol.Web
         {
             m_store.RemoveItem(null, SESSION_ID, null, null);
             // sleep a bit to allow Session_OnEnd event handler to execute
-            Thread.Sleep(200);
+            Blocking.Sleep(200);
 
             Assert.AreEqual(0, m_sessionCache.Count);
-            Thread.Sleep(200);
+            Blocking.Sleep(200);
             Assert.AreEqual(0, m_extAttrCache.Count);
 
             Assert.IsTrue(m_sessionOnEndCalled);

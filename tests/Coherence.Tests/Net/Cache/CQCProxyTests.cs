@@ -5,6 +5,7 @@
  * http://oss.oracle.com/licenses/upl.
  */
 using System;
+using System.Collections;
 using System.Threading;
 
 using NUnit.Framework;
@@ -13,6 +14,7 @@ using Tangosol;
 using Tangosol.Net;
 using Tangosol.Net.Cache;
 using Tangosol.Run.Xml;
+using Tangosol.Util;
 using Tangosol.Util.Filter;
 
 namespace Tangosol.Net.Cache
@@ -58,10 +60,12 @@ namespace Tangosol.Net.Cache
         // put data items into inner cache to generate events
         INamedCache testCache = GetCache("proxy-stop-test");
         testCache.Clear();
+        IDictionary dict = new Hashtable();
         for (int i = 0; i < SOME_DATA; i++)
             {
-            testCache.Add("TestKey" + i, i);
+            dict.Add("TestKey" + i, i);
             }
+        testCache.InsertAll(dict);
 
         // create listener for CQC
         TestCQCListener listener = new TestCQCListener(SOME_DATA);
@@ -73,12 +77,14 @@ namespace Tangosol.Net.Cache
         fMemberLeft = false;
         testCache.CacheService.MemberLeft += new MemberEventHandler(OnMemberLeft);
 
-        // allow test time to complete.
-        DateTime endTime = DateTime.Now.AddSeconds(30);
-        while (listener.GetActualTotal() < SOME_DATA && (DateTime.Now < endTime))
+        // allow test time to complete
+        using (ThreadTimeout t = ThreadTimeout.After(30000))
+        {
+            while (listener.GetActualTotal() < SOME_DATA)
             {
-            Thread.Sleep(250);
+                Blocking.Sleep(250);
             }
+        }
 
         // check listener received the correct number of events.
         Assert.AreEqual(SOME_DATA, listener.GetActualTotal());
@@ -87,21 +93,25 @@ namespace Tangosol.Net.Cache
         // restart proxy
         RestartProxy(invocationService);
 
-        endTime = DateTime.Now.AddSeconds(30);
-        while (!fMemberLeft && (DateTime.Now < endTime))
+        using (ThreadTimeout t = ThreadTimeout.After(30000))
+        {
+            while (!fMemberLeft)
             {
-            Thread.Sleep(250);
+                Blocking.Sleep(250);
             }
+        }
 
-        // ping the CQC to make it realize the cache needs restart.
+        // ping the CQC to make it realize the cache needs restart
         theCQC.Contains("junkstuff");
         
         // allow test time to complete.
-        endTime = DateTime.Now.AddSeconds(30);
-        while (listener.GetActualTotal() < SOME_DATA && (DateTime.Now < endTime))
+        using (ThreadTimeout t = ThreadTimeout.After(30000))
+        {
+            while (listener.GetActualTotal() < SOME_DATA)
             {
-            Thread.Sleep(250);
+                Blocking.Sleep(250);
             }
+        }
 
         Assert.AreEqual(SOME_DATA, listener.GetActualTotal());
     }

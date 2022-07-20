@@ -139,7 +139,7 @@ namespace Tangosol.Net.Impl
 
             ScopedReferenceStore storeCache  = StoreRemoteNamedCache;
 
-            lock(storeCache)
+            using (BlockingLock l = BlockingLock.Lock(storeCache))
             {
                 storeCache.ReleaseCache(cache);
             }
@@ -179,7 +179,7 @@ namespace Tangosol.Net.Impl
 
             if (cache == null || !cache.IsActive)
             {
-                lock(storeCache)
+                using (BlockingLock l = BlockingLock.Lock(storeCache))
                 {
                     cache = storeCache.GetCache(name) as RemoteNamedCache;
                     if (cache == null || !cache.IsActive)
@@ -223,7 +223,7 @@ namespace Tangosol.Net.Impl
 
             ScopedReferenceStore storeCache  = StoreRemoteNamedCache;
 
-            lock(storeCache)
+            using (BlockingLock l = BlockingLock.Lock(storeCache))
             {
                 storeCache.ReleaseCache(cache);
             }
@@ -237,7 +237,7 @@ namespace Tangosol.Net.Impl
         {
             ScopedReferenceStore storeCache  = StoreRemoteNamedCache;
 
-            lock (storeCache)
+            using (BlockingLock l = BlockingLock.Lock(storeCache))
             {
                 for (IEnumerator iter = storeCache.GetAllCaches().GetEnumerator(); iter.MoveNext(); )
                 {
@@ -261,7 +261,7 @@ namespace Tangosol.Net.Impl
 
             var storeCache = StoreRemoteNamedCache;
 
-            lock (storeCache)
+            using (BlockingLock l = BlockingLock.Lock(storeCache))
             {
                 storeCache.Clear();
             }

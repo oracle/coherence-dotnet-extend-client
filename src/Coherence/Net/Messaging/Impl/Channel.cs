@@ -447,7 +447,7 @@ namespace Tangosol.Net.Messaging.Impl
             IReceiver  receiver           = Receiver;
             bool       closeReceiver      = false;
 
-            lock (requestStatusArray.SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(requestStatusArray.SyncRoot))
             {
                 Exception eStatus = e ?? new ConnectionException("channel closed", Connection);
 
@@ -685,7 +685,7 @@ namespace Tangosol.Net.Messaging.Impl
         public virtual IDictionary GetAttributes()
         {
             IDictionary attributes = Attributes;
-            lock (attributes.SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(attributes.SyncRoot))
             {
                 return new HashDictionary(attributes);
             }
@@ -1019,7 +1019,7 @@ namespace Tangosol.Net.Messaging.Impl
                     long       id                 = response.RequestId;
 
                     Request.RequestStatus status;
-                    lock (requestStatusArray.SyncRoot)
+                    using (BlockingLock l = BlockingLock.Lock(requestStatusArray.SyncRoot))
                     {
                         status = (Request.RequestStatus) requestStatusArray[id];
                     }
@@ -1131,7 +1131,7 @@ namespace Tangosol.Net.Messaging.Impl
             Debug.Assert(status != null);
 
             ILongArray requestStatusArray = RequestStatusArray;
-            lock (requestStatusArray.SyncRoot) // see CloseInternal
+            using (BlockingLock l = BlockingLock.Lock(requestStatusArray.SyncRoot)) // see CloseInternal
             {
                 requestStatusArray.Remove(status.Request.Id);
             }
@@ -1222,7 +1222,7 @@ namespace Tangosol.Net.Messaging.Impl
             request.Status = status;
 
             ILongArray requestStatusArray = RequestStatusArray;
-            lock (requestStatusArray.SyncRoot) // see CloseInternal
+            using (BlockingLock l = BlockingLock.Lock(requestStatusArray.SyncRoot)) // see CloseInternal
             {
                 AssertOpen();
 
@@ -1328,7 +1328,7 @@ namespace Tangosol.Net.Messaging.Impl
         public virtual IRequest GetRequest(long id)
         {
             ILongArray requestStatusArray = RequestStatusArray;
-            lock (requestStatusArray.SyncRoot) // see #CloseInternal
+            using (BlockingLock l = BlockingLock.Lock(requestStatusArray.SyncRoot)) // see #CloseInternal
             {
                 IStatus status = (IStatus) requestStatusArray[id];
                 return status == null ? null : status.Request;

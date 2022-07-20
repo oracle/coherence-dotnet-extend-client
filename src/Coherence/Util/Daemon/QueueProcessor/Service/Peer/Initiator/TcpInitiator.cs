@@ -244,7 +244,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
         /// </exception>
         public override void Configure(IXmlElement xml)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 base.Configure(xml);
                 if (xml == null)
@@ -485,7 +485,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                     Stream stream = connection.Stream = StreamProvider.GetStream(client);
                     if (secure)
                     {
-                        Monitor.Enter(stream);
+                        Blocking.Enter(stream);
                     }
 
                     try
@@ -865,7 +865,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 Stream stream = Stream;
                 if (secure)
                 {
-                    Monitor.Enter(stream);
+                    Blocking.Enter(stream);
                 }
 
                 try

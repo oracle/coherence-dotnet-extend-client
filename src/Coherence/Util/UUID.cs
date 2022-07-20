@@ -588,11 +588,11 @@ namespace Tangosol.Util
             if (m_hash == 0)
             {
                 // this UUID will be a "generated" UUID
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_hash == 0)
                     {
-                        lock (LOCK)
+                        using (BlockingLock l2 = BlockingLock.Lock(LOCK))
                         {
                             m_dateTime = DateTimeUtils.GetSafeTimeMillis();
                             m_count = ++s_lastCount;

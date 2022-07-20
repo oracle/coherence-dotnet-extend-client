@@ -347,7 +347,7 @@ namespace Tangosol.Net.Impl
         /// </exception>
         public virtual void Configure(IXmlElement xml)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 Debug.Assert(!IsRunning);
                 DoConfigure(xml);
@@ -371,7 +371,7 @@ namespace Tangosol.Net.Impl
         /// </exception>
         public virtual void Start()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (!IsRunning)
                 {
@@ -773,7 +773,7 @@ namespace Tangosol.Net.Impl
         /// </returns>
         protected virtual IChannel EnsureChannel()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 IChannel channel = Channel;
                 if (channel == null || !channel.IsOpen)

@@ -32,14 +32,14 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     return m_namedCache;
                 }
             }
             set
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     m_namedCache = value;
                 }
@@ -56,14 +56,14 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     return m_cacheName;
                 }
             }
             set
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     m_cacheName = value;
                 }
@@ -93,14 +93,14 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     return m_cacheService;
                 }
             }
             set
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     m_cacheService = value;
                 }
@@ -140,14 +140,14 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     return m_isReleased;
                 }
             }
             set
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     m_isReleased = value;
                 }
@@ -171,9 +171,9 @@ namespace Tangosol.Net.Impl
                 if (service == null || !service.IsRunning || !cache.IsActive)
                 {
                     SafeService safeservice = SafeCacheService;
-                    lock (safeservice)
+                    using (BlockingLock l = BlockingLock.Lock(safeservice))
                     {
-                        lock (SyncRoot)
+                        using (BlockingLock l2 = BlockingLock.Lock(SyncRoot))
                         {
                             cache   = NamedCache;
                             service = cache == null ? null : cache.CacheService;
@@ -680,9 +680,9 @@ namespace Tangosol.Net.Impl
         public virtual void Release()
         {
             SafeService safeservice = SafeCacheService;
-            lock (safeservice)
+            using (BlockingLock l = BlockingLock.Lock(safeservice))
             {
-                lock (SyncRoot)
+                using (BlockingLock l2 = BlockingLock.Lock(SyncRoot))
                 {
                     IsReleased = true;
                     ReleaseListeners();
@@ -705,9 +705,9 @@ namespace Tangosol.Net.Impl
         public virtual void Destroy()
         {
             SafeService safeservice = SafeCacheService;
-            lock (safeservice)
+            using (BlockingLock l = BlockingLock.Lock(safeservice))
             {
-                lock (SyncRoot)
+                using (BlockingLock l2 = BlockingLock.Lock(SyncRoot))
                 {
                     IsReleased = true;
                     ReleaseListeners();
@@ -835,7 +835,7 @@ namespace Tangosol.Net.Impl
                 bool wasLite;
 
                 CacheListenerSupport support = CacheListenerSupport;
-                lock (support)
+                using (BlockingLock l = BlockingLock.Lock(support))
                 {
                     wasEmpty = support.IsEmpty(key);
                     wasLite  = wasEmpty || !support.ContainsStandardListeners(key);
@@ -891,7 +891,7 @@ namespace Tangosol.Net.Impl
                 bool isEmpty;
 
                 CacheListenerSupport support = CacheListenerSupport;
-                lock (support)
+                using (BlockingLock l = BlockingLock.Lock(support))
                 {
                     support.RemoveListener(listener, key);
                     isEmpty = support.IsEmpty(key);
@@ -961,7 +961,7 @@ namespace Tangosol.Net.Impl
                 bool wasLite;
 
                 CacheListenerSupport support = CacheListenerSupport;
-                lock (support)
+                using (BlockingLock l = BlockingLock.Lock(support))
                 {
                     wasEmpty = support.IsEmpty(filter);
                     wasLite  = wasEmpty || !support.ContainsStandardListeners(filter);
@@ -1018,7 +1018,7 @@ namespace Tangosol.Net.Impl
                 bool isEmpty;
 
                 CacheListenerSupport support = CacheListenerSupport;
-                lock (support)
+                using (BlockingLock l = BlockingLock.Lock(support))
                 {
                     support.RemoveListener(listener, filter);
                     isEmpty = support.IsEmpty(filter);
@@ -1481,7 +1481,7 @@ namespace Tangosol.Net.Impl
             {
                 ICollection listFilter = new ArrayList();
                 ICollection listKeys   = new ArrayList();
-                lock (support)
+                using (BlockingLock l = BlockingLock.Lock(support))
                 {
                     if (!support.IsEmpty())
                     {
@@ -1527,7 +1527,7 @@ namespace Tangosol.Net.Impl
             }
 
             CacheListenerSupport support = CacheListenerSupport;
-            lock (support)
+            using (BlockingLock l = BlockingLock.Lock(support))
             {
                 if (!support.IsEmpty())
                 {

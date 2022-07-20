@@ -395,7 +395,7 @@ namespace Tangosol.Net.Cache
         {
             var key   = entry.Key;
             var value = ExtractNewValue(entry);
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (value == NO_VALUE)
                 {
@@ -428,7 +428,7 @@ namespace Tangosol.Net.Cache
             var key      = entry.Key;
             var valueNew = ExtractNewValue(entry);
 
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 var valueOld = GetForwardValue(key);
                 if (ObjectUtils.NO_VALUE == valueOld)
@@ -505,7 +505,7 @@ namespace Tangosol.Net.Cache
         protected virtual void DeleteInternal(ICacheEntry entry)
         {
             var key = entry.Key;
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 object valueOld;
 

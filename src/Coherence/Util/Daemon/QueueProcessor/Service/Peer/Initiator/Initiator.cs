@@ -214,7 +214,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
         /// </exception>
         public virtual IConnection EnsureConnection()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (!IsRunning)
                 {
@@ -274,7 +274,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
         /// </exception>
         public override void Configure(IXmlElement xml)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 base.Configure(xml);
 

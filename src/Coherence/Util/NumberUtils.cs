@@ -680,7 +680,7 @@ namespace Tangosol.Util
             {
             // double-check locking is not required to work; the worst that
             // can happen is that we create a couple extra Random objects
-            //lock (Random)
+            // using (BlockingLock l = BlockingLock.Lock(Random))
 
                 rnd = m_rnd;
                 if (rnd == null)
