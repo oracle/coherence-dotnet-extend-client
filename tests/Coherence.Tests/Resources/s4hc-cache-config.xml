@@ -67,6 +67,11 @@
       <scheme-name>extend-direct</scheme-name>
     </cache-mapping>
 
+    <cache-mapping>
+      <cache-name>bad-*</cache-name>
+      <scheme-name>extend-bad-address</scheme-name>
+    </cache-mapping>
+
     <!-- these mappings are used only for mapping testing, schemes do not exist -->
     <cache-mapping>
       <cache-name>nr-*</cache-name>
@@ -104,21 +109,6 @@
           <filter-name>gzip</filter-name>
         </use-filters>
         <connect-timeout>30s</connect-timeout>
-      </initiator-config>
-    </remote-cache-scheme>
-
-    <remote-cache-scheme>
-      <scheme-name>extend-direct-with-cluster-name</scheme-name>
-      <service-name>ExtendTcpCacheServiceCN</service-name>
-      <cluster-name>DotNetTest</cluster-name>
-      <proxy-service-name>ExtendTcpProxyServiceEphermeral</proxy-service-name>
-      <initiator-config>
-        <tcp-initiator>
-          <name-service-addresses>
-            <address-provider>ap2</address-provider>
-          </name-service-addresses>
-        </tcp-initiator>
-        <connect-timeout>5s</connect-timeout>
       </initiator-config>
     </remote-cache-scheme>
 
@@ -429,5 +419,25 @@
         <connect-timeout>5s</connect-timeout>
       </initiator-config>
     </remote-invocation-scheme>
+
+    <remote-cache-scheme>
+      <scheme-name>extend-bad-address</scheme-name>
+      <service-name>ExtendTcpCacheServiceBadAddress</service-name>
+      <proxy-service-name>ExtendTcpProxyServiceBadAddress</proxy-service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+              <address>100.10.0.1</address>
+              <port>1000</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <heartbeat-interval>5s</heartbeat-interval>
+          <heartbeat-timeout>3s</heartbeat-timeout>
+        </outgoing-message-handler>
+      </initiator-config>
+    </remote-cache-scheme>
   </caching-schemes>
 </cache-config>

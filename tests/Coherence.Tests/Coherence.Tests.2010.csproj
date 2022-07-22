@@ -84,6 +84,10 @@
     <Compile Include="IO\Pof\ModuleSerializer.cs" />
     <Compile Include="IO\Pof\TestPofClasses.cs" />
     <Compile Include="IO\TestSerializers.cs" />
+    <Compile Include="Net\Cache\CacheInvalidAddressTimeoutTest.cs" />
+    <Compile Include="Net\Cache\CachesTimeoutTest.cs" />
+    <Compile Include="Net\Cache\CacheTimeoutTest.cs" />
+    <Compile Include="Net\Cache\CacheWithTimeoutTest.cs" />
     <Compile Include="Net\Cache\InvocableCacheTest.cs" />
     <Compile Include="Net\Cache\ViewTests.cs" />
     <Compile Include="Net\Messaging\Impl\NamedCache\BaseNamedCacheTest.cs" />
