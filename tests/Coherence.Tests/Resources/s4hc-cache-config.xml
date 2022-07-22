@@ -114,6 +114,21 @@
 
     <remote-cache-scheme>
       <scheme-name>extend-direct-with-cluster-name</scheme-name>
+      <service-name>ExtendTcpCacheServiceCN</service-name>
+      <cluster-name>DotNetTest</cluster-name>
+      <proxy-service-name>ExtendTcpProxyServiceEphermeral</proxy-service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <name-service-addresses>
+            <address-provider>ap2</address-provider>
+          </name-service-addresses>
+        </tcp-initiator>
+        <connect-timeout>5s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+
+    <remote-cache-scheme>
+      <scheme-name>extend-direct-with-cluster-name</scheme-name>
       <service-name>ExtendTcpCacheServiceUnknownCN</service-name>
       <cluster-name>DotNotTest</cluster-name>
       <proxy-service-name>ExtendTcpProxyServiceEphermeral</proxy-service-name>
@@ -367,7 +382,7 @@
         </tcp-initiator>
       </initiator-config>
     </remote-invocation-scheme>
- 
+
     <remote-invocation-scheme>
       <scheme-name>invocation-scheme</scheme-name>
       <service-name>RemoteInvocationService</service-name>
