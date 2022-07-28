@@ -51,7 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        coherence_version: [14.1.1-0-4, 20.12.1, 21.06-SNAPSHOT]
+        coherence_version: [14.1.1-0-10, 22.06.1, 22.09-SNAPSHOT]
 
     steps:
     - name: Checkout
@@ -81,14 +81,14 @@ jobs:
     - name: Build test server
       run: |
         pushd tests/test-server
-        mvn clean install -s .mvn/settings.xml -Drevision=${{ matrix.coherence_version }}
+        mvn --batch-mode -e clean install -s .mvn/settings.xml -Drevision=${{ matrix.coherence_version }}
         popd
 
     # Start test server
     - name: Start test server
       run: |
         pushd tests/test-server
-        mvn exec:exec -s .mvn/settings.xml -Drevision=${{ matrix.coherence_version }} &
+        mvn --batch-mode -e exec:exec -s .mvn/settings.xml -Drevision=${{ matrix.coherence_version }} &
         sleep 30
         popd
 
