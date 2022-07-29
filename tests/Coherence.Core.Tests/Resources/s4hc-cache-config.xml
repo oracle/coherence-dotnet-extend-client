@@ -267,10 +267,6 @@
               <address>127.0.0.1</address>
               <port>9700</port>
             </socket-address>
-             <socket-address>
-              <address>127.0.0.1</address>
-              <port>9701</port>
-            </socket-address>
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
