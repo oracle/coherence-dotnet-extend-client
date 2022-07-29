@@ -72,7 +72,7 @@
       <type-id>1204</type-id>
       <class-name>Tangosol.ProcessorPrintUUIDTimestamp, Coherence.Core.Tests</class-name>
     </user-type>
-    
+
     <user-type>
       <type-id>1210</type-id>
       <class-name>Tangosol.TestEntryProcessor, Coherence.Core.Tests</class-name>
