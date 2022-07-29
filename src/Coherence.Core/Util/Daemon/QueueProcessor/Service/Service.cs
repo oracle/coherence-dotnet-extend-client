@@ -168,7 +168,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
             get { return m_serviceState; }
             set
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     ServiceState prevState = ServiceState;
                     if (value > prevState)
@@ -275,7 +275,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
             get { return m_isAcceptingClients; }
             set
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     m_isAcceptingClients = value;
 
@@ -405,7 +405,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
         /// </exception>
         public virtual void Configure(IXmlElement xml)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (ServiceState > ServiceState.Initial)
                 {
@@ -508,7 +508,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
         /// </remarks>
         public virtual void Shutdown()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 Stop();
 
@@ -518,7 +518,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
                 {
                     while (DaemonState != DaemonState.Exited)
                     {
-                        Monitor.Wait(this, 1000);
+                        Blocking.Wait(this, 1000);
                     }
                 }
             }
@@ -647,7 +647,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
                 // give the chance for the daemon to drain it's queue
                 try
                 {
-                    daemon.Thread.Join(1000);
+                    daemon.Join(1000);
                 }
                 catch (ThreadInterruptedException)
                 {
@@ -705,7 +705,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
         /// </remarks>
         public override void Start()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 Debug.Assert(ServiceState <= ServiceState.Started,
                              "Service restart is illegal (ServiceName=" + ServiceName + ')');
@@ -714,7 +714,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
 
                 while (IsStarted && ServiceState <= ServiceState.Started && !IsAcceptingClients)
                 {
-                    Monitor.Wait(this, 1000);
+                    Blocking.Wait(this, 1000);
                 }
 
                 if (ServiceState != ServiceState.Started)
@@ -734,7 +734,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
         {
             if (!IsStarted)
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (!IsStarted)
                     {
@@ -815,7 +815,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
         {
             while (!IsAcceptingClients)
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (ServiceState > ServiceState.Started)
                     {
@@ -827,7 +827,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
 
                     if (!IsAcceptingClients)
                     {
-                        Monitor.Wait(this);
+                        Blocking.Wait(this);
                     }
                 }
             }
@@ -1588,7 +1588,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
                     // wait for all outstanding tasks to complete
                     while (!queue.IsEmpty() || IsDispatching)
                     {
-                        Thread.Sleep(1);
+                        Blocking.Sleep(1);
                     }
                 }
             }
@@ -1670,7 +1670,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
                 /// </exception>
                 public override bool Add(object obj)
                 {
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         switch (EventDispatcher.Service.ServiceState)
                         {

@@ -90,7 +90,7 @@ namespace Tangosol.Net.Cache.Support
         /// </param>
         public virtual void AddListener(ICacheListener listener, IFilter filter, bool isLite)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (listener != null)
                 {
@@ -131,7 +131,7 @@ namespace Tangosol.Net.Cache.Support
         /// </param>
         public virtual void AddListener(ICacheListener listener, object key, bool isLite)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (listener != null)
                 {
@@ -184,7 +184,7 @@ namespace Tangosol.Net.Cache.Support
         /// </param>
         public virtual void RemoveListener(ICacheListener listener, IFilter filter)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (listener != null)
                 {
@@ -226,7 +226,7 @@ namespace Tangosol.Net.Cache.Support
         /// </param>
         public virtual void RemoveListener(ICacheListener listener, object key)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (listener != null)
                 {
@@ -426,7 +426,7 @@ namespace Tangosol.Net.Cache.Support
         /// </summary>
         public virtual void Clear()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 m_cacheListeners            = null;
                 m_cacheKeyListeners         = null;
@@ -550,7 +550,7 @@ namespace Tangosol.Net.Cache.Support
         /// </returns>
         public virtual Listeners GetListeners(IFilter filter)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 // this method is synchronized because the underlying map implementation
                 // is not thread safe for "get" operations: it could blow up (LiteDictionary)
@@ -575,7 +575,7 @@ namespace Tangosol.Net.Cache.Support
         /// </returns>
         public virtual Listeners GetListeners(object key)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 // this method is synchronized because the underlying map implementation
                 // is not thread safe for "get" operations: it could blow up (LiteDictionary)
@@ -717,7 +717,7 @@ namespace Tangosol.Net.Cache.Support
 
                 case OptimizationPlan.None:
                 default:
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         // put a plan together
                         IDictionary allListeners = m_cacheListeners;
@@ -838,7 +838,7 @@ namespace Tangosol.Net.Cache.Support
                     // the server sent an event without a specified filter list;
                     // attempt to match it to any registered filter-based listeners
                     object[] entries;
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         entries = CollectionUtils.ToArray(cacheListeners);
                     }
@@ -872,7 +872,7 @@ namespace Tangosol.Net.Cache.Support
                 }
                 else
                 {
-                    lock (this)
+                    using (BlockingLock l = BlockingLock.Lock(this))
                     {
                         foreach (IFilter filter in filters)
                         {
@@ -1095,7 +1095,7 @@ namespace Tangosol.Net.Cache.Support
         /// </returns>
         public override string ToString()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 StringBuilder sb = new StringBuilder();
 

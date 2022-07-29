@@ -464,6 +464,12 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                 {
                     CacheFactory.Log("An exception occurred while deserializing an identity token",
                         ex, CacheFactory.LogLevel.Error);
+
+                    if (ex is ThreadInterruptedException)
+                    {
+                        throw;
+                    }
+
                     throw new SecurityException("invalid identity token");
                 }
             }
@@ -497,6 +503,12 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                 {
                     CacheFactory.Log("An exception occurred while serializing an identity token",
                         ex, CacheFactory.LogLevel.Error);
+
+                    if (ex is ThreadInterruptedException)
+                    {
+                        throw;
+                    }
+
                     throw new SecurityException("unable to produce identity token");
                 }
             }
@@ -1236,6 +1248,11 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                 {
                     status.WaitForResponse(RequestTimeout);
                 }
+                catch (ThreadInterruptedException e)
+                {
+                    connection.Close(false, e);
+                    throw;
+                }
                 catch (RequestTimeoutException e)
                 {
                     connection.Close(false, e);
@@ -1572,7 +1589,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
             get
             {
                 IDictionary map = ProtocolMap;
-                lock (map.SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(map.SyncRoot))
                 {
                     return new HashDictionary(map);
                 }
@@ -1596,7 +1613,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
             get
             {
                 IDictionary map = ReceiverMap;
-                lock (map.SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(map.SyncRoot))
                 {
                     return new HashDictionary(map);
                 }
@@ -1816,7 +1833,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
         /// </exception>
         public override void Configure(IXmlElement xml)
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 base.Configure(xml);
                 if (xml == null)
@@ -2300,7 +2317,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
         /// </remarks>
         public override void Shutdown()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (IsStarted)
                 {
@@ -2318,7 +2335,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer
                     // wait for the service to stop or the thread to die
                     while (IsStarted && ServiceState < ServiceState.Stopped)
                     {
-                        Monitor.Wait(this);
+                        Blocking.Wait(this);
                     }
 
                     if (ServiceState != ServiceState.Stopped)

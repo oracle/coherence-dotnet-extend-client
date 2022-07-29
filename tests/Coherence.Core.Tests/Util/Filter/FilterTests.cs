@@ -2209,20 +2209,20 @@ namespace Tangosol.Util.Filter
             var listener = new TestCacheListener();
             remoteCache.AddCacheListener(listener);
             remoteCache.Insert("1", 1);
-            Assert.IsNotNull(listener.evt);
-            Assert.IsNull(listener.evt.OldValue);
+            Assert.IsNotNull(listener.m_evt);
+            Assert.IsNull(listener.m_evt.OldValue);
             remoteCache.Insert("1", 100);
-            Assert.IsNotNull(listener.evt.OldValue);
+            Assert.IsNotNull(listener.m_evt.OldValue);
             remoteCache.RemoveCacheListener(listener);
 
             remoteCache.Clear();
 
             remoteCache.AddCacheListener(listener, transFilter, false);
             remoteCache.Insert("1", 1);
-            Assert.IsNotNull(listener.evt);
-            Assert.IsNull(listener.evt.OldValue);
+            Assert.IsNotNull(listener.m_evt);
+            Assert.IsNull(listener.m_evt.OldValue);
             remoteCache.Insert("1", 100);
-            Assert.IsNull(listener.evt.OldValue);
+            Assert.IsNull(listener.m_evt.OldValue);
             remoteCache.RemoveCacheListener(listener, transFilter);
             
             CacheFactory.Shutdown();

@@ -943,7 +943,7 @@ namespace Tangosol.Util.Logging
         /// </remarks>
         public virtual void Shutdown()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (IsStarted)
                 {
@@ -951,7 +951,7 @@ namespace Tangosol.Util.Logging
                     Queue.Add(new object[0]);
                     try
                     {
-                        Monitor.Wait(this, 1000);
+                        Blocking.Wait(this, 1000);
                     }
                     catch (Exception)
                     {

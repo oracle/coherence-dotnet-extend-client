@@ -23,7 +23,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(stats.AveragePutMillis, 0);
 
             long start = DateTimeUtils.GetSafeTimeMillis();
-            Thread.Sleep(10); //so that TotalPutsMillis wouldn't be 0
+            Blocking.Sleep(10); //so that TotalPutsMillis wouldn't be 0
             stats.RegisterPut(start);
             count++;
             Assert.AreEqual(stats.TotalPuts, count);
@@ -36,7 +36,7 @@ namespace Tangosol.Net.Cache
 
             int n = 5;
             start = DateTimeUtils.GetSafeTimeMillis();
-            Thread.Sleep(10);
+            Blocking.Sleep(10);
             stats.RegisterPuts(n, start);
             count += n;
             Assert.AreEqual(stats.TotalPuts, count);
@@ -58,7 +58,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(stats.HitProbability, 0);
 
             long start = DateTimeUtils.GetSafeTimeMillis();
-            Thread.Sleep(10); //so that CacheHitsMillis wouldn't be 0
+            Blocking.Sleep(10); //so that CacheHitsMillis wouldn't be 0
             stats.RegisterHit(start);
             count++;
             Assert.AreEqual(stats.CacheHits, count);
@@ -71,7 +71,7 @@ namespace Tangosol.Net.Cache
 
             int n = 5;
             start = DateTimeUtils.GetSafeTimeMillis();
-            Thread.Sleep(10);
+            Blocking.Sleep(10);
             stats.RegisterHits(n, start);
             count += n;
             Assert.AreEqual(stats.CacheHits, count);
@@ -95,7 +95,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(stats.HitProbability, 0);
 
             long start = DateTimeUtils.GetSafeTimeMillis();
-            Thread.Sleep(10); //so that CacheMissesMillis wouldn't be 0
+            Blocking.Sleep(10); //so that CacheMissesMillis wouldn't be 0
             stats.RegisterMiss(start);
             count++;
             Assert.AreEqual(stats.CacheMisses, count);
@@ -108,7 +108,7 @@ namespace Tangosol.Net.Cache
 
             int n = 5;
             start = DateTimeUtils.GetSafeTimeMillis();
-            Thread.Sleep(10);
+            Blocking.Sleep(10);
             stats.RegisterMisses(n, start);
             count += n;
             Assert.AreEqual(stats.CacheMisses, count);
@@ -133,7 +133,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(stats.HitProbability, 0);
 
             long start = DateTimeUtils.GetSafeTimeMillis();
-            Thread.Sleep(10); //so that TotalGetsMillis wouldn't be 0
+            Blocking.Sleep(10); //so that TotalGetsMillis wouldn't be 0
             stats.RegisterHit(start);
             countHits++;
             Assert.AreEqual(stats.TotalGets, countHits);
@@ -141,7 +141,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(stats.HitProbability, 1);
 
             start = DateTimeUtils.GetSafeTimeMillis();
-            Thread.Sleep(10);
+            Blocking.Sleep(10);
             stats.RegisterMiss(start);
             countMisses++;
             Assert.AreEqual(stats.TotalGets, countHits + countMisses);

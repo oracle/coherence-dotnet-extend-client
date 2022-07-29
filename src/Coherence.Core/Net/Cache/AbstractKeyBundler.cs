@@ -49,7 +49,7 @@ namespace Tangosol.Net.Cache
                 while (true)
                 {
                     bundle = (Bundle)getOpenBundle();
-                    lock (bundle)
+                    using (BlockingLock l = BlockingLock.Lock(bundle))
                     {
                         if (bundle.IsOpen())
                         {
@@ -94,7 +94,7 @@ namespace Tangosol.Net.Cache
                 while (true)
                 {
                     bundle = (Bundle) getOpenBundle();
-                    lock (bundle)
+                    using (BlockingLock l = BlockingLock.Lock(bundle))
                     {
                         if (bundle.IsOpen())
                         {
@@ -325,7 +325,7 @@ namespace Tangosol.Net.Cache
             /// </returns>
             public new bool ReleaseThread()
             {
-                lock (SyncRoot)
+                using (BlockingLock l = BlockingLock.Lock(SyncRoot))
                 {
                     bool isReleased = base.ReleaseThread();
                     if (isReleased)

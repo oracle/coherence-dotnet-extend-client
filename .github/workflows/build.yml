@@ -38,6 +38,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    # Clean
+    - name: Clean
+      run: dotnet nuget locals all --clear
+
     # Build
     - name: Build
       run: |

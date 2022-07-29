@@ -68,7 +68,7 @@ namespace Tangosol.Net.Cache
             Assert.IsTrue(nearcache.FrontCache.Contains(2));
             Assert.IsTrue(nearcache.BackCache.Contains(1));
             Assert.IsTrue(nearcache.BackCache.Contains(2));
-            Thread.Sleep(1000);
+            Blocking.Sleep(1000);
             Assert.IsNull(nearcache.FrontCache[1]);
             Assert.IsNull(nearcache.FrontCache[2]);
 
@@ -122,7 +122,7 @@ namespace Tangosol.Net.Cache
             Assert.AreEqual(ht.Count, nearcache.CacheHits);
 
             localcache.LocalCache = new LocalCache(Int32.MaxValue, 1);
-            Thread.Sleep(1);
+            Blocking.Sleep(1);
             foreach (DictionaryEntry entry in ht)
             {
                 Assert.IsTrue(nearcache.Contains(entry.Key));
@@ -548,7 +548,7 @@ namespace Tangosol.Net.Cache
             {
                 Assert.IsNull(nearcache.FrontCache["Ivan"]);
                 updater.Start();
-                Monitor.Wait(this);
+                Blocking.Wait(this);
             }
             Assert.AreEqual(1, nearcache["Ivan"]);
 

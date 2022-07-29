@@ -16,7 +16,6 @@ using Tangosol.Net.Internal;
 using Tangosol.Run.Xml;
 using Tangosol.Util;
 using Tangosol.Util.Aggregator;
-using Tangosol.Util.Collections;
 using Tangosol.Util.Comparator;
 using Tangosol.Util.Extractor;
 using Tangosol.Util.Filter;
@@ -301,7 +300,7 @@ namespace Tangosol.Net.Cache
             // when the next cache operation occurrs.  So, change
             // the test accordingly.
             cache.Insert("key6", 173, 200);
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
             Assert.AreNotEqual(null, cache["key6"]);
             Thread.Sleep(400);
             Assert.AreEqual(null, cache.Cache["key6"]);
@@ -914,7 +913,7 @@ namespace Tangosol.Net.Cache
                     && !lcAccessor.Finished
                     && (DateTime.Now < endTime))
                 {
-                Thread.Sleep(250);
+                Blocking.Sleep(250);
                 }
             bool IsEntriesSuccess = (cqcAccessor.Error == null);
 
@@ -941,7 +940,7 @@ namespace Tangosol.Net.Cache
                     && !lcAccessor.Finished
                     && (DateTime.Now < endTime))
                 {
-                Thread.Sleep(250);
+                Blocking.Sleep(250);
                 }
             bool IsKeysSuccess = (cqcAccessor.Error == null);
 
@@ -968,7 +967,7 @@ namespace Tangosol.Net.Cache
                     && !lcAccessor.Finished
                     && (DateTime.Now < endTime))
                 {
-                Thread.Sleep(250);
+                Blocking.Sleep(250);
                 }
             bool IsValuesSuccess = (cqcAccessor.Error == null);
 
@@ -1069,11 +1068,11 @@ namespace Tangosol.Net.Cache
             Assert.That(theCQC.IsActive, Is.True);
             
             Assert.That(() => deactivationListener.GetActualTotal(), Is.EqualTo(1).After(500, 50));
-            Assert.That(deactivationListener.evt, Is.Not.Null);
-            Assert.That(deactivationListener.evt.EventType, Is.EqualTo(CacheEventType.Updated));
-            Assert.That(deactivationListener.evt.Key, Is.Null);
-            Assert.That(deactivationListener.evt.OldValue, Is.Null);
-            Assert.That(deactivationListener.evt.NewValue, Is.Null);
+            Assert.That(deactivationListener.m_evt, Is.Not.Null);
+            Assert.That(deactivationListener.m_evt.EventType, Is.EqualTo(CacheEventType.Updated));
+            Assert.That(deactivationListener.m_evt.Key, Is.Null);
+            Assert.That(deactivationListener.m_evt.OldValue, Is.Null);
+            Assert.That(deactivationListener.m_evt.NewValue, Is.Null);
         }
         
         [Test]

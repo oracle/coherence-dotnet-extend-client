@@ -81,7 +81,7 @@ namespace Tangosol.Util.Transformer
             // add two listeners 
             ICacheListener listener1 = AddListener(cache);
             ICacheListener listener2 = AddListener(cache);
-            Thread.Sleep(100);
+            Blocking.Sleep(100);
 
             // add more data
             var obj2 = new EventTransformerTestObject();
@@ -96,7 +96,7 @@ namespace Tangosol.Util.Transformer
             // remove an entry 
             cache.Remove(1);
 
-            Thread.Sleep(1000);
+            Blocking.Sleep(1000);
             Assert.AreEqual(4, cInsertCalled);
             Assert.AreEqual(2, cDeleteCalled);
         }

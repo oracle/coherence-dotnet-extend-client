@@ -25,7 +25,7 @@ namespace Tangosol.Util
                 Assert.IsTrue(milsec1 <= milsec2);
                 Assert.IsTrue(milsec1 <= milsec3);
                 Assert.IsTrue(milsec2 <= milsec3);
-                Thread.Sleep(5);
+                Blocking.Sleep(5);
                 long milsec4 = DateTimeUtils.GetSafeTimeMillis();
                 Assert.IsTrue(milsec3 <= milsec4);
                 long milsec5 = DateTimeUtils.GetSafeTimeMillis();
@@ -39,9 +39,9 @@ namespace Tangosol.Util
             lock (this)
             {
                 long milsec1 = DateTimeUtils.GetSafeTimeMillis();
-                Monitor.Wait(this, 500);
+                Blocking.Wait(this, 500);
                 long milsec2 = DateTimeUtils.GetSafeTimeMillis();
-                Monitor.Wait(this, 550);
+                Blocking.Wait(this, 550);
                 long milsec3 = DateTimeUtils.GetSafeTimeMillis();
                 Assert.IsTrue(milsec2 > milsec1);
                 Assert.IsTrue(milsec3 > milsec2);

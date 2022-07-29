@@ -1028,7 +1028,7 @@ namespace Tangosol.Util
             }
             else
             {
-                Monitor.Enter(col.SyncRoot);
+                Blocking.Enter(col.SyncRoot);
             }
         }
 

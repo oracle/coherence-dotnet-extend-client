@@ -9,6 +9,7 @@ using System.Collections;
 using System.Threading;
 
 using Tangosol.Net.Internal;
+using Tangosol.Util;
 
 namespace Tangosol.Net.Impl
 {
@@ -136,7 +137,7 @@ namespace Tangosol.Net.Impl
             SafeNamedCache       cacheSafe  = (SafeNamedCache)storeCache.GetCache(name);
             if (cacheSafe == null)
             {
-                lock(storeCache)
+                using (BlockingLock l = BlockingLock.Lock(storeCache))
                 {
                     INamedCache cache = RunningCacheService.EnsureCache(name);
 
@@ -253,7 +254,7 @@ namespace Tangosol.Net.Impl
 
             ScopedReferenceStore storeCache = StoreSafeNamedCache;
 
-            lock (storeCache)
+            using (BlockingLock l = BlockingLock.Lock(storeCache))
             {
                 storeCache.Clear();
             }
@@ -299,7 +300,7 @@ namespace Tangosol.Net.Impl
 
             ScopedReferenceStore storeCache = StoreSafeNamedCache;
 
-            lock(storeCache)
+            using (BlockingLock l = BlockingLock.Lock(storeCache))
             {
                 storeCache.ReleaseCache(cacheSafe);
             }

@@ -31,7 +31,7 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_isReleased)
                     {
@@ -48,7 +48,7 @@ namespace Tangosol.Net.Impl
             }
             set
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     m_localCache = value;
                 }
@@ -65,14 +65,14 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     return m_cacheName;
                 }
             }
             set
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     m_cacheName = value;
                 }
@@ -90,14 +90,14 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     return m_cacheService;
                 }
             }
             set
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     m_cacheService = value;
                 }
@@ -115,7 +115,7 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     return m_localCache != null;
                 }
@@ -134,7 +134,7 @@ namespace Tangosol.Net.Impl
         {
             get
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     return m_isReleased;
                 }
@@ -242,7 +242,7 @@ namespace Tangosol.Net.Impl
         /// </remarks>
         public virtual void Release()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (!m_isReleased)
                 {

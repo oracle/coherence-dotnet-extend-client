@@ -127,7 +127,7 @@ namespace Tangosol.Util.Daemon
             get { return m_daemonState; }
             set
             {
-                lock(this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (value > m_daemonState)
                     {
@@ -296,7 +296,7 @@ namespace Tangosol.Util.Daemon
             set
             {
                 object o = Lock;
-                lock (o)
+                using (BlockingLock l = BlockingLock.Lock(o))
                 {
                     m_isNotification = value;
 
@@ -512,7 +512,7 @@ namespace Tangosol.Util.Daemon
         protected virtual void OnWait()
         {
             object o = Lock;
-            lock (o)
+            using (BlockingLock l = BlockingLock.Lock(o))
             {
                 if (!IsNotification)
                 {
@@ -521,11 +521,11 @@ namespace Tangosol.Util.Daemon
                     {
                         if (timeout == 0 || timeout > int.MaxValue)
                         {
-                            Monitor.Wait(o);
+                            Blocking.Wait(o);
                         }
                         else
                         {
-                            Monitor.Wait(o, (int) timeout);
+                            Blocking.Wait(o, (int) timeout);
                         }    
                     }
                 }
@@ -549,7 +549,7 @@ namespace Tangosol.Util.Daemon
         /// </remarks>
         public virtual void Start()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (IsStarted)
                 {
@@ -570,7 +570,7 @@ namespace Tangosol.Util.Daemon
                 // wait for the thread to enter its "wait for notification" section
                 while (DaemonState == DaemonState.Initial || DaemonState == DaemonState.Starting)
                 {
-                    Monitor.Wait(this);
+                    Blocking.Wait(this);
                 }
 
                 Exception ex = StartException;
@@ -590,7 +590,7 @@ namespace Tangosol.Util.Daemon
             // Once IsExiting is set the daemon's thread will attempt to clear any interrupts and then proceed to OnExit.
             // In order to ensure that this doesn't occur before we actually get to interrupt the thread we synchronize this method
             // as well as Run's call to clear the interrupt.
-            lock (ExitMonitor)
+            using (BlockingLock l = BlockingLock.Lock(ExitMonitor))
             {
                 // only go through Stop() once to prevent spurious interrupts during OnExit()
                 if (!IsExiting)
@@ -608,6 +608,45 @@ namespace Tangosol.Util.Daemon
                         {}
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Wait for the Daemon thread to stop.
+        /// </summary>
+        ///
+        /// <param name="millis">
+        /// The number of milliseconds to wait for, or zero for infinite.
+        /// </param>
+        /// 
+        /// <returns>
+        /// <b>true</b> if the thread is no longer running.
+        /// </returns>
+        ///
+        /// <since>Coherence 14.1.2.0</since>
+        public virtual bool Join(int millis)
+        {
+            try
+            {
+                Thread thread = this.Thread;
+                if (thread != null)
+                {
+                    if (millis > 0)
+                    {
+                        thread.Join(millis);
+                    }
+                    else
+                    {
+                        thread.Join();
+                    }
+                    return !thread.IsAlive;
+                }
+                return true;
+            }
+            catch (ThreadInterruptedException)
+            {
+                Thread.CurrentThread.Interrupt();
+                return false;
             }
         }
 
@@ -669,7 +708,7 @@ namespace Tangosol.Util.Daemon
                     try
                     {
                         // see comment in Stop()
-                        lock (ExitMonitor)
+                        using (BlockingLock l = BlockingLock.Lock(ExitMonitor))
                         {
                             try
                             {
@@ -714,7 +753,7 @@ namespace Tangosol.Util.Daemon
                 {
                     millis = Int32.MaxValue;
                 }
-                Thread.Sleep((int) millis);
+                Blocking.Sleep((int) millis);
                 return true;
             }
             catch (ThreadInterruptedException)

@@ -357,7 +357,7 @@ namespace Tangosol.Util.Collections
         /// <seealso cref="ReleaseWriteLock"/>
         public bool AcquireWriteLock(int timeout)
         {
-            Monitor.Enter(SyncRoot);
+            Blocking.Enter(SyncRoot);
             bool acquired = false;
             try
             {

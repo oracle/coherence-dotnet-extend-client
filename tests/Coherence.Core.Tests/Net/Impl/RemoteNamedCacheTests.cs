@@ -7,7 +7,6 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
-using System.Threading;
 
 using NUnit.Framework;
 using Tangosol.Net.Cache;
@@ -705,6 +704,48 @@ namespace Tangosol.Net.Impl {
             result = cache.Replace("key1", 400, 450);
             Assert.AreEqual(true, result);
             Assert.AreEqual(450, cache["key1"]);
+        }
+
+        [Test]
+        public void TestExpiry()
+        {
+            INamedCache cache = CacheFactory.GetCache(CacheName);
+
+            TestCacheListener listener = new TestCacheListener();
+            cache.AddCacheListener(listener, 1, false);
+
+            cache.Add(1, 1);
+            listener.WaitForEvent();
+
+            // synthetic event
+            cache.Invoke(1, new TestEntryProcessor(true));
+            CacheEventArgs evt = listener.WaitForEvent();
+
+            Assert.AreEqual(true, evt.IsSynthetic);
+            Assert.AreEqual(false, evt.IsExpired);
+            listener.ClearEvent();
+
+            cache.Insert(1, 2, 2000);
+            listener.WaitForEvent();
+            listener.ClearEvent();
+            
+            // wait for synthetic delete due to expiry
+            evt = listener.WaitForEvent(3000L);
+
+            Assert.AreEqual(true, evt.IsSynthetic);
+            Assert.AreEqual(true, evt.IsExpired);
+
+            cache.Add(1, 1);
+            listener.WaitForEvent();
+            listener.ClearEvent();
+
+            cache.Remove(1);
+
+            // regular event
+            evt = listener.WaitForEvent();
+
+            Assert.AreEqual(false, evt.IsSynthetic);
+            Assert.AreEqual(false, evt.IsExpired);
         }
 
         /// <summary>

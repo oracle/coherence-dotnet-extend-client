@@ -266,7 +266,7 @@ namespace Tangosol.Net.Impl
         {
             add
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     bool wasEmpty = m_memberJoined == null;
                     m_memberJoined += value;
@@ -284,7 +284,7 @@ namespace Tangosol.Net.Impl
 
             remove
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_memberJoined != null)
                     {
@@ -310,7 +310,7 @@ namespace Tangosol.Net.Impl
         {
             add
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     bool wasEmpty = m_memberLeaving == null;
                     m_memberLeaving += value;
@@ -328,7 +328,7 @@ namespace Tangosol.Net.Impl
 
             remove
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_memberLeaving != null)
                     {
@@ -359,7 +359,7 @@ namespace Tangosol.Net.Impl
         {
             add
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     bool wasEmpty = m_memberLeft == null;
                     m_memberLeft += value;
@@ -377,7 +377,7 @@ namespace Tangosol.Net.Impl
 
             remove
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_memberLeft != null)
                     {
@@ -403,7 +403,7 @@ namespace Tangosol.Net.Impl
         {
             add
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     bool wasEmpty = m_serviceStarting == null;
                     m_serviceStarting += value;
@@ -421,7 +421,7 @@ namespace Tangosol.Net.Impl
 
             remove
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_serviceStarting != null)
                     {
@@ -447,7 +447,7 @@ namespace Tangosol.Net.Impl
         {
             add
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     bool wasEmpty = m_serviceStarted == null;
                     m_serviceStarted += value;
@@ -465,7 +465,7 @@ namespace Tangosol.Net.Impl
 
             remove
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_serviceStarted != null)
                     {
@@ -491,7 +491,7 @@ namespace Tangosol.Net.Impl
         {
             add
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     bool wasEmpty = m_serviceStopping == null;
                     m_serviceStopping += value;
@@ -509,7 +509,7 @@ namespace Tangosol.Net.Impl
 
             remove
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_serviceStopping != null)
                     {
@@ -535,7 +535,7 @@ namespace Tangosol.Net.Impl
         {
             add
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     bool wasEmpty = m_serviceStopped == null;
                     m_serviceStopped += value;
@@ -553,7 +553,7 @@ namespace Tangosol.Net.Impl
 
             remove
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (m_serviceStopped != null)
                     {
@@ -616,7 +616,7 @@ namespace Tangosol.Net.Impl
         /// </exception>
         public virtual void Start()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (SafeServiceState == ServiceState.Stopped)
                 {
@@ -652,7 +652,7 @@ namespace Tangosol.Net.Impl
         /// </remarks>
         public virtual void Shutdown()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (SafeServiceState != ServiceState.Stopped)
                 {
@@ -677,7 +677,7 @@ namespace Tangosol.Net.Impl
         /// </remarks>
         public virtual void Stop()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (SafeServiceState != ServiceState.Stopped)
                 {
@@ -845,9 +845,9 @@ namespace Tangosol.Net.Impl
             {
                 // to prevent a deadlock during restart we need to obtain the lock
                 // before restarting the service (see problem COH-77)
-                lock (typeof(CacheFactory))
+                using (BlockingLock l = BlockingLock.Lock(typeof(CacheFactory)))
                 {
-                    lock (this)
+                    using (BlockingLock l2 = BlockingLock.Lock(this))
                     {
                         service = Service;
                         switch (SafeServiceState)
@@ -1061,7 +1061,7 @@ namespace Tangosol.Net.Impl
                 // until after the "real" service is started
                 // (see synchronized block at the EnsureRunningService method)
                 // just wait till we are out of there
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     service = (IService)Service;
                 }
@@ -1095,7 +1095,7 @@ namespace Tangosol.Net.Impl
                 // until after the "real" service is started
                 // (see synchronized block at the EnsureRunningService method)
                 // just wait till we are out of there
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     service = Service;
                 }

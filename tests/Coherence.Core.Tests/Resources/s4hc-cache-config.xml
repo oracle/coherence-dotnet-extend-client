@@ -67,6 +67,11 @@
       <scheme-name>extend-direct</scheme-name>
     </cache-mapping>
 
+    <cache-mapping>
+      <cache-name>bad-*</cache-name>
+      <scheme-name>extend-bad-address</scheme-name>
+    </cache-mapping>
+
     <!-- these mappings are used only for mapping testing, schemes do not exist -->
     <cache-mapping>
       <cache-name>nr-*</cache-name>
@@ -277,10 +282,6 @@
               <address>127.0.0.1</address>
               <port>9700</port>
             </socket-address>
-             <socket-address>
-              <address>127.0.0.1</address>
-              <port>9701</port>
-            </socket-address>
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
@@ -435,5 +436,25 @@
         <connect-timeout>5s</connect-timeout>
       </initiator-config>
     </remote-invocation-scheme>
+
+    <remote-cache-scheme>
+      <scheme-name>extend-bad-address</scheme-name>
+      <service-name>ExtendTcpCacheServiceBadAddress</service-name>
+      <proxy-service-name>ExtendTcpProxyServiceBadAddress</proxy-service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+              <address>100.10.0.1</address>
+              <port>1000</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <heartbeat-interval>5s</heartbeat-interval>
+          <heartbeat-timeout>3s</heartbeat-timeout>
+        </outgoing-message-handler>
+      </initiator-config>
+    </remote-cache-scheme>
   </caching-schemes>
 </cache-config>

@@ -590,7 +590,7 @@ namespace Tangosol.Net.Cache
                     SemiLiteEventTransformer.Instance), true);
 
             GenerateEvents(cache, "Key", 100);
-            Thread.Sleep(1000);
+            Blocking.Sleep(1000);
 
             Assert.AreEqual(100, AtomicAllInsert);
             Assert.AreEqual(100, AtomicAllUpdate);
@@ -646,7 +646,7 @@ namespace Tangosol.Net.Cache
             DateTime endTime = DateTime.Now.AddSeconds(30);
             while (listener1.UpdateCount < 1 && (DateTime.Now < endTime))
             {
-                Thread.Sleep(250);
+                Blocking.Sleep(250);
             }
             Assert.AreEqual(listener1.UpdateCount, 1);
 
@@ -660,7 +660,7 @@ namespace Tangosol.Net.Cache
             endTime = DateTime.Now.AddSeconds(30);
             while (listener1.UpdateCount < 2 && (DateTime.Now < endTime))
             {
-                Thread.Sleep(250);
+                Blocking.Sleep(250);
             }
             Assert.AreEqual(listener1.UpdateCount, 2);
             Assert.AreEqual(listener2.UpdateCount, 1);
@@ -689,7 +689,7 @@ namespace Tangosol.Net.Cache
                 while (!waitListener.EventReceived)
                     {
                     Assert.IsFalse(waitListener.GetTimedOut());
-                    Thread.Sleep(250);
+                    Blocking.Sleep(250);
                     }
 
                 cache.RemoveCacheListener(waitListener);
@@ -704,7 +704,7 @@ namespace Tangosol.Net.Cache
                 while (!waitListener.EventReceived)
                     {
                     Assert.IsFalse(waitListener.GetTimedOut());
-                    Thread.Sleep(250);
+                    Blocking.Sleep(250);
                     }
 
                 cache.RemoveCacheListener(waitListener);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -230,6 +230,53 @@ namespace Tangosol.Net.Cache
         }
 
         /// <summary>
+        /// Constructs a new FilterEventArgs.
+        /// </summary>
+        /// <param name="cache">
+        /// The IObservableCache object that fired the event
+        /// </param>
+        /// <param name="type">
+        /// This event's type.
+        /// </param>
+        /// <param name="key">
+        /// The key into the cache.
+        /// </param>
+        /// <param name="valueOld">
+        /// The old value.
+        /// </param>
+        /// <param name="valueNew">
+        /// The new value.
+        /// </param>
+        /// <param name="isSynthetic">
+        /// <b>true</b> if the event is caused by the cache internal
+        /// processing such as eviction or loading.
+        /// </param>
+        /// <param name="transformState">
+        /// The TransformationState state describing
+        /// how this event has been or should be transformed.
+        /// </param>
+        /// <param name="isPriming">
+        /// <b>true</b> if the event is a priming event.
+        /// </param>
+        /// <param name="isExpired">
+        /// <b>true</b> if the event is an expired event.
+        /// </param>
+        /// <param name="filters">
+        /// An array of filters that caused this event.
+        /// </param>
+        /// <since>14.1.1.10</since>
+        public FilterEventArgs(IObservableCache cache, CacheEventType type, object key,
+            object valueOld, object valueNew,
+            bool isSynthetic, TransformationState transformState,
+            bool isPriming, bool isExpired, IFilter[] filters)
+            : base(cache, type, key, valueOld, valueNew, isSynthetic, transformState, isPriming, isExpired)
+        {
+            Debug.Assert(filters != null);
+            m_filters = filters;
+            m_event = null;
+        }
+
+        /// <summary>
         /// Constructs a new FilterEventArgs from another FilterEventArgs.
         /// </summary>
         /// <param name="evt">
@@ -242,7 +289,7 @@ namespace Tangosol.Net.Cache
         /// <since>Coherence 3.7.1.8</since>
         public FilterEventArgs(CacheEventArgs evt, IFilter[] filters)
                 : this(evt.m_source, evt.m_eventType, evt.Key, evt.OldValue, evt.NewValue,
-                       evt.IsSynthetic, evt.TransformState, evt.IsPriming, filters)
+                       evt.IsSynthetic, evt.TransformState, evt.IsPriming, evt.IsExpired, filters)
         {
             m_event = evt;
         }

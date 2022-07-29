@@ -434,7 +434,7 @@ namespace Tangosol.IO.Pof
             }
             set
             {
-                lock (this)
+                using (BlockingLock l = BlockingLock.Lock(this))
                 {
                     if (value != null && !XmlHelper.IsEmpty(value))
                     {
@@ -858,7 +858,7 @@ namespace Tangosol.IO.Pof
 
                         // update the mapping so that we don't have to
                         // brute-force search again
-                        lock (this)
+                        using (BlockingLock l = BlockingLock.Lock(this))
                         {
                             mapTypeIdByType = m_cfg.m_mapTypeIdByType;
                             if (!mapTypeIdByType.Contains(type))
@@ -889,7 +889,7 @@ namespace Tangosol.IO.Pof
 
                         // update the mapping so that we don't have to
                         // brute-force search again
-                        lock (this)
+                        using (BlockingLock l = BlockingLock.Lock(this))
                         {
                             mapTypeIdByType = m_cfg.m_mapTypeIdByType;
                             if (!mapTypeIdByType.Contains(type))
@@ -906,7 +906,7 @@ namespace Tangosol.IO.Pof
 
             // update the mapping with the miss so that we don't have to
             // brute-force search again
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 mapTypeIdByType = m_cfg.m_mapTypeIdByType;
                 if (!mapTypeIdByType.Contains(type))
@@ -956,7 +956,7 @@ namespace Tangosol.IO.Pof
                     typeId = GetUserTypeIdentifierInternal(TypeResolver.Resolve(typeName));
                     if (typeId >= 0)
                     {
-                        lock (this)
+                        using (BlockingLock l = BlockingLock.Lock(this))
                         {
                             mapTypeIdByTypeName = m_cfg.m_mapTypeIdByTypeName;
                             if (!mapTypeIdByTypeName.Contains(typeName))
@@ -1007,7 +1007,7 @@ namespace Tangosol.IO.Pof
         /// </summary>
         protected internal virtual void Initialize()
         {
-            lock (this)
+            using (BlockingLock l = BlockingLock.Lock(this))
             {
                 if (m_cfg == null)
                 {
@@ -1015,7 +1015,7 @@ namespace Tangosol.IO.Pof
                     IDictionary mapConfigByUri = m_mapConfigByUri;
                     PofConfig   cfg;
 
-                    lock(mapConfigByUri.SyncRoot)
+                    using (BlockingLock l2 = BlockingLock.Lock(mapConfigByUri.SyncRoot))
                     {
                         if (m_configFile == null)
                         {

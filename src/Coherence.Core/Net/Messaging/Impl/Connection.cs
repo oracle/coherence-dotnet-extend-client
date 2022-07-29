@@ -402,7 +402,7 @@ namespace Tangosol.Net.Messaging.Impl
             // close all open Channels, except for "Channel0"
             Channel    channel0;
             ILongArray channels = Channels;
-            lock (channels.SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(channels.SyncRoot))
             {
                 channel0 = (Channel) channels[0];
 
@@ -1397,7 +1397,7 @@ namespace Tangosol.Net.Messaging.Impl
                 return (Channel) channels[id];
             }
 
-            lock (channels.SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(channels.SyncRoot))
             {
                 return (IChannel) channels[id];
             }
@@ -1421,7 +1421,7 @@ namespace Tangosol.Net.Messaging.Impl
             ILongArray channels = Channels;
             ArrayList  list     = new ArrayList();
 
-            lock (channels.SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(channels.SyncRoot))
             {
                 foreach(DictionaryEntry entry in channels)
                 {
@@ -1519,7 +1519,7 @@ namespace Tangosol.Net.Messaging.Impl
         protected void RegisterChannel(IChannel channel)
         {
             ILongArray channels = Channels;
-            lock (channels.SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(channels.SyncRoot))
             {
                 if (channels.Exists(channel.Id))
                 {
@@ -1572,7 +1572,7 @@ namespace Tangosol.Net.Messaging.Impl
             }
 
             ILongArray channels = Channels;
-            lock (channels.SyncRoot)
+            using (BlockingLock l = BlockingLock.Lock(channels.SyncRoot))
             {
                 channels.Remove(channel.Id);
             }

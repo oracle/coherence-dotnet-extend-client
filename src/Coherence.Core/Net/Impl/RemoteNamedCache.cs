@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -2295,7 +2295,10 @@ namespace Tangosol.Net.Impl
             /// <param name="isPriming">
             /// <b>true</b> if the <b>CacheEvent</b> is a priming event.
             /// </param>
-            public virtual void Dispatch(CacheEventType type, long[] alFilterIds, object key, object valueOld, object valueNew, bool isSynthetic, int intTransformState, bool isPriming)
+            /// <param name="isExpired">
+            /// <b>true</b> if the <b>CacheEvent</b> results from a time-based eviction event.
+            /// </param>
+            public virtual void Dispatch(CacheEventType type, long[] alFilterIds, object key, object valueOld, object valueNew, bool isSynthetic, int intTransformState, bool isPriming, bool isExpired)
             {
                 CacheListenerSupport support  = CacheListenerSupport;
                 int                  cFilters = alFilterIds == null ? 0 : alFilterIds.Length;
@@ -2310,7 +2313,7 @@ namespace Tangosol.Net.Impl
                 {
                     ILongArray laFilters   = FilterArray;
                     ArrayList  listFilters = null;
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         for (int i = 0; i < cFilters; i++)
                         {
@@ -2339,7 +2342,7 @@ namespace Tangosol.Net.Impl
 
                         evt = new FilterEventArgs(this, type, key, valueOld,
                                                         valueNew, isSynthetic,
-                                                        transformState, isPriming, aFilters);
+                                                        transformState, isPriming, isExpired, aFilters);
                     }
                 }
 
@@ -2387,7 +2390,7 @@ namespace Tangosol.Net.Impl
                     if (evt == null)
                     {
                         // CacheEvent was sent by a key-based ICacheListener
-                        evt = new CacheEventArgs(this, type, key, valueOld, valueNew, isSynthetic, transformState, isPriming);
+                        evt = new CacheEventArgs(this, type, key, valueOld, valueNew, isSynthetic, transformState, isPriming, isExpired);
                     }
                     RunnableCacheEvent.DispatchSafe(evt, listeners, EventDispatcher.Queue);
                 }
@@ -2864,7 +2867,7 @@ namespace Tangosol.Net.Impl
                     Binary binKey = (Binary) BinaryToUndecoratedBinaryConverter.Convert(key);
 
                     CacheListenerSupport support = CacheListenerSupport;
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         wasEmpty = support.IsEmpty(binKey);
                         wasLite  = !wasEmpty && !support.ContainsStandardListeners(binKey);
@@ -2920,7 +2923,7 @@ namespace Tangosol.Net.Impl
 
                     IConverter conv = BinaryToUndecoratedBinaryConverter;
 
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                         {
                             foreach (object key in keys)
                             {
@@ -2935,7 +2938,7 @@ namespace Tangosol.Net.Impl
                     bool isEmpty;
                     long filterId = 0L;
 
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         support.RemoveListener(listener, filter);
                         isEmpty = support.IsEmpty(filter);
@@ -3003,7 +3006,7 @@ namespace Tangosol.Net.Impl
 
                     IConverter conv = BinaryToUndecoratedBinaryConverter;
 
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                         {
                             foreach (object key in keys)
                             {
@@ -3018,7 +3021,7 @@ namespace Tangosol.Net.Impl
                     }
                     catch (Exception)
                     {
-                        lock (support)
+                        using (BlockingLock l = BlockingLock.Lock(support))
                         {
                             foreach (object key in Keys)
                             {
@@ -3035,7 +3038,7 @@ namespace Tangosol.Net.Impl
                     bool wasLite;
                     long filterId;
 
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         wasEmpty = support.IsEmpty(filter);
                         wasLite  = !wasEmpty && !support.ContainsStandardListeners(filter);
@@ -3051,7 +3054,7 @@ namespace Tangosol.Net.Impl
                         }
                         catch (Exception)
                         {
-                            lock (support)
+                            using (BlockingLock l = BlockingLock.Lock(support))
                             {
                                 if (wasEmpty)
                                 {
@@ -3099,7 +3102,7 @@ namespace Tangosol.Net.Impl
                     Binary binKey = (Binary) BinaryToUndecoratedBinaryConverter.Convert(key);
 
                     CacheListenerSupport support = CacheListenerSupport;
-                    lock (support)
+                    using (BlockingLock l = BlockingLock.Lock(support))
                     {
                         support.RemoveListener(listener, binKey);
                         isEmpty = support.IsEmpty(binKey);
