@@ -20,14 +20,14 @@
 
   <!-- AssemblyInfo metadata -->
   <PropertyGroup>
-    <VersionPrefix Condition="'$(VersionPrefix)' == ''">14.1.1.4</VersionPrefix>
+    <VersionPrefix Condition="'$(VersionPrefix)' == ''">14.1.1.10</VersionPrefix>
     <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
     <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
     
     <Company>Oracle</Company>
-    <Copyright>Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2000, 2022, Oracle and/or its affiliates. All rights reserved.</Copyright>
     <Product>Oracle Coherence Client for .NET</Product>
 
     <Description Condition="'$(Official)' == ''" >$(Version) ($(USER))</Description>

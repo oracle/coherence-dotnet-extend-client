@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription(".NET Client API Tests for Oracle Coherence")]
 [assembly: AssemblyCompany("Oracle")]
 [assembly: AssemblyProduct("Oracle Coherence.NET Tests")]
-[assembly: AssemblyCopyright("Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright (c) 2000, 2022, Oracle and/or its affiliates. All rights reserved.")]
 
 // sign assembly when RELEASE configuration is used, in order to get access to Coherence.Core internals
 #if RELEASE
