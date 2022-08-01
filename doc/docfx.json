@@ -59,7 +59,7 @@
     "dest": "_site",
     "globalMetadata": {
       "_appTitle": "Oracle® Coherence Client for .NET",
-      "_appFooter": "Copyright © 2000, 2020, Oracle and/or its affiliates. All rights reserved.",
+      "_appFooter": "Copyright © 2000, 2022, Oracle and/or its affiliates. All rights reserved.",
       "_appLogoPath": "images/logo.png",
       "_enableNewTab": true
     },
