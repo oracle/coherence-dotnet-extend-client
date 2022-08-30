@@ -1,6 +1,6 @@
-# Copyright 2020, 2021 Oracle Corporation and/or its affiliates.  All rights reserved.
+# Copyright 2020, 2022 Oracle Corporation and/or its affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at
-# http://oss.oracle.com/licenses/upl.
+# https://oss.oracle.com/licenses/upl.
 
 # ---------------------------------------------------------------------------
 # Coherence .NET Extend Client GitHub Actions CI build.
@@ -78,7 +78,6 @@ jobs:
         mkdir -p tools\internal\resourcekit
         choco install winhttpcertcfg
         move C:\ProgramData\chocolatey\lib\WinHttpCertCfg\tools\* tools\internal\resourcekit\
-        xcopy "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\x64\certmgr.exe" "C:\ProgramData\Chocolatey\bin"
 
     # Build
     - name: Build
