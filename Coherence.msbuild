@@ -21,7 +21,7 @@
   <Import Project="Coherence.properties"/>
 
   <PropertyGroup>
-    <BuildTargetVersion Condition="'$(BuildTargetVersion)'==''">4.0</BuildTargetVersion>
+    <BuildTargetVersion Condition="'$(BuildTargetVersion)'==''">4.8</BuildTargetVersion>
     <TargetFrameworkVersion>v$(BuildTargetVersion)</TargetFrameworkVersion>
     <BuildVersion>$(AssemblyMajorVersion).$(AssemblyMinorVersion).$(AssemblyServicePack).$(AssemblyPatch)</BuildVersion>
     <BuildDescription Condition="'$(BuildOfficial)' != ''">$(AssemblyDescriptions)</BuildDescription>
@@ -179,7 +179,7 @@
   <Target Name="Test" DependsOnTargets="Ensure-Test-Server" >
 
     <PropertyGroup>
-      <TestTargetVersion Condition="'$(TestTargetVersion)' == ''" >4.0</TestTargetVersion>
+      <TestTargetVersion Condition="'$(TestTargetVersion)' == ''" >4.8</TestTargetVersion>
     </PropertyGroup>
 
     <Exec IgnoreExitCode="False" Command="$(NunitExec) /xml:all-tests.xml /framework:net-$(TestTargetVersion) $(BuildDir)\Coherence.Tests.2010\$(BuildType)\Coherence.Tests.dll"/>
@@ -189,7 +189,7 @@
 
   <Target Name="Test-Standard" DependsOnTargets="Ensure-Test-Server" >
     <PropertyGroup>
-      <TestTargetVersion Condition="'$(TestTargetVersion)' == ''" >4.0</TestTargetVersion>
+      <TestTargetVersion Condition="'$(TestTargetVersion)' == ''" >4.8</TestTargetVersion>
     </PropertyGroup>
 
     <Exec IgnoreExitCode="False" Command="$(NunitExec) /xml:stdandard-tests.xml /framework:net-$(TestTargetVersion) $(BuildDir)\Coherence.Tests.2010\$(BuildType)\Coherence.Tests.dll /exclude:Security"/>
@@ -199,7 +199,7 @@
 
   <Target Name="Test-Security" DependsOnTargets="Ensure-Test-Server" >
     <PropertyGroup>
-      <TestTargetVersion Condition="'$(TestTargetVersion)' == ''" >4.0</TestTargetVersion>
+      <TestTargetVersion Condition="'$(TestTargetVersion)' == ''" >4.8</TestTargetVersion>
     </PropertyGroup>
 
     <Exec IgnoreExitCode="False" Command="$(NunitExec ) /xml:security-tests.xml /framework:net-$(TestTargetVersion) $(BuildDir)\Coherence.Tests.2010\$(BuildType)\Coherence.Tests.dll /include:Security"/>
@@ -210,13 +210,13 @@
   <Target Name="Test-Full" DependsOnTargets="Ensure-Test-Server" >
 
     <PropertyGroup>
-      <TestTargetVersion Condition="'$(TestTargetVersion)' == ''" >4.0</TestTargetVersion>
+      <TestTargetVersion Condition="'$(TestTargetVersion)' == ''" >4.8</TestTargetVersion>
     </PropertyGroup>
     <Exec IgnoreExitCode="False" Command="$(NunitExec) /xml:all-tests.xml /framework:net-$(TestTargetVersion) $(BuildDir)\Coherence.Tests.2010\$(BuildType)\Coherence.Tests.dll"/>
 
     <Oracle.MSBuild.Sleep Timeout="60000" />
 
-    <Exec IgnoreExitCode="False" Command="$(NunitExec) /xml:all-tests.xml /framework:net-4.0 $(BuildDir)\Coherence.Tests.2010\$(BuildType)\Coherence.Tests.dll"/>
+    <Exec IgnoreExitCode="False" Command="$(NunitExec) /xml:all-tests.xml /framework:net-4.8 $(BuildDir)\Coherence.Tests.2010\$(BuildType)\Coherence.Tests.dll"/>
     <CallTarget Targets="Stop-Test-Server"/>
     <OnError ExecuteTargets="Stop-Test-Server"/>
   </Target>
