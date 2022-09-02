@@ -157,6 +157,7 @@
     <Exec Command="certutil -f -p password -importpfx $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pfx"/>
     <Exec Command="certutil -addstore -enterprise -f -v root $(TestsDir)\Coherence.Tests\Config\testcert.cer"/>
     <Exec Command="certutil -addstore -enterprise -f -v root $(TestsDir)\Coherence.Tests\Net\Ssl\CA.cer"/>
+    <Exec Command="certutil -addstore -enterprise -f -v root $(TestsDir)\Coherence.Tests\Net\Ssl\Server.cer"/>
   </Target>
 
   <Target Name="RemoveCerts">
@@ -165,6 +166,7 @@
     <Exec ContinueOnError="true" Command="certutil -delstore -v My &quot;Test And Dev Root Authority&quot;"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root TestCert"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root &quot;Test And Dev Root Authority&quot;"/>
+    <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root MyServerName"/>
   </Target>
 
   <Target Name="DeleteCerts">
