@@ -769,7 +769,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
             #region TcpConnection overrides
 
             /// <summary>
-            /// The <see cref="Connection.Close()"/> implementation method.
+            /// The <see cref="Tangosol.Net.Messaging.Impl.Connection.Close()"/> implementation method.
             /// </summary>
             /// <remarks>
             /// This method is called on the service thread.
@@ -816,7 +816,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
             }
 
             /// <summary>
-            /// The <see cref="Connection.Open()"/> implementation method.
+            /// The <see cref="Tangosol.Net.Messaging.Impl.Connection.Open()"/> implementation method.
             /// </summary>
             /// <remarks>
             /// This method is called on the service thread.
