@@ -48,7 +48,7 @@ namespace Tangosol.Net.Ssl
             WriteTimeout = 5000;
             CheckClientCertRevocation = false;
             AuthenticateClient = false;
-            Protocol = SslProtocols.Default;
+            Protocol = SslProtocols.Tls12;
         }
     
         public void Start()

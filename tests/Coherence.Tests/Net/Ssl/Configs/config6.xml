@@ -7,7 +7,7 @@
 -->
 <stream-provider xmlns="http://schemas.tangosol.com/cache">
     <ssl>
-        <protocol>Tls</protocol>
+        <protocol>Tls12</protocol>
         <local-certificates>
             <certificate>
               <url>./Net/Ssl/client.pfx</url>

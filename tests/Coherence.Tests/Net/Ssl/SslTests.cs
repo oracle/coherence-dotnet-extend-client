@@ -30,6 +30,7 @@ namespace Tangosol.Net.Ssl
         [SetUp]
         public void SetUp()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault;
         }
 
         [TearDown]
@@ -53,8 +54,7 @@ namespace Tangosol.Net.Ssl
             SslClient client =
                 new SslClient(location)
                     {
-                        ServerName = "MyServerName",
-                        Protocol   = SslProtocols.Default
+                        ServerName = "MyServerName"
                     };
             try
             {
@@ -85,8 +85,7 @@ namespace Tangosol.Net.Ssl
             SslClient client =
                     new SslClient(location)
                         {
-                            ServerName   = "MyServerName",
-                            Protocol     = SslProtocols.Default
+                            ServerName   = "MyServerName"
                         };
             try
             {
@@ -117,8 +116,7 @@ namespace Tangosol.Net.Ssl
             SslClient client =
                     new SslClient(location)
                         {
-                            ServerName = "MyServerName",
-                            Protocol   = SslProtocols.Default
+                            ServerName = "MyServerName"
                         };
             try
             {

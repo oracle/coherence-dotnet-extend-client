@@ -21,6 +21,7 @@ namespace Tangosol.Net.Ssl
             TcpClient = new TcpClient();
             ServerAddress = server;
             Certificates = new X509CertificateCollection();
+            Protocol = SslProtocols.Tls12;
         }
 
         private IPEndPoint ServerAddress { get; set; }

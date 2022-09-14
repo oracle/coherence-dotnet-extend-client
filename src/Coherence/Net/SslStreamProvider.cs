@@ -202,7 +202,25 @@ namespace Tangosol.Net
                 }
                 SslStream stream = new SslStream(client.GetStream(), false,
                                  RemoteCertificateValidator, LocalCertificateSelector);
-                stream.AuthenticateAsClient(serverName, ClientCertificates, Protocols, false);
+                try
+                {
+                    stream.AuthenticateAsClient(serverName, ClientCertificates, Protocols, false);
+                }
+                catch (ArgumentException e)
+                {
+                    if (e.ParamName == "sslProtocolType" && Protocols == SslProtocols.None)
+                    {
+                        // This is due to older system disables SystemDefault
+                        // (https://referencesource.microsoft.com/#System/net/System/Net/SecureProtocols/_SslState.cs,164)
+                        // Todo: for now fallback to Tls12|Tls13. Should find a way to not hard code this.
+                        Protocols = SslProtocols.Tls12 | SslProtocols.Tls13;
+                        stream.AuthenticateAsClient(serverName, ClientCertificates, Protocols, false);
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return stream;
             }
             catch (AuthenticationException)
@@ -247,10 +265,10 @@ namespace Tangosol.Net
                 // configure the ssl protocol
                 xmlSub = xml.GetElement("protocol");
                 Protocols = xmlSub == null
-                                    ? SslProtocols.Default
-                                    : (SslProtocols)
-                                      Enum.Parse(typeof(SslProtocols),
-                                                 xmlSub.GetString());
+                                   ? SslProtocols.None
+                                   : (SslProtocols)
+                                     Enum.Parse(typeof(SslProtocols),
+                                                xmlSub.GetString());
 
                 // configure the local X509Certificates
                 xmlSub = xml.GetElement("local-certificates");
