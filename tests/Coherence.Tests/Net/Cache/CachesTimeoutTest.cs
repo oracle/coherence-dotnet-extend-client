@@ -43,8 +43,6 @@ namespace Tangosol.Net.Cache
         {
             CountDownLatch latch1   = new CountDownLatch(1);
             CountDownLatch latch2   = new CountDownLatch(1);
-            Exception      e1       = null;
-            Exception      e2       = new ThreadInterruptedException();
             long           duration = 0;
 
             Thread thread1 = new Thread(() =>
@@ -65,7 +63,7 @@ namespace Tangosol.Net.Cache
                 }
                 catch (Exception e)
                 {
-                    e1 = e;
+                    Assert.Fail("CacheFactory.getCache() failed to get the cache!");
                 }
             });
 
@@ -78,11 +76,11 @@ namespace Tangosol.Net.Cache
                     using (ThreadTimeout t = ThreadTimeout.After(1000))
                     {
                         CacheFactory.GetCache("dist-timeout-cache2");
+                        Assert.Fail("CacheFactory.getCache() did not get ThreadInterruptedException!");
                     }
                 }
-                catch (Exception e)
+                catch (ThreadInterruptedException)
                 {
-                    e2 = e;
                 }
             });
 
@@ -92,25 +90,11 @@ namespace Tangosol.Net.Cache
 
             // ensure task1 is the lock winner
             latch1.CountDown();
-            Blocking.Sleep(50);
+            Blocking.Sleep(5);
             latch2.CountDown();
 
             thread1.Join();
             thread2.Join();
-
-            if (e1 != null)
-            {
-                Assert.Fail("CacheFactory.getCache() failed to get the cache!");
-            }
-
-            if (e2 == null)
-            {
-                Assert.Fail("CacheFactory.GetCache() should failed with RequestTimeoutException!");
-            }
-            else
-            {
-                Assert.IsTrue(e2 is ThreadInterruptedException);
-            }
         }
     }
 
