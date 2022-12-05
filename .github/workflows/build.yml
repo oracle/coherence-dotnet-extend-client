@@ -27,7 +27,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -78,7 +78,6 @@ jobs:
         mkdir -p tools\internal\resourcekit
         choco install winhttpcertcfg
         move C:\ProgramData\chocolatey\lib\WinHttpCertCfg\tools\* tools\internal\resourcekit\
-        xcopy "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\x64\certmgr.exe" "C:\ProgramData\Chocolatey\bin"
 
     # Build
     - name: Build
