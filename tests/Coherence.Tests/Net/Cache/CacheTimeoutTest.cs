@@ -62,6 +62,7 @@ namespace Tangosol.Net.Cache
 
             try
             {
+                IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
                 using (ThreadTimeout t = ThreadTimeout.After(40000))
                 {
                     INamedCache cache = GetCache("dist-timeout");
