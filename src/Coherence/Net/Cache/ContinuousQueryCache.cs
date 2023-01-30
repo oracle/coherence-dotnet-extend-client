@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2023, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -2557,11 +2557,18 @@ namespace Tangosol.Net.Cache
             {
                 if (State <= CacheState.Configuring)
                 {
-                    // since the listeners are being configured and the local
-                    // cache is being populated, assume that the event is
-                    // being processed out-of-order and requires a subsequent
-                    // synchronization of the corresponding value
-                    cacheSyncReq[key] = null;
+                    if (typeof(DeactivationListener).Name.Equals(key))
+                    {
+                        cacheSyncReq.Clear();
+                    }
+                    else
+                    {
+                        // since the listeners are being configured and the local
+                        // cache is being populated, assume that the event is
+                        // being processed out-of-order and requires a subsequent
+                        // synchronization of the corresponding value
+                        cacheSyncReq[key] = null;
+                    }
                     isDeferred = true;
                 }
                 else
@@ -3056,13 +3063,16 @@ namespace Tangosol.Net.Cache
                 // "truncate" event
                 ContinuousQueryCache queryCache    = m_parentQueryCache;
                 IObservableCache     internalCache = queryCache.InternalCache;
-                if (internalCache is LocalCache)
+                if (!queryCache.IsEventDeferred(typeof(DeactivationListener).Name))
                 {
-                    ((LocalCache) internalCache).Truncate();
-                }
-                else
-                {
-                    internalCache.Clear();
+                    if (internalCache is LocalCache)
+                    {
+                        ((LocalCache) internalCache).Truncate();
+                    }
+                    else
+                    {
+                        internalCache.Clear();
+                    }
                 }
             }
 
