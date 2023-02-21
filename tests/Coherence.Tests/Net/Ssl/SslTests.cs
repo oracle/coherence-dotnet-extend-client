@@ -85,7 +85,8 @@ namespace Tangosol.Net.Ssl
             SslClient client =
                     new SslClient(location)
                         {
-                            ServerName   = "MyServerName"
+                            ServerName = "MyServerName",
+                            Protocol   = SslProtocols.Default
                         };
             try
             {
