@@ -53,7 +53,7 @@ distributed applications.
 
 # <a name="acquire"></a>How to Get Coherence Community Edition
 
-For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/README.md).
+For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/tree/master/README.md).
 
 # <a name="intro_extend"></a>Introduction to Coherence for .NET
 
