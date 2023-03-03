@@ -127,9 +127,9 @@
   <!-- Generate certificates -->
   <Target Name="GenerateCerts">
     <!-- generate CA cert and create required client and server cert using that -->
-    <!-- Exec Command="openssl genrsa -passout pass:password -des3 -out $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pem 4096"/-->
-    <!-- Exec Command="openssl genrsa -passout pass:password -des3 -out $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pem 4096"/-->
-    <!-- Exec Command="openssl genrsa -passout pass:password -des3 -out $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem 4096"/-->
+    <!-- Exec Command="openssl genrsa -passout pass:password -aes256 -out $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pem 4096"/-->
+    <!-- Exec Command="openssl genrsa -passout pass:password -aes256 -out $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pem 4096"/-->
+    <!-- Exec Command="openssl genrsa -passout pass:password -aes256 -out $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem 4096"/-->
     <Exec Command="openssl req -passin pass:password -new -x509 -key $(TestsDir)\Coherence.Tests\Net\Ssl\CA.pem -out $(TestsDir)\Coherence.Tests\Net\Ssl\CA.cer -subj &quot;/CN=Test And Dev Root Authority&quot;"/>
     <Exec Command="openssl req -passin pass:password -nodes -new -key $(TestsDir)\Coherence.Tests\Net\Ssl\Client.pem -out $(TestsDir)\Coherence.Tests\Net\Ssl\Client.csr -subj &quot;/CN=MyClient&quot;"/>
     <Exec Command="openssl req -passin pass:password -nodes -new -key $(TestsDir)\Coherence.Tests\Net\Ssl\Server.pem -out $(TestsDir)\Coherence.Tests\Net\Ssl\Server.csr -subj &quot;/CN=MyServerName&quot;"/>
