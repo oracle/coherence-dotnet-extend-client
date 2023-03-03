@@ -27,7 +27,7 @@ namespace Tangosol.Net.Cache
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
 
             IXmlDocument config =
-                XmlHelper.LoadXml("assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config.xml");
+                XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config.xml");
             ccf.Config = config;
 
             return CacheFactory.GetCache(cacheName);
@@ -41,7 +41,7 @@ namespace Tangosol.Net.Cache
         {
             try
             {
-                using (ThreadTimeout t = ThreadTimeout.After(200))
+                using (ThreadTimeout t = ThreadTimeout.After(100))
                 {
                     INamedCache cache = GetCache("dist-timeout");
                     for (int i = 0; i < 1000; i++)
@@ -53,16 +53,16 @@ namespace Tangosol.Net.Cache
                     Assert.Fail("CacheFactory.GetCache should be interrupted!");
                 }
             }
-            catch (Exception e)
+            catch (ThreadInterruptedException)
             {
                 CacheFactory.Shutdown();
-                Assert.IsTrue(e is ThreadInterruptedException);
             }
 
             Assert.AreEqual(ThreadTimeout.RemainingTimeoutMillis, Int32.MaxValue);
 
             try
             {
+                IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
                 using (ThreadTimeout t = ThreadTimeout.After(40000))
                 {
                     INamedCache cache = GetCache("dist-timeout");
