@@ -63,7 +63,7 @@ namespace Tangosol.Net.Cache
                 }
                 catch (Exception e)
                 {
-                    Assert.Fail("CacheFactory.getCache() failed to get the cache!");
+                    Assert.Fail("CacheFactory.getCache() failed to get the cache with exception: " + e);
                 }
             });
 
@@ -73,9 +73,13 @@ namespace Tangosol.Net.Cache
 
                 try
                 {
-                    using (ThreadTimeout t = ThreadTimeout.After(1000))
+                    using (ThreadTimeout t = ThreadTimeout.After(100))
                     {
-                        CacheFactory.GetCache("dist-timeout-cache2");
+                        INamedCache cache = CacheFactory.GetCache("dist-timeout-cache2");
+                        for (int i = 0; i < 5000; i++)
+                        {
+                            cache.Add("key" + i, "value" + i);
+                        }
                         Assert.Fail("CacheFactory.getCache() did not get ThreadInterruptedException!");
                     }
                 }
