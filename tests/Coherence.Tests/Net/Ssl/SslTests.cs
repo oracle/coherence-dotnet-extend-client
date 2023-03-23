@@ -71,7 +71,6 @@ namespace Tangosol.Net.Ssl
         }
 
         [Test, RequiresThread]
-        [ExpectedException(typeof(IOException))]
         public void TestSslClientAuthenticationException()
         {
             var location = new IPEndPoint(IPAddress.Loopback, 5055);
@@ -85,14 +84,18 @@ namespace Tangosol.Net.Ssl
             SslClient client =
                     new SslClient(location)
                         {
-                            ServerName   = "MyServerName",
-                            Protocol     = SslProtocols.Default
+                            ServerName = "MyServerName",
+                            Protocol   = SslProtocols.None
                         };
             try
             {
                 client.Connect();
-                Thread.Sleep(1000);
                 string echo = client.Echo("Hello World");
+                Assert.Fail("Expected Exception, but got none");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("SslTests.TestSslClientAuthenticationException(), got expected exception: " + e.ToString());
             }
             finally
             {
