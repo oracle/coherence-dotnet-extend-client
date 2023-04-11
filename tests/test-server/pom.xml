@@ -51,6 +51,7 @@
           <arguments>
             <argument>-classpath</argument>
             <classpath/>
+            <argument>-Dcoherence.log=..\..\build\DefaultCacheServer.log</argument>
             <argument>com.tangosol.net.DefaultCacheServer</argument>
           </arguments>
         </configuration>
