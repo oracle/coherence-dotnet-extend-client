@@ -99,3 +99,11 @@ jobs:
     # Run Tests
     - name: Run Tests
       run: dotnet test --configuration Release --no-restore
+
+    # Capture server log for diagnosing failures
+    - name: Capture test logs
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: build-output
+        path: build\**\*.log
