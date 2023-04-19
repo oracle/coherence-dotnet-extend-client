@@ -1,9 +1,9 @@
 <!--
 
-  Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2023, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
-  http://oss.oracle.com/licenses/upl.
+  https://oss.oracle.com/licenses/upl.
 
 -->
 
@@ -53,7 +53,7 @@ distributed applications.
 
 # <a name="acquire"></a>How to Get Coherence Community Edition
 
-For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/README.md).
+For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/tree/master/README.md).
 
 # <a name="intro_extend"></a>Introduction to Coherence for .NET
 
@@ -441,3 +441,6 @@ For further details on developing Coherence for .NET applications, see the docum
 
 Interested in contributing?  Please see our contribution [guidelines](CONTRIBUTING.md) for details.
 
+# Security
+
+Please consult the [security guide](./SECURITY.md) for our responsible security vulnerability disclosure process
