@@ -6,7 +6,6 @@
  */
 using System;
 using System.Reflection;
-using System.Web;
 
 namespace Tangosol.IO.Resources
 {
