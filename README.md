@@ -1,6 +1,6 @@
 <!--
 
-  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2023, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   http://oss.oracle.com/licenses/upl.
@@ -27,9 +27,9 @@
 
 # <a name="intro"></a>Introduction to Coherence
 
-[Coherence](http://coherence.java.net/) is scalable, fault-tolerant, cloud-ready,
+[Coherence](https://coherence.community) is a scalable, fault-tolerant, cloud-ready,
 distributed platform for building grid-based applications and reliably storing data.
-The product is used at scale, for both compute and raw storage, in a vast array of
+Coherence is used at scale, for both compute and raw storage, in a vast array of
 industries including critical financial trading systems, high performance telecommunication
 products and eCommerce applications to name but a few. Typically these deployments
 do not tolerate any downtime and Coherence is chosen due its novel features in 
@@ -41,7 +41,7 @@ interface but rather than storing the associated data in the local process it is
 (or sharded if you prefer) across a number of designated remote nodes. This allows
 applications to not only distribute (and therefore scale) their storage across multiple
 processes, machines, racks, and data centers but also to perform grid-based processing
-to truly harness the cpu resources of the machines. The Coherence interface `INamedCache`
+to truly harness the CPU resources of the machines. The Coherence interface `INamedCache`
 (an extension of `IDictionary`) provides methods to query, aggregate (map/reduce style) and
 compute (send functions to storage nodes for locally executed mutations) the data set.
 These capabilities, in addition to numerous other features, allows Coherence to be used
@@ -49,7 +49,7 @@ as a framework to write robust, distributed applications.
 
 # <a name="acquire"></a>How to Get Coherence Community Edition
 
-For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/README.md).
+For more details on how to obtain and use Coherence, please see the [Coherence Community](https://coherence.community) website.
 
 # <a name="intro_extend"></a>Introduction to Coherence for .NET
 
@@ -157,11 +157,11 @@ The following example illustrates starting a storage enabled Coherence server, f
 ```
 dotnet new console -name "HelloCoherence"
 ```
-1. Add the following references to the HelloCoherence.csproj (provide the Coherence.Core.dll location in the `<HintPath>`):
+1. Add the following references to the HelloCoherence.csproj (provide the Coherence.dll location in the `<HintPath>`):
 ```
   <ItemGroup>
-    <Reference Include="Coherence.Core, Version=14.1.1.4, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
-      <HintPath>Coherence.Core.dll</HintPath>
+    <Reference Include="Coherence, Version=14.1.1.13, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+      <HintPath>Coherence.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
@@ -172,7 +172,7 @@ Also include any Coherence configuration files you may have.
 1. Replace Program.cs code with the following source:
 ```
 /*
- * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2023, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -312,7 +312,7 @@ By default, you need to provide a POF configure file, pof-config.xml, in the Tar
 ```
 <?xml version="1.0"?>
 <!--
-  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2023, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   http://oss.oracle.com/licenses/upl.
@@ -320,7 +320,7 @@ By default, you need to provide a POF configure file, pof-config.xml, in the Tar
 <pof-config xmlns="http://schemas.tangosol.com/pof">
   <user-type-list>
     <!-- include all "standard" Coherence POF user types -->
-    <include>assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml</include>
+    <include>assembly://Coherence/Tangosol.Config/coherence-pof-config.xml</include>
 
     <!-- include all application POF user types -->
   </user-type-list>
@@ -423,11 +423,10 @@ msbuild /t:dist Coherence.msbuild
 ```
 The resulting files:
 
-`dist\14.1.2.0b0` - Coherence MSI installer
+`dist\14.1.1.13b0` - Coherence MSI installer
 
-For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/develop-remote-clients/creating-net-extend-clients.html).
+For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/develop-remote-clients/creating-net-extend-clients.html).
 
 # <a name="contrib"></a>Contribute
 
 Interested in contributing?  Please see our contribution [guidelines](CONTRIBUTING.md) for details.
-
