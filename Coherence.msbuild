@@ -303,13 +303,13 @@
 
     <!-- Copy the metalink readme and update it with the appropriate information -->
     <PropertyGroup>
-      <ReadmeFileName>README.md</ReadmeFileName>
+      <ReadmeFileName>readme.txt</ReadmeFileName>
       <ReadmeFileName Condition=" '$(BuildDescription)'=='prerelease' ">readme-prerelease.txt</ReadmeFileName>
     </PropertyGroup>
 
     <ItemGroup>
-      <ReadmeFile Include="$(ReadmeFileName)"/>
-      <ReadmeFileDest Include="$(DistVersionDir)\$(ReadmeFileName)"/>
+      <ReadmeFile Include="$(DocDir)\build\$(ReadmeFileName)"/>
+      <ReadmeFileDest Include="$(DistVersionDir)\README.txt"/>
     </ItemGroup>
 
     <Copy SourceFiles="@(ReadmeFile)" DestinationFiles="@(ReadmeFileDest)"/>
