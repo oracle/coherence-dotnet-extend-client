@@ -439,7 +439,7 @@ For further details on developing Coherence for .NET applications, see the docum
 
 ## <a name="contrib"></a>Contributing
 
-Interested in contributing?  Please see our contribution [guidelines](CONTRIBUTING.md) for details.
+This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
 
 ## Security
 
