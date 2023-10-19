@@ -24,8 +24,6 @@
 1. [Testing](#testing)
 1. [Documentation](#docs)
 1. [Contributing](#contrib)
-1. [Security] (#secur)
-1. [License] (#license)
 
 ## <a name="intro"></a>Introduction to Coherence
 
@@ -443,11 +441,11 @@ For further details on developing Coherence for .NET applications, see the docum
 
 This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
 
-## <a name="secur"></a>Security
+## Security
 
 Please consult the [security guide](./SECURITY.md) for our responsible security vulnerability disclosure process.
 
-## <a name="license"></a>License
+## License
 
 Copyright (c) 2020, 2023 Oracle and/or its affiliates.
 
