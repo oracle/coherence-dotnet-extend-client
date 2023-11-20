@@ -165,6 +165,7 @@
     <Exec ContinueOnError="true" Command="certutil -delstore -v My MyServerName"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -v My &quot;Test And Dev Root Authority&quot;"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root TestCert"/>
+    <Exec ContinueOnError="true" Command="certutil -delstore -v root &quot;Test And Dev Root Authority&quot;"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root &quot;Test And Dev Root Authority&quot;"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root MyServerName"/>
   </Target>
