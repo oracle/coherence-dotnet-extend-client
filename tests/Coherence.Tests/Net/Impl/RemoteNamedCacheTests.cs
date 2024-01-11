@@ -10,6 +10,7 @@ using System.Collections.Specialized;
 
 using NUnit.Framework;
 using Tangosol.Net.Cache;
+using Tangosol.Net.Messaging;
 using Tangosol.Net.Messaging.Impl.NamedCache;
 using Tangosol.Util;
 using Tangosol.Util.Comparator;
@@ -47,10 +48,33 @@ namespace Tangosol.Net.Impl {
             return o;
         }
 
+        /// <summary>
+        /// Get a named cache given the cache name.
+        /// </summary>
+        /// <param name="CacheName">The name of the cache.</param>
+        /// <returns>The named cache.</returns>
+        protected virtual INamedCache GetCache(String CacheName)
+        {
+            INamedCache cache = null;
+
+            try
+            {
+                cache = CacheFactory.GetCache(CacheName);
+            }
+            catch (ConnectionException e)
+            {
+                // occasionally, we may get exception from .NET SSPI; wait for a few seconds and try again
+                Blocking.Sleep(3000);
+                cache = CacheFactory.GetCache(CacheName);
+            }
+
+        return cache;
+        }
+
         [Test]
         public virtual void TestInitialize()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             Assert.IsNotNull(cache);
             Assert.IsInstanceOf(typeof(SafeNamedCache), cache);
             Assert.IsInstanceOf(typeof(SafeCacheService), cache.CacheService);
@@ -73,7 +97,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public virtual void TestNamedCacheProperties()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             string key = "testNamedCachePropertiesKey";
             string value = "testNamedCachePropertiesValue";
 
@@ -106,7 +130,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestNamedCacheMethods()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             string key = "testNamedCacheInterfaceMethodsKey";
             string value = "testNamedCacheInterfaceMethodsValue";
 
@@ -154,7 +178,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public virtual void TestNamedCacheLock()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             string key = "testNamedCacheInterfaceMethodsKey";
             string value = "testNamedCacheInterfaceMethodsValue";
 
@@ -184,7 +208,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestNamedCacheKeysCollection()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             object[] keys = { GetKeyObject("key1"), GetKeyObject("key2"), GetKeyObject("key3"), GetKeyObject("key4") };
             string[] values = { "value1", "value2", "value3", "value4" };
             cache.Clear();
@@ -221,7 +245,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestNamedCacheValuesCollection()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             object[] keys = { GetKeyObject("key1"), GetKeyObject("key2"), GetKeyObject("key3"), GetKeyObject("key4") };
             string[] values = { "value1", "value2", "value3", "value4" };
             cache.Clear();
@@ -256,7 +280,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public virtual void TestNamedCacheEntryCollection()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             object[] keys = { GetKeyObject("key1"), GetKeyObject("key2"), GetKeyObject("key3"), GetKeyObject("key4") };
             string[] values = { "value1", "value2", "value3", "value4" };
             cache.Clear();
@@ -283,7 +307,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestNamedCacheIndex()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             IValueExtractor extractor = IdentityExtractor.Instance;
             cache.Clear();
 
@@ -307,7 +331,7 @@ namespace Tangosol.Net.Impl {
             INamedCache cache;
             object[] keys = { GetKeyObject("key1"), GetKeyObject("key2"), GetKeyObject("key3"), GetKeyObject("key4") };
             string[] values = { "value1", "value2", "value3", "value4" };
-            using(cache = CacheFactory.GetCache(CacheName))
+            using(cache = GetCache(CacheName))
             {
                 cache.Clear();
                 IDictionary h = new Hashtable();
@@ -330,7 +354,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestRemoteNamedCacheGetAllWithSameKeys()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
             IDictionary dict = new Hashtable();
             for (int i = 0; i < 10; i++)
@@ -347,7 +371,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestCacheTriggerListener()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
 
             FilterTrigger ftRollback = new FilterTrigger(NeverFilter.Instance, FilterTrigger.ActionCode.Rollback);
@@ -397,7 +421,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestGetKeys()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
 
             IDictionary dict = new Hashtable();
@@ -421,7 +445,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestGetValues()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
 
             IDictionary dict = new Hashtable();
@@ -457,7 +481,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestGetEntries()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
 
             IDictionary dict = new Hashtable();
@@ -511,7 +535,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestListeners()
         {
-            INamedCache namedCache = CacheFactory.GetCache(CacheName);
+            INamedCache namedCache = GetCache(CacheName);
 
             Hashtable ht = new Hashtable();
             ht.Add(GetKeyObject("Key1"), 435);
@@ -625,7 +649,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestGetOrDefault()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
 
             Hashtable ht = new Hashtable();
@@ -645,7 +669,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestPutIfAbsent()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
 
             Hashtable ht = new Hashtable();
@@ -666,7 +690,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestRemove()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
 
             Hashtable ht = new Hashtable();
@@ -684,7 +708,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestReplace()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
             cache.Clear();
 
             Hashtable ht = new Hashtable();
@@ -709,7 +733,7 @@ namespace Tangosol.Net.Impl {
         [Test]
         public void TestExpiry()
         {
-            INamedCache cache = CacheFactory.GetCache(CacheName);
+            INamedCache cache = GetCache(CacheName);
 
             TestCacheListener listener = new TestCacheListener();
             cache.AddCacheListener(listener, 1, false);
