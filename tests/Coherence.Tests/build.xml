@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
-  Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2024, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
-  http://oss.oracle.com/licenses/upl.
+  https://oss.oracle.com/licenses/upl.
 -->
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -36,7 +36,7 @@
   <property name="build.dir"           value="${env.DEV_ROOT}/build"/>
   <property name="classes.dir"         value="${build.dir}/classes"/>
   <property name="build.groupId_maven" value="com.oracle.coherence.ce"/>
-  <property name="build.version_maven" value="14.1.1-0-10"/>
+  <property name="build.version_maven" value="14.1.1-0-16"/>
   <property name="lib.dir"             value="${env.DEV_ROOT}/lib/java"/>
 
   <!-- Ivy -->
