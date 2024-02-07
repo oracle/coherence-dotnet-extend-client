@@ -16,6 +16,7 @@ on:
     branches:
     - main
     - v14.1.1.0-net-core
+    - v14.1.1.0
   pull_request:
     types:
       - opened
