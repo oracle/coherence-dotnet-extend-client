@@ -161,11 +161,11 @@ The following example illustrates starting a storage enabled Coherence server, f
 ```
 dotnet new console -name "HelloCoherence"
 ```
-1. Add the following references to the HelloCoherence.csproj (provide the Coherence.Core.dll location in the `<HintPath>`):
+1. Add the following references to the HelloCoherence.csproj (provide the Coherence.dll location in the `<HintPath>`):
 ```
   <ItemGroup>
-    <Reference Include="Coherence.Core, Version=14.1.1.4, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
-      <HintPath>Coherence.Core.dll</HintPath>
+    <Reference Include="Coherence, Version=14.1.2.0, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+      <HintPath>Coherence.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
@@ -324,7 +324,7 @@ By default, you need to provide a POF configure file, pof-config.xml, in the Tar
 <pof-config xmlns="http://schemas.tangosol.com/pof">
   <user-type-list>
     <!-- include all "standard" Coherence POF user types -->
-    <include>assembly://Coherence.Core/Tangosol.Config/coherence-pof-config.xml</include>
+    <include>assembly://Coherence/Tangosol.Config/coherence-pof-config.xml</include>
 
     <!-- include all application POF user types -->
   </user-type-list>

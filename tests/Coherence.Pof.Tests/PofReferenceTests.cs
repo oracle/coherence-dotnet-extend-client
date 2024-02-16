@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -25,15 +25,15 @@ namespace Tangosol.Data
         [Test]
         public void PofCircularReference()
         {
-            CacheFactory.DefaultOperationalConfigPath = "//Coherence.Core.Tests/Tangosol.Resources/s4hc-test-coherence.xml";
+            CacheFactory.DefaultOperationalConfigPath = "//Coherence.Tests/Tangosol.Resources/s4hc-test-coherence.xml";
             CacheFactory.DefaultOperationalConfig = XmlHelper.LoadResource(ResourceLoader.GetResource(
-                "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-coherence.xml"), "Operational configuration");
-            CacheFactory.DefaultPofConfigPath = "//Coherence.Core.Tests/Tangosol.Resources/s4hc-test-reference-config.xml";
+                "assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-coherence.xml"), "Operational configuration");
+            CacheFactory.DefaultPofConfigPath = "//Coherence.Tests/Tangosol.Resources/s4hc-test-reference-config.xml";
             CacheFactory.DefaultPofConfig     = XmlHelper.LoadResource(ResourceLoader.GetResource(
-                "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-reference-config.xml"), "POF configuration");
+                "assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-reference-config.xml"), "POF configuration");
             IConfigurableCacheFactory ccf = CacheFactory.ConfigurableCacheFactory;
             ccf.Config = XmlHelper.LoadXml(
-                "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config-reference.xml");
+                "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-reference.xml");
             ICacheService service = (ICacheService) ccf.EnsureService("ExtendTcpCacheService");
             INamedCache   cache   = service.EnsureCache("dist-extend-reference");
 
@@ -45,9 +45,9 @@ namespace Tangosol.Data
             cache.Add("Key1", joe);
             cache.Invoke("Key1", new ConditionalPut(new AlwaysFilter(), joe, false));
 
-            CacheFactory.DefaultPofConfigPath = "//Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml";
+            CacheFactory.DefaultPofConfigPath = "//Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml";
             CacheFactory.DefaultPofConfig     = XmlHelper.LoadResource(ResourceLoader.GetResource(
-                "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-test-config.xml"), "POF configuration");
+                "assembly://Coherence.Tests/Tangosol.Resources/s4hc-test-config.xml"), "POF configuration");
             CacheFactory.Shutdown();
         } 
     }

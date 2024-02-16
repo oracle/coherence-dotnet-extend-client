@@ -1,6 +1,6 @@
-# Copyright 2020 Oracle Corporation and/or its affiliates.  All rights reserved.
+# Copyright 2020, 2024, Oracle Corporation and/or its affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at
-# http://oss.oracle.com/licenses/upl.
+# https://oss.oracle.com/licenses/upl.
 
 # ---------------------------------------------------------------------------
 # Coherence .NET Extend Client GitHub Actions CI build.
@@ -15,15 +15,12 @@ on:
   push:
     branches:
     - main
-    - v14.1.1.0-net-core
-    - v14.1.1.0
   pull_request:
     types:
       - opened
       - committed
     branches:
     - main
-    - v14.1.1.0-net-core
     - '*'
 
 jobs:
@@ -56,7 +53,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        coherence_version: [14.1.1-0-10, 22.06.1, 22.09-SNAPSHOT]
+        coherence_version: [14.1.1-0-16, 22.06.7, 23.09.2]
 
     steps:
     - name: Checkout
@@ -71,9 +68,9 @@ jobs:
     # Install SSL certificates
     - name: Install SSL certificates
       run: |
-        sudo cp tests/Coherence.Core.Tests/Config/testcert.pem /usr/local/share/ca-certificates/testcert.crt
-        sudo cp tests/Coherence.Core.Tests/Net/Ssl/CA.cer /usr/local/share/ca-certificates/CA.crt
-        sudo cp tests/Coherence.Core.Tests/Net/Ssl/Server.cer /usr/local/share/ca-certificates/Server.crt
+        sudo cp tests/Coherence.Tests/Config/testcert.pem /usr/local/share/ca-certificates/testcert.crt
+        sudo cp tests/Coherence.Tests/Net/Ssl/CA.cer /usr/local/share/ca-certificates/CA.crt
+        sudo cp tests/Coherence.Tests/Net/Ssl/Server.cer /usr/local/share/ca-certificates/Server.crt
         sudo update-ca-certificates
         
     # Build

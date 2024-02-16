@@ -1,9 +1,6 @@
 # API Documentation
 
-This is API documentation for the .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence Client for .NET. 
-
-> [!Note]
-> The API documentation for the .NET Framework 4.0 (or later) compatible implementation of Oracle Coherence Client for .NET is available [here](https://coherence.community/14.1.1.0/api/dotnet/).
+This is API documentation for the .NET 6 implementation of Oracle Coherence Client for .NET. 
 
 ### About Oracle Coherence
 

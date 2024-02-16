@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Tangosol.Data</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <DefineConstants>NET_4_0</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
 
@@ -19,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Coherence.Core\Coherence.Core.csproj" />
-    <ProjectReference Include="..\Coherence.Core.Tests\Coherence.Core.Tests.csproj" />
+    <ProjectReference Include="..\..\src\Coherence\Coherence.csproj" />
+    <ProjectReference Include="..\Coherence.Tests\Coherence.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

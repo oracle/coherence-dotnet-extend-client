@@ -1,4 +1,4 @@
-Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License v 1.0 as shown at
 http://oss.oracle.com/licenses/upl.
@@ -26,8 +26,8 @@ To add new data files (or change the data):
 1) p4 edit and update PofStreamTests.{cs | java}
 
 2) on dotnet:
-    - add a new data file to tests/Coherence.Core.Tests/Coherence.Core.Tests.2008.csproj
-    - run PofStreamTests.cs to tests/Coherence.Core.Tests/Coherence.Core.Tests.2008.csproj
+    - add a new data file to tests/Coherence.Pof.Tests/Coherence.Pof.Tests.csproj
+    - run PofStreamTests.cs to tests/Coherence.Pof.Tests/Coherence.Pof.Tests.csproj
 
 3) on Java:
     - run PofStreamTests.java standalone
@@ -38,7 +38,7 @@ To add new data files (or change the data):
 
 6) copy the dotnet generated data file to main/tests/Data/dotnet
 
-7) copy the Java generated data file to main.net/tests/Coherence.Core.Tests/Data/Java
+7) copy the Java generated data file to main.net/tests/Coherence.Pof.Tests/Java
 
 8) run the unit tests again to verify PofStreamTests can read the newly
 generated data.

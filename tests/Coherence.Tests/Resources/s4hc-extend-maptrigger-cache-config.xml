@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+ <cache-config xmlns="http://schemas.tangosol.com/cache">
+
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>dist-extend-trigger-listener</cache-name>
+      <scheme-name>extend-trigger-listener</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+    <remote-cache-scheme>
+      <scheme-name>extend-trigger-listener</scheme-name>
+      <service-name>ExtendTcpCacheService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9099</port>
+            </socket-address>
+            <!-- socket-address>
+              <address>127.0.0.1</address>
+              <port>9100</port>
+            </socket-address -->
+          </remote-addresses>
+        </tcp-initiator>
+        <use-filters>
+          <filter-name>gzip</filter-name>
+        </use-filters>
+        <serializer>
+          <instance>
+            <class-name>Tangosol.IO.TestPofSerializer, Coherence.Tests</class-name>
+            <init-params>
+              <init-param>
+                <param-type>string</param-type>
+                <param-value>Resources/s4hc-test-config.xml</param-value>
+              </init-param>
+            </init-params>
+          </instance>
+        </serializer>
+      </initiator-config>
+      <listener>
+        <class-scheme>
+           <class-factory-name>Tangosol.Util.TriggerListenerTests, Coherence.Tests</class-factory-name>
+           <method-name>CreateTriggerListener</method-name>
+           <init-params>
+              <init-param>
+                 <param-type>string</param-type>
+                <param-value>{cache-name}</param-value>
+              </init-param>
+           </init-params>
+        </class-scheme>
+     </listener>
+    </remote-cache-scheme>
+  </caching-schemes>
+</cache-config>

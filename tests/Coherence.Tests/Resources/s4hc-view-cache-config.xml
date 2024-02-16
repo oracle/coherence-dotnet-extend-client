@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+
+<cache-config xmlns="http://schemas.tangosol.com/cache">
+
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>view-filter</cache-name>
+      <scheme-name>view-filter</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>view-filter-with-params</cache-name>
+      <scheme-name>view-filter-with-params</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>view-filter-invalid</cache-name>
+      <scheme-name>view-filter-invalid</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>view-transformer</cache-name>
+      <scheme-name>view-transformer</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>view-transformer-with-params</cache-name>
+      <scheme-name>view-transformer-with-params</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>view-read-only</cache-name>
+      <scheme-name>view-read-only</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>view-reconnect-interval</cache-name>
+      <scheme-name>view-reconnect-interval</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>view-with-listener</cache-name>
+      <scheme-name>view-with-listener</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>view-with-macro</cache-name>
+      <scheme-name>view-with-macro</scheme-name>
+      <init-params>
+        <init-param>
+          <param-name>gt</param-name>
+          <param-value>50</param-value>
+        </init-param>
+      </init-params>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+    <view-scheme>
+      <scheme-name>view-filter</scheme-name>
+      <view-filter>
+        <class-scheme>
+          <class-name>Tangosol.Util.Filter.NeverFilter, Coherence</class-name>
+        </class-scheme>
+      </view-filter>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+    </view-scheme>
+
+    <view-scheme>
+      <scheme-name>view-filter-with-params</scheme-name>
+      <view-filter>
+        <class-scheme>
+          <class-name>Tangosol.Util.Filter.GreaterFilter, Coherence</class-name>
+          <init-params>
+            <init-param>
+              <param-type>string</param-type>
+              <param-value>foo</param-value>
+            </init-param>
+            <init-param>
+              <param-type>int</param-type>
+              <param-value>10</param-value>
+            </init-param>
+          </init-params>
+        </class-scheme>
+      </view-filter>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+    </view-scheme>
+
+    <view-scheme>
+      <scheme-name>view-filter-invalid</scheme-name>
+      <view-filter>
+        <class-scheme>
+          <class-name>Tangosol.Util.Filter.NonExistentFilter, Coherence</class-name>
+        </class-scheme>
+      </view-filter>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+    </view-scheme>
+
+    <view-scheme>
+      <scheme-name>view-transformer</scheme-name>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+      <transformer>
+        <class-scheme>
+          <class-name>Tangosol.Util.Extractor.IdentityExtractor, Coherence</class-name>
+        </class-scheme>
+      </transformer>
+    </view-scheme>
+
+    <view-scheme>
+      <scheme-name>view-transformer-with-params</scheme-name>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+      <transformer>
+        <class-scheme>
+          <class-name>Tangosol.Util.Extractor.KeyExtractor, Coherence</class-name>
+          <init-params>
+            <init-param>
+              <param-type>string</param-type>
+              <param-value>foo</param-value>
+            </init-param>
+          </init-params>
+        </class-scheme>
+      </transformer>
+    </view-scheme>
+
+    <view-scheme>
+      <scheme-name>view-read-only</scheme-name>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+      <read-only>true</read-only>
+    </view-scheme>
+
+    <view-scheme>
+      <scheme-name>view-reconnect-interval</scheme-name>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+      <reconnect-interval>1000</reconnect-interval>
+    </view-scheme>
+
+    <view-scheme>
+      <scheme-name>view-with-listener</scheme-name>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+      <listener>
+        <class-scheme>
+          <class-name>Tangosol.TestCacheListener, Coherence.Tests</class-name>
+        </class-scheme>
+      </listener>
+    </view-scheme>
+
+    <view-scheme>
+      <scheme-name>view-with-macro</scheme-name>
+      <view-filter>
+        <class-scheme>
+          <class-name>Tangosol.Util.Filter.GreaterFilter, Coherence</class-name>
+          <init-params>
+            <init-param>
+              <param-type>string</param-type>
+              <param-value>foo</param-value>
+            </init-param>
+            <init-param>
+              <param-type>int</param-type>
+              <param-value>{gt 10}</param-value>
+            </init-param>
+          </init-params>
+        </class-scheme>
+      </view-filter>
+      <back-scheme>
+        <remote-cache-scheme>
+          <scheme-ref>extend-direct</scheme-ref>
+        </remote-cache-scheme>
+      </back-scheme>
+    </view-scheme>
+
+    <remote-cache-scheme>
+      <scheme-name>extend-direct</scheme-name>
+      <service-name>ExtendTcpCacheService</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <remote-addresses>
+            <socket-address>
+              <address>127.0.0.1</address>
+              <port>9099</port>
+            </socket-address>
+          </remote-addresses>
+        </tcp-initiator>
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+          <request-timeout>30s</request-timeout>
+        </outgoing-message-handler>
+        <use-filters>
+          <filter-name>gzip</filter-name>
+        </use-filters>
+        <connect-timeout>5s</connect-timeout>
+      </initiator-config>
+    </remote-cache-scheme>
+  </caching-schemes>
+</cache-config>

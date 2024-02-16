@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4CB74234-AEC9-46F5-944E-6E721BD09E1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coherence.Core", "src\Coherence.Core\Coherence.Core.csproj", "{3D8C8E78-480C-4223-84FD-035026E5C22C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coherence", "src\Coherence\Coherence.csproj", "{3D8C8E78-480C-4223-84FD-035026E5C22C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C8FFDB4E-1972-4437-8061-D3804D9C872A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coherence.Core.Tests", "tests\Coherence.Core.Tests\Coherence.Core.Tests.csproj", "{9A62D342-5A1A-44C1-B92C-A641E170D22F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coherence.Tests", "tests\Coherence.Tests\Coherence.Tests.csproj", "{9A62D342-5A1A-44C1-B92C-A641E170D22F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coherence.Pof.Tests", "tests\Coherence.Pof.Tests\Coherence.Pof.Tests.csproj", "{3FF8F84A-0535-46D0-B54D-2FBEFF74523C}"
 EndProject
