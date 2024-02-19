@@ -1,6 +1,6 @@
 <!--
 
-  Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2024, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
@@ -25,7 +25,7 @@
 1. [Documentation](#docs)
 1. [Contributing](#contrib)
 
-# <a name="intro"></a>Introduction to Coherence
+## <a name="intro"></a>Introduction to Coherence
 
 [Coherence](http://coherence.community/) is a scalable, fault-tolerant, cloud-ready,
 distributed platform for building grid-based applications and reliably storing data.
@@ -51,11 +51,11 @@ for locally executed mutations) the data set. These capabilities, in addition to
 numerous other features, enable Coherence to be used as a framework for writing robust,
 distributed applications.
 
-# <a name="acquire"></a>How to Get Coherence Community Edition
+## <a name="acquire"></a>How to Get Coherence Community Edition
 
 For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/tree/master/README.md).
 
-# <a name="intro_extend"></a>Introduction to Coherence for .NET
+## <a name="intro_extend"></a>Introduction to Coherence for .NET
 
 Coherence for .NET allows .NET applications to access Coherence clustered services, including data, data events, and data processing from outside the Coherence cluster. Typical uses of Coherence for .NET include desktop and web applications that require access to Coherence caches.
 
@@ -63,7 +63,7 @@ Coherence for .NET consists of a lightweight .NET library that connects to a Coh
 
 See the [documentation](#docs) for details on building Coherence applications using .NET.
 
-# <a name="build"></a>Building
+## <a name="build"></a>Building
 
 ### Prerequisites and Dependencies
 
@@ -153,10 +153,10 @@ command:
 msbuild /t:clean Coherence.msbuild
 ```
 
-# <a name="started"></a>CLI Hello Coherence Example
+## <a name="started"></a>CLI Hello Coherence Example
 The following example illustrates starting a storage enabled Coherence server, followed by running the HelloCoherence console application. The HelloCoherence application inserts and retrieves data from the Coherence server.
 
-## Build HelloCoherence
+### Build HelloCoherence
 1. Using dotnet-cli to create a HelloCoherence console application:
 ```
 dotnet new console -name "HelloCoherence"
@@ -336,13 +336,13 @@ By default, you need to provide a POF configure file, pof-config.xml, in the Tar
 dotnet build
 ```
 
-## Start a Coherence server
+### Start a Coherence server
 
 ```
 "%JAVA_HOME%\bin\java" -Dcoherence.pof.enabled=true -Dcoherence.log.level=9 -jar coherence.jar
 ```
 
-## Run the Hello Coherence example
+### Run the Hello Coherence example
 
 ```shell script
 dotnet run
@@ -406,7 +406,7 @@ spanish = Hola
 Map (welcomes): bye
 ```
 
-# <a name="testing"></a>Testing
+### <a name="testing"></a>Testing
 
 To run Coherence for .NET test suite, you must have a coherence.jar.  Using ant, you can provide a build.properties file in the tools\ant directory to specify a maven repository from which coherence.jar can be downloaded.
 The test suite starts a Coherence server for the .NET clients to connect to run the tests.
@@ -421,7 +421,7 @@ To run Coherence for .NET test suite starting a Coherence server in docker conta
 msbuild /t:test Coherence.docker
 ```
 
-# <a name="docs"></a>Documentation
+## <a name="docs"></a>Documentation
 
 To build Coherence for .NET API documentation, run the following command.  The API documentation can be viewed using Microsoft help viewer.
 ```
@@ -437,10 +437,17 @@ The resulting files:
 
 For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/develop-remote-clients/creating-net-extend-clients.html).
 
-# <a name="contrib"></a>Contribute
+## <a name="contrib"></a>Contributing
 
-Interested in contributing?  Please see our contribution [guidelines](CONTRIBUTING.md) for details.
+This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
 
-# Security
+## Security
 
-Please consult the [security guide](./SECURITY.md) for our responsible security vulnerability disclosure process
+Please consult the [security guide](./SECURITY.md) for our responsible security vulnerability disclosure process.
+
+## License
+
+Copyright (c) 2020, 2024 Oracle and/or its affiliates.
+
+Released under the Universal Permissive License v1.0 as shown at
+<https://oss.oracle.com/licenses/upl/>.
