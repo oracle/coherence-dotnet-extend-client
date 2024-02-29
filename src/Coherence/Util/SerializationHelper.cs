@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -145,7 +145,7 @@ namespace Tangosol.Util
                 }
                 else
                 {
-                    ach[ofch++] = (char)n;
+                    ach[ofch++] = (char) n;
                 }
             }
 
@@ -195,6 +195,31 @@ namespace Tangosol.Util
                                 ach[ofch++] = (char)(((ch & 0x0F) << 12) |
                                                       ((ch2 & 0x3F) << 6) |
                                                       ((ch3 & 0x3F)));
+                                break;
+                            }
+
+                        case 0xF:
+                            {
+                                // 4-byte format:  1111 0xxx, 10xx xxxx, 10xx xxxx, 10xx xxxx (supplemental plane)
+                                int ch2 = ab[++ofAsc] & 0xFF;
+                                int ch3 = ab[++ofAsc] & 0xFF;
+                                int ch4 = ab[++ofAsc] & 0xFF;
+                                if ((ch2 & 0xC0) != 0x80 || (ch3 & 0xC0) != 0x80 || (ch4 & 0xC0) != 0x80)
+                                {
+                                    throw new IOException(
+                                        "illegal leading UTF bytes: " + ch2 + ", " + ch3 + ", " + ch4);
+                                }
+                                int cp = ((ch & 0x07) << 18) |
+                                          ((ch2 & 0x3F) << 12) |
+                                          ((ch3 & 0x3F) << 6) |
+                                          (ch4 & 0x3F);
+                              
+                                cp = cp - 0x10000;
+                                char high = (char) (0xD800 + ((cp >> 10) & 0x3FF));
+                                char low  = (char) (0xDC00 + (cp & 0x3FF));
+
+                                ach[ofch++] = high;
+                                ach[ofch++] = low;
                                 break;
                             }
 

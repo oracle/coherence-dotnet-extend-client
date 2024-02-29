@@ -6,7 +6,7 @@
  */
 using System;
 using System.Diagnostics;
-using System.Text;
+
 using Tangosol.Util;
 
 namespace Tangosol.IO.Pof
@@ -744,14 +744,7 @@ namespace Tangosol.IO.Pof
                     writer.WritePackedInt32(PofConstants.T_CHAR);
                 }
 
-                if (Char.IsSurrogate(ch))
-                {
-                    writer.Write(writer.FormatUTF(ch.ToString()));
-                }
-                else
-                {
-                    writer.Write(ch);
-                }
+                writer.Write(ch);
             }
         }
 

@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
+
 using System;
 using System.IO;
 using System.Text;
@@ -45,31 +46,6 @@ namespace Tangosol.IO
         /// </param>
         public DataWriter(Stream output) : base(output)
         {}
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Obtain a temp buffer used to avoid allocations from
-        /// repeated calls to String APIs.
-        /// </summary>
-        /// <return>
-        /// a char buffer of CHAR_BUF_SIZE characters long
-        /// </return>
-        protected char[] CharBuf
-        {
-            get
-            {
-                // "partial" (i.e. windowed) char buffer just for formatUTF
-                char[] ach = m_achBuf;
-                if (ach == null)
-                {
-                    m_achBuf = ach = new char[CHAR_BUF_SIZE];
-                }
-                return ach;
-            }
-        }
 
         #endregion
 
@@ -403,246 +379,11 @@ namespace Tangosol.IO
             }
             else
             {
-                byte[] bytes = FormatUTF(text);
+                byte[] bytes = Encoding.UTF8.GetBytes(text);
                 WritePackedInt32(bytes.Length);
                 Write(bytes);
             }
         }
-
-        #endregion
-
-        #region UTF encoding functions
-
-        /// <summary>
-        /// Figure out how many bytes it will take to hold the passed String.
-        /// </summary>
-        /// <remarks>
-        /// This method is tightly bound to formatUTF.
-        /// </remarks>
-        /// <param  name="s">
-        /// the String
-        /// </param>
-        /// <return>
-        /// the binary UTF length
-        /// </return>
-        protected int CalcUTF(String s)
-        {
-            int    cch    = s.Length;
-            int    cb     = cch;
-            char[] ach    = CharBuf;
-            bool   fSmall = (cch <= CHAR_BUF_SIZE);
-            if (fSmall)
-            {
-                var src = new StringBuilder(s);
-                src.CopyTo(0, ach, 0, cch);
-            }
-
-            for (int ofch = 0; ofch < cch; ++ofch)
-            {
-                int ch;
-                if (fSmall)
-                {
-                    ch = ach[ofch];
-                }
-                else
-                {
-                    int ofBuf = ofch & CHAR_BUF_MASK;
-                    if (ofBuf == 0)
-                    {
-                        var src = new StringBuilder(s);
-                        int len = Math.Min(ofch + CHAR_BUF_SIZE, cch) - ofch;
-                        src.CopyTo(ofch, ach, 0, len);
-                    }
-                    ch = ach[ofBuf];
-                }
-
-                if (ch <= 0x007F)
-                {
-                    // all bytes in this range use the 1-byte format
-                    // except for 0
-                    if (ch == 0)
-                    {
-                        ++cb;
-                    }
-                }
-                else
-                {
-                    // either a 2-byte format or a 3-byte format (if over
-                    // 0x07FF)
-                    cb += (ch <= 0x07FF ? 1 : 2);
-                }
-            }
-
-            return cb;
-       }
-
-        /// <summary>
-        /// Format the passed String as UTF into the passed byte array.
-        /// </summary>
-        /// <remarks>
-        /// This method is tightly bound to calcUTF.
-        /// </remarks>
-        /// <param name="s">
-        /// the string.
-        /// </param>
-        /// <returns>
-        /// The formated UTF byte array.
-        /// </returns>
-        public byte[] FormatUTF(String s)
-        {
-            int    cch = s.Length;
-            int    cb  = CalcUTF(s);
-            int    ofb = 0;
-            byte[] ab  = new byte[cb];
-
-            if (cb == cch)
-            {
-                // ask the string to convert itself to ascii bytes
-                // straight into the WriteBuffer                
-                Encoding.ASCII.GetBytes(s, 0, cch, ab, ofb);
-            }
-            else
-            {
-                char[]  ach = CharBuf;
-                if (cch <= CHAR_BUF_SIZE)
-                {
-                    // The following is unnecessary, because it would already
-                    // have been performed by calcUTF:
-                    //
-                    //   if (fSmall)
-                    //       {
-                    //       s.getChars(0, cch, ach, 0);
-                    //       }
-                    FormatUTF(ab, ofb, ach, cch);
-                }
-                else
-                {
-                    for (int ofch = 0; ofch < cch; ofch += CHAR_BUF_SIZE)
-                    {
-                        int cchChunk = Math.Min(CHAR_BUF_SIZE, cch - ofch);
-                        StringBuilder src = new StringBuilder(s);
-                        src.CopyTo(ofch, ach, 0, cchChunk);
-                        ofb += FormatUTF(ab, ofb, ach, cchChunk);
-                    }
-                }
-            }
-
-            return ab;
-        }
-
-        /// <summary>
-        /// Format the passed characters as UTF into the passed byte array.
-        /// </summary>
-        /// <param name="ab">
-        /// The byte array to format into.
-        /// </param>
-        /// <param name="ofb">
-        /// The offset into the byte array to write the first byte.
-        /// </param>
-        /// <param name="ach">
-        /// The array of characters to format.
-        /// </param>
-        /// <param name="cch">
-        /// The number of characters to format.
-        /// </param>
-        /// <return>
-        /// The number of bytes written to the array.
-        /// </return>
-        protected int FormatUTF(byte[] ab, int ofb, char[] ach, int cch)
-        {
-            int ofbOrig = ofb;
-            for (int ofch = 0; ofch < cch; ++ofch)
-            {
-                char ch = ach[ofch];
-                if (ch >= 0x0001 && ch <= 0x007F)
-                {
-                    // 1-byte format:  0xxx xxxx
-                    ab[ofb++] = (byte) ch;
-                }
-                else if (ch <= 0x07FF)
-                {
-                    // 2-byte format:  110x xxxx, 10xx xxxx
-                    ab[ofb++] = (byte) (0xC0 | ((ch >> 6) & 0x1F));
-                    ab[ofb++] = (byte) (0x80 | ((ch     ) & 0x3F));
-                }
-                else
-                {
-                    // 3-byte format:  1110 xxxx, 10xx xxxx, 10xx xxxx
-                    ab[ofb++] = (byte) (0xE0 | ((ch >> 12) & 0x0F));
-                    ab[ofb++] = (byte) (0x80 | ((ch >>  6) & 0x3F));
-                    ab[ofb++] = (byte) (0x80 | ((ch      ) & 0x3F));
-               }
-            }
-            return ofb - ofbOrig;
-        }
-
-        ///<summary>
-        /// Get a buffer for formating data to bytes. Note that the resulting buffer
-        /// may be shorter than the requested size.
-        /// </summary>
-        /// <param  name="cb">
-        /// the requested size for the buffer
-        /// </param>
-        /// <return>
-        /// A byte array that is at least <tt>cb</tt> bytes long, but not
-        /// shorter than <see cref="MIN_BUF"/> and (regardless of the value of
-        /// <tt>cb</tt>) not longer than <see cref="MAX_BUF"/>.
-        /// </return>
-        protected byte[] Tmpbuf(int cb)
-        {
-            byte[] ab = m_abBuf;
-            if (ab == null || ab.Length < cb)
-            {
-                int cbOld = ab == null ? 0 : ab.Length;
-                int cbNew = Math.Max(MIN_BUF, Math.Min(MAX_BUF , cb));
-                if (cbNew > cbOld)
-                {
-                    m_abBuf = ab = new byte[cbNew > ((uint) MAX_BUF >> 1) ? MAX_BUF : cbNew];
-                }
-            }
-            return ab;
-        }
-
-        #endregion
-
-        #region Data Members
-
-        /// <summary>
-        /// The minimum size of the temp buffer.
-        /// </summary>
-        private const int MIN_BUF = 0x40;
-
-        /// <summary>
-        /// The maximum size of the temp buffer. The maximum size must be at least
-        /// <tt>(3 * CHAR_BUF_SIZE)</tt> to accomodate the worst-case UTF
-        /// formatting length.
-        /// </summary>
-        private const int MAX_BUF = 0x400;
-
-        /// <summary>
-        /// Size of the temporary character buffer. Must be a power of 2.
-        /// Size is: 256 characters (.25 KB).        
-        /// </summary> 
-        protected const int CHAR_BUF_SIZE = 0x100;
-
-        /// <summary>
-        /// Bitmask used against a raw offset to determine the offset within
-        /// the temporary character buffer.
-        /// </summary>
-        protected const int CHAR_BUF_MASK = (CHAR_BUF_SIZE - 1);
-
-        /// <summary>
-        /// A temp buffer to use for building the data to write.
-        /// </summary>
-        [NonSerialized]
-        private byte[] m_abBuf;
-
-        /// <summary>
-        /// A lazily instantiated temp buffer used to avoid allocations from
-        /// and repeated calls to String functions.
-        /// </summary>
-        [NonSerialized]
-        protected char[] m_achBuf;
 
         #endregion
     }

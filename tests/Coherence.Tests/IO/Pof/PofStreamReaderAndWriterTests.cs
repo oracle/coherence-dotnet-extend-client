@@ -5,13 +5,12 @@
  * http://oss.oracle.com/licenses/upl.
  */
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text;
 
 using NUnit.Framework;
 using Tangosol.Util;
-using IList=System.Collections.IList;
 
 namespace Tangosol.IO.Pof
 {
@@ -93,7 +92,7 @@ namespace Tangosol.IO.Pof
             // Safe UTF-8 encoding & decoding of string.
             Stream     stream = new MemoryStream();
             DataWriter writer = new DataWriter(stream);
-            byte[]     bytes  = writer.FormatUTF(surrogate);
+            byte[]     bytes  = Encoding.UTF8.GetBytes(surrogate);
 
             Console.WriteLine("Safe UTF-8-encoded code units:");
             foreach (var utf8Byte in bytes)
