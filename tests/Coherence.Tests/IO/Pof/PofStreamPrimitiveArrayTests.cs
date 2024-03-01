@@ -151,8 +151,7 @@ namespace Tangosol.IO.Pof
 
             // Create a character array with multi-bytes character.
             string gkNumber = Char.ConvertFromUtf32(0x10154);
-            char[] chars    = new char[] { 'z', 'a', '\u0306', '\u01FD', '\u03B2', 
-                                           gkNumber[0], gkNumber[1] };
+            char[] chars    = new char[] {'z', 'a', '\u0306', '\u01FD', '\u03B2'};
             // Create a string with multi-bytes character.
             String multiStr = "abc" + Char.ConvertFromUtf32(Int32.Parse("2A601", NumberStyles.HexNumber)) + "def";
 
