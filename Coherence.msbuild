@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- MSBuild distribution build script for Oracle Coherence for .NET -->
+<!--                                                                 -->
+<!-- Usage:                                                          -->
+<!--     MsBuild Coherence.msbuild /t:dist /p:buildofficial=true \   -->
+<!--             /p:buildnumber=%P4_CHANGELIST%                      -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- Global properties                                                   -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <Import Project="Coherence.properties"/>
+
+  <PropertyGroup>
+    <BuildTargetVersion Condition="'$(BuildTargetVersion)'==''">net6.0</BuildTargetVersion>
+    <TargetFrameworkVersion>v$(BuildTargetVersion)</TargetFrameworkVersion>
+    <BuildVersion>$(AssemblyMajorVersion).$(AssemblyMinorVersion).$(AssemblyServicePack).$(AssemblyPatch)</BuildVersion>
+    <BuildDescription Condition="'$(BuildOfficial)' != ''">$(AssemblyDescriptions)</BuildDescription>
+    <BuildNumber Condition="'$(BuildOfficial)' == ''" >0</BuildNumber>
+    <BuildOracleVersion>$(AssemblyMajorVersion).$(AssemblyMinorVersion).$(AssemblyServicePack).$(ComponentVersion).$(Patch)</BuildOracleVersion>
+
+    <ProjectDir>$(MSBuildProjectDirectory)</ProjectDir>
+    <BuildDir>$(ProjectDir)\build</BuildDir>
+
+    <BinDir>$(ProjectDir)\bin</BinDir>
+
+    <DistDir>$(ProjectDir)\dist</DistDir>
+    <DistPatchesDir>$(DistDir)\patches\$(BuildVersion)</DistPatchesDir>
+    <DistVersionDir>$(DistDir)\$(BuildVersion)b$(BuildNumber)</DistVersionDir>
+
+    <DocDir>$(ProjectDir)\doc</DocDir>
+    <SetupDir>$(ProjectDir)\setup</SetupDir>
+    <SrcDir>$(ProjectDir)\src</SrcDir>
+    <ToolsDir>$(ProjectDir)\tools</ToolsDir>
+
+    <PropertiesDir>$(SrcDir)\Coherence\Properties</PropertiesDir>
+
+    <ExtensionTasksPath>$(ToolsDir)\internal\msbuild\build\net40</ExtensionTasksPath>
+  </PropertyGroup>
+
+  <!-- Import the MSBuild extensions -->
+  <Import Project="$(ExtensionTasksPath)\MSBuild.Extension.Pack.targets"/>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- Global project Targets                                              -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <!-- Remove all build artifacts -->
+  <Target Name="Clean">
+    <ItemGroup>
+      <Files Include="$(BuildDir)"/>
+      <Files Include="$(SrcDir)\Coherence\bin"/>
+      <Files Include="$(SrcDir)\Coherence\obj"/>
+
+      <Dist Include="$(DistVersionDir)"/>
+      <Dist Include="$(DistDir)\coherence-net-$(BuildOracleVersion)b$(BuildNumber).zip"/>
+    </ItemGroup>
+
+    <RemoveDir ContinueOnError="true" Directories="@(Files)"/>
+    <Delete Condition="'$(ClearDist)' != ''" ContinueOnError="true" Files="@(Dist)"/>
+    <Delete ContinueOnError="true" Files="$(ProjectDir)\AssemblyInfo.cs" />
+  </Target>
+
+  <!-- Main distribution target -->
+  <Target Name="Dist">
+    <MakeDir Directories="$(DistDir)"/>
+    <MakeDir Directories="$(DistVersionDir)"/>
+
+    <MSBuild.ExtensionPack.Framework.Guid TaskAction="Create">
+      <Output TaskParameter="FormattedGuidString" PropertyName="ProductGuid"/>
+    </MSBuild.ExtensionPack.Framework.Guid>
+
+    <MSBuild.ExtensionPack.Framework.TextString TaskAction="ToUpper" OldString="$(ProductGuid)">
+      <Output PropertyName="ProductGuid" TaskParameter="NewString"/>
+    </MSBuild.ExtensionPack.Framework.TextString>
+
+    <PropertyGroup>
+      <ProductName Condition="'$(BuildOfficial)' == ''">coherence-net-$(BuildDescription)</ProductName>
+      <ProductName Condition="'$(BuildOfficial)' != ''">coherence-net-$(BuildOracleVersion)</ProductName>
+      <OutFileName>Coherence.msi</OutFileName>
+      <LogFileName>Coherence.msi.log</LogFileName>
+      <MsiFileName>$(ProductName).msi</MsiFileName>
+      <ZipFileName>$(ProductName)b$(BuildNumber).zip</ZipFileName>
+      <OutFile>$(BuildDir)\$(OutFileName)</OutFile>
+      <LogFile>$(BuildDir)\$(LogFileName)</LogFile>
+      <MsiFile>$(DistVersionDir)\$(MsiFileName)</MsiFile>
+      <ZipFile>$(DistDir)\$(ZipFileName)</ZipFile>
+    </PropertyGroup>
+
+    <Delete Files="$(OutFile);$(LogFile);$(ZipFile)"/>
+
+    <ItemGroup>
+      <MetaDataFile Include="$(SrcDir)\Coherence\product.xml"/>
+      <MetaDataFileDest Include="$(BuildDir)\product.xml"/>
+      <SetupFile Include="$(SetupDir)\Coherence.Setup\Coherence.Setup.Template.vdproj"/>
+      <SetupFileDest Include="$(SetupDir)\Coherence.Setup\Coherence.Setup.vdproj"  />
+    </ItemGroup>
+
+    <ItemGroup>
+      <TokenValues Include="VERSION">
+        <Replacement>$(BuildOracleVersion)</Replacement>
+      </TokenValues>
+      <TokenValues Include="DESCRIPTION">
+        <Replacement>$(AssemblyDescription)</Replacement>
+      </TokenValues>
+      <SetupTokens Include="INSTALLER_VERSION">
+        <Replacement>$(AssemblyMajorVersion).$(AssemblyMinorVersion).$(AssemblyServicePack)$(AssemblyPatch)</Replacement>
+      </SetupTokens>
+      <SetupTokens Include="PRODUCT_VERSION">
+        <Replacement>$(BuildVersion)</Replacement>
+      </SetupTokens>
+      <SetupTokens Include="PRODUCT_GUID">
+        <Replacement>$(ProductGuid)</Replacement>
+      </SetupTokens>
+    </ItemGroup>
+
+    <!-- Copy the OPatch product metadata file -->
+    <Copy SourceFiles="@(MetaDataFile)" DestinationFiles="@(MetaDataFileDest)"/>
+
+    <MSBuild.ExtensionPack.FileSystem.Detokenise TaskAction="Detokenise"
+       TargetFiles="@(MetaDataFileDest)" ReplacementValues="@(TokenValues)"/>
+
+    <!-- Parameterize the setup project -->
+    <Delete Files="@(SetupFileDest)"/>
+
+    <Copy SourceFiles="@(SetupFile)" DestinationFiles="@(SetupFileDest)"/>
+
+    <MSBuild.ExtensionPack.FileSystem.Detokenise TaskAction="Detokenise"
+       TargetFiles="@(SetupFileDest)" ReplacementValues="@(SetupTokens)"/>
+
+    <Exec Command="devenv.exe @(SetupFileDest) /build $(BuildType) /out $(LogFile)"/>
+
+    <Error Condition="!Exists($(OutFile))" Text="The MSI failed to build. See $(LogFile) for more details."/>
+
+    <Copy SourceFiles="$(OutFile)"  DestinationFiles="$(MsiFile)"/>
+
+    <!-- Copy the metalink readme and update it with the appropriate information -->
+    <PropertyGroup>
+      <ReadmeFileName>readme.txt</ReadmeFileName>
+      <ReadmeFileName Condition=" '$(BuildDescription)'=='prerelease' ">readme-prerelease.txt</ReadmeFileName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ReadmeFile Include="$(DocDir)\build\$(ReadmeFileName)"/>
+      <ReadmeFileDest Include="$(DistVersionDir)\README.txt"/>
+    </ItemGroup>
+
+    <Copy SourceFiles="@(ReadmeFile)" DestinationFiles="@(ReadmeFileDest)"/>
+
+    <MSBuild.ExtensionPack.FileSystem.Detokenise TaskAction="Detokenise"
+       TargetFiles="@(ReadmeFileDest)" ReplacementValues="@(TokenValues)"/>
+
+    <ItemGroup>
+      <ZipFiles Include="@(ReadmeFileDest)"/>
+      <ZipFiles Include="$(MsiFile)"/>
+    </ItemGroup>
+
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressFiles="@(ZipFiles)"
+	                                       RemoveRoot="$(DistVersionDir)" ZipFileName="$(ZipFile)"  />
+  </Target>
+
+  <!-- Escrow target -->
+  <Target Name="Escrow" DependsOnTargets="Clean" >
+    <ItemGroup>
+      <EscrowFile Include="$(DistDir)\escrow-net-$(BuildOracleVersion).zip"/>
+      <ZipFiles Include="$(ProjectDir)\**\*"
+                Exclude="$(DistDir)\**\*; $(ProjectDir)\**\*.suo; $(ProjectDir)\**\*.user; $(ProjectDir)\**\*.xsx; $(ProjectDir)\**\_ReSharper*\**; $(ProjectDir)\**\obj\**; $(ProjectDir)\**\bin\**"/>
+    </ItemGroup>
+
+    <Delete Files="@(EscrowFile)"/>
+
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressFiles="@(ZipFiles)"
+                                           CompressPath="$(ProjectDir)" RemoveRoot="$(ProjectDir)"
+                                           ZipFileName="@(EscrowFile)"  />
+  </Target>
+
+  <!-- Patch target -->
+  <Target Name="Patch" >
+    <!-- Make sure this is a patch build -->
+	<PropertyGroup>
+		<BuildVersionPatch>$(AssemblyPatch)</BuildVersionPatch>
+	</PropertyGroup>
+
+    <Error Condition="'$(BuildVersionPatch)' == '0'" Text="Not a patch build: $(BuildVersion)"/>
+    <Error Condition="'$(BuildVersionPatch)' == ''" Text="Not a patch build: $(BuildVersion)"/>
+
+    <PropertyGroup>
+      <PatchName>cohnet-$(AssemblyMajorVersion)$(AssemblyMinorVersion)$(AssemblyServicePack)-patch-$(BuildVersionPatch)</PatchName>
+      <PatchDir>$(DistPatchesDir)</PatchDir>
+      <PatchFile>$(PatchDir)\$(PatchName).zip</PatchFile>
+      <BinDir>$(PatchDir)\bin</BinDir>
+      <Root>$(PatchDir)\</Root>
+    </PropertyGroup>
+
+    <Message Text="Building patch: $(PatchName) in $(PatchDir)"/>
+
+    <Error Condition="!Exists($(PatchDir))" Text="Missing patch directory: $(PatchDir)"/>
+
+    <!-- Create the patch -->
+
+    <Delete Files="@(PatchFile)"/>
+    <MakeDir Directories="$(BinDir)"/>
+    <ItemGroup>
+      <BinFiles Include="$(BuildDir)\Coherence.2010\$(BuildType)\Coherence.*" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(BinFiles)"  DestinationFolder="$(BinDir)"/>
+
+    <ItemGroup>
+      <ZipFiles Include="$(DistPatchesDir)\$(ReadmeFileName)"/>
+      <ZipFiles Include="$(BinDir)\**"/>
+    </ItemGroup>
+
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create"
+                        CompressFiles="@(ZipFiles)" ZipFileName="$(PatchFile)" RemoveRoot="$(Root)" />
+
+    <RemoveDir Directories="$(BinDir)" />
+  </Target>
+
+</Project>
