@@ -18,12 +18,12 @@
 ## Contents
 1. [Introduction to Coherence](#intro)
 1. [How to Get Coherence Community Edition](#acquire)
-1. [Introduction to Coherence for .NET](#intro-extend)
+1. [Getting Started](#getting-started)
 1. [Building](#build)
 1. [CLI Hello Coherence Example](#started)
 1. [Testing](#testing)
-1. [Documentation](#docs)
-1. [Contributing](#contrib)
+1. [Documentation](#documentation)
+1. [Contributing](#contributing)
 
 ## <a name="intro"></a>Introduction to Coherence
 
@@ -55,13 +55,13 @@ distributed applications.
 
 For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/tree/master/README.md).
 
-## <a name="intro_extend"></a>Introduction to Coherence for .NET
+## Getting Started
 
 Coherence for .NET allows .NET applications to access Coherence clustered services, including data, data events, and data processing from outside the Coherence cluster. Typical uses of Coherence for .NET include desktop and web applications that require access to Coherence caches.
 
 Coherence for .NET consists of a lightweight .NET library that connects to a Coherence clustered service instance running within the Coherence cluster using a high performance TCP/IP-based communication layer. This library sends all client requests to the Coherence clustered proxy service which, in turn, responds to client requests by delegating to an actual Coherence clustered service (for example, a Partitioned or Replicated cache service).
 
-See the [documentation](#docs) for details on building Coherence applications using .NET.
+See the [documentation](#documentation) for details on building Coherence applications using .NET.
 
 ## <a name="build"></a>Building
 
@@ -421,7 +421,7 @@ To run Coherence for .NET test suite starting a Coherence server in docker conta
 msbuild /t:test Coherence.docker
 ```
 
-## <a name="docs"></a>Documentation
+## Documentation
 
 To build Coherence for .NET API documentation, run the following command.  The API documentation can be viewed using Microsoft help viewer.
 ```
@@ -437,7 +437,7 @@ The resulting files:
 
 For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/develop-remote-clients/creating-net-extend-clients.html).
 
-## <a name="contrib"></a>Contributing
+## Contributing
 
 This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
 
