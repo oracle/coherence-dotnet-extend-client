@@ -27,7 +27,7 @@
     <FileVersion>$(VersionPrefix)</FileVersion>
     
     <Company>Oracle</Company>
-    <Copyright>Copyright (c) 2000, 2022, Oracle and/or its affiliates. All rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.</Copyright>
     <Product>Oracle Coherence Client for .NET</Product>
 
     <Description Condition="'$(Official)' == ''" >$(Version) ($(USER))</Description>
