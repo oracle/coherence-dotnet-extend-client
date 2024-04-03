@@ -37,12 +37,33 @@ namespace Tangosol.IO
             indWriter.Write(nl);
             indWriter.Write(line2, 1, 5);
             indWriter.Write(line3);
-            Assert.AreEqual("line1\nline2\nline3", strWriter.ToString());
+            if (strWriter.ToString().Contains('\r'))
+            {
+                Assert.AreEqual("line1\nline2\nline3\r", strWriter.ToString());
+            }
+            else 
+            {
+                Assert.AreEqual("line1\nline2\nline3", strWriter.ToString());
+            }
             indWriter.Resume();
             indWriter.WriteLine();
-            Assert.AreEqual("line1\nline2\nline3\n", strWriter.ToString());
+            if (strWriter.ToString().Contains('\r'))
+            {
+                Assert.AreEqual("line1\nline2\nline3\r\n", strWriter.ToString());
+            }
+            else
+            {
+                Assert.AreEqual("line1\nline2\nline3\n", strWriter.ToString());
+            }
             indWriter.Write(line1);
-            Assert.AreEqual("line1\nline2\nline3\n    line1", strWriter.ToString());
+            if (strWriter.ToString().Contains('\r'))
+            {
+                Assert.AreEqual("line1\nline2\nline3\r\n    line1", strWriter.ToString());
+            }
+            else
+            {
+                Assert.AreEqual("line1\nline2\nline3\n    line1", strWriter.ToString());
+            }
 
             strWriter = new StringWriter();
             indWriter = new IndentingWriter(strWriter, "ZZZ");

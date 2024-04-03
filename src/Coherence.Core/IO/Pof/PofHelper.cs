@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -313,51 +313,6 @@ namespace Tangosol.IO.Pof
         /// </returns>
         public static char ReadChar(DataReader reader)
         {
-            // int ch = reader.PeekChar();
-            // if (ch == 65533)    // Unicode replacement character
-            // {
-            //     ch = reader.ReadByte();
-            //     int ch1 = ch & 0xFF;
-            //     switch ((ch1 & 0xF0) >> 4)
-            //     {
-            //         case 0xC:
-            //         case 0xD:
-            //             {
-            //                 // 2-byte format:  110x xxxx, 10xx xxxx
-            //                 int ch2 = reader.ReadByte() & 0xFF;
-            //                 if ((ch2 & 0xC0) != 0x80)
-            //                 {
-            //                     throw new ArgumentException(
-            //                             "illegal leading UTF byte: " + ch2);
-            //                 }
-            //                 ch = (char)(((ch1 & 0x1F) << 6) | ch2 & 0x3F);
-            //                 break;
-            //             }
-            //
-            //         case 0xE:
-            //             {
-            //                 // 3-byte format:  1110 xxxx, 10xx xxxx, 10xx xxxx
-            //                 int ch2 = reader.ReadByte() & 0xFF;
-            //                 int ch3 = reader.ReadByte() & 0xFF;
-            //                 if ((ch2 & 0xC0) != 0x80 || (ch3 & 0xC0) != 0x80)
-            //                 {
-            //                     throw new ArgumentException(
-            //                             "illegal leading UTF bytes: " + ch2 + ", " + ch3);
-            //                 }
-            //                 ch = (char)(((ch & 0x0F) << 12) |
-            //                             ((ch2 & 0x3F) << 6) |
-            //                             ((ch3 & 0x3F)));
-            //                 break;
-            //             }
-            //
-            //         default:
-            //             throw new ArgumentException(
-            //                     "illegal leading UTF byte: " + ch);
-            //     }
-            //
-            //     return (char) ch;
-            // }
-
             return reader.ReadChar();
         }
 
