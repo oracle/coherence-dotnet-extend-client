@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 
@@ -30,6 +30,13 @@ namespace Tangosol.Net.Cache
     /// A CacheEventArgs object is sent as an argument to the
     /// <see cref="ICacheListener"/> interface methods. <c>null</c>
     /// values may be provided for the old and the new values.</p>
+    /// <p>
+    /// Not all cache service types support the dispatching of synthetic events.
+    /// Synthetic events will only be dispatched by a partitioned cache service
+    /// and its derivatives, such as a federated cache service, or by near, view,
+    /// or remote caches that are backed by a cache service that supports the
+    /// dispatching of synthetic events. In all other cases, no event will be dispatched
+    /// for synthetic events such as expiry.</p>
     /// </remarks>
     /// <author>Gene Gleyzer  2002.02.11</author>
     /// <author>Aleksandar Seovic  2006.07.12</author>
@@ -373,7 +380,7 @@ namespace Tangosol.Net.Cache
             string evt = GetType().Name;
             string src = m_source.GetType().Name;
 
-            return evt + '{' + src + GetDescription() + (IsSynthetic ? ", synthetic" : "") 
+            return evt + '{' + src + GetDescription() + (IsSynthetic ? ", synthetic" : "")
                    + (IsPriming ? ", priming" : "") + (IsExpired ? ", expired" : "") + '}';
         }
 
