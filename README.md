@@ -1,6 +1,6 @@
 <!--
 
-  Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2024, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   http://oss.oracle.com/licenses/upl.
@@ -63,7 +63,7 @@ See the [documentation](#docs) for details on building Coherence applications us
 
 ### Prerequisites and Dependencies
 
-1. Microsoft .NET 4.0 or higher runtime and SDK
+1. Microsoft .NET 4.8 or higher runtime and SDK
 2. Supported Microsoft Windows operating system (see the systemrequirements for the appropriate .NET runtime above)
 3. Microsoft Visual Studio 2010+, or Visual Studio Code with the NET plugin installed is required to build
 
@@ -125,7 +125,7 @@ If C:\coherence-net is your project root directory, it should contain the follow
 The Coherence for .NET build system is based upon msbuild. To build Coherence for .NET, you must run the msbuild build utility, passing in the desired target that you would like to execute.
 The output from the build are in the build subdirectory.
 
-To build Coherence for .NET, start a "Developer Command Prompt for VS" 2017 or 2019.
+To build Coherence for .NET, start a "Developer Command Prompt for VS" 2017 or later.
 Clone this repository and run the following command:
 ```
 set JAVA_HOME=<Java Home Path>
@@ -160,7 +160,7 @@ dotnet new console -name "HelloCoherence"
 1. Add the following references to the HelloCoherence.csproj (provide the Coherence.dll location in the `<HintPath>`):
 ```
   <ItemGroup>
-    <Reference Include="Coherence, Version=14.1.1.13, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+    <Reference Include="Coherence, Version=14.1.1.17, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
       <HintPath>Coherence.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
@@ -172,7 +172,7 @@ Also include any Coherence configuration files you may have.
 1. Replace Program.cs code with the following source:
 ```
 /*
- * Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
@@ -312,7 +312,7 @@ By default, you need to provide a POF configure file, pof-config.xml, in the Tar
 ```
 <?xml version="1.0"?>
 <!--
-  Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2024, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   http://oss.oracle.com/licenses/upl.
@@ -423,7 +423,7 @@ msbuild /t:dist Coherence.msbuild
 ```
 The resulting files:
 
-`dist\14.1.1.13b0` - Coherence MSI installer
+`dist\14.1.1.17b0` - Coherence MSI installer
 
 For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/develop-remote-clients/creating-net-extend-clients.html).
 
