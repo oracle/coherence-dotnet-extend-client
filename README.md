@@ -67,35 +67,21 @@ See the [documentation](#docs) for details on building Coherence applications us
 
 ### Prerequisites and Dependencies
 
-1. Microsoft .NET 4.0 or higher runtime and SDK
+1. Microsoft .NET Core runtime and SDK
 2. Supported Microsoft Windows operating system (see the systemrequirements for the appropriate .NET runtime above)
-3. Microsoft Visual Studio 2010+, or Visual Studio Code with the NET plugin installed is required to build
 
 The Coherence for .NET also depends on the following libraries and software:
 1. [Common.Logging, 2.0.0.0](#commonlogging)
-1. [MSBuild.Extension.Pack, 1.9.1](#msbuildex)
-1. [Sandcastle Help File Builder and Tools, 2019.11.17](#shfb)
-1. [Microsoft Build Tools 2015](#msbuildtools)
 
 #### <a name="commonlogging"></a>Common.Logging 2.0.0.0
 <a name="intro"></a>
 Download and install Common.Logging 2.0.0.0 (`https://www.nuget.org/packages/Common.Logging/2.0.0`) or later. Copy Common.Logging.2.0.0\lib\2.0 to lib\net\2.0.
 
-#### <a name="msbuildex"></a>MSBuild.Extension.Pack.1.9.1
-Download and install MSBuild.Extension.Pack, 1.9.1 (`https://www.nuget.org/packages/MSbuild.Extension.Pack/1.9.0`). Copy MSBuild.Extension.Pack.1.9.1 to tools\internal\msbuild.
-
-#### <a name="shfb"></a>Sandcastle Help File Builder and Tools, 2019.11.17
-Coherence uses Sandcastle Help File Builder and Tools to build the Coherence .NET documentation. Down load and install Sandcastle Help File Builder and Tools, 2019.11.17 (`https://github.com/EWSoftware/SHFB/releases`). Then copy the "Sandcastle Help File Builder" directory 
-to tools\internal\shfb.
-
-#### <a name="msbuildtools"></a>Microsoft Build Tools 2015
-Sandcastle Help File Builder and Tools requires Microsoft Build Tools 2015.  You can down load Microsoft Build Tools 2015（`https://www.microsoft.com/en-us/download/details.aspx?id=48159`）or later and install it if you don't have it already.
-
 The following additional dependencies are required for testing:
 1. [NUnit 2 releases, 2.6.2](#nunit)
 1. [NUnit.Runners, 2.6.2](#nunitrunners)
 1. [Ant, 1.7.0](#ant)
-1. Java 1.8 or later
+1. Java 11 or later
 1. [WinHttpCertCfg.exe](#httpcerts)
 
 #### <a name="nunit"></a>NUnit 2.6.2
@@ -112,23 +98,6 @@ Download and install WinHttpCertCfg.exe ('https://www.microsoft.com/en-us/downlo
 
 You can use NuGet Package Manager through Visual Studio or Develooper Command Prompt to download most of the dependency libraries and software.
 
-If C:\coherence-net is your project root directory, it should contain the following directories
-
-- C:\coherence-net\lib\net\2.0
-- C:\coherence-net\tools\cluster-control
-- C:\coherence-net\tools\internal\ant
-- C:\coherence-net\tools\internal\cluster-control
-- C:\coherence-net\tools\internal\msbuild
-- C:\coherence-net\tools\internal\msbuild-custom
-- C:\coherence-net\tools\internal\nunit
-- C:\coherence-net\tools\internal\nunit.runners
-- C:\coherence-net\tools\internal\resourcekit
-- C:\coherence-net\tools\internal\shfb
-- C:\coherence-net\tools\msbuild-custom
-
-The Coherence for .NET build system is based upon msbuild. To build Coherence for .NET, you must run the msbuild build utility, passing in the desired target that you would like to execute.
-The output from the build are in the build subdirectory.
-
 To build Coherence for .NET, start a "Developer Command Prompt for VS" 2017 or 2019.
 Clone this repository and run the following command:
 ```
@@ -138,19 +107,20 @@ set JAVA_HOME=<Java Home Path>
 bin\cfgbuild.cmd
 ```
 ```
-msbuild /t:build Coherence.msbuild
+dotnet restore
+dotnet build --configuration Release --no-restore
 ```
 The resulting files:
 
-`build\Coherence.2010\Debug` - debug build
+`src\Coherence.Core\obj\Debug` - debug build
 
-`build\Coherence.2010\Release` - release build
+`src\Coherence.Core\obj\Release` - release build
 
 To clean all build artifacts from your build system, run the following
 command:
 
 ```
-msbuild /t:clean Coherence.msbuild
+dotnet clean
 ```
 
 ## <a name="started"></a>CLI Hello Coherence Example
@@ -164,7 +134,7 @@ dotnet new console -name "HelloCoherence"
 1. Add the following references to the HelloCoherence.csproj (provide the Coherence.Core.dll location in the `<HintPath>`):
 ```
   <ItemGroup>
-    <Reference Include="Coherence.Core, Version=14.1.1.13, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+    <Reference Include="Coherence.Core, Version=14.1.1.17, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
       <HintPath>Coherence.Core.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
@@ -176,7 +146,7 @@ Also include any Coherence configuration files you may have.
 1. Replace Program.cs code with the following source:
 ```
 /*
- * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.

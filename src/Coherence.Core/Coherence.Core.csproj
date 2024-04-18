@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.0</TargetFrameworks>
     <RootNamespace>Tangosol</RootNamespace>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <DefineConstants>NET_4_0</DefineConstants>
@@ -20,7 +20,7 @@
 
   <!-- AssemblyInfo metadata -->
   <PropertyGroup>
-    <VersionPrefix Condition="'$(VersionPrefix)' == ''">14.1.1.18</VersionPrefix>
+    <VersionPrefix Condition="'$(VersionPrefix)' == ''">14.1.1.17</VersionPrefix>
     <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
     <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
@@ -43,7 +43,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/oracle/coherence-dotnet-extend-client/main/assets/coherence-logo.png</PackageIconUrl>
     <PackageIcon>coherence-logo.png</PackageIcon>
     <PackageDescription>
-      This is a .NET Core 3.1 and .NET Standard 2.0-compatible implementation of Oracle Coherence .NET Extend Client. For .NET Framework 4.x compatible implementation, see https://www.nuget.org/packages/Coherence/.
+      This is a .NET Core 6.0 implementation of Oracle Coherence .NET Extend Client. For .NET Framework 4.x compatible implementation, see https://www.nuget.org/packages/Coherence/.
     </PackageDescription>
     <PackageReleaseNotes>
       For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$(Version)-core/.  
