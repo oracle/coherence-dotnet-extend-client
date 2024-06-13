@@ -30,7 +30,7 @@
     <Product>Oracle Coherence Client for .NET</Product>
 
     <Description Condition="'$(Official)' == ''" >$(Version) ($(USER))</Description>
-    <Description Condition="'$(Official)' != ''" >$(Version)</Description>
+    <Description Condition="'$(Official)' != ''" >$(Version) ($(BuildNumber))</Description>
     <AssemblyTitle>Oracle Coherence Client for .NET $(Version)</AssemblyTitle>
   </PropertyGroup>
 
