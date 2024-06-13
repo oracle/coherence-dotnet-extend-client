@@ -1,0 +1,45 @@
+﻿<?xml version="1.0"?>
+<!--
+  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+
+  Licensed under the Universal Permissive License v 1.0 as shown at
+  http://oss.oracle.com/licenses/upl.
+-->
+<cache-config xmlns="http://schemas.tangosol.com/cache">
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>aspnet-session-storage</cache-name>
+      <scheme-name>aspnet-session-remote</scheme-name>
+    </cache-mapping>
+    <cache-mapping>
+      <cache-name>aspnet-session-overflow</cache-name>
+      <scheme-name>aspnet-session-remote</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+    <remote-cache-scheme>
+      <scheme-name>aspnet-session-remote</scheme-name>
+      <service-name>AspNet:SessionProxy</service-name>
+      <initiator-config>
+        <tcp-initiator>
+          <name-service-addresses>
+            <socket-address>
+              <address system-property="coherence.ns.address">127.0.0.1</address>
+              <port system-property="coherence.ns.port">7574</port>
+            </socket-address>
+          </name-service-addresses>
+        </tcp-initiator>
+        <serializer>
+          <class-name>Tangosol.IO.Pof.ConfigurablePofContext, Coherence</class-name>
+          <init-params>
+            <init-param>
+              <param-type>string</param-type>
+              <param-value>assembly://Coherence/Tangosol.Config/coherence-aspnet-pof-config.xml</param-value>
+            </init-param>
+          </init-params>
+        </serializer>
+      </initiator-config>
+    </remote-cache-scheme>
+  </caching-schemes>
+</cache-config>

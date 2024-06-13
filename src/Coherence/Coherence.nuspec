@@ -20,7 +20,6 @@
   <files>
     <file src="bin\Release\net6.0\Coherence.dll" target="lib\Coherence.dll" />
     <file src="bin\Release\net6.0\Coherence.pdb" target="lib\Coherence.pdb" />
-    <file src="bin\Release\net6.0\Coherence.xml" target="lib\Coherence.xml" />
     <file src="..\..\Tests\Coherence.Tests\bin\Release\net6.0\Common.Logging.dll" target="lib\Common.Logging.dll" />
     <file src="config\cache-config.xsd" target="config\cache-config.xsd" />
     <file src="config\coherence.xsd" target="config\coherence.xsd" />

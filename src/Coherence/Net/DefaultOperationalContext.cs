@@ -103,7 +103,7 @@ namespace Tangosol.Net
         /// <summary>
         /// Construct a new DefaultOperationalContext.
         /// </summary>
-        public DefaultOperationalContext() : this(null)
+        public DefaultOperationalContext() : this((IXmlElement) null)
         {}
 
         /// <summary>
@@ -112,6 +112,17 @@ namespace Tangosol.Net
         /// <param name="config">
         /// An XML element corresponding to coherence.xsd.
         /// </param>
+        public DefaultOperationalContext(string config)
+            : this(ResourceLoader.GetResource(config))
+        {
+        }
+
+        public DefaultOperationalContext(IResource config)
+            : this(XmlHelper.LoadResource(config,
+                "operational configuration"))
+        {
+        }
+
         public DefaultOperationalContext(IXmlElement config)
         {
             if (config == null)

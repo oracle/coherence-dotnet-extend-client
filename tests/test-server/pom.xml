@@ -22,7 +22,7 @@
     <maven.compiler.target>${maven.compiler.release}</maven.compiler.target>
     <maven.compiler.version>3.8.1</maven.compiler.version>
 
-    <coherence.groupId>com.oracle.coherence.ce</coherence.groupId>
+    <coherence.groupid>com.oracle.coherence.ce</coherence.groupid>
     <coherence.version>${project.version}</coherence.version>
   </properties>
 
@@ -30,6 +30,11 @@
     <dependency>
       <groupId>${coherence.groupid}</groupId>
       <artifactId>coherence</artifactId>
+      <version>${coherence.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${coherence.groupid}</groupId>
+      <artifactId>coherence-aspnet-session</artifactId>
       <version>${coherence.version}</version>
     </dependency>
   </dependencies>
@@ -52,7 +57,7 @@
             <argument>-classpath</argument>
             <classpath/>
             <argument>-Dcoherence.log=..\..\build\DefaultCacheServer.log</argument>
-            <argument>com.tangosol.net.DefaultCacheServer</argument>
+            <argument>com.tangosol.net.Coherence</argument>
           </arguments>
         </configuration>
       </plugin>

@@ -60,12 +60,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>bin\Debug\net6.0\Coherence.xml</DocumentationFile>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <OutputPath>bin\Debug</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
     <DefineConstants />
-    <DocumentationFile>bin\Release\net6.0\Coherence.xml</DocumentationFile>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <OutputPath>bin\Release</OutputPath>
   </PropertyGroup>
 
@@ -85,6 +85,8 @@
     
   <ItemGroup>
     <EmbeddedResource Include="Config\cache-config.xsd" />
+    <EmbeddedResource Include="Config\coherence-aspnet-cache-config.xml" />
+    <EmbeddedResource Include="Config\coherence-aspnet-pof-config.xml" />
     <EmbeddedResource Include="Config\coherence-cache-config.xml" />
     <EmbeddedResource Include="Config\pof-config.xsd" />
     <EmbeddedResource Include="Config\coherence.xml" />
@@ -95,5 +97,9 @@
   <ItemGroup>
     <None Include="../../assets/coherence-logo.png" Pack="true" PackagePath="/"/>
     <None Include="../../assets/nuget-readme.md" Pack="true" PackagePath="readme.md"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>
