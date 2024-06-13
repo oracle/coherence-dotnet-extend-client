@@ -28,7 +28,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>${coherence.groupId}</groupId>
+      <groupId>${coherence.groupid}</groupId>
       <artifactId>coherence</artifactId>
       <version>${coherence.version}</version>
     </dependency>
@@ -58,5 +58,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>
