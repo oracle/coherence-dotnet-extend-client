@@ -29,7 +29,7 @@ public abstract class AbstractSessionTest
     {
         int sessions = existingSessions;
         int overflowAttrs = existingOverflowAttrs;
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -38,21 +38,21 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/write-small"))
+        using (var response = await client.PostAsync("http://localhost/write-small"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(++sessions, SessionCache.Count);
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/write-small"))
+        using (var response = await client.PostAsync("http://localhost/write-small"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(sessions, SessionCache.Count);
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -62,7 +62,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/write-large1"))
+        using (var response = await client.PostAsync("http://localhost/write-large1"))
         {
             if (split)
             {
@@ -74,7 +74,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -87,7 +87,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/write-large2"))
+        using (var response = await client.PostAsync("http://localhost/write-large2"))
         {
             if (split)
             {
@@ -99,7 +99,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -113,14 +113,14 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/write-large2"))
+        using (var response = await client.PostAsync("http://localhost/write-large2"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(sessions, SessionCache.Count);
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -134,7 +134,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/large-to-small"))
+        using (var response = await client.PostAsync("http://localhost/large-to-small"))
         {
             overflowAttrs = existingOverflowAttrs;
             Assert.IsTrue(response.IsSuccessStatusCode);
@@ -142,7 +142,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -156,7 +156,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/small-to-large"))
+        using (var response = await client.PostAsync("http://localhost/small-to-large"))
         {
             if (split)
             {
@@ -168,7 +168,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -182,7 +182,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/remove-large1"))
+        using (var response = await client.PostAsync("http://localhost/remove-large1"))
         {
             if (split)
             {
@@ -193,7 +193,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -206,7 +206,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/remove-large2"))
+        using (var response = await client.PostAsync("http://localhost/remove-large2"))
         {
             if (split)
             {
@@ -217,7 +217,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -229,14 +229,14 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/remove-small"))
+        using (var response = await client.PostAsync("http://localhost/remove-small"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(sessions, SessionCache.Count);
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -246,14 +246,14 @@ public abstract class AbstractSessionTest
         }
 
 
-        using (var response = await client.PostAsync("/write-small"))
+        using (var response = await client.PostAsync("http://localhost/write-small"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(sessions, SessionCache.Count);
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/write-large1"))
+        using (var response = await client.PostAsync("http://localhost/write-large1"))
         {
             if (split)
             {
@@ -264,7 +264,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -277,7 +277,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/clear"))
+        using (var response = await client.PostAsync("http://localhost/clear"))
         {
             if (split)
             {
@@ -288,7 +288,7 @@ public abstract class AbstractSessionTest
             Assert.AreEqual(overflowAttrs, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.GetAsync("/read"))
+        using (var response = await client.GetAsync("http://localhost/read"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             string output = response.Content.ReadAsStringAsync().Result;
@@ -383,6 +383,7 @@ public abstract class AbstractSessionTest
 
         public async Task<HttpResponseMessage> GetAsync(string uri)
         {
+            Console.WriteLine("url: " + uri);
             return await SendAsync(HttpMethod.Get, new Uri(uri));
         }
 

@@ -99,14 +99,14 @@ public class SplitSessionTests : AbstractSessionTest
 
     protected async Task WriteOverflowAttributes(CookieHttpClient client)
     {
-        using (var response = await client.PostAsync("/write-large1"))
+        using (var response = await client.PostAsync("http://localhost/write-large1"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(1, SessionCache.Count);
             Assert.AreEqual(1, OverflowAttrCache.Count);
         }
 
-        using (var response = await client.PostAsync("/write-large2"))
+        using (var response = await client.PostAsync("http://localhost/write-large2"))
         {
             Assert.IsTrue(response.IsSuccessStatusCode);
             Assert.AreEqual(1, SessionCache.Count);
