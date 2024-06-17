@@ -32,11 +32,6 @@
       <artifactId>coherence</artifactId>
       <version>${coherence.version}</version>
     </dependency>
-    <dependency>
-      <groupId>${coherence.groupid}</groupId>
-      <artifactId>coherence-aspnet-session</artifactId>
-      <version>${coherence.version}</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -63,4 +58,20 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>AspNet</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <dependencies>        
+        <dependency>
+          <groupId>${coherence.groupid}</groupId>
+          <artifactId>coherence-aspnet-session</artifactId>
+          <version>${coherence.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
 </project>
