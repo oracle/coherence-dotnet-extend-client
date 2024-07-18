@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System.Collections;
 
@@ -25,7 +25,7 @@ namespace Tangosol.Net.Impl
         /// </value>
         public virtual IInvocationService RunningInvocationService
         {
-            get { return EnsureRunningInvocationService(true); }
+            get { return EnsureRunningInvocationService(); }
         }
 
         #endregion
@@ -112,18 +112,12 @@ namespace Tangosol.Net.Impl
         /// not running and has not been explicitly stopped, the
         /// <b>IInvocationService</b> is restarted.
         /// </remarks>
-        /// <param name="drain">
-        /// If true and the wrapped <b>IInvocationService</b> is restarted,
-        /// the calling thread will be blocked until the wrapped
-        /// <b>IInvocationService</b> event dispatcher queue is empty and all
-        /// outstanding tasks have been executed.
-        /// </param>
         /// <returns>
         /// The running wrapped <b>IInvocationService</b>.
         /// </returns>
-        public virtual IInvocationService EnsureRunningInvocationService(bool drain)
+        public virtual IInvocationService EnsureRunningInvocationService()
         {
-            return (IInvocationService) EnsureRunningService(drain);
+            return (IInvocationService) EnsureRunningService();
         }
 
         #endregion
