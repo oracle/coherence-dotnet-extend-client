@@ -160,7 +160,7 @@ dotnet new console -name "HelloCoherence"
 1. Add the following references to the HelloCoherence.csproj (provide the Coherence.dll location in the `<HintPath>`):
 ```
   <ItemGroup>
-    <Reference Include="Coherence, Version=14.1.1.17, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+    <Reference Include="Coherence, Version=14.1.1.18, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
       <HintPath>Coherence.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
@@ -423,7 +423,7 @@ msbuild /t:dist Coherence.msbuild
 ```
 The resulting files:
 
-`dist\14.1.1.17b0` - Coherence MSI installer
+`dist\14.1.1.19b0` - Coherence MSI installer
 
 For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/develop-remote-clients/creating-net-extend-clients.html).
 
