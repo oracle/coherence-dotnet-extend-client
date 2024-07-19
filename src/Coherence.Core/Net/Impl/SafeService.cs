@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Runtime.CompilerServices;
@@ -82,7 +82,7 @@ namespace Tangosol.Net.Impl
         /// </value>
         public virtual Util.IService RunningService
         {
-            get { return EnsureRunningService(true); }
+            get { return EnsureRunningService(); }
         }
 
         /// <summary>
@@ -626,7 +626,7 @@ namespace Tangosol.Net.Impl
 
                 try
                 {
-                    EnsureRunningService(false);
+                    EnsureRunningService();
                 }
                 finally
                 {
@@ -634,8 +634,6 @@ namespace Tangosol.Net.Impl
                     SafeServiceState = ServiceState.Started;
                 }
             }
-
-            DrainEvents();
         }
 
         /// <summary>
@@ -829,16 +827,10 @@ namespace Tangosol.Net.Impl
         /// before returning it. If the <b>IService</b> is not running and has
         /// not been explicitly stopped, the <b>IService</b> is restarted.
         /// </remarks>
-        /// <param name="drain">
-        /// If true and the wrapped <b>IService</b> is restarted, the calling
-        /// thread will be blocked until the wrapped <b>IService</b> event
-        /// dispatcher queue is empty and all outstanding tasks have been
-        /// executed.
-        /// </param>
         /// <returns>
         /// The running wrapped <b>IService</b>.
         /// </returns>
-        public virtual Util.IService EnsureRunningService(bool drain)
+        public virtual Util.IService EnsureRunningService()
         {
             Util.IService service = Service;
             if (service == null || !service.IsRunning)
@@ -881,32 +873,9 @@ namespace Tangosol.Net.Impl
                         }
                     }
                 }
-
-                if (drain)
-                {
-                    DrainEvents();
-                }
             }
 
             return service;
-        }
-
-        /// <summary>
-        /// Block the calling thread until the wrapped <b>IService</b> event
-        /// dispatcher queue is empty and all outstanding tasks have been
-        /// executed.
-        /// </summary>
-        public virtual void DrainEvents()
-        {
-            Util.IService service = Service;
-            if (service is Service)
-            {
-                ((Service) service).DrainEvents();
-            }
-            else if (service is RemoteService)
-            {
-                ((RemoteService) service).DrainEvents();
-            }
         }
 
         /// <summary>

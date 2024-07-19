@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Diagnostics;
@@ -986,22 +986,6 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service
             if (handler != null)
             {
                 handler(this, evt);
-            }
-        }
-
-        /// <summary>
-        /// Block the calling thread until the EventDispatcher Queue is empty
-        /// and all outstanding tasks have been executed.
-        /// </summary>
-        /// <remarks>
-        /// This method is mostly called on client threads.
-        /// </remarks>
-        public virtual void DrainEvents()
-        {
-            EventDispatcher daemon = Dispatcher;
-            if (daemon != null)
-            {
-                daemon.DrainQueue();
             }
         }
 

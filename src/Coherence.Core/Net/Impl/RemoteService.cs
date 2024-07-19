@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Diagnostics;
@@ -796,19 +796,6 @@ namespace Tangosol.Net.Impl
         {
             Channel channel = (Channel) EnsureChannel();
             return channel.ConnectionManager.EnsureEventDispatcher();
-        }
-
-        /// <summary>
-        /// Block the calling thread until the EventDispatcher Queue is empty
-        /// and all outstanding tasks have been executed.
-        /// </summary>
-        public virtual void DrainEvents()
-        {
-            IConnectionInitiator initiator = Initiator;
-            if (initiator is Initiator)
-            {
-                ((Initiator) initiator).DrainEvents();
-            }
         }
 
         /// <summary>
