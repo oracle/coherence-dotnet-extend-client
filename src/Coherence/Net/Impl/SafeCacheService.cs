@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -44,7 +44,7 @@ namespace Tangosol.Net.Impl
         /// </value>
         public virtual ICacheService RunningCacheService
         {
-            get { return EnsureRunningCacheService(true); }
+            get { return EnsureRunningCacheService(); }
         }
 
         /// <summary>
@@ -273,18 +273,12 @@ namespace Tangosol.Net.Impl
         /// running and has not been explicitly stopped, the
         /// <b>ICacheService</b> is restarted.
         /// </remarks>
-        /// <param name="drain">
-        /// If true and the wrapped <b>ICacheService</b> is restarted, the
-        /// calling thread will be blocked until the wrapped
-        /// <b>ICacheService</b> event dispatcher queue is empty and all
-        /// outstanding tasks have been executed.
-        /// </param>
         /// <returns>
         /// The running wrapped <b>ICacheService</b>.
         /// </returns>
-        public virtual ICacheService EnsureRunningCacheService(bool drain)
+        public virtual ICacheService EnsureRunningCacheService()
         {
-            return (ICacheService) EnsureRunningService(drain);
+            return (ICacheService) EnsureRunningService();
         }
 
         /// <summary>
