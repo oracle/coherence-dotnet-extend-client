@@ -55,7 +55,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        coherence_version: [14.1.1-0-17, 22.06.8, 24.09-SNAPSHOT]
+        coherence_version: [14.1.1-0-18, 22.06.9, 24.09-SNAPSHOT]
 
     steps:
     - name: Checkout
