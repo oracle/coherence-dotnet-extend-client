@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
-  Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2024, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
-  http://oss.oracle.com/licenses/upl.
+  https://oss.oracle.com/licenses/upl.
 -->
 
 <xs:schema xmlns="http://schemas.tangosol.com/cache"
@@ -581,9 +581,7 @@
 
   <xs:complexType name="initiator-config">
     <xs:sequence>
-      <xs:choice>
-        <xs:element ref="tcp-initiator"/>
-      </xs:choice>
+      <xs:element ref="tcp-initiator" minOccurs="0"/>
       <xs:element ref="incoming-message-handler" minOccurs="0"/>
       <xs:element ref="outgoing-message-handler" minOccurs="0"/>
       <xs:element ref="use-filters" minOccurs="0"/>

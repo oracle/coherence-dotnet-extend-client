@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Diagnostics;
@@ -115,15 +115,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
         {
             IConnectionInitiator initiator;
 
-            if (xml.GetElement("tcp-initiator") != null)
-            {
-               initiator = (IConnectionInitiator) Activator.CreateInstance(typeof(TcpInitiator));
-            }
-            else
-            {
-                throw new ArgumentException("unsupported \"initiator-config\":\n" + xml);
-            }
-
+            initiator = (IConnectionInitiator) Activator.CreateInstance(typeof(TcpInitiator));
             initiator.OperationalContext = ctx;
             initiator.Configure(xml);
             return initiator;
@@ -161,14 +153,7 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
             IXmlElement xmlConfig = xml.Name.Equals("initiator-config") 
                     ? xml : xml.GetSafeElement("initiator-config");
 
-            if (xmlConfig.GetElement("tcp-initiator") != null)
-            {
-                return (IXmlElement) xmlConfig.Clone();
-            }
-
-            throw new ArgumentException("the \"initiator-config\" element is either"
-                    + " missing, empty, or does not contain a valid transport-specific"
-                    + " child element:\n" + xml);
+            return (IXmlElement) xmlConfig.Clone();
         }
 
         #endregion

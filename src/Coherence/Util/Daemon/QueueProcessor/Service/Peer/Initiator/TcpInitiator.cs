@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -275,7 +275,11 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 xmlSub = xmlCat.GetElement("name-service-addresses");
                 if (xmlSub == null)
                 {
-                    xmlSub = xmlCat.GetSafeElement("remote-addresses");
+                    xmlSub = xmlCat.GetElement("remote-addresses");
+                    if (xmlSub == null)
+                    {
+                        isNameService = true; // implicit NS
+                    }
                 }
                 else
                 {
@@ -283,10 +287,10 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 }
                 IAddressProviderFactory factory;
 
-                IXmlElement xmlProvider = xmlSub.GetElement("address-provider");
+                IXmlElement xmlProvider = xmlSub == null ? null : xmlSub.GetElement("address-provider");
                 bool        missing     = xmlProvider == null;
                 bool        empty       = !missing && xmlProvider.IsEmpty;
-                if (empty || missing)
+                if (xmlSub != null && (empty || missing))
                 {
                     ConfigurableAddressProviderFactory factoryImpl = 
                             new ConfigurableAddressProviderFactory();
@@ -295,7 +299,8 @@ namespace Tangosol.Util.Daemon.QueueProcessor.Service.Peer.Initiator
                 }
                 else
                 {
-                    String name = xmlProvider.GetString();
+                    String name = xmlSub == null ? "cluster-discovery" : xmlProvider.GetString();
+                    // The address provider map should contain a corresponding address provider.
                     factory = (IAddressProviderFactory) 
                             OperationalContext.AddressProviderMap[name];
                     if (factory == null)

@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 ﻿using System;
 using System.Collections;
 using System.Diagnostics;
 using System.IO;
-
+using System.Xml;
 using Tangosol.Config;
 using Tangosol.IO;
 using Tangosol.IO.Resources;
@@ -526,6 +526,20 @@ namespace Tangosol.Net
                 }
             }
 
+            if (!addressProviderMap.Contains("cluster-discovery"))
+            {
+                var cdFactory = new ConfigurableAddressProviderFactory();
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(@"<address-provider id=""cluster-discovery"">
+                                     <socket-address>
+                                         <address system-property=""coherence.ns.address"">127.0.0.1</address>
+                                         <port system-property=""coherence.ns.port"">7574</port>
+                                     </socket-address>
+                                 </address-provider>");
+
+                cdFactory.Config = XmlHelper.ConvertDocument(xmlDoc);
+                addressProviderMap.Add("cluster-discovery", cdFactory);
+            }
             AddressProviderMap = addressProviderMap;
         }
         

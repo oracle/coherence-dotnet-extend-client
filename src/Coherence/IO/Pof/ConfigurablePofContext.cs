@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -12,7 +12,6 @@ using System.Text;
 using Tangosol.Config;
 using Tangosol.IO.Pof.Annotation;
 using Tangosol.IO.Resources;
-using Tangosol.Net;
 using Tangosol.Run.Xml;
 using Tangosol.Util;
 using Tangosol.Util.Collections;
@@ -784,8 +783,15 @@ namespace Tangosol.IO.Pof
                 var coherence = (CoherenceConfig)
                         ConfigurationUtils.GetCoherenceConfiguration();
                 var resource = coherence?.PofConfig ?? DefaultPofConfigResource;
-                config = XmlHelper.LoadResource(resource,
-                        "POF configuration");
+                try
+                {
+                    config = XmlHelper.LoadResource(resource, "POF configuration");
+                }
+                catch (Exception e) when(e.InnerException is IOException)
+                {
+                    config = XmlHelper.LoadResource(
+                        ResourceLoader.GetResource( "assembly://Coherence/Tangosol.Config/coherence-pof-config.xml"), "POF configuration");
+                }
             }
             return config;
         }
