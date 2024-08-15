@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <RootNamespace>Tangosol</RootNamespace>
+        <Version>14.1.2.0</Version>
+        <Title>Oracle Cohrence SessionStore 14.1.2.0</Title>
+        <Authors>Oracle</Authors>
+        <Copyright>Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.</Copyright>
+        <PackageProjectUrl>https://coherence.community/</PackageProjectUrl>
+        <Product>Oracle Coherence SessionStore</Product>
+        <AssemblyVersion>14.1.2.0</AssemblyVersion>
+        <FileVersion>14.1.2.0</FileVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <OutputPath>bin\Debug/</OutputPath>
+      <WarningLevel>4</WarningLevel>
+      <NoWarn />
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <OutputPath>bin\Release/</OutputPath>
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Config\coherence-aspnet-cache-config.xml" />
+      <EmbeddedResource Include="Config\coherence-aspnet-pof-config.xml" />
+    </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coherence\Coherence.csproj" />
+  </ItemGroup>
+</Project>

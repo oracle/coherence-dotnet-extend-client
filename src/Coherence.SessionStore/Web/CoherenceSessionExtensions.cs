@@ -5,8 +5,6 @@
  * https://oss.oracle.com/licenses/upl.
  */
 
-using System;
-
 using Microsoft.AspNetCore.Session;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

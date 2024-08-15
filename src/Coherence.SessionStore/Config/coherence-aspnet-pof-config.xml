@@ -13,27 +13,27 @@
 
     <user-type>
       <type-id>300</type-id>
-      <class-name>Tangosol.Web.SessionKey, Coherence</class-name>
+      <class-name>Tangosol.Web.SessionKey, Coherence.SessionStore</class-name>
     </user-type>
 
     <user-type>
       <type-id>301</type-id>
-      <class-name>Tangosol.Web.OverflowAttributeKey, Coherence</class-name>
+      <class-name>Tangosol.Web.OverflowAttributeKey, Coherence.SessionStore</class-name>
     </user-type>
 
     <user-type>
       <type-id>302</type-id>
-      <class-name>Tangosol.Web.SessionValue, Coherence</class-name>
+      <class-name>Tangosol.Web.SessionValue, Coherence.SessionStore</class-name>
     </user-type>
 
     <user-type>
       <type-id>303</type-id>
-      <class-name>Tangosol.Web.SaveSessionProcessor, Coherence</class-name>
+      <class-name>Tangosol.Web.SaveSessionProcessor, Coherence.SessionStore</class-name>
     </user-type>
 
     <user-type>
       <type-id>304</type-id>
-      <class-name>Tangosol.Web.ResetSessionTimeoutProcessor, Coherence</class-name>
+      <class-name>Tangosol.Web.ResetSessionTimeoutProcessor, Coherence.SessionStore</class-name>
     </user-type>
   </user-type-list>
 

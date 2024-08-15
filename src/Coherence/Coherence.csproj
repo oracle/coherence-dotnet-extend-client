@@ -85,8 +85,6 @@
     
   <ItemGroup>
     <EmbeddedResource Include="Config\cache-config.xsd" />
-    <EmbeddedResource Include="Config\coherence-aspnet-cache-config.xml" />
-    <EmbeddedResource Include="Config\coherence-aspnet-pof-config.xml" />
     <EmbeddedResource Include="Config\coherence-cache-config.xml" />
     <EmbeddedResource Include="Config\pof-config.xsd" />
     <EmbeddedResource Include="Config\coherence.xml" />
@@ -97,9 +95,5 @@
   <ItemGroup>
     <None Include="../../assets/coherence-logo.png" Pack="true" PackagePath="/"/>
     <None Include="../../assets/nuget-readme.md" Pack="true" PackagePath="readme.md"/>
-  </ItemGroup>
-
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>

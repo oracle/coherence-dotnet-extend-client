@@ -5,9 +5,7 @@
  * https://oss.oracle.com/licenses/upl.
  */
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 
 using Tangosol.IO.Pof;
 using Tangosol.Util.Collections;

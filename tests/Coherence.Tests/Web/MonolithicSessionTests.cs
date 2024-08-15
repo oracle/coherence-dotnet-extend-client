@@ -16,7 +16,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using NUnit.Framework;
-
 using Tangosol.Net;
 
 namespace Tangosol.Web;
@@ -65,7 +64,7 @@ public class MonolithicSessionTests : AbstractSessionTest
 
                     services.UseCoherenceSession(options =>
                     {
-                        options.SessionType = CoherenceSessionOptions.HttpSessionType.Monolithic;
+                        options.Model = CoherenceSessionOptions.SessionModel.Monolithic;
                     });
 
                     // services.AddRouting();

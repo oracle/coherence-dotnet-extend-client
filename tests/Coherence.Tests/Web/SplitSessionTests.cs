@@ -65,7 +65,7 @@ public class SplitSessionTests : AbstractSessionTest
 
                     services.UseCoherenceSession(options =>
                     {
-                        options.SessionType       = CoherenceSessionOptions.HttpSessionType.Split;
+                        options.Model = CoherenceSessionOptions.SessionModel.Split;
                     });
 
                     // services.AddRouting();

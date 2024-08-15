@@ -5,13 +5,10 @@
  * https://oss.oracle.com/licenses/upl.
  */
 
-using System;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-
 using Tangosol.Net;
 using Tangosol.Web.Model;
 
@@ -51,9 +48,9 @@ public class CoherenceSessionStore : ISessionStore
         Func<bool> tryEstablishSession,
         bool isNewSessionKey)
     {
-        return m_options.SessionType switch
+        return m_options.Model switch
         {
-            CoherenceSessionOptions.HttpSessionType.Monolithic =>
+            CoherenceSessionOptions.SessionModel.Monolithic =>
                 new MonolithicSession(
                     m_ccf.EnsureCache(m_options.CacheName),
                     ApplicationId,
@@ -62,7 +59,7 @@ public class CoherenceSessionStore : ISessionStore
                     ioTimeout,
                     tryEstablishSession,
                     isNewSessionKey),
-            CoherenceSessionOptions.HttpSessionType.Split =>
+            CoherenceSessionOptions.SessionModel.Split =>
                 new SplitSession(
                     m_ccf.EnsureCache(m_options.CacheName),
                     m_ccf.EnsureCache(m_options.OverflowCacheName),
@@ -73,7 +70,7 @@ public class CoherenceSessionStore : ISessionStore
                     tryEstablishSession,
                     isNewSessionKey,
                     m_options.MinOverflowAttributeSize),
-            _ => throw new InvalidOperationException($"Unknown Coherence session type: {m_options.SessionType}")
+            _ => throw new InvalidOperationException($"Unknown Coherence session type: {m_options.Model}")
         };
     }
 
