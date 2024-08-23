@@ -95,7 +95,7 @@
   <xs:complexType name="cluster-config">
     <xs:sequence>
       <xs:element ref="member-identity" minOccurs="0"/>
-      <xs:element ref="filters"/>
+      <xs:element ref="filters" minOccurs="0"/>
       <xs:element ref="serializers" minOccurs="0"/>
       <xs:element ref="address-providers" minOccurs="0"/>
     </xs:sequence>

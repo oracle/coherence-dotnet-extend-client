@@ -36,7 +36,8 @@ public class CoherenceSessionOptions
     /// <summary>
     /// Path to the Coherence configuration file.
     /// </summary>
-    public string CoherenceConfig { get; set; } = "assembly://Coherence/Tangosol.Config/coherence.xml";
+    public string CoherenceConfig { get; set; } = "assembly://Coherence/Tangosol.Config/coherence-config.xml";
+
     /// <summary>
     /// Path to the Coherence cache configuration file.
     /// </summary>
@@ -57,7 +58,14 @@ public class CoherenceSessionOptions
     /// </summary>
     public enum SessionModel
     {
+        /// <summary>
+        /// Monolithic session model
+        /// </summary>
         Monolithic,
+
+        /// <summary>
+        /// Split session model
+        /// </summary>
         Split
     }
 }

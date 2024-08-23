@@ -19,12 +19,14 @@
       <OutputPath>bin\Debug/</OutputPath>
       <WarningLevel>4</WarningLevel>
       <NoWarn />
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <OutputPath>bin\Release/</OutputPath>
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
       <WarningLevel>4</WarningLevel>
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

@@ -716,7 +716,7 @@ namespace Tangosol.Net
 
         /// <summary>
         /// Log a message using Coherence logging facility which is driven by
-        /// the "logging-config" element located in the coherence.xml
+        /// the "logging-config" element located in the coherence-config.xml
         /// configuration file.
         /// </summary>
         /// <param name="message">
@@ -733,7 +733,7 @@ namespace Tangosol.Net
 
         /// <summary>
         /// Log an exception using Coherence logging facility which is driven
-        /// by the "logging-config" element located in the coherence.xml
+        /// by the "logging-config" element located in the coherence-config.xml
         /// configuration file.
         /// </summary>
         /// <param name="exc">
@@ -751,7 +751,7 @@ namespace Tangosol.Net
         /// <summary>
         /// Log a message and exception using Coherence logging facility
         /// which is driven by the "logging-config" element located in the
-        /// coherence.xml configuration file.
+        /// coherence-config.xml configuration file.
         /// </summary>
         /// <param name="message">
         /// A message to log.

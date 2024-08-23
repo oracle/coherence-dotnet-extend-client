@@ -88,14 +88,14 @@ namespace Tangosol.Net
         /// </summary>
         static DefaultOperationalContext()
         {
-            s_configResource = ResourceLoader.GetResource("coherence.xml", true);
+            s_configResource = ResourceLoader.GetResource("coherence-config.xml", true);
 
             // if the user-specific default operaational configuration file
             // doesn't exist, use the one embedded into Coherence.dll
             if (!File.Exists(s_configResource.AbsolutePath))
             {
                 s_configResource = new EmbeddedResource(string.Format(
-                        "assembly://{0}/Tangosol.Config/coherence.xml",
+                        "assembly://{0}/Tangosol.Config/coherence-config.xml",
                         typeof(CacheFactory).Assembly.FullName));
             }
         }

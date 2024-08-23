@@ -60,12 +60,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <OutputPath>bin\Debug</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
     <DefineConstants />
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <OutputPath>bin\Release</OutputPath>
   </PropertyGroup>
 
@@ -78,7 +78,7 @@
     <None Remove="Config\cache-config.xsd" />
     <None Remove="Config\coherence-cache-config.xml" />
     <None Remove="Config\pof-config.xsd" />
-    <None Remove="Config\coherence.xml" />
+    <None Remove="Config\coherence-config.xml" />
     <None Remove="Config\coherence-pof-config.xml" />
     <None Remove="Config\coherence.xsd" />
   </ItemGroup>
@@ -87,7 +87,7 @@
     <EmbeddedResource Include="Config\cache-config.xsd" />
     <EmbeddedResource Include="Config\coherence-cache-config.xml" />
     <EmbeddedResource Include="Config\pof-config.xsd" />
-    <EmbeddedResource Include="Config\coherence.xml" />
+    <EmbeddedResource Include="Config\coherence-config.xml" />
     <EmbeddedResource Include="Config\coherence-pof-config.xml" />
     <EmbeddedResource Include="Config\coherence.xsd" />
   </ItemGroup>
