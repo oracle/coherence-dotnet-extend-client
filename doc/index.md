@@ -1,23 +1,20 @@
-# Oracle® Coherence Client for .NET Documentation
+# Oracle® Fusion Middleware .NET API Reference for Oracle Coherence
+
+14c (14.1.2.0.0)
+
+F79654-01
+
+June 2024
 
 This is documentation for the .NET 6.0 or later implementation of Oracle Coherence Client for .NET. 
 
-> [!Note]
-> The documentation for the .NET Framework 4.0 (or later) compatible implementation of Oracle Coherence Client for .NET is available [here](https://coherence.community/14.1.1.0/api/dotnet/).
-
 ### [API Documentation](api/)
-
-### About Oracle Coherence
-
-**Oracle Coherence CE** (Community Edition) is a free and open source edition of [Oracle Coherence](https://www.oracle.com/middleware/technologies/coherence.html), first and market-leading in-memory data grid. 
-
-Since its initial release in 2001, it has been used by thousands of customers across many industries to power some of the mission critical systems you use every day. Often imitated, but never duplicated, it is now available for everyone to use free of charge.
 
 ### About Oracle Coherence Client for .NET
 
 **Oracle Coherence Client for .NET** allows .NET applications to access Coherence clustered services, including data, data events, and data processing from outside the Coherence cluster. Typical uses of Coherence for .NET include desktop and web applications that require access to Coherence-managed data.
 
-Coherence Client for .NET is a lightweight .NET library that connects to a Coherence\*Extend clustered service instance running within the Coherence cluster using a high performance TCP/IP-based communication layer. This library sends all client requests to the Coherence\*Extend clustered service which, in turn, responds to client requests by delegating to an actual Coherence clustered service (for example, a *Partitioned* or *Replicated* cache service).
+Coherence Client for .NET is a lightweight .NET library that connects to a Coherence\*Extend clustered service instance running within the Coherence cluster using a high performance TCP/IP-based communication layer. This library sends all client requests to the Coherence\*Extend clustered service which, in turn, responds to client requests by delegating to an actual Coherence clustered service (for example, a *Partitioned* cache service).
 
 An `INamedCache` instance is retrieved via the `CacheFactory.GetCache()` API call. Once it is obtained, a client accesses the `INamedCache` in the same way as it would if it were part of the Coherence cluster. The fact that cache operations are being sent and executed on a remote cluster node (over TCP/IP) is completely transparent to the client application.
 
