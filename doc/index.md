@@ -2,11 +2,11 @@
 
 14c (14.1.2.0.0)
 
-F79654-01
+F79657-01
 
-June 2024
+November 2024
 
-This is documentation for the .NET 6.0 or later implementation of Oracle Coherence Client for .NET. 
+This is documentation for the .NET 6.0 or later implementation of Oracle Coherence Client for .NET.
 
 ### [API Documentation](api/)
 
