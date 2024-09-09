@@ -42,10 +42,15 @@ namespace Tangosol.IO.Pof
     /// For user types that have been explicitly configured, this IPofContext 
     /// behaves identically to the ConfigurablePofContext.
     /// </para>
+    /// <para>
+    /// As of 14.1.2.0, this class is deprecated as it relies on a
+    /// deprecated <see cref="BinarySerializer"/>
+    /// </para>
     /// </remarks>
     /// <author>Jason Howes  2007.05.03</author>
     /// <author>Aleksandar Seovic (.NET)  2009.09.25</author>
     /// <since> Coherence 3.6</since>
+    [Obsolete("since Coherence 14.1.2.0")]
     public class SafeConfigurablePofContext : ConfigurablePofContext
     {
         #region Constructors

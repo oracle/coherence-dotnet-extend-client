@@ -4,6 +4,8 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * http://oss.oracle.com/licenses/upl.
  */
+
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -13,8 +15,14 @@ namespace Tangosol.IO
     /// <see cref="ISerializer"/> implementation that uses .NET binary
     /// serializer.
     /// </summary>
+    /// <remarks>
+    /// As of 14.1.2.0, this class is deprecated as it relies on
+    /// <see cref="BinaryFormatter"/>,  which is scheduled for removal
+    /// in .NET 9.
+    /// </remarks>
     /// <author>Aleksandar Seovic  2009.06.22</author>
     /// <since>Coherence 3.5</since>
+    [Obsolete("since Coherence 14.1.2.0")]
     public class BinarySerializer : ISerializer
     {
         #region Implementation of ISerializer

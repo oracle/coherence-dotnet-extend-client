@@ -15,8 +15,15 @@ namespace Tangosol.IO
     /// of primitive types and falls back to .NET BinaryFormatter for
     /// custom types.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// As of 14.1.2.0, this class is deprecated as it relies on a
+    /// deprecated <see cref="BinarySerializer"/>
+    /// </para>
+    /// </remarks>
     /// <author>Aleksandar Seovic  2010.03.17</author>
     /// <since>Coherence 3.6</since>
+    [Obsolete("since Coherence 14.1.2.0")]
     public class OptimizedBinarySerializer : ISerializer
     {
         #region Implementation of ISerializer
