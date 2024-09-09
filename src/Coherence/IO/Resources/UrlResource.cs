@@ -7,6 +7,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 
 namespace Tangosol.IO.Resources
 {
@@ -57,7 +58,10 @@ namespace Tangosol.IO.Resources
         /// <seealso cref="IResource"/>
         public override Stream GetStream()
         {
-            return WebRequest.Create(m_url).GetResponse().GetResponseStream();
+            using (var client = new HttpClient())
+            {
+                return client.GetAsync(m_url).Result.Content.ReadAsStream();
+            }
         }
 
         #endregion

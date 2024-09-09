@@ -110,19 +110,31 @@ namespace Tangosol.Net
         /// Construct a new DefaultOperationalContext.
         /// </summary>
         /// <param name="config">
-        /// An XML element corresponding to coherence.xsd.
+        /// Path to an XML resource corresponding to coherence.xsd.
         /// </param>
         public DefaultOperationalContext(string config)
             : this(ResourceLoader.GetResource(config))
         {
         }
 
+        /// <summary>
+        /// Construct a new DefaultOperationalContext.
+        /// </summary>
+        /// <param name="config">
+        /// An XML resource corresponding to coherence.xsd.
+        /// </param>
         public DefaultOperationalContext(IResource config)
             : this(XmlHelper.LoadResource(config,
                 "operational configuration"))
         {
         }
 
+        /// <summary>
+        /// Construct a new DefaultOperationalContext.
+        /// </summary>
+        /// <param name="config">
+        /// An XML element corresponding to coherence.xsd.
+        /// </param>
         public DefaultOperationalContext(IXmlElement config)
         {
             if (config == null)

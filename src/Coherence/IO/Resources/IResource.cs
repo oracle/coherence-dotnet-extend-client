@@ -61,8 +61,8 @@ namespace Tangosol.IO.Resources
         /// resource implementation.
         /// <p/>
         /// For example, file system-based resources that support
-        /// relative path resolution, such as <see cref="FileResource"/>
-        /// and <see cref="WebResource"/>, should return an absolute
+        /// relative path resolution, such as <see cref="FileResource"/>,
+        /// should return an absolute
         /// path of the resource on the file system. Other resource
         /// types should return fully qualified URI for the resource,
         /// which is basically the value of the <see cref="Uri"/>

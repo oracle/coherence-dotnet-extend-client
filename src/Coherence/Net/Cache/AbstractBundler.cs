@@ -719,11 +719,11 @@ namespace Tangosol.Net.Cache
                     Thread.CurrentThread.Interrupt();
                     SetStatus(STATUS_EXCEPTION);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // should never happen
                     --m_cThreads;
-                    throw e;
+                    throw;
                 }
                 return true;
             }

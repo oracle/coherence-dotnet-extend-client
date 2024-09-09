@@ -22,7 +22,6 @@ namespace Tangosol.IO.Resources
     /// <item>file - <see cref="FileResource"/></item>
     /// <item>http/https/ftp - <see cref="UrlResource"/></item>
     /// <item>assembly/asm - <see cref="EmbeddedResource"/></item>
-    /// <item>web - <see cref="WebResource"/></item>
     /// </list>
     /// </remarks>
     /// <author>Aleksandar Seovic  2006.10.7</author>

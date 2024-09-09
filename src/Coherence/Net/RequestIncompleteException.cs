@@ -119,7 +119,6 @@ namespace Tangosol.Net
         /// The <b>StreamingContext</b> that contains contextual information
         /// about the source or destination.
         /// </param>
-        [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
