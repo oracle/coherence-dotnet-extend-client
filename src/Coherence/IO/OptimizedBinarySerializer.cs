@@ -18,7 +18,7 @@ namespace Tangosol.IO
     /// <remarks>
     /// <para>
     /// As of 14.1.2.0, this class is deprecated as it relies on a
-    /// deprecated <see cref="BinarySerializer"/>
+    /// deprecated <see cref="BinaryFormatter"/>
     /// </para>
     /// </remarks>
     /// <author>Aleksandar Seovic  2010.03.17</author>

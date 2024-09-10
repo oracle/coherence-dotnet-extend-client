@@ -15,8 +15,15 @@ namespace Tangosol.IO.Pof
     /// <summary><see cref="IPofSerializer"/> implementation that supports
     /// the serialization and deserialization of any serializable .NET type.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// As of 14.1.2.0, this class is deprecated as it relies on a
+    /// deprecated <see cref="BinaryFormatter"/>
+    /// </para>
+    /// </remarks>
     /// <author>Goran Milosavljevic  2007.08.23</author>
     /// <since>Coherence 3.4</since>
+    [Obsolete("since Coherence 14.1.2.0")]
     public class BinaryPofSerializer : IPofSerializer
     {
         #region Constructors
