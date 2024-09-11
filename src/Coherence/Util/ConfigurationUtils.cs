@@ -1,13 +1,15 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
-using System.Configuration;
-
+using System.Collections;
+using System.IO;
+using Microsoft.Extensions.Configuration;
 using Tangosol.Config;
+using Tangosol.IO.Resources;
 
 namespace Tangosol.Util
 {
@@ -21,26 +23,54 @@ namespace Tangosol.Util
         /// The name of the configuration element that contains Coherence
         /// configuration settings.
         /// </summary>
-        private const string CONFIG_SECTION_NAME = "coherence";
-
-        // TODO: remove this constant in a future release
-        private const string _CONFIG_SECTION_NAME = "tangosol-coherence";
+        private const string CONFIG_SECTION_NAME = "Coherence";
 
         /// <summary>
         /// Parses the Coherence configuration section within the standard
-        /// .NET configuration file (App.config or Web.config).
+        /// .NET configuration file (appsettings.json).
         /// </summary>
         /// <returns>
-        /// An instance of <see cref="CoherenceConfig"/> created by
-        /// <see cref="CoherenceConfigHandler"/>.
+        /// An instance of <see cref="CoherenceConfig"/>
         /// </returns>
         public static object GetCoherenceConfiguration()
         {
-            // TODO: we still check for the legacy "tangosol-coherence" config
-            // section for backwards compatibility; this check should be
-            // removed in a future release
-            return ConfigurationManager.GetSection(CONFIG_SECTION_NAME) 
-                   ?? ConfigurationManager.GetSection(_CONFIG_SECTION_NAME);
+            IConfiguration cohCfg = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true)
+                .Build()
+                .GetSection(CONFIG_SECTION_NAME);
+
+            CoherenceConfig config = new CoherenceConfig();
+            string coherenceConfig = cohCfg["CoherenceConfig"];
+            string cacheConfig     = cohCfg["CacheConfig"];
+            string pofConfig       = cohCfg["PofConfig"];
+            string messagingDebug  = cohCfg["COHERENCE_MESSAGING_DEBUG"];
+
+            config.ConfigProperties = new Hashtable();
+            if (coherenceConfig != null)
+            {
+                config.OperationalConfig = ResourceLoader.GetResource(coherenceConfig);
+            }
+            if (cacheConfig != null)
+            {
+                config.CacheConfig = ResourceLoader.GetResource(cacheConfig);
+            }
+            if (pofConfig != null)
+            {
+                config.PofConfig = ResourceLoader.GetResource(pofConfig);
+            }
+            if (messagingDebug != null)
+            {
+                config.ConfigProperties.Add("COHERENCE_MESSAGING_DEBUG", messagingDebug);
+            }
+
+            IConfigurationSection properties = cohCfg.GetSection("Properties");
+            foreach (var property in properties.GetChildren())
+            {
+                config.ConfigProperties.Add(property.Key, property.Value);
+            }
+
+            return config;
         }
 
         /// <summary>

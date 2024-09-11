@@ -36,9 +36,9 @@
     See https://github.com/dotnet/runtime/issues/22720 for details.
     -->
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
-    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.x86.dll.config" />
-    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\ReSharperTestRunner64.dll.config" />
+    <Copy SourceFiles="appsettings.json" DestinationFiles="$(OutDir)\testhost.dll.config" />
+    <Copy SourceFiles="appsettings.json" DestinationFiles="$(OutDir)\testhost.x86.dll.config" />
+    <Copy SourceFiles="appsettings.json" DestinationFiles="$(OutDir)\ReSharperTestRunner64.dll.config" />
   </Target>
   
   <Target Name="InstallCerts" AfterTargets="AfterBuild">
@@ -58,6 +58,9 @@
   
   <ItemGroup>
     <None Remove="Resources\*.xml" />
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\*.xml" />
