@@ -16,7 +16,6 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="TestCentric.Metadata" Version="2.0.0" />
-    <PackageReference Include="XunitXml.TestLogger" Version="4.0.254" />
   </ItemGroup>
 
   <ItemGroup>
