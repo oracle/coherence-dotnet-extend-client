@@ -53,6 +53,7 @@
     <Exec Command="certutil -f -p password -importpfx Net\Ssl\Client.pfx"/>
     <Exec Command="certutil -addstore -enterprise -f -v root Config\testcert.cer"/>
     <Exec Command="certutil -addstore -enterprise -f -v root Net\Ssl\CA.cer"/>
+    <Exec Command="icacls C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys /inheritance:r /grant Administrators:F /grant:r Everyone:RW"/>
   </Target>
   
   <ItemGroup>
