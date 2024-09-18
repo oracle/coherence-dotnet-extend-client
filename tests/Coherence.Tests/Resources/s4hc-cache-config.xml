@@ -335,7 +335,7 @@
                 <certificate>
                    <url>./Config/testcert.pfx</url>
                    <password>password</password>
-                   <flags>DefaultKeySet</flags>
+                   <flags>MachineKeySet</flags>
                 </certificate>
               </local-certificates>
               <remote-certificate-validator>
