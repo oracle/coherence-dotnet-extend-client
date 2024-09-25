@@ -73,7 +73,6 @@
   <logging-config>
     <destination>stderr</destination>
     <severity-level>6</severity-level>
-    <message-format>{date} {product} {version} (TEST) &lt;{level}&gt; (thread={thread}): {text}</message-format>
     <character-limit>8192</character-limit>
   </logging-config>
   <security-config>
