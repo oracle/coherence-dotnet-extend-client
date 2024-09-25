@@ -27,17 +27,17 @@
     
     <Company>Oracle</Company>
     <Copyright>Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.</Copyright>
-    <Product>Oracle Coherence Client for .NET</Product>
+    <Product>Oracle Coherence for .NET</Product>
 
     <Description Condition="'$(Official)' == ''" >$(Version) ($(USER))</Description>
-    <Description Condition="'$(Official)' != ''" >$(Version) ($(BuildNumber))</Description>
-    <AssemblyTitle>Oracle Coherence Client for .NET $(Version)</AssemblyTitle>
+    <Description Condition="'$(Official)' != ''" >$(Version) Build $(BuildNumber)</Description>
+    <AssemblyTitle>Oracle Coherence for .NET $(Version)</AssemblyTitle>
   </PropertyGroup>
 
   <!-- NuGet metadata -->
   <PropertyGroup>
     <PackageId>Coherence</PackageId>
-    <Title>Oracle Coherence Client for .NET $(Version)</Title>
+    <Title>Oracle Coherence for .NET $(Version)</Title>
     <PackageProjectUrl>https://coherence.community/</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/oracle/coherence-dotnet-extend-client/main/assets/coherence-logo.png</PackageIconUrl>
     <PackageIcon>coherence-logo.png</PackageIcon>
