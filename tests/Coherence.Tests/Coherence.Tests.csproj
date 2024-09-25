@@ -48,11 +48,11 @@
     <Exec ContinueOnError="true" Command="certutil -delstore -v root &quot;Test And Dev Root Authority&quot;"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -enterprise -v root &quot;Test And Dev Root Authority&quot;"/>
 	
-    <Exec Command="certutil -f -p password -importpfx Net\Ssl\CA.pfx"/>
-    <Exec Command="certutil -f -p password -importpfx Net\Ssl\Server.pfx"/>
-    <Exec Command="certutil -f -p password -importpfx Net\Ssl\Client.pfx"/>
-    <Exec Command="certutil -addstore -enterprise -f -v root Config\testcert.cer"/>
-    <Exec Command="certutil -addstore -enterprise -f -v root Net\Ssl\CA.cer"/>
+    <Exec Command="certutil -p password -importpfx Net\Ssl\CA.pfx"/>
+    <Exec Command="certutil -p password -importpfx Net\Ssl\Server.pfx"/>
+    <Exec Command="certutil -p password -importpfx Net\Ssl\Client.pfx"/>
+    <Exec Command="certutil -addstore -enterprise -v root Config\testcert.cer"/>
+    <Exec Command="certutil -addstore -enterprise -v root Net\Ssl\CA.cer"/>
     <Exec Command="icacls C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys /inheritance:r /grant Administrators:F /grant:r Everyone:RW"/>
   </Target>
   
