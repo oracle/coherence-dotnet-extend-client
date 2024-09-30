@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.31" />
-    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="nunit" Version="3.14.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="System.Text.Json" Version="6.0.9" />
@@ -40,7 +40,7 @@
     <Copy SourceFiles="appsettings.json" DestinationFiles="$(OutDir)\ReSharperTestRunner64.dll.config" />
   </Target>
   
-  <Target Name="InstallCerts" AfterTargets="AfterBuild">
+  <Target Name="InstallCerts" AfterTargets="AfterBuild" Condition="$(RuntimeIdentifier.StartsWith('win'))">
     <Exec ContinueOnError="true" Command="certutil -delstore -v My MyClient"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -v My MyServerName"/>
     <Exec ContinueOnError="true" Command="certutil -delstore -v My &quot;Test And Dev Root Authority&quot;"/>

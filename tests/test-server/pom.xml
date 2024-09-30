@@ -52,7 +52,7 @@
             <argument>-classpath</argument>
             <classpath/>
             <argument>-Dcoherence.log=../../build/DefaultCacheServer.log</argument>
-            <argument>com.tangosol.net.Coherence</argument>
+            <argument>${main}</argument>
           </arguments>
         </configuration>
       </plugin>

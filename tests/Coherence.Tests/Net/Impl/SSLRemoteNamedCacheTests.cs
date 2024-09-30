@@ -1,23 +1,20 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.IO;
-using System.Collections;
 using System.Collections.Specialized;
-using System.Threading;
 
 using NUnit.Framework;
-using Tangosol.Net.Cache;
-using Tangosol.Net.Messaging.Impl.NamedCache;
-using Tangosol.Util;
+using Tangosol.Run.Xml;
 
 namespace Tangosol.Net.Impl {
 
     [TestFixture]
+    [Platform(Exclude="Unix,Linux,MacOsX")]
     public class SSLRemoteNamedCacheTests
     {
 
@@ -33,6 +30,20 @@ namespace Tangosol.Net.Impl {
         {
             get { return appSettings.Get("sslTwoWayCacheName"); }
             set { m_cacheName = value; }
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            var ccf    = CacheFactory.ConfigurableCacheFactory;
+            var config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl.xml");
+            ccf.Config = config;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            CacheFactory.Shutdown();
         }
 
         [Test]

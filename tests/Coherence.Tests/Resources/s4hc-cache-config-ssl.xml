@@ -8,65 +8,32 @@
 <cache-config xmlns="http://schemas.tangosol.com/cache">
   <caching-scheme-mapping>
     <cache-mapping>
-      <cache-name>local-*</cache-name>
-      <scheme-name>local</scheme-name>
-    </cache-mapping>
-
-    <cache-mapping>
-      <cache-name>dist-*</cache-name>
+      <cache-name>dist-extend-direct</cache-name>
       <scheme-name>extend-direct</scheme-name>
     </cache-mapping>
 
     <cache-mapping>
-      <cache-name>dist-bundling-cache</cache-name>
-      <scheme-name>extend-bundling</scheme-name>
-    </cache-mapping>
-
-    <cache-mapping>
-      <cache-name>dist-bundling-cache-defaults</cache-name>
-      <scheme-name>extend-bundling-defaults</scheme-name>
-    </cache-mapping>
-
-    <cache-mapping>
-      <cache-name>secure-*</cache-name>
+      <cache-name>dist-extend-direct-temp</cache-name>
       <scheme-name>extend-direct</scheme-name>
     </cache-mapping>
 
     <cache-mapping>
-      <cache-name>defer-key-association-check</cache-name>
-      <scheme-name>extend-defer-key-association-check</scheme-name>
+      <cache-name>dist-extend-oneway-ssl</cache-name>
+      <scheme-name>extend-direct-oneway-ssl</scheme-name>
     </cache-mapping>
 
     <cache-mapping>
-      <cache-name>proxy-stop-test</cache-name>
-      <scheme-name>extend-proxy-stop</scheme-name>
+      <cache-name>dist-extend-twoway-ssl</cache-name>
+      <scheme-name>extend-direct-twoway-ssl</scheme-name>
     </cache-mapping>
 
     <cache-mapping>
-      <cache-name>v-*</cache-name>
-      <scheme-name>extend-direct</scheme-name>
-    </cache-mapping>
-
-    <cache-mapping>
-      <cache-name>bad-*</cache-name>
-      <scheme-name>extend-bad-address</scheme-name>
-    </cache-mapping>
-
-    <!-- these mappings are used only for mapping testing, schemes do not exist -->
-    <cache-mapping>
-      <cache-name>nr-*</cache-name>
-      <scheme-name>example-near</scheme-name>
-    </cache-mapping>
-    <cache-mapping>
-      <cache-name>loc-*</cache-name>
-      <scheme-name>example-local</scheme-name>
+      <cache-name>dist-extend-tls12</cache-name>
+      <scheme-name>extend-direct-tls12</scheme-name>
     </cache-mapping>
   </caching-scheme-mapping>
 
   <caching-schemes>
-    <local-scheme>
-      <scheme-name>local</scheme-name>
-    </local-scheme>
     <remote-cache-scheme>
       <scheme-name>extend-direct</scheme-name>
       <service-name>ExtendTcpCacheService</service-name>
@@ -93,149 +60,113 @@
     </remote-cache-scheme>
 
     <remote-cache-scheme>
-      <scheme-name>extend-direct-with-cluster-name</scheme-name>
-      <service-name>ExtendTcpCacheServiceCN</service-name>
-      <cluster-name>DotNetTest</cluster-name>
-      <proxy-service-name>ExtendTcpProxyServiceEphermeral</proxy-service-name>
+      <scheme-name>extend-direct-oneway-ssl</scheme-name>
+      <service-name>ExtendTcpCacheServiceOneWaySSL</service-name>
+      <proxy-service-name>ExtendTcpProxyServiceOneWaySSL</proxy-service-name>
       <initiator-config>
         <tcp-initiator>
-          <name-service-addresses>
-            <address-provider>ap2</address-provider>
-          </name-service-addresses>
-        </tcp-initiator>
-        <connect-timeout>5s</connect-timeout>
-      </initiator-config>
-    </remote-cache-scheme>
-
-    <remote-cache-scheme>
-      <scheme-name>extend-direct-with-cluster-name</scheme-name>
-      <service-name>ExtendTcpCacheServiceUnknownCN</service-name>
-      <cluster-name>DotNotTest</cluster-name>
-      <proxy-service-name>ExtendTcpProxyServiceEphermeral</proxy-service-name>
-      <initiator-config>
-        <tcp-initiator>
-          <name-service-addresses>
-            <address-provider>ap2</address-provider>
-          </name-service-addresses>
-        </tcp-initiator>
-        <connect-timeout>5s</connect-timeout>
-      </initiator-config>
-    </remote-cache-scheme>
-
-    <remote-cache-scheme>
-      <service-name>ExtendTcpCacheService2</service-name>
-      <initiator-config>
-        <tcp-initiator>
-          <remote-addresses>
-            <address-provider>ap1</address-provider>
-          </remote-addresses>
-        </tcp-initiator>
-        <outgoing-message-handler>
-          <heartbeat-interval>1s</heartbeat-interval>
-          <heartbeat-timeout>10s</heartbeat-timeout>
-          <request-timeout>0s</request-timeout>
-        </outgoing-message-handler>
-        <use-filters>
-          <filter-name>gzip</filter-name>
-        </use-filters>
-        <connect-timeout>30s</connect-timeout>
-      </initiator-config>
-    </remote-cache-scheme>
-
-    <remote-cache-scheme>
-      <scheme-name>extend-defer-key-association-check</scheme-name>
-      <service-name>ExtendTcpCacheService3</service-name>
-      <initiator-config>
-        <tcp-initiator>
-          <remote-addresses>
-            <address-provider>ap1</address-provider>
-          </remote-addresses>
-        </tcp-initiator>
-        <outgoing-message-handler>
-          <request-timeout>5s</request-timeout>
-        </outgoing-message-handler>
-        <use-filters>
-          <filter-name>gzip</filter-name>
-        </use-filters>
-        <connect-timeout>10s</connect-timeout>
-      </initiator-config>
-      <defer-key-association-check>true</defer-key-association-check>
-    </remote-cache-scheme>
-
-    <remote-cache-scheme>
-      <scheme-name>extend-bundling</scheme-name>
-      <service-name>BundlingCacheService</service-name>
-      <operation-bundling>
-        <bundle-config>
-          <operation-name>all</operation-name>
-          <preferred-size>10</preferred-size>
-          <delay-millis>3</delay-millis>
-          <thread-threshold>5</thread-threshold>
-          <auto-adjust>true</auto-adjust>
-        </bundle-config>
-      </operation-bundling>
-      <initiator-config>
-        <tcp-initiator>
+          <stream-provider>
+            <ssl>
+              <protocol>Tls12</protocol>
+              <remote-certificate-validator>
+                <delegate>
+                  <type>static</type>
+                  <class-name>Tangosol.Net.SslStreamProvider, Coherence</class-name>
+                  <method-name>IgnoreCommonNameCertificateValidation</method-name>
+                </delegate>
+              </remote-certificate-validator>
+            </ssl>
+          </stream-provider>
           <remote-addresses>
             <socket-address>
               <address>127.0.0.1</address>
-              <port system-property="coherence.proxy.port1">0</port>
+              <port>9700</port>
             </socket-address>
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
           <heartbeat-interval>1s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
-          <request-timeout>0s</request-timeout>
         </outgoing-message-handler>
-        <use-filters>
-          <filter-name>gzip</filter-name>
-        </use-filters>
-        <connect-timeout>30s</connect-timeout>
       </initiator-config>
     </remote-cache-scheme>
 
     <remote-cache-scheme>
-      <scheme-name>extend-bundling-defaults</scheme-name>
-      <service-name>BundlingCacheServiceDefaults</service-name>
-      <operation-bundling>
-        <bundle-config>
-          <preferred-size>10</preferred-size>
-        </bundle-config>
-      </operation-bundling>
+      <scheme-name>extend-direct-tls12</scheme-name>
+      <service-name>ExtendTcpCacheServiceTLS12</service-name>
+      <proxy-service-name>ExtendTcpProxyServiceTLS12</proxy-service-name>
       <initiator-config>
         <tcp-initiator>
+          <stream-provider>
+            <ssl>
+              <protocol>Tls12</protocol>
+              <remote-certificate-validator>
+                <delegate>
+                  <type>static</type>
+                  <class-name>Tangosol.Net.SslStreamProvider, Coherence</class-name>
+                  <method-name>IgnoreCommonNameCertificateValidation</method-name>
+                </delegate>
+              </remote-certificate-validator>
+            </ssl>
+          </stream-provider>
           <remote-addresses>
             <socket-address>
               <address>127.0.0.1</address>
-              <port system-property="coherence.proxy.port1">0</port>
+              <port>9900</port>
+            </socket-address>
+             <socket-address>
+              <address>127.0.0.1</address>
+              <port>9901</port>
             </socket-address>
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
           <heartbeat-interval>1s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
-          <request-timeout>0s</request-timeout>
         </outgoing-message-handler>
-        <use-filters>
-          <filter-name>gzip</filter-name>
-        </use-filters>
-        <connect-timeout>30s</connect-timeout>
       </initiator-config>
     </remote-cache-scheme>
 
     <remote-cache-scheme>
-      <scheme-name>extend-proxy-stop</scheme-name>
-      <service-name>ExtendTcpProxyServiceCOH8230</service-name>
+      <scheme-name>extend-direct-twoway-ssl</scheme-name>
+      <service-name>ExtendTcpCacheServiceTwoWaySSL</service-name>
+      <proxy-service-name>ExtendTcpProxyServiceTwoWaySSL</proxy-service-name>
       <initiator-config>
         <tcp-initiator>
+          <stream-provider>
+            <ssl>
+              <protocol>Tls12</protocol>
+              <local-certificates>
+                <certificate>
+                   <url>./Config/testcert.pfx</url>
+                   <password>password</password>
+                   <flags>MachineKeySet</flags>
+                </certificate>
+              </local-certificates>
+              <remote-certificate-validator>
+                <delegate>
+                  <type>static</type>
+                  <class-name>Tangosol.Net.SslStreamProvider, Coherence</class-name>
+                  <method-name>IgnoreCommonNameCertificateValidation</method-name>
+                </delegate>
+              </remote-certificate-validator>
+            </ssl>
+          </stream-provider>
           <remote-addresses>
             <socket-address>
               <address>127.0.0.1</address>
-              <port>9042</port>
+              <port>9800</port>
+            </socket-address>
+             <socket-address>
+              <address>127.0.0.1</address>
+              <port>9801</port>
             </socket-address>
           </remote-addresses>
         </tcp-initiator>
+        <outgoing-message-handler>
+          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
+        </outgoing-message-handler>
       </initiator-config>
     </remote-cache-scheme>
 
