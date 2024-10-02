@@ -35,9 +35,9 @@ namespace Tangosol.Net.Impl {
         [SetUp]
         public void SetUp()
         {
-            var ccf    = CacheFactory.ConfigurableCacheFactory;
-            var config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl.xml");
-            ccf.Config = config;
+            var ccf = new DefaultConfigurableCacheFactory(
+                "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl.xml");
+            CacheFactory.ConfigurableCacheFactory = ccf;
         }
 
         [TearDown]
