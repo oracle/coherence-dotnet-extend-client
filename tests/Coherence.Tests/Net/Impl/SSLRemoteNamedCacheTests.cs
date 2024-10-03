@@ -7,14 +7,13 @@
 using System;
 using System.IO;
 using System.Collections.Specialized;
+using System.Runtime.InteropServices;
 
 using NUnit.Framework;
-using Tangosol.Run.Xml;
 
 namespace Tangosol.Net.Impl {
 
     [TestFixture]
-    [Platform(Exclude="Unix,Linux,MacOsX")]
     public class SSLRemoteNamedCacheTests
     {
 
@@ -35,8 +34,13 @@ namespace Tangosol.Net.Impl {
         [SetUp]
         public void SetUp()
         {
-            var ccf = new DefaultConfigurableCacheFactory(
-                "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl.xml");
+            var configFileName = "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl.xml";
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                configFileName = "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl-non-win.xml";
+            }
+
+            var ccf = new DefaultConfigurableCacheFactory(configFileName);
             CacheFactory.ConfigurableCacheFactory = ccf;
         }
 
