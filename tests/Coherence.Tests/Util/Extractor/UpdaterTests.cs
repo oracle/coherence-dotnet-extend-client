@@ -1,17 +1,20 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections.Specialized;
 using System.IO;
+
 using NUnit.Framework;
+
 using Tangosol.IO;
 using Tangosol.IO.Pof;
 using Tangosol.IO.Pof.Reflection;
 using Tangosol.Net;
+using Tangosol.Net.Cache;
 using Tangosol.Util.Processor;
 
 namespace Tangosol.Util.Extractor
@@ -157,6 +160,29 @@ namespace Tangosol.Util.Extractor
             PortablePerson modified = (PortablePerson) cache["p1"];
             Assert.AreEqual("Novak Seovic", modified.Name);
             Assert.AreEqual("Lutz", modified.Address.City);
+
+            CacheFactory.Shutdown();
+        }
+
+        [Test]
+        public void TestUniversalUpdater()
+        {
+            INamedCache cache = CacheFactory.GetCache(CacheName);
+            cache.Clear();
+
+            string           key      = "p1";
+            string           lastName = "Van Halen";
+            SimplePerson     person   = new SimplePerson("123-45-6789", "Eddie", lastName, 1955,
+                "987-65-4321", new String[] { "456-78-9123" });
+            UniversalUpdater updater  = new UniversalUpdater("LastName");
+
+            cache[key] = person;
+            Assert.AreEqual(lastName, ((SimplePerson) cache[key]).LastName);
+
+            // update the last name
+            lastName = "Van Helen";
+            cache.Invoke(key, new UpdaterProcessor(updater, lastName));
+            Assert.AreEqual(lastName, ((SimplePerson) cache[key]).LastName);
 
             CacheFactory.Shutdown();
         }

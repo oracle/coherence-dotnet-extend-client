@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-  Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2024, Oracle and/or its affiliates.
   Licensed under the Universal Permissive License v 1.0 as shown at
-  http://oss.oracle.com/licenses/upl.
+  https://oss.oracle.com/licenses/upl.
 -->
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
@@ -502,6 +502,8 @@
     <Compile Include="Util\Extractor\MultiExtractor.cs" />
     <Compile Include="Util\Extractor\ReflectionExtractor.cs" />
     <Compile Include="Util\Extractor\ReflectionUpdater.cs" />
+    <Compile Include="Util\Extractor\UniversalExtractor.cs" />
+    <Compile Include="Util\Extractor\UniversalUpdater.cs" />
     <Compile Include="Util\FilterEnumerator.cs" />
     <Compile Include="Util\Filter\AllFilter.cs" />
     <Compile Include="Util\Filter\AlwaysFilter.cs" />
