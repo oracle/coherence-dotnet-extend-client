@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -301,7 +301,38 @@ namespace Tangosol.Util.Extractor
             CacheFactory.Shutdown();
         }
 
+        [Test]
+        public void TestUniversalExtractor()
+        {
+            IValueExtractor extractor  = new UniversalExtractor("field");
+            IValueExtractor extractor1 = new UniversalExtractor("field");
+            IValueExtractor extractor2 = IdentityExtractor.Instance;
+            Assert.IsNotNull(extractor);
+            Assert.AreEqual(extractor.ToString(), extractor1.ToString());
 
+            // testing on remote cache
+            INamedCache cache = CacheFactory.GetCache(CacheName);
+            cache.Clear();
+
+            Address a1 = new Address("street1", "city1", "state1", "zip1");
+            Address a2 = new Address("street2", "city2", "state2", "zip2");
+            Address a3 = new Address("street3", "city1", "state3", "zip3");
+
+            Hashtable ht = new Hashtable();
+            ht.Add("universalExtractorKey1", a1);
+            ht.Add("universalExtractorKey2", a2);
+            ht.Add("universalExtractorKey3", a3);
+            cache.InsertAll(ht);
+
+            extractor = new UniversalExtractor("city");
+            IFilter     filter = new EqualsFilter(extractor, "city1");
+            ICollection keys   = cache.GetKeys(filter);
+            Assert.Contains("universalExtractorKey1", (IList) keys);
+            Assert.Contains("universalExtractorKey3", (IList) keys);
+            Assert.AreEqual(keys.Count, 2);
+
+            CacheFactory.Shutdown();
+        }
 
         [Test]
         public void TestChainedExtractor()
