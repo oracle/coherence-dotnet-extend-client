@@ -97,14 +97,14 @@ jobs:
 
     # Capture logs and test reports for diagnosing failures
     - name: Capture test logs
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: build-output
         path: build\**\*.log
 
     - name: Capture test reports
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: test-reports
