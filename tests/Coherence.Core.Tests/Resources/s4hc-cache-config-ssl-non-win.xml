@@ -71,7 +71,7 @@
               <remote-certificate-validator>
                 <delegate>
                   <type>static</type>
-                  <class-name>Tangosol.Net.Ssl.CertificateValidatorNonWindows, Coherence.Tests</class-name>
+                  <class-name>Tangosol.Net.Ssl.CertificateValidatorNonWindows, Coherence.Core.Tests</class-name>
                   <method-name>IgnoreCommonNameCertificateValidation</method-name>
                 </delegate>
               </remote-certificate-validator>
@@ -103,7 +103,7 @@
               <remote-certificate-validator>
                 <delegate>
                   <type>static</type>
-                  <class-name>Tangosol.Net.Ssl.CertificateValidatorNonWindows, Coherence.Tests</class-name>
+                  <class-name>Tangosol.Net.Ssl.CertificateValidatorNonWindows, Coherence.Core.Tests</class-name>
                   <method-name>IgnoreCommonNameCertificateValidation</method-name>
                 </delegate>
               </remote-certificate-validator>
@@ -146,7 +146,7 @@
               <remote-certificate-validator>
                 <delegate>
                   <type>static</type>
-                  <class-name>Tangosol.Net.Ssl.CertificateValidatorNonWindows, Coherence.Tests</class-name>
+                  <class-name>Tangosol.Net.Ssl.CertificateValidatorNonWindows, Coherence.Core.Tests</class-name>
                   <method-name>IgnoreCommonNameCertificateValidation</method-name>
                 </delegate>
               </remote-certificate-validator>
