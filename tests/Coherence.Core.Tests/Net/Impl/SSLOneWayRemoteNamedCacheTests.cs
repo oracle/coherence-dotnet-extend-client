@@ -22,10 +22,10 @@ namespace Tangosol.Net.Impl
         [SetUp]
         public void SetUp()
         {
-            var configFileName = "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl.xml";
+            var configFileName = "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config-ssl.xml";
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                configFileName = "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl-non-win.xml";
+                configFileName = "assembly://Coherence.Core.Tests/Tangosol.Resources/s4hc-cache-config-ssl-non-win.xml";
             }
         
             var ccf = new DefaultConfigurableCacheFactory(configFileName);
