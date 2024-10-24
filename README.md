@@ -53,7 +53,7 @@ distributed applications.
 
 ## <a name="acquire"></a>How to Get Coherence Community Edition
 
-For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/tree/master/README.md).
+For more details on how to obtain and use Coherence, please see the Coherence CE [README](https://github.com/oracle/coherence/tree/main/README.md).
 
 ## Getting Started
 
@@ -67,90 +67,45 @@ See the [documentation](#documentation) for details on building Coherence applic
 
 ### Prerequisites and Dependencies
 
-1. Microsoft .NET 4.0 or higher runtime and SDK
-2. Supported Microsoft Windows operating system (see the systemrequirements for the appropriate .NET runtime above)
-3. Microsoft Visual Studio 2010+, or Visual Studio Code with the NET plugin installed is required to build
+1. Microsoft .NET 6.0 or higher runtime and SDK
+2. Microsoft Visual Studio 2022+, or Visual Studio Code with the NET plugin installed is required to build
 
-The Coherence for .NET also depends on the following libraries and software:
-1. [Common.Logging, 2.0.0.0](#commonlogging)
-1. [MSBuild.Extension.Pack, 1.9.1](#msbuildex)
-1. [Sandcastle Help File Builder and Tools, 2019.11.17](#shfb)
-1. [Microsoft Build Tools 2015](#msbuildtools)
-
-#### <a name="commonlogging"></a>Common.Logging 2.0.0.0
-<a name="intro"></a>
-Download and install Common.Logging 2.0.0.0 (`https://www.nuget.org/packages/Common.Logging/2.0.0`) or later. Copy Common.Logging.2.0.0\lib\2.0 to lib\net\2.0.
-
-#### <a name="msbuildex"></a>MSBuild.Extension.Pack.1.9.1
-Download and install MSBuild.Extension.Pack, 1.9.1 (`https://www.nuget.org/packages/MSbuild.Extension.Pack/1.9.0`). Copy MSBuild.Extension.Pack.1.9.1 to tools\internal\msbuild.
-
-#### <a name="shfb"></a>Sandcastle Help File Builder and Tools, 2019.11.17
-Coherence uses Sandcastle Help File Builder and Tools to build the Coherence .NET documentation. Down load and install Sandcastle Help File Builder and Tools, 2019.11.17 (`https://github.com/EWSoftware/SHFB/releases`). Then copy the "Sandcastle Help File Builder" directory 
-to tools\internal\shfb.
-
-#### <a name="msbuildtools"></a>Microsoft Build Tools 2015
-Sandcastle Help File Builder and Tools requires Microsoft Build Tools 2015.  You can down load Microsoft Build Tools 2015（`https://www.microsoft.com/en-us/download/details.aspx?id=48159`）or later and install it if you don't have it already.
+The Coherence for .NET also depends on [docfx](https://dotnet.github.io/docfx/) to build documentation.
 
 The following additional dependencies are required for testing:
-1. [NUnit 2 releases, 2.6.2](#nunit)
-1. [NUnit.Runners, 2.6.2](#nunitrunners)
-1. [Ant, 1.7.0](#ant)
-1. Java 1.8 or later
-1. [WinHttpCertCfg.exe](#httpcerts)
+1. Java 17 or later
 
-#### <a name="nunit"></a>NUnit 2.6.2
-Download and install NUnit, 2.6.2 (`https://nunit.org/download/#olderReleases`) or later. Copy NUnit.2.6.2 to tools\internal\nunit
+To build Coherence for .NET, you must run the dotnet build utility, passing in the desired target that you would like to execute.
+Using .NET 6, the output from the build is located in the `src/<project>/bin/<Debug|Release>/net6.0` subdirectory.
+Using .NET 8, the output from the build is located in the `src/<project>/bin/<Debug|Release>/net8.0` subdirectory.
 
-#### <a name="nunitrunners"></a>NUnit.Runners, 2.6.2
-Download and install NUnit.Runners, 2.6.2 (`https://www.nuget.org/packages/NUnit.Runners/2.6.2`) or later. Copy NUnit.Runners.2.6.2 to tools\internal\NUnit.Runners
+To build Coherence clone this repository and run the following commands:
 
-#### <a name="ant"></a>Ant
-Download and install Ant, 1.7.0 or later. Then copy it to under tools\internal\ant.
-
-#### <a name="httpcerts"></a>WinHttpCertCfg.exe
-Download and install WinHttpCertCfg.exe ('https://www.microsoft.com/en-us/download/details.aspx?id=19801`).  Then copy it to tools\internal\resourcekit.
-
-You can use NuGet Package Manager through Visual Studio or Develooper Command Prompt to download most of the dependency libraries and software.
-
-If C:\coherence-net is your project root directory, it should contain the following directories
-
-- C:\coherence-net\lib\net\2.0
-- C:\coherence-net\tools\cluster-control
-- C:\coherence-net\tools\internal\ant
-- C:\coherence-net\tools\internal\cluster-control
-- C:\coherence-net\tools\internal\msbuild
-- C:\coherence-net\tools\internal\msbuild-custom
-- C:\coherence-net\tools\internal\nunit
-- C:\coherence-net\tools\internal\nunit.runners
-- C:\coherence-net\tools\internal\resourcekit
-- C:\coherence-net\tools\internal\shfb
-- C:\coherence-net\tools\msbuild-custom
-
-The Coherence for .NET build system is based upon msbuild. To build Coherence for .NET, you must run the msbuild build utility, passing in the desired target that you would like to execute.
-The output from the build are in the build subdirectory.
-
-To build Coherence for .NET, start a "Developer Command Prompt for VS" 2017 or 2019.
-Clone this repository and run the following command:
+For debug build run:
 ```
-set JAVA_HOME=<Java Home Path>
-```
-```
-bin\cfgbuild.cmd
-```
-```
-msbuild /t:build Coherence.msbuild
+dotnet build
 ```
 The resulting files:
 
-`build\Coherence.2010\Debug` - debug build
+`src/Coherence/bin/Debug/net6.0/Coherence.dll`
+`src/Coherence.SessionStore/bin/Debug/net6.0/Coherence.SessionStore.dll`
 
-`build\Coherence.2010\Release` - release build
+For release build run:
+```
+dotnet build --configuration Release
+```
+The resulting files:
+
+`src/Coherence/bin/Release/net6.0/Coherence.dll`
+`src/Coherence.SessionStore/bin/Release/net6.0/Coherence.SessionStore.dll`
+
+`src/Coherence/bin/Release/Coherence.14.1.2.nupkg` - nuget package
 
 To clean all build artifacts from your build system, run the following
 command:
 
 ```
-msbuild /t:clean Coherence.msbuild
+dotnet clean
 ```
 
 ## <a name="started"></a>CLI Hello Coherence Example
@@ -159,7 +114,7 @@ The following example illustrates starting a storage enabled Coherence server, f
 ### Build HelloCoherence
 1. Using dotnet-cli to create a HelloCoherence console application:
 ```
-dotnet new console -name "HelloCoherence"
+dotnet new console --name "HelloCoherence"
 ```
 1. Add the following references to the HelloCoherence.csproj (provide the Coherence.dll location in the `<HintPath>`):
 ```
@@ -168,7 +123,9 @@ dotnet new console -name "HelloCoherence"
       <HintPath>Coherence.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
   </ItemGroup>
 ```
 Also include any Coherence configuration files you may have.
@@ -176,10 +133,10 @@ Also include any Coherence configuration files you may have.
 1. Replace Program.cs code with the following source:
 ```
 /*
- * Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using Tangosol.Net;
@@ -319,7 +276,7 @@ By default, you need to provide a POF configure file, pof-config.xml, in the Tar
   Copyright (c) 2000, 2020, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
-  http://oss.oracle.com/licenses/upl.
+  https://oss.oracle.com/licenses/upl.
 -->
 <pof-config xmlns="http://schemas.tangosol.com/pof">
   <user-type-list>
@@ -364,19 +321,19 @@ Map (?): cache welcomes
 Map (welcomes): get english
 NULL
 
-Map (welcomes): put english Hello
+Map (welcomes): put english hello
 
-Map (welcomes): put spanish Hola
+Map (welcomes): put spanish hola
 
-Map (welcomes): put french Bonjour
+Map (welcomes): put french bonjour
 
 Map (welcomes): get english
 Hello
 
 Map (welcomes): list
-french = Bonjour
-english = Hello
-spanish = Hola
+french = bonjour
+english = hello
+spanish = hola
 
 Map (welcomes): bye
 ```
@@ -399,43 +356,37 @@ The following are the available cache operations:
 Map (?): cache welcomes
 
 Map (welcomes): list
-french = Bonjour
-english = Hello
-spanish = Hola
+french = bonjour
+english = hello
+spanish = hola
 
 Map (welcomes): bye
 ```
 
 ### <a name="testing"></a>Testing
 
-To run Coherence for .NET test suite, you must have a coherence.jar.  Using ant, you can provide a build.properties file in the tools\ant directory to specify a maven repository from which coherence.jar can be downloaded.
-The test suite starts a Coherence server for the .NET clients to connect to run the tests.
+To run Coherence for .NET test suite, first you must run a Coherence server. Go to tests/test-server folder and start server:
 
 ```
-msbuild /t:test Coherence.msbuild
+cd tests/test-server
+mvn clean package -Dcoherence.groupid=com.oracle.coherence.ce -Drevision=24.09 && mvn exec:exec -Dcoherence.groupid=com.oracle.coherence.ce -Drevision=24.09 -Dmain=com.tangosol.net.Coherence
 ```
 
-To run Coherence for .NET test suite starting a Coherence server in docker container, use the following commaond:
+To run the test suite (excluding ASP.NET session tests that require the commercial edition of Coherence), use the following command:
 
 ```
-msbuild /t:test Coherence.docker
+dotnet test --filter FullyQualifiedName\!~Tangosol.Web
 ```
 
 ## Documentation
 
 To build Coherence for .NET API documentation, run the following command.  The API documentation can be viewed using Microsoft help viewer.
 ```
-msbuild /t:doc Coherence.msbuild
+cd doc
+docfx docfx.json
 ```
-To build Coherence for .NET installable package, use the following command.  The command produces a Coherence.msi in the build directory that can be used to install Coherence for .NET.
-```
-msbuild /t:dist Coherence.msbuild
-```
-The resulting files:
 
-`dist\14.1.2.0b0` - Coherence MSI installer
-
-For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/develop-remote-clients/creating-net-extend-clients.html).
+For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.2.0/develop-remote-clients/creating-net-extend-clients.html).
 
 ## Contributing
 
