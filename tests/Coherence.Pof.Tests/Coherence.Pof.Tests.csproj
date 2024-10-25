@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <RootNamespace>Tangosol.Data</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ErrorReport>prompt</ErrorReport>

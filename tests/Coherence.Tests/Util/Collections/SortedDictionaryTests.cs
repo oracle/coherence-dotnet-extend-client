@@ -1,17 +1,13 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
-using System.IO;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using NUnit.Framework;
-using Tangosol.IO.Pof.Reflection.Internal;
 
 namespace Tangosol.Util.Collections
 {
@@ -154,30 +150,6 @@ namespace Tangosol.Util.Collections
 
             // assert the underlying dictionary created is of the sorted variety
             AssertInstanceOf(typeof(SortedHashSet), "m_dict", setSorted, typeof(SortedDictionary));
-        }
-
-        [Test]
-        public void TesSortedHashSetSerialization()
-        {
-            var setSorted = new SortedHashSet();
-
-            setSorted.Add("C");
-            setSorted.Add("A");
-            setSorted.Add("B");
-
-            // assert we have ascending characters
-            EnsureAlphabetic(setSorted);
-
-            // serialize -> deserialize
-            var formatter = new BinaryFormatter();
-            var binOut    = new MemoryStream();
-            formatter.Serialize(binOut, setSorted);
-            binOut.Flush();
-            binOut.Position = 0;
-
-            var setSortedCloned = formatter.Deserialize(binOut) as SortedHashSet;
-            EnsureAlphabetic(setSortedCloned);
-            AssertInstanceOf(typeof(SortedHashSet), "m_dict", setSortedCloned, typeof(SortedDictionary));
         }
 
         private static void EnsureAlphabetic(ICollection colSorted)

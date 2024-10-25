@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <RootNamespace>Tangosol</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <ErrorReport>prompt</ErrorReport>
@@ -10,7 +10,7 @@
     <NoWarn>162, 618, 675</NoWarn>
 
     <IsPackable>false</IsPackable>
-    <OutputType>Library</OutputType>	
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +18,7 @@
     <PackageReference Include="nunit" Version="3.14.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-    <PackageReference Include="System.Text.Json" Version="6.0.9" />
+    <PackageReference Include="System.Text.Json" Version="6.0.10" />
     <PackageReference Include="TestCentric.Metadata" Version="2.0.0" />
   </ItemGroup>
 

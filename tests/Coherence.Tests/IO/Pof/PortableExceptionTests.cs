@@ -1,12 +1,10 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 using NUnit.Framework;
 
@@ -123,14 +121,16 @@ namespace Tangosol.IO.Pof
             }
             catch (PortableException pe)
             {
-                IFormatter formatter = new BinaryFormatter();
+                IPofContext ctx = (IPofContext) cacheServiceChannel.Serializer;
                 byte[] buffer = new byte[1024 * 16];
                 Stream stream = new MemoryStream(buffer);
-                formatter.Serialize(stream, pe);
+                DataWriter writer = new DataWriter(stream);
+                ctx.Serialize(writer, pe);
                 stream.Close();
 
                 stream = new MemoryStream(buffer);
-                PortableException desPE = (PortableException) formatter.Deserialize(stream);
+                DataReader reader = new DataReader(stream);
+                PortableException desPE = (PortableException)ctx.Deserialize(reader);
                 Assert.IsNotNull(desPE);
                 stream.Close();
 

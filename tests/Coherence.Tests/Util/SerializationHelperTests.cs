@@ -1,16 +1,15 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
-using System;
 using System.IO;
 
 using Tangosol.IO;
-using Tangosol.Util;
 
 using NUnit.Framework;
+using Tangosol.IO.Pof;
 
 namespace Tangosol.Util
 {
@@ -20,7 +19,7 @@ namespace Tangosol.Util
         [Test]
         public void TestToAndFromBinary()
         {
-            ISerializer serializer = new BinarySerializer();
+            ISerializer serializer = new ConfigurablePofContext("config/include-pof-config.xml");
             string      original   = "hello";
             Binary      bin        = SerializationHelper.ToBinary(original, serializer);
             string      copy       = (string) SerializationHelper.FromBinary(bin, serializer);
@@ -42,7 +41,7 @@ namespace Tangosol.Util
         [Test]
         public void TestDecoration()
         {
-            ISerializer serializer = new BinarySerializer();
+            ISerializer serializer = new ConfigurablePofContext("config/include-pof-config.xml");
             string      original   = "hello";
             Binary      bin        = SerializationHelper.ToBinary(original, serializer);
 

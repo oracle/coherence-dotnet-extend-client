@@ -1,15 +1,15 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-
+using System.Text.RegularExpressions;
 using NUnit.Framework;
+using Tangosol.IO;
+using Tangosol.IO.Pof;
 
 namespace Tangosol.Net.Messaging
 {
@@ -62,24 +62,27 @@ namespace Tangosol.Net.Messaging
                                         new ArgumentException("inner_exception", "dummy_param"));
             Assert.IsNotNull(ce);
 
-            IFormatter formatter = new BinaryFormatter();
+            ConfigurablePofContext ctx = new ConfigurablePofContext(
+                "assembly://Coherence/Tangosol.Config/coherence-pof-config.xml");
             byte[] buffer = new byte[1024*16];
 
             Stream stream = new MemoryStream(buffer);
-            formatter.Serialize(stream, ce);
+            DataWriter writer = new DataWriter(stream);
+            ctx.Serialize(writer, ce);
             stream.Close();
 
             stream = new MemoryStream(buffer);
-            ConnectionException deserCE = (ConnectionException) formatter.Deserialize(stream);
+            DataReader reader = new DataReader(stream);
+            PortableException deserCE = (PortableException)ctx.Deserialize(reader);
             stream.Close();
 
             Assert.IsNotNull(deserCE);
             Assert.AreEqual(ce.Message, deserCE.Message);
-            Assert.AreEqual(ce.StackTrace, deserCE.StackTrace);
+            Assert.AreEqual("\tat <process boundary>\n"
+                            + Regex.Replace(ce.StackTrace, "System.ArgumentException", "Portable($&)"), deserCE.StackTrace);
             Assert.IsNotNull(deserCE.InnerException);
-            Assert.AreEqual(deserCE.InnerException.GetType(), ce.InnerException.GetType());
-            Assert.AreEqual(((ArgumentException) deserCE.InnerException).ParamName,
-                            ((ArgumentException) ce.InnerException).ParamName);
+            Assert.AreEqual(typeof(PortableException), deserCE.InnerException.GetType());
+            Assert.IsTrue(deserCE.InnerException.Message.Contains(((ArgumentException)ce.InnerException).ParamName));
         }
     }
 }

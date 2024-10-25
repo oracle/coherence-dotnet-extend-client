@@ -25,6 +25,6 @@
   </user-type-list>
 
   <default-serializer>
-    <class-name>Tangosol.IO.Pof.BinaryPofSerializer, Coherence</class-name>
+    <class-name>Tangosol.IO.Pof.PortableObjectSerializer, Coherence</class-name>
   </default-serializer>
 </pof-config>

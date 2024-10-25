@@ -174,6 +174,9 @@ namespace Tangosol.IO.Pof
         /// The <b>StreamingContext</b> that contains contextual information
         /// about the source or destination.
         /// </param>
+#if NET8_0_OR_GREATER
+        [Obsolete("Obsolete as of Coherence 14.1.2.0. This API uses obsolete formatter-based serialization. It should not be called or extended by application code. (https://aka.ms/dotnet-warnings/SYSLIB0051)")]
+#endif
         public PortableException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
@@ -242,6 +245,9 @@ namespace Tangosol.IO.Pof
         /// The <b>StreamingContext</b> that contains contextual information
         /// about the source or destination.
         /// </param>
+#if NET8_0_OR_GREATER
+        [Obsolete("Obsolete as of Coherence 14.1.2.0. This API uses obsolete formatter-based serialization. It should not be called or extended by application code. (https://aka.ms/dotnet-warnings/SYSLIB0051)")]
+#endif
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);

@@ -1,15 +1,14 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 #pragma warning disable 618,612
 
 using System;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
 using System.Text.Json;
 using System.Xml.Serialization;
@@ -23,7 +22,6 @@ namespace Tangosol.IO.Pof
     public class SerializationPerformanceComparisonTests
     {
         private readonly SimplePofContext           pofSerializer;
-        private readonly BinaryFormatter            binarySerializer;
         private readonly XmlSerializer              xmlSerializer;
         private readonly DataContractSerializer     dcSerializer;
         private readonly DataContractJsonSerializer dcJsonSerializer;
@@ -43,7 +41,6 @@ namespace Tangosol.IO.Pof
             populatedObject  = CreatePopulatedObjectInstance();
             typeName         = emptyObject.GetType().FullName;
 
-            binarySerializer = new BinaryFormatter();
             xmlSerializer    = new XmlSerializer(emptyObject.GetType());
             dcSerializer     = new DataContractSerializer(emptyObject.GetType());
             dcJsonSerializer = new DataContractJsonSerializer(emptyObject.GetType());
@@ -107,7 +104,6 @@ namespace Tangosol.IO.Pof
             Console.Out.WriteLine("Empty " + typeName + " Size:");
             Console.Out.WriteLine("----------------------------------------------------------------");
             Console.Out.WriteLine("POF".PadRight(25) + SerializePof(emptyObject).Length.ToString("N0") + " bytes");
-            Console.Out.WriteLine("Binary".PadRight(25) + SerializeBinary(emptyObject).Length.ToString("N0") + " bytes");
             Console.Out.WriteLine("JSON".PadRight(25) + SerializeJson(emptyObject).Length.ToString("N0") + " bytes\n" + SerializeJson(emptyObject));
             //Console.Out.WriteLine("XML".PadRight(25) + SerializeXml(emptyObject).Length.ToString("N0") + " bytes");
             Console.Out.WriteLine("DataContract".PadRight(25) + SerializeDataContract(emptyObject).Length.ToString("N0") + " bytes");
@@ -117,7 +113,6 @@ namespace Tangosol.IO.Pof
             Console.Out.WriteLine("Populated " + typeName + " Size:");
             Console.Out.WriteLine("----------------------------------------------------------------");
             Console.Out.WriteLine("POF".PadRight(25) + SerializePof(populatedObject).Length.ToString("N0") + " bytes");
-            Console.Out.WriteLine("Binary".PadRight(25) + SerializeBinary(populatedObject).Length.ToString("N0") + " bytes");
             Console.Out.WriteLine("JSON".PadRight(25) + SerializeJson(populatedObject).Length.ToString("N0") + " bytes\n" + SerializeJson(populatedObject));
             //Console.Out.WriteLine("XML".PadRight(25) + SerializeXml(populatedObject).Length.ToString("N0") + " bytes");
             Console.Out.WriteLine("DataContract".PadRight(25) + SerializeDataContract(populatedObject).Length.ToString("N0") + " bytes");
@@ -128,7 +123,6 @@ namespace Tangosol.IO.Pof
         public void TestSerializationSpeed()
         {
             long pof    = TimePofSerialization(emptyObject);
-            long binary = TimeBinarySerialization(emptyObject);
             long json   = TimeJsonSerialization(emptyObject);
             //long xml    = TimeXmlSerialization(emptyObject);
             long dc     = TimeDataContractSerialization(emptyObject);
@@ -138,14 +132,12 @@ namespace Tangosol.IO.Pof
             Console.Out.WriteLine("Empty " + typeName + " Speed (" + ITERATION_COUNT.ToString("N0") + " iterations):");
             Console.Out.WriteLine("----------------------------------------------------------------");
             Console.Out.WriteLine("POF".PadRight(25) + pof.ToString("N0") + " ms");
-            Console.Out.WriteLine("Binary".PadRight(25) + binary.ToString("N0") + " ms");
             Console.Out.WriteLine("JSON".PadRight(25) + json.ToString("N0") + " ms");
             //Console.Out.WriteLine("XML".PadRight(25) + xml.ToString("N0") + " ms");
             Console.Out.WriteLine("DataContract".PadRight(25) + dc.ToString("N0") + " ms");
             Console.Out.WriteLine("DataContract JSON".PadRight(25) + dcJson.ToString("N0") + " ms");
 
             pof    = TimePofSerialization(populatedObject);
-            binary = TimeBinarySerialization(populatedObject);
             json   = TimeJsonSerialization(populatedObject);
             //xml    = TimeXmlSerialization(populatedObject);
             dc     = TimeDataContractSerialization(populatedObject);
@@ -155,7 +147,6 @@ namespace Tangosol.IO.Pof
             Console.Out.WriteLine("Populated " + typeName + " Speed (" + ITERATION_COUNT.ToString("N0") + " iterations):");
             Console.Out.WriteLine("----------------------------------------------------------------");
             Console.Out.WriteLine("POF".PadRight(25) + pof.ToString("N0") + " ms");
-            Console.Out.WriteLine("Binary".PadRight(25) + binary.ToString("N0") + " ms");
             Console.Out.WriteLine("JSON".PadRight(25) + json.ToString("N0") + " ms");
             //Console.Out.WriteLine("XML".PadRight(25) + xml.ToString("N0") + " ms");
             Console.Out.WriteLine("DataContract".PadRight(25) + dc.ToString("N0") + " ms");
@@ -163,16 +154,6 @@ namespace Tangosol.IO.Pof
         }
 
         #region Timer helpers
-
-        private long TimeBinarySerialization(object o)
-        {
-            long start = DateTimeUtils.GetSafeTimeMillis();
-            for (int i = 0; i < ITERATION_COUNT; i++)
-            {
-                DeserializeBinary(SerializeBinary(o));
-            }
-            return DateTimeUtils.GetSafeTimeMillis() - start;
-        }
 
         private long TimePofSerialization(object o)
         {
@@ -227,19 +208,6 @@ namespace Tangosol.IO.Pof
         #endregion
 
         #region Serialization helpers
-
-        private byte[] SerializeBinary(object o)
-        {
-            MemoryStream buffer = new MemoryStream();
-            binarySerializer.Serialize(buffer, o);
-            return buffer.ToArray();
-        }
-
-        private object DeserializeBinary(byte[] data)
-        {
-            MemoryStream buffer = new MemoryStream(data);
-            return binarySerializer.Deserialize(buffer);
-        }
 
         private byte[] SerializePof(object o)
         {

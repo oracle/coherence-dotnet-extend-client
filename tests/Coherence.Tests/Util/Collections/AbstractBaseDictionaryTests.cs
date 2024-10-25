@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -182,30 +182,6 @@ namespace Tangosol.Util.Collections
                 n++;
             }
             Assert.AreEqual(4, n);
-        }
-
-        [Test]
-        public void TestBinarySerialization()
-        {
-            ISerializer serializer = new BinarySerializer();
-
-            IDictionary original = InstantiateDictionary();
-            original.Add("A", "A");
-            original.Add("B", "B");
-            original.Add("C", "C");
-
-            Binary bin  = SerializationHelper.ToBinary(original, serializer);
-            Object copy = SerializationHelper.FromBinary(bin, serializer);
-
-            Assert.AreEqual(original, copy);
-            Assert.AreEqual(original.GetHashCode(), copy.GetHashCode());
-
-            original.Add(null, null);
-            bin  = SerializationHelper.ToBinary(original, serializer);
-            copy = SerializationHelper.FromBinary(bin, serializer);
-
-            Assert.AreEqual(original, copy);
-            Assert.AreEqual(original.GetHashCode(), copy.GetHashCode());
         }
 
         [Test]
