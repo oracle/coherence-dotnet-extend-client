@@ -19,7 +19,7 @@ namespace Tangosol.Util
         [Test]
         public void TestToAndFromBinary()
         {
-            ISerializer serializer = new ConfigurablePofContext("config/include-pof-config.xml");
+            ISerializer serializer = new ConfigurablePofContext("Config/include-pof-config.xml");
             string      original   = "hello";
             Binary      bin        = SerializationHelper.ToBinary(original, serializer);
             string      copy       = (string) SerializationHelper.FromBinary(bin, serializer);
@@ -41,7 +41,7 @@ namespace Tangosol.Util
         [Test]
         public void TestDecoration()
         {
-            ISerializer serializer = new ConfigurablePofContext("config/include-pof-config.xml");
+            ISerializer serializer = new ConfigurablePofContext("Config/include-pof-config.xml");
             string      original   = "hello";
             Binary      bin        = SerializationHelper.ToBinary(original, serializer);
 

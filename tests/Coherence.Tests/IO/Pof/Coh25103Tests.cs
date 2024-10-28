@@ -18,7 +18,7 @@ namespace Tangosol.IO.Pof
         [SetUp]
         public void Setup()
         {
-            m_pofContext = new ConfigurablePofContext("config/include-pof-config.xml");
+            m_pofContext = new ConfigurablePofContext("Config/include-pof-config.xml");
         }
 
         [Test]
