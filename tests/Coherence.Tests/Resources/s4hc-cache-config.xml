@@ -81,7 +81,7 @@
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
-          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-interval>10s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
           <request-timeout>0s</request-timeout>
         </outgoing-message-handler>
@@ -131,7 +131,7 @@
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
-          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-interval>10s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
           <request-timeout>0s</request-timeout>
         </outgoing-message-handler>
@@ -184,7 +184,7 @@
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
-          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-interval>10s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
           <request-timeout>0s</request-timeout>
         </outgoing-message-handler>
@@ -213,7 +213,7 @@
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
-          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-interval>10s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
           <request-timeout>0s</request-timeout>
         </outgoing-message-handler>
@@ -264,7 +264,7 @@
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
-          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-interval>10s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
           <request-timeout>30s</request-timeout>
         </outgoing-message-handler>
@@ -320,8 +320,8 @@
           </remote-addresses>
         </tcp-initiator>
         <outgoing-message-handler>
-          <heartbeat-interval>5s</heartbeat-interval>
-          <heartbeat-timeout>3s</heartbeat-timeout>
+          <heartbeat-interval>10s</heartbeat-interval>
+          <heartbeat-timeout>10s</heartbeat-timeout>
         </outgoing-message-handler>
       </initiator-config>
     </remote-cache-scheme>

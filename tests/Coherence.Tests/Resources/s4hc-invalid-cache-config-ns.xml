@@ -36,7 +36,7 @@
         </tcp-initiator>
 
         <outgoing-message-handler>
-          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-interval>10s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
           <request-timeout>30s</request-timeout>
         </outgoing-message-handler>
@@ -80,7 +80,7 @@
         </tcp-initiator>
 
         <outgoing-message-handler>
-          <heartbeat-interval>1s</heartbeat-interval>
+          <heartbeat-interval>10s</heartbeat-interval>
           <heartbeat-timeout>10s</heartbeat-timeout>
           <request-timeout>30s</request-timeout>
         </outgoing-message-handler>

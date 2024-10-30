@@ -36,7 +36,7 @@
         </incoming-message-handler>
         <outgoing-message-handler>
           <heartbeat-interval>30s</heartbeat-interval>
-          <heartbeat-timeout>60s</heartbeat-timeout>
+          <heartbeat-timeout>30s</heartbeat-timeout>
           <max-message-size>30k</max-message-size>
         </outgoing-message-handler>
         <use-filters>
