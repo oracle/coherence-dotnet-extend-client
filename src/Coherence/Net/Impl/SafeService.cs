@@ -10,6 +10,7 @@ using System.Security.Principal;
 using System.Threading;
 
 using Tangosol.IO;
+using Tangosol.Net.Messaging;
 using Tangosol.Run.Xml;
 using Tangosol.Util;
 using Tangosol.Util.Daemon.QueueProcessor.Service;
@@ -993,9 +994,18 @@ namespace Tangosol.Net.Impl
             }
             catch (Exception e)
             {
-                CacheFactory.Log("Error while starting service \""
-                                 + ServiceName + "\": " + e,
-                                 CacheFactory.LogLevel.Error);
+                string message = "Error while starting service \"" + ServiceName + "\": ";
+                if (service is RemoteService && e is ConnectionException)
+                {
+                    // COH-30321 - skip printing the stack trace as connection failures are common and the stack trace
+                    // doesn't provide anything useful
+                    CacheFactory.Log(message + e, CacheFactory.LogLevel.Error);
+                }
+                else
+                {
+                    CacheFactory.Log(message + e.StackTrace, CacheFactory.LogLevel.Error);
+                }
+                
                 try
                 {
                     service.Stop();
