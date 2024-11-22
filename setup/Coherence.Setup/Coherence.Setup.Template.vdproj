@@ -502,7 +502,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Coherence, Version=14.1.2.0, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Coherence, Version=15.1.1.0, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_EE83A0AE59434AEB908C45B86BF5A195"
