@@ -299,10 +299,10 @@ namespace Tangosol.Net.Cache
             // event due to expiry as soon as it happened instead of
             // when the next cache operation occurrs.  So, change
             // the test accordingly.
-            cache.Insert("key6", 173, 200);
+            cache.Insert("key6", 173, 400);
             Blocking.Sleep(100);
             Assert.AreNotEqual(null, cache["key6"]);
-            Thread.Sleep(400);
+            Thread.Sleep(600);
             Assert.AreEqual(null, cache.Cache["key6"]);
 
             // updating a cache with the value that does not satisfies
