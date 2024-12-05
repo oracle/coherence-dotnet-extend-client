@@ -39,7 +39,8 @@ namespace Tangosol.Util
                     Assert.IsTrue(ThreadTimeout.RemainingTimeoutMillis > 0);
                     Assert.IsFalse(ThreadTimeout.IsTimedOut);
                     Assert.IsFalse(Blocking.Wait(o, 1000));
-                    Assert.IsTrue(ThreadTimeout.IsTimedOut);
+                    // Assert.IsTrue(ThreadTimeout.IsTimedOut);
+                    Assert.AreEqual(0, ThreadTimeout.RemainingTimeoutMillis);
                     try
                     {
                         // use Monitor.Wait() instead of Blocking.Wait() to show that
