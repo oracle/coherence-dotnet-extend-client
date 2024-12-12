@@ -90,7 +90,7 @@ jobs:
     - name: Start test server
       run: |
         pushd tests/test-server
-        mvn --batch-mode -e exec:exec -s .mvn/settings.xml -Drevision=${{ matrix.coherence_version }} -Dcoherence.groupid=com.oracle.coherence.ce -Dmain=com.tangosol.net.DefaultCacheServer -Dexec.args="-Dtangosol.coherence.proxy.port=12345 -Dcoherence.proxy.port1=3001 -Dtangosol.coherence.proxy.port5=3002 -Dtangosol.coherence.proxy.port4=3003 -Dtangosol.coherence.proxy.port2=3004 -Dtangosol.coherence.proxy.port11=3005 -Dtangosol.coherence.proxy.port12=3006 -Dtangosol.coherence.proxy.port7=3007 -Dtangosol.coherence.proxy.port9=3008 -Dtangosol.coherence.proxy.port8=3009 -cp %classpath com.tangosol.net.Coherence" &
+        mvn --batch-mode -e exec:exec -s .mvn/settings.xml -Drevision=${{ matrix.coherence_version }} -Dcoherence.groupid=com.oracle.coherence.ce -Dmain=com.tangosol.net.DefaultCacheServer -Dexec.args="-Dtangosol.coherence.proxy.port=12345 -Dcoherence.proxy.port1=3001 -Dtangosol.coherence.proxy.port5=3002 -Dtangosol.coherence.proxy.port4=3003 -Dtangosol.coherence.proxy.port2=3004 -Dtangosol.coherence.proxy.port11=3005 -Dtangosol.coherence.proxy.port12=3006 -Dtangosol.coherence.proxy.port7=3007 -Dtangosol.coherence.proxy.port9=3008 -Dtangosol.coherence.proxy.port8=3009 -cp %classpath com.tangosol.net.DefaultCacheServer" &
         sleep 30
         popd
 
