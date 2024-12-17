@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -114,6 +114,112 @@ namespace Tangosol.Net.Cache
         }
 
         Assert.AreEqual(SOME_DATA, listener.GetActualTotal());
+    }
+
+    /// <summary>
+    /// TestEvents with CacheValues of false.
+    /// </summary>
+    [Test]
+    public void TestEventsNoValues()
+    {
+        // start the ProxyService on just one cluster node
+        IInvocationService invocationService = RestartProxy(null);
+
+        // put data items into inner cache to generate events
+        INamedCache testCache = GetCache("proxy-stop-test");
+        testCache.Clear();
+        IDictionary dict = new Hashtable();
+        for (int i = 0; i < SOME_DATA; i++)
+            {
+            dict.Add("TestKey" + i, i);
+            }
+        testCache.InsertAll(dict);
+
+        // create listener for CQC
+        ValidateLiteListener listener = new ValidateLiteListener(SOME_DATA);
+
+        // instantiate the CQC, will start the test running.
+        ContinuousQueryCache queryCache = 
+            new ContinuousQueryCache(() => testCache, AlwaysFilter.Instance, 
+                false, listener, null);
+        theCQC = queryCache;
+        Assert.IsFalse(queryCache.CacheValues);
+        
+        // instantiate a service listener to receive memberLeft event
+        fMemberLeft = false;
+        testCache.CacheService.MemberLeft += new MemberEventHandler(OnMemberLeft);
+
+        // allow test time to complete
+        using (ThreadTimeout t = ThreadTimeout.After(30000))
+        {
+            while (listener.GetActualTotal() < SOME_DATA)
+            {
+                Blocking.Sleep(250);
+            }
+        }
+
+        // check listener received the correct number of events.
+        Assert.AreEqual(SOME_DATA, listener.GetActualTotal());
+        listener.ResetActualTotal();
+
+        // restart proxy
+        RestartProxy(invocationService);
+
+        using (ThreadTimeout t = ThreadTimeout.After(30000))
+        {
+            while (!fMemberLeft)
+            {
+                Blocking.Sleep(250);
+            }
+        }
+
+        // ping the CQC to make it realize the cache needs restart
+        theCQC.Contains("junkstuff");
+        
+        // allow test time to complete.
+        using (ThreadTimeout t = ThreadTimeout.After(30000))
+        {
+            while (listener.GetActualTotal() < SOME_DATA)
+            {
+                Blocking.Sleep(250);
+            }
+        }
+
+        Assert.AreEqual(SOME_DATA, listener.GetActualTotal());
+    }
+    
+    /// <summary>
+    /// TestEvents with CacheValues of false. After standard listener (non-lite) added, CacheValues overriden to true.
+    /// </summary>
+    [Test]
+    public void TestEventsNoValuesToObservable()
+    {
+        // start the ProxyService on just one cluster node
+        IInvocationService invocationService = RestartProxy(null);
+
+        // put data items into inner cache to generate events
+        INamedCache testCache = GetCache("proxy-stop-test");
+        testCache.Clear();
+        IDictionary dict = new Hashtable();
+        for (int i = 0; i < SOME_DATA; i++)
+            {
+            dict.Add("TestKey" + i, i);
+            }
+        testCache.InsertAll(dict);
+
+        // create listener for CQC
+        ValidateLiteListener listener = new ValidateLiteListener(SOME_DATA);
+
+        // instantiate the CQC, will start the test running.
+        ContinuousQueryCache queryCache = new ContinuousQueryCache(() => testCache, AlwaysFilter.Instance, false, listener, null);
+        theCQC = queryCache;
+        Assert.IsFalse(queryCache.CacheValues);
+         
+        // add standard (non-lite) listener 
+        TestCQCListener listenerStandard = new TestCQCListener(SOME_DATA);
+        bool            isLite           = false;
+        queryCache.AddCacheListener(listenerStandard, AlwaysFilter.Instance, isLite); 
+        Assert.IsTrue(queryCache.CacheValues);
     }
 
     /**
@@ -261,6 +367,129 @@ namespace Tangosol.Net.Cache
             m_cActualInserts = 0;
             m_cActualDeletes = 0;
             }
+
+
+        // ----- data members -----------------------------------------------
+
+        /**
+        * Number of insert events actually received
+        */
+        int m_cActualInserts;
+
+        /**
+        * Number of update events actually received
+        */
+        int m_cActualUpdates;
+
+        /**
+        * Number of delete events actually received
+        */
+        int m_cActualDeletes;
+
+        /**
+        * Number of events listener should receive
+        */
+        int m_cCount;
+        }
+        #endregion
+        
+    // ----- inner class: ValidateLiteListener --------------------------------------
+
+    /**
+    * MapListener that continuously receives events from the cache.
+    */
+    #region Helper class
+
+    class ValidateLiteListener : ICacheListener
+    {    
+
+        public ValidateLiteListener(int count)
+        {
+            m_cCount         = count;
+            m_cActualInserts = 0;
+            m_cActualUpdates = 0;
+            m_cActualDeletes = 0;
+        }
+
+        public int Count
+        {
+            get { return m_cCount; } 
+            set { m_cCount = value; }
+        }
+
+        /**
+        * Number of insert events listener actually received.
+        *
+        * @return  number of event received
+        */
+        public int ActualInserts
+        {
+            get { return m_cActualInserts; } 
+            set { m_cActualInserts = value; }
+        }
+
+        /**
+        * Number of update events listener actually received.
+        *
+        * @return  number of event received
+        */
+        public int ActualUpdates
+        {
+            get { return m_cActualUpdates; } 
+            set { m_cActualUpdates = value; }
+        }
+
+        /**
+        * Number of delete events listener actually received.
+        *
+        * @return  number of event received
+        */
+        public int ActualDeletes
+        {
+            get { return m_cActualDeletes; } 
+            set { m_cActualDeletes = value; }
+        }
+
+        public void EntryUpdated(CacheEventArgs evt)
+        {
+            m_cActualUpdates++;
+            Assert.AreEqual(evt.NewValue, null);
+            Assert.AreEqual(evt.OldValue, null);
+        }
+
+        public void EntryInserted(CacheEventArgs evt)
+        {
+            m_cActualInserts++;
+            Assert.AreEqual(evt.NewValue, null);
+            Assert.AreEqual(evt.OldValue, null);
+        }
+
+        public void EntryDeleted(CacheEventArgs evt)
+        {
+            m_cActualDeletes++;
+            Assert.AreEqual(evt.OldValue, null);
+        }
+
+        /**
+        * Total number of events listener actually received.
+        *
+        * @return  number of event received
+        */
+        public int GetActualTotal()
+        {
+            return m_cActualInserts+m_cActualUpdates+m_cActualDeletes;
+        }
+
+        /**
+        * Reset the number of events received.
+        *
+        */
+        public void ResetActualTotal()
+        {
+            m_cActualUpdates = 0;
+            m_cActualInserts = 0;
+            m_cActualDeletes = 0;
+        }
 
 
         // ----- data members -----------------------------------------------
