@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -134,11 +134,15 @@ namespace Tangosol.Net.Cache
         /// <b>true</b> if this object caches values locally, and false if it
         /// relies on the underlying <b>INamedCache</b>.
         /// </value>
+        /// <p>
+        /// Note that a non-null <see cref="Transformer"/> or a <b>isLite</b> parameter of <b>false</b>
+        /// passed to <see cref="IObservableCache.AddCacheListener(ICacheListener, IFilter, bool)"/> forces
+        /// <b>CacheValues</b> to always be <b>true</b>.</p>
         public virtual bool CacheValues
         {
             get
             {
-                return m_cacheValues || IsObserved;
+                return m_cacheValues || IsObserved || Transformer != null;
             }
             set
             {
@@ -512,6 +516,7 @@ namespace Tangosol.Net.Cache
         /// <param name="isCacheValues">
         /// Pass <b>true</b> to cache both the keys and values of the
         /// materialized view locally, or <b>false</b> to only cache the keys.
+        /// Override of <b>false</b> described in <see cref="CacheValues"/>.
         /// </param>
         public ContinuousQueryCache(INamedCache cache, IFilter filter, bool isCacheValues)
                 : this(() => cache, filter, isCacheValues, null, null)
@@ -562,6 +567,7 @@ namespace Tangosol.Net.Cache
         /// <param name="cacheValues">
         /// Pass <b>true</b> to cache both the keys and values of the
         /// materialized view locally, or <b>false</b> to only cache the keys.
+        /// Override of <b>false</b> described in <b>CacheValues</b>.
         /// </param>
         /// <param name="cacheListener">
         /// The optional <b>ICacheListener</b> that will receive all events
@@ -571,7 +577,11 @@ namespace Tangosol.Net.Cache
         /// The transformer that should be used to convert values from the 
         /// underlying cache before storing them locally
         /// </param>
-        public ContinuousQueryCache(Func<INamedCache> supplierCache, IFilter filter, bool cacheValues, 
+        /// <p>
+        /// Note when parameter <b>cacheValues</b> is <b>false</b>, it is inferred that provided parameter
+        /// <b>cacheListener</b> is a lite listener as described by <b>isLite</b> parameter of
+        /// <see cref="IObservableCache.AddCacheListener(ICacheListener, IFilter, bool)"/>.</p>
+        public ContinuousQueryCache(Func<INamedCache> supplierCache, IFilter filter, bool cacheValues,
             ICacheListener cacheListener, IValueExtractor transformer)
         {
             INamedCache cache = supplierCache();
@@ -601,6 +611,9 @@ namespace Tangosol.Net.Cache
             m_state         = CacheState.Disconnected;
             m_cacheListener = cacheListener;
 
+            // initialize IsObserved on whether a standard (non-lite) listener passed in at construction time
+            m_hasListeners = cacheListener != null && cacheValues;
+	    
             // by including information about the underlying cache, filter and 
             // transformer, the resulting cache name is convoluted but extremely
             // helpful for tasks such as debugging
@@ -2596,13 +2609,13 @@ namespace Tangosol.Net.Cache
             if (m_cacheLocal == null)
             {
                 IObservableCache cacheLocal    = m_cacheLocal = InstantiateInternalCache();
-                ICacheListener   cacheListener = m_cacheListener; 
+                ICacheListener   cacheListener = m_cacheListener;
+                bool             isLite        = !CacheValues;
                 if (cacheListener != null)
                 {
                     // the initial listener has to hear the initial events
                     EnsureEventDispatcher();
-                    cacheLocal.AddCacheListener(InstantiateEventRouter(cacheListener, false));
-                    m_hasListeners = true;
+                    cacheLocal.AddCacheListener(InstantiateEventRouter(cacheListener, isLite), (IFilter) null, isLite);
                 }
             }
             return m_cacheLocal;
