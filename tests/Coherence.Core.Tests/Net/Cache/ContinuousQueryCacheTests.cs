@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -829,6 +829,75 @@ namespace Tangosol.Net.Cache
         }
 
         [Test]
+        public void TestLiteListener()
+        {
+            INamedCache remoteCache = GetAndPopulateNamedCache("dist-extend-direct");
+            
+            ValidateLiteListener listener = new ValidateLiteListener(NUM_INSERTS); 
+            ContinuousQueryCache theCQC   = 
+                new ContinuousQueryCache(() => remoteCache, AlwaysFilter.Instance, 
+                    false, listener, null);
+            
+            Assert.IsFalse(theCQC.CacheValues);
+            Assert.That(() => theCQC.State, Is.EqualTo(ContinuousQueryCache.CacheState.Synchronized).After(500, 50));
+            Assert.That(() => listener.GetActualTotal(), Is.EqualTo(NUM_INSERTS).After(500, 50));    
+            Assert.That(theCQC.IsActive, Is.True);
+        }
+        
+        [Test]
+        public void TestLiteListenerToObservable()
+        {
+            INamedCache remoteCache = GetAndPopulateNamedCache("dist-extend-direct");
+            
+            ValidateLiteListener listener = new ValidateLiteListener(NUM_INSERTS); 
+            ContinuousQueryCache theCQC   = 
+                new ContinuousQueryCache(() => remoteCache, AlwaysFilter.Instance, false, 
+                    listener, null);
+            
+            Assert.IsFalse(theCQC.CacheValues);
+            Assert.That(() => theCQC.State, Is.EqualTo(ContinuousQueryCache.CacheState.Synchronized).After(500, 50));
+            Assert.That(() => listener.GetActualTotal(), Is.EqualTo(NUM_INSERTS).After(500, 50));    
+            Assert.That(theCQC.IsActive, Is.True);
+            
+            // add standard (non-lite) listener and validate that CacheValues is overriden to true.
+            bool         isLite           = false;
+            SyncListener listenerStandard = new SyncListener();
+
+            theCQC.AddCacheListener(listenerStandard, AlwaysFilter.Instance, isLite);
+            Assert.IsTrue(theCQC.CacheValues); 
+        }        
+        
+        [Test]
+        public void TestTransformerNoCacheValues()
+        {
+            INamedCache cache = CacheFactory.GetCache("dist-extend-direct");
+            cache.Clear();
+
+            cache.Add(1, new Address("111 Main St", "Burlington", "MA", "01803"));
+            cache.Add(2, new Address("222 Main St", "Lutz", "FL", "33549"));
+           
+            TestCacheListener listener  = new TestCacheListener();
+            IValueExtractor transformer = new UniversalExtractor("City");
+            ContinuousQueryCache cqc      = 
+                new ContinuousQueryCache(() => cache, AlwaysFilter.Instance, false, 
+                    listener, transformer);
+            
+            // assert that cacheValues of false is overridden by non-null Transformer.
+            Assert.IsTrue(cqc.IsReadOnly);
+            Assert.IsTrue(cqc.CacheValues);
+
+            Assert.AreEqual("Burlington", cqc[1]);
+            Assert.AreEqual("Lutz", cqc[2]);
+
+            cache.Add(3, new Address("333 Main St", "Belgrade", "Serbia", "11000"));
+            Assert.AreEqual("Belgrade", cqc[3]);
+            cache.Add(3, new Address("333 Main St", "Beograd", "Srbija", "11000"));
+            Assert.AreEqual("Beograd", cqc[3]);
+
+            Console.Out.WriteLine(cqc);
+        }
+
+        [Test]
         public void TestCoh10013()
         {
             INamedCache cache = CacheFactory.GetCache("dist-extend-direct");
@@ -1459,5 +1528,127 @@ namespace Tangosol.Net.Cache
         public const int NUM_INSERTS = 100;
 
         #endregion
+        
+    // ----- inner class: ValidateLiteListener --------------------------------------
+
+    /**
+    * MapListener that continuously receives events from the cache.
+    */
+    #region Helper class
+
+    class ValidateLiteListener : ICacheListener
+    { 
+        public ValidateLiteListener(int count)
+        {
+            m_cCount         = count;
+            m_cActualInserts = 0;
+            m_cActualUpdates = 0;
+            m_cActualDeletes = 0;
+        }
+
+        public int Count
+        {
+            get { return m_cCount; } 
+            set { m_cCount = value; }
+        }
+
+        /**
+        * Number of insert events listener actually received.
+        *
+        * @return  number of event received
+        */
+        public int ActualInserts
+        { 
+            get { return m_cActualInserts; }
+            set { m_cActualInserts = value; }
+        }
+
+        /**
+        * Number of update events listener actually received.
+        *
+        * @return  number of event received
+        */
+        public int ActualUpdates
+        {
+            get { return m_cActualUpdates; } 
+            set { m_cActualUpdates = value; }
+        }
+
+        /**
+        * Number of delete events listener actually received.
+        *
+        * @return  number of event received
+        */
+        public int ActualDeletes
+        { 
+            get { return m_cActualDeletes; } 
+            set { m_cActualDeletes = value; }
+        }
+
+        public void EntryUpdated(CacheEventArgs evt)
+        {
+            m_cActualUpdates++;
+            Assert.AreEqual(evt.NewValue, null);
+            Assert.AreEqual(evt.OldValue, null);
+        }
+
+        public void EntryInserted(CacheEventArgs evt)
+        {
+            m_cActualInserts++;
+            Assert.AreEqual(evt.NewValue, null);
+            Assert.AreEqual(evt.OldValue, null);
+        }
+
+        public void EntryDeleted(CacheEventArgs evt)
+        {
+            m_cActualDeletes++;
+            Assert.AreEqual(evt.OldValue, null);
+        }
+
+        /**
+        * Total number of events listener actually received.
+        *
+        * @return  number of event received
+        */
+        public int GetActualTotal()
+        {
+            return m_cActualInserts+m_cActualUpdates+m_cActualDeletes;
+        }
+
+        /**
+        * Reset the number of events received.
+        *
+        */
+        public void ResetActualTotal()
+        {
+            m_cActualUpdates = 0;
+            m_cActualInserts = 0;
+            m_cActualDeletes = 0;
+        }
+
+
+        // ----- data members -----------------------------------------------
+
+        /**
+        * Number of insert events actually received
+        */
+        int m_cActualInserts;
+
+        /**
+        * Number of update events actually received
+        */
+        int m_cActualUpdates;
+
+        /**
+        * Number of delete events actually received
+        */
+        int m_cActualDeletes;
+
+        /**
+        * Number of events listener should receive
+        */
+        int m_cCount;
+        }
+        #endregion    
     }
 }
