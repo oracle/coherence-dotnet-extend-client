@@ -101,6 +101,13 @@
     <EmbeddedResource Include="Config\coherence-pof-config.xml" />
     <EmbeddedResource Include="Config\coherence.xsd" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Config/cache-config.xsd" Pack="true" PackagePath="Config/cache-config.xsd"/>
+    <None Include="Config/coherence-pof-config.xml" Pack="true" PackagePath="Config/coherence-pof-config.xml"/>
+    <None Include="Config/coherence.xsd" Pack="true" PackagePath="Config/coherence.xsd"/>
+    <None Include="Config/pof-config.xsd" Pack="true" PackagePath="Config/pof-config.xsd"/>
+  </ItemGroup>
   
   <ItemGroup>
     <None Include="../../assets/coherence-logo.png" Pack="true" PackagePath="/"/>
