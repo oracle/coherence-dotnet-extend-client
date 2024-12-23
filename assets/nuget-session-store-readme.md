@@ -6,7 +6,7 @@ Since its initial release in 2001, it has been used by thousands of customers ac
 
 **Oracle Coherence Extend Client for .NET SessionStore** allows ASP.NET session state to be managed in a Coherence cluster.  To use this feature, user must have a Coherence Commercial Edition of the server.
 
-For more information, see [Oracle Coherence Extend Client for .NET Documentation]((https://coherence.community/14.1.2.0/api/dotnet/index.html)
+For more information, see API Documentation for **Tangosol.Web** and **Tangosol.Web.Model** namespaces in [Oracle Coherence Extend Client for .NET Documentation](https://docs.oracle.com/en/middleware/fusion-middleware/coherence/14.1.2/net-reference)
 
 ### Additional Information
 
