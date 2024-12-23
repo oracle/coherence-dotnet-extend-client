@@ -119,7 +119,7 @@ dotnet new console --name "HelloCoherence"
 1. Add the following references to the HelloCoherence.csproj (provide the Coherence.dll location in the `<HintPath>`):
 ```
   <ItemGroup>
-    <Reference Include="Coherence, Version=14.1.2.0, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+    <Reference Include="Coherence, Version=14.1.2.1, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
       <HintPath>Coherence.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
@@ -386,7 +386,7 @@ cd doc
 docfx docfx.json
 ```
 
-For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.2.0/develop-remote-clients/creating-net-extend-clients.html).
+For further details on developing Coherence for .NET applications, see the documentation [here](https://docs.oracle.com/en/middleware/fusion-middleware/coherence/14.1.2/develop-remote-clients/creating-net-extend-clients.html).
 
 ## Contributing
 
