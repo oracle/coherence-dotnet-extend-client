@@ -35,6 +35,16 @@
       <EmbeddedResource Include="Config\coherence-aspnet-pof-config.xml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="Config/coherence-aspnet-cache-config.xml" Pack="true" PackagePath="Config/coherence-aspnet-cache-config.xml"/>
+      <None Include="Config/coherence-aspnet-pof-config.xml" Pack="true" PackagePath="Config/coherence-aspnet-pof-config.xml"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="../../assets/coherence-logo.png" Pack="true" PackagePath="/"/>
+      <None Include="../../assets/nuget-session-store-readme.md" Pack="true" PackagePath="readme.md"/>
+    </ItemGroup>
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
