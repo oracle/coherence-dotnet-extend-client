@@ -13,7 +13,7 @@
     <icon>coherence-logo.png</icon>
     <description>This is a .NET Core 6.0, 3.1, and .NET Standard 2.0-compatible implementation of Oracle Coherence .NET Extend Client. For .NET Framework 4.x compatible implementation, see https://www.nuget.org/packages/Coherence/.</description>
     <releaseNotes>For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$version$/.</releaseNotes>
-    <copyright>Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.</copyright>
+    <copyright>Copyright (c) 2000, 2025, Oracle and/or its affiliates. All rights reserved.</copyright>
     <language>en-US</language>
     <tags>IMDG;Scalable;Distributed;DB;Cache;Microservices</tags>
   </metadata>

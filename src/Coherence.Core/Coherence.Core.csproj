@@ -25,9 +25,9 @@
     <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
-    
+
     <Company>Oracle</Company>
-    <Copyright>Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2000, 2025, Oracle and/or its affiliates. All rights reserved.</Copyright>
     <Product>Oracle Coherence Client for .NET</Product>
 
     <Description Condition="'$(Official)' == ''" >$(Version) ($(USER))</Description>
@@ -70,7 +70,7 @@
     <None Remove="Config\coherence-pof-config.xml" />
     <None Remove="Config\coherence.xsd" />
   </ItemGroup>
-    
+
   <ItemGroup>
     <EmbeddedResource Include="Config\cache-config.xsd" />
     <EmbeddedResource Include="Config\coherence-cache-config.xml" />
@@ -79,7 +79,7 @@
     <EmbeddedResource Include="Config\coherence-pof-config.xml" />
     <EmbeddedResource Include="Config\coherence.xsd" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <None Include="../../assets/coherence-logo.png" Pack="true" PackagePath="/"/>
     <None Include="../../assets/nuget-readme.md" Pack="true" PackagePath="readme.md"/>
