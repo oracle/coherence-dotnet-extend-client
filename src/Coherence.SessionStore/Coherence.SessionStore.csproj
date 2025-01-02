@@ -8,7 +8,7 @@
         <Version>14.1.2.1</Version>
         <Title>Oracle Cohrence SessionStore 14.1.2.1</Title>
         <Authors>Oracle</Authors>
-        <Copyright>Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.</Copyright>
+        <Copyright>Copyright (c) 2000, 2025, Oracle and/or its affiliates. All rights reserved.</Copyright>
         <PackageProjectUrl>https://coherence.community/</PackageProjectUrl>
         <Product>Oracle Coherence SessionStore</Product>
         <AssemblyVersion>14.1.2.1</AssemblyVersion>
