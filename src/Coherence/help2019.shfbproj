@@ -43,7 +43,7 @@
     <MaximumGroupParts>2</MaximumGroupParts>
     <Preliminary>False</Preliminary>
     <HeaderText>Oracle&amp;#174%3b Fusion Middleware .NET API Reference for Oracle Coherence&amp;lt%3bbr/&amp;gt%3b14&amp;lt%3bem&amp;gt%3bc&amp;lt%3b/em&amp;gt%3b %2814.1.1.0%29&amp;lt%3bbr/&amp;gt%3bF23534-02&amp;lt%3bbr/&amp;gt%3b</HeaderText>
-    <FooterText>Copyright &amp;#169%3b 2000, 2024, Oracle and/or its affiliates. All rights reserved.</FooterText>
+    <FooterText>Copyright &amp;#169%3b 2000, 2025, Oracle and/or its affiliates. All rights reserved.</FooterText>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <ProjectSummary>&amp;lt%3bb&amp;gt%3bCoherence for .NET&amp;lt%3b/b&amp;gt%3b allows .NET applications to access Coherence
 clustered services, including data, data events, and data processing from
