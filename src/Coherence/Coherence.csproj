@@ -25,9 +25,9 @@
     <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
-    
+
     <Company>Oracle</Company>
-    <Copyright>Copyright (c) 2000, 2024, Oracle and/or its affiliates. All rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2000, 2025, Oracle and/or its affiliates. All rights reserved.</Copyright>
     <Product>Oracle Coherence for .NET</Product>
 
     <Description Condition="'$(Official)' == ''" >$(Version) ($(USER))</Description>
@@ -46,7 +46,7 @@
       Implementation of Oracle Coherence .NET Extend Client.
     </PackageDescription>
     <PackageReleaseNotes>
-      For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$(Version)/.  
+      For release notes, please visit https://github.com/oracle/coherence-dotnet-extend-client/releases/tag/$(Version)/.
     </PackageReleaseNotes>
     <PackageTags>IMDG;Scalable;Distributed;DB;Cache;Microservices</PackageTags>
     <Authors>Oracle</Authors>
@@ -92,7 +92,7 @@
     <None Remove="Config\coherence-pof-config.xml" />
     <None Remove="Config\coherence.xsd" />
   </ItemGroup>
-    
+
   <ItemGroup>
     <EmbeddedResource Include="Config\cache-config.xsd" />
     <EmbeddedResource Include="Config\coherence-cache-config.xml" />
@@ -108,7 +108,7 @@
     <None Include="Config/coherence.xsd" Pack="true" PackagePath="Config/coherence.xsd"/>
     <None Include="Config/pof-config.xsd" Pack="true" PackagePath="Config/pof-config.xsd"/>
   </ItemGroup>
-  
+
   <ItemGroup>
     <None Include="../../assets/coherence-logo.png" Pack="true" PackagePath="/"/>
     <None Include="../../assets/nuget-readme.md" Pack="true" PackagePath="readme.md"/>
