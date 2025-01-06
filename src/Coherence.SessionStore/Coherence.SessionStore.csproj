@@ -16,6 +16,23 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
+    <!-- NuGet metadata -->
+    <PropertyGroup>
+        <PackageId>Coherence.SessionStore</PackageId>
+        <PackageProjectUrl>https://coherence.community/</PackageProjectUrl>
+        <PackageIcon>coherence-logo.png</PackageIcon>
+        <PackageDescription>
+            Implementation of Oracle Coherence .NET Extend Client session store for ASP.NET.
+        </PackageDescription>
+        <PackageTags>IMDG;Scalable;Distributed;DB;Cache;ASP.NET Session Store</PackageTags>
+        <Authors>Oracle</Authors>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/oracle/coherence-dotnet-extend-client</RepositoryUrl>
+        <PackageLicenseExpression>UPL-1.0</PackageLicenseExpression>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <OutputPath>bin\Debug/</OutputPath>
       <WarningLevel>4</WarningLevel>
