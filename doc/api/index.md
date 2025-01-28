@@ -1,4 +1,4 @@
-# Oracle® Fusion Middleware .NET API Reference for Oracle Coherence
+# .NET Client API Reference for Oracle Coherence
 
 14c (14.1.2.0.0)
 
