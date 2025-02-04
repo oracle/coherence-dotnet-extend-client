@@ -1,4 +1,4 @@
-# Copyright 2020, 2024, Oracle Corporation and/or its affiliates.  All rights reserved.
+# Copyright 2020, 2025, Oracle Corporation and/or its affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # https://oss.oracle.com/licenses/upl.
 
@@ -15,12 +15,14 @@ on:
   push:
     branches:
     - main
+    - v14.1.2.0
   pull_request:
     types:
       - opened
       - committed
     branches:
     - main
+    - v14.1.2.0
     - '*'
 
 jobs:
@@ -34,7 +36,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # Clean
     - name: Clean
@@ -53,16 +55,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        coherence_version: [14.1.1-0-17, 22.06.8, 24.03]
+        coherence_version: [14.1.1-0-20, 22.06.11, 24.09.2]
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # Set up Java 17
-    - name: Set up Java 17
-      uses: actions/setup-java@v1
+    - name: Set up JDK
+      uses: actions/setup-java@v3
       with:
+        distribution: 'oracle'
         java-version: '17'
 
     # Build
