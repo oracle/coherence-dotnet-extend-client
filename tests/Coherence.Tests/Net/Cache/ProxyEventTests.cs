@@ -1,15 +1,14 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Threading;
 
 using NUnit.Framework;
 
-using Tangosol.Net.Cache;
 using Tangosol.Run.Xml;
 using Tangosol.Util;
 using Tangosol.Util.Extractor;
@@ -249,6 +248,19 @@ namespace Tangosol.Net.Cache
             cache.Clear();
             return cache;
             }
+
+        [SetUp]
+        public void SetUp()
+        {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            CacheFactory.DestroyCache(GetTestCache());
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
 
         /// <summary>
         /// Test events returned when one key listener is configured.
@@ -564,6 +576,7 @@ namespace Tangosol.Net.Cache
         public void TestCoh9355()
             {
             INamedCache cache = GetTestCache();
+            // cache.Clear();
             cache.AddCacheListener(new TestAllListener(),     AlwaysFilter.Instance, false);
             cache.AddCacheListener(new TestAllLiteListener(), AlwaysFilter.Instance, true);
             cache.AddCacheListener(new TestKeyListener(),     "Key1",                false);
@@ -667,6 +680,8 @@ namespace Tangosol.Net.Cache
  
             cache.RemoveCacheListener(listener1, filter1);
             cache.RemoveCacheListener(listener2, filter2);
+
+            // cache.Destroy();
         }
 
             // ----- helper methods -------------------------------------------------

@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Xml;
@@ -13,13 +12,24 @@ using System.Xml;
 using NUnit.Framework;
 
 using Tangosol.Run.Xml;
-using Tangosol.Util;
 
 namespace Tangosol.Net
 {
     [TestFixture]
     public class ConfigurableAddressProviderTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
         [Test]
         public void TestWithInvalidConfiguration()
         {

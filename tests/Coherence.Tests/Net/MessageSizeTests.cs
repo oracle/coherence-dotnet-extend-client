@@ -1,9 +1,11 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
+
+using System;
 using System.Collections;
 using System.IO;
 
@@ -21,6 +23,7 @@ namespace Tangosol.Net
         [SetUp]
         public void SetUp()
         {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
             var ccf    = CacheFactory.ConfigurableCacheFactory;
             var config = XmlHelper.LoadXml("assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-msg-size.xml");
             ccf.Config = config;
@@ -33,6 +36,7 @@ namespace Tangosol.Net
         {
             namedCache.CacheService.Shutdown();
             CacheFactory.Shutdown();
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
         }
 
         [Test]

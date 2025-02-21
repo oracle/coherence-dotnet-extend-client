@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -10,7 +10,6 @@ using System.Threading;
 
 using NUnit.Framework;
 
-using Tangosol;
 using Tangosol.Net.Impl;
 using Tangosol.Net.Internal;
 using Tangosol.Run.Xml;
@@ -35,6 +34,18 @@ namespace Tangosol.Net.Cache
             ccf.Config = config;
 
             return CacheFactory.GetCache(cacheName);
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
         }
 
         [Test]
@@ -871,88 +882,111 @@ namespace Tangosol.Net.Cache
         public void TestTransformerNoCacheValues()
         {
             INamedCache cache = CacheFactory.GetCache("dist-extend-direct");
-            cache.Clear();
+            try
+            {
+                cache.Clear();
 
-            cache.Add(1, new Address("111 Main St", "Burlington", "MA", "01803"));
-            cache.Add(2, new Address("222 Main St", "Lutz", "FL", "33549"));
+                cache.Add(1, new Address("111 Main St", "Burlington", "MA", "01803"));
+                cache.Add(2, new Address("222 Main St", "Lutz", "FL", "33549"));
            
-            TestCacheListener listener  = new TestCacheListener();
-            IValueExtractor transformer = new UniversalExtractor("City");
-            ContinuousQueryCache cqc      = 
-                new ContinuousQueryCache(() => cache, AlwaysFilter.Instance, false, 
-                    listener, transformer);
+                TestCacheListener listener  = new TestCacheListener();
+                IValueExtractor transformer = new UniversalExtractor("City");
+                ContinuousQueryCache cqc      = 
+                    new ContinuousQueryCache(() => cache, AlwaysFilter.Instance, false, 
+                        listener, transformer);
             
-            // assert that cacheValues of false is overridden by non-null Transformer.
-            Assert.IsTrue(cqc.IsReadOnly);
-            Assert.IsTrue(cqc.CacheValues);
+                // assert that cacheValues of false is overridden by non-null Transformer.
+                Assert.IsTrue(cqc.IsReadOnly);
+                Assert.IsTrue(cqc.CacheValues);
 
-            Assert.AreEqual("Burlington", cqc[1]);
-            Assert.AreEqual("Lutz", cqc[2]);
+                Assert.AreEqual("Burlington", cqc[1]);
+                Assert.AreEqual("Lutz", cqc[2]);
 
-            cache.Add(3, new Address("333 Main St", "Belgrade", "Serbia", "11000"));
-            Assert.AreEqual("Belgrade", cqc[3]);
-            cache.Add(3, new Address("333 Main St", "Beograd", "Srbija", "11000"));
-            Assert.AreEqual("Beograd", cqc[3]);
+                cache.Add(3, new Address("333 Main St", "Belgrade", "Serbia", "11000"));
+                Assert.AreEqual("Belgrade", cqc[3]);
+                cache.Add(3, new Address("333 Main St", "Beograd", "Srbija", "11000"));
+                Assert.AreEqual("Beograd", cqc[3]);
 
-            Console.Out.WriteLine(cqc);
+                Console.Out.WriteLine(cqc);
+            }
+            finally
+            {
+                cache.Destroy();
+                int i = 1;
+                while (cache.IsActive)
+                {
+                    if (i++ == 10)
+                    {
+                        throw new Exception("Unable to destroy a cache.");
+                    }
+                    Thread.Sleep(500);
+                }
+            }
         }
 
         [Test]
         public void TestCoh10013()
         {
             INamedCache cache = CacheFactory.GetCache("dist-extend-direct");
-            cache.Clear();
+            try
+            {
+                cache.Clear();
 
-            TestContact t1 = new TestContact("John", "Loehe", 
-                 new ExampleAddress("675 Beacon St.", "", "Dthaba", "SC", "91666", "USA"));
-            cache.Add(1, t1);
+                TestContact t1 = new TestContact("John", "Loehe",
+                    new ExampleAddress("675 Beacon St.", "", "Dthaba", "SC", "91666", "USA"));
+                cache.Add(1, t1);
 
-            TestContact t2 = new TestContact("John", "Sydqtiinz", 
-                 new ExampleAddress("336 Beacon St.", "", "Wltowuixs", "MA", "00595", "USA"));
-            cache.Add(2, t2);
+                TestContact t2 = new TestContact("John", "Sydqtiinz",
+                    new ExampleAddress("336 Beacon St.", "", "Wltowuixs", "MA", "00595", "USA"));
+                cache.Add(2, t2);
 
-            FilterFactory ff = new FilterFactory("RemoteInvocationService");
+                FilterFactory ff = new FilterFactory("RemoteInvocationService");
 
-            // Find all contacts who live in Massachusetts - direct cache access, no filters
-            ICollection results = cache.GetEntries(ff.CreateFilter("homeAddress.state = 'MA'"));
+                // Find all contacts who live in Massachusetts - direct cache access, no filters
+                ICollection results = cache.GetEntries(ff.CreateFilter("homeAddress.state = 'MA'"));
 
-            // Assert we got one result
-            Assert.AreEqual(1, results.Count);
+                // Assert we got one result
+                Assert.AreEqual(1, results.Count);
 
-            foreach (object result in results)
-               {
-               TestContact val = (TestContact)((ICacheEntry)result).Value;
-               Assert.AreEqual(0, val.Compare(val, t2));
-               }
+                foreach (object result in results)
+                {
+                    TestContact val = (TestContact)((ICacheEntry)result).Value;
+                    Assert.AreEqual(0, val.Compare(val, t2));
+                }
 
-            // Query with an InFilter created on the client
-            IList values = new ArrayList();
-            values.Add("Loehe");
-            IFilter inFil = new InFilter("getLastName", values);
-            ContinuousQueryCache cqc1 = new ContinuousQueryCache(cache, inFil, false); 
-            results = cqc1.Entries; 
+                // Query with an InFilter created on the client
+                IList values = new ArrayList();
+                values.Add("Loehe");
+                IFilter inFil = new InFilter("getLastName", values);
+                ContinuousQueryCache cqc1 = new ContinuousQueryCache(cache, inFil, false);
+                results = cqc1.Entries;
 
-            // Assert we got one result
-            Assert.AreEqual(1, results.Count);
-            foreach (object result in results)
-               {
-               TestContact val = (TestContact)((ICacheEntry)result).Value;
-               Assert.AreEqual(0, val.Compare(val, t1));
-               }
+                // Assert we got one result
+                Assert.AreEqual(1, results.Count);
+                foreach (object result in results)
+                {
+                    TestContact val = (TestContact)((ICacheEntry)result).Value;
+                    Assert.AreEqual(0, val.Compare(val, t1));
+                }
 
-            // Query with an InFilter created on the cache
-            IFilter filter = ff.CreateFilter("lastName in ('Loehe')");
-            ContinuousQueryCache cqc2 = new ContinuousQueryCache(cache, filter, false);
+                // Query with an InFilter created on the cache
+                IFilter filter = ff.CreateFilter("lastName in ('Loehe')");
+                ContinuousQueryCache cqc2 = new ContinuousQueryCache(cache, filter, false);
 
-            results = cqc2.Entries;
+                results = cqc2.Entries;
 
-            // Assert we got one result
-            Assert.AreEqual(1, results.Count);
-            foreach (object result in results)
-               {
-               TestContact val = (TestContact)((ICacheEntry)result).Value;
-               Assert.AreEqual(0, val.Compare(val, t1));
-               }
+                // Assert we got one result
+                Assert.AreEqual(1, results.Count);
+                foreach (object result in results)
+                {
+                    TestContact val = (TestContact)((ICacheEntry)result).Value;
+                    Assert.AreEqual(0, val.Compare(val, t1));
+                }
+            }
+            finally
+            {
+                cache.Destroy();
+            }
         }
 
         [Test]

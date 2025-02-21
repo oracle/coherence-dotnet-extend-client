@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -34,6 +34,7 @@ namespace Tangosol.Net.Impl {
         [SetUp]
         public void SetUp()
         {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
             var configFileName = "assembly://Coherence.Tests/Tangosol.Resources/s4hc-cache-config-ssl.xml";
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -48,6 +49,7 @@ namespace Tangosol.Net.Impl {
         public void TearDown()
         {
             CacheFactory.Shutdown();
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
         }
 
         [Test]
