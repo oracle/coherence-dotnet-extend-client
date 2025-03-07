@@ -1,6 +1,6 @@
 <!--
 
-  Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+  Copyright (c) 2000, 2025, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
@@ -119,7 +119,7 @@ dotnet new console --name "HelloCoherence"
 1. Add the following references to the HelloCoherence.csproj (provide the Coherence.dll location in the `<HintPath>`):
 ```
   <ItemGroup>
-    <Reference Include="Coherence, Version=14.1.2.1, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+    <Reference Include="Coherence, Version=14.1.2.2, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
       <HintPath>Coherence.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
