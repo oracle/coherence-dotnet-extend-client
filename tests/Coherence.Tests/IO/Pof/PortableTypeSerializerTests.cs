@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 ﻿using System;
 
@@ -23,6 +23,7 @@ namespace Tangosol.IO.Pof
     [SetUp]
     public void Setup()
     {
+        TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
         V1 = new SimplePofContext();
         V1.RegisterUserType(1, typeof(Test.V1.Pet),
                             new PortableTypeSerializer(1, typeof(Test.V1.Pet)));
@@ -37,6 +38,12 @@ namespace Tangosol.IO.Pof
         V2.RegisterUserType(3, typeof(Test.V2.Animal),
                             new PortableTypeSerializer(3, typeof(Test.V2.Animal)));
         V2.RegisterUserType(5, typeof(Color), new EnumPofSerializer());
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
     }
 
     [Test]

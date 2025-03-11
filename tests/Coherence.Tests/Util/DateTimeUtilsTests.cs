@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
-using System.Threading;
 
 using NUnit.Framework;
 
@@ -14,6 +13,18 @@ namespace Tangosol.Util
     [TestFixture]
     public class DateTimeUtilsTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
         [Test]
         public void GetSafeTimeMillisecTest()
         {

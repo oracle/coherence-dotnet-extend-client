@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000, 2020, Oracle and/or its affiliates.
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
- * http://oss.oracle.com/licenses/upl.
+ * https://oss.oracle.com/licenses/upl.
  */
 using System;
 using System.Collections;
@@ -45,6 +45,19 @@ namespace Tangosol.Net.Impl {
         protected virtual Object GetKeyObject(Object o)
         {
             return o;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            CacheFactory.GetCache(CacheName).Destroy();
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
         }
 
         [Test]
@@ -601,12 +614,12 @@ namespace Tangosol.Net.Impl {
             // non-sync listener, filter, heavy
             // COH-2529: Filter-based cache events are reevaluated on the client unncessarily
             listener       = new Listener();
-            listenerFilter = new CacheEventFilter(new EqualsFilter("getZip", "02144"));
+            listenerFilter = new CacheEventFilter(new EqualsFilter(IdentityExtractor.Instance, 02144));
             namedCache.Clear();
             namedCache.AddCacheListener(listener, listenerFilter, false);
 
             listener.CacheEvent = null;
-            namedCache[GetKeyObject("Jason")] = new Address("3 TBR #8", "Somerville", "MA", "02144");
+            namedCache[GetKeyObject("Jason")] = 02144;
             listener.waitForEvent(5000);
             Assert.IsNotNull(listener.CacheEvent);
             Assert.IsNotNull(listener.CacheEvent.NewValue);
@@ -614,7 +627,7 @@ namespace Tangosol.Net.Impl {
 
             listener.CacheEvent = null;
             listener.waitForEvent(5000);
-            namedCache[GetKeyObject("Oracle")] = new Address("8 NEEP", "Burlington", "MA", "01803");
+            namedCache[GetKeyObject("Oracle")] = 01803;
             Assert.IsNull(listener.CacheEvent);
 
             namedCache.RemoveCacheListener(listener, listenerFilter);

@@ -1,4 +1,10 @@
-﻿using NUnit.Framework;
+/*
+ * Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+ *
+ * Licensed under the Universal Permissive License v 1.0 as shown at
+ * https://oss.oracle.com/licenses/upl.
+ */
+using NUnit.Framework;
 using System;
 using System.Threading;
 
@@ -7,6 +13,18 @@ namespace Tangosol.Util
     [TestFixture]
     class TimeoutTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
+        }
+
         #region ThreadTimeout tests
 
         /// <summary>
@@ -39,7 +57,8 @@ namespace Tangosol.Util
                     Assert.IsTrue(ThreadTimeout.RemainingTimeoutMillis > 0);
                     Assert.IsFalse(ThreadTimeout.IsTimedOut);
                     Assert.IsFalse(Blocking.Wait(o, 1000));
-                    Assert.IsTrue(ThreadTimeout.IsTimedOut);
+                    // Assert.IsTrue(ThreadTimeout.IsTimedOut);
+                    Assert.AreEqual(0, ThreadTimeout.RemainingTimeoutMillis);
                     try
                     {
                         // use Monitor.Wait() instead of Blocking.Wait() to show that

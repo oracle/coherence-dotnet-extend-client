@@ -1,9 +1,11 @@
 /*
- * Copyright (c) 2022, 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2022, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
  */
+
+using System;
 using System.IO;
 
 using NUnit.Framework;
@@ -18,7 +20,14 @@ namespace Tangosol.IO.Pof
         [SetUp]
         public void Setup()
         {
+            TestContext.Error.WriteLine($"[START] {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
             m_pofContext = new ConfigurablePofContext("Config/include-pof-config.xml");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            TestContext.Error.WriteLine($"[END]   {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}: {TestContext.CurrentContext.Test.FullName}");
         }
 
         [Test]
