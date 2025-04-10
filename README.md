@@ -119,7 +119,7 @@ dotnet new console --name "HelloCoherence"
 1. Add the following references to the HelloCoherence.csproj (provide the Coherence.dll location in the `<HintPath>`):
 ```
   <ItemGroup>
-    <Reference Include="Coherence, Version=14.1.2.2, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
+    <Reference Include="Coherence, Version=14.1.2.3, Culture=neutral, PublicKeyToken=0ada89708fdf1f9a, processorArchitecture=MSIL">
       <HintPath>Coherence.dll</HintPath>
     </Reference>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
