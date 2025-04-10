@@ -2,7 +2,7 @@
 
 Since its initial release in 2001, it has been used by thousands of customers across many industries to power some of the mission critical systems you use every day. Often imitated, but never duplicated, it is now available for everyone to use free of charge.
 
-### About Oracle Coherence Extend Client for .NET
+### About Oracle Coherence Extend Client for .NET SessionStore
 
 **Oracle Coherence Extend Client for .NET SessionStore** allows ASP.NET session state to be managed in a Coherence cluster.  To use this feature, user must have a Coherence Commercial Edition of the server.
 
