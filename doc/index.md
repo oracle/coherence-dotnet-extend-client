@@ -2,9 +2,9 @@
 
 15c (15.1.1.0.0)
 
-F79657-01
+G31692-01
 
-November 2024
+September 2025
 
 This is documentation for the .NET 6.0 or later implementation of Oracle Coherence Client for .NET.
 

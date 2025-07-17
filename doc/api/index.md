@@ -2,9 +2,9 @@
 
 15c (15.1.1.0.0)
 
-F79657-01
+G31692-01
 
-November 2024
+September 2025
 
 **Oracle Coherence Client for .NET** allows .NET applications to access Coherence clustered services, including data, data events, and data processing from outside the Coherence cluster. Typical uses of Coherence for .NET include desktop and web applications that require access to Coherence-managed data.
 
