@@ -5,14 +5,14 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
         <RootNamespace>Tangosol</RootNamespace>
-        <Version>14.1.2.3</Version>
-        <Title>Oracle Cohrence SessionStore 14.1.2.3</Title>
+        <Version>14.1.2.4</Version>
+        <Title>Oracle Cohrence SessionStore 14.1.2.4</Title>
         <Authors>Oracle</Authors>
         <Copyright>Copyright (c) 2000, 2025, Oracle and/or its affiliates. All rights reserved.</Copyright>
         <PackageProjectUrl>https://coherence.community/</PackageProjectUrl>
         <Product>Oracle Coherence SessionStore</Product>
-        <AssemblyVersion>14.1.2.3</AssemblyVersion>
-        <FileVersion>14.1.2.3</FileVersion>
+        <AssemblyVersion>14.1.2.4</AssemblyVersion>
+        <FileVersion>14.1.2.4</FileVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
